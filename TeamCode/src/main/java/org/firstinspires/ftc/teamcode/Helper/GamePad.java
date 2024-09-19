@@ -137,7 +137,7 @@ public class GamePad{
     // -------------------------------------------------------------
 
     // Class Constructor
-    public gamePadInputV2(@NonNull Gamepad gp) {
+    public GamePad(@NonNull Gamepad gp) {
         this.inputGPad = gp;
     }
 
