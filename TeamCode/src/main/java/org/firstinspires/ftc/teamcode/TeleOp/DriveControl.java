@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions.DeferredActionType;
 import org.firstinspires.ftc.teamcode.Helper.DrivetrainV2;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
+import org.firstinspires.ftc.teamcode.Helper.Quack;
 
 import java.util.List;
 import java.util.Locale;
@@ -34,6 +35,7 @@ public class DriveControl extends LinearOpMode {
         GamePad gpIn1 = new GamePad(gamepad1);
         GamePad gpIn2 = new GamePad(gamepad2);
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
+        Quack sound = new Quack();
 
         waitForStart();
         if (isStopRequested()) return;
@@ -41,18 +43,17 @@ public class DriveControl extends LinearOpMode {
 
         telemetry.clear();
 
-        boolean suplex = false;
+        //boolean suplex = false;
         double speedMultiplier = 1;
         double lastSpeed = 1;
-        boolean viperOverride = false;
+       //boolean viperOverride = false;
 
         while (opModeIsActive()) {
             update_telemetry(gpIn1, gpIn2);
 
 
-
-            GamePad.GameplayInputType inpType2 = gpIn2.WaitForGamepadInput(30);
-            switch (inpType2) {
+            GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
+            switch (inpType1) {
                     case LEFT_STICK_BUTTON_ON:
                         if (speedMultiplier != 1) {
                             lastSpeed = speedMultiplier;
@@ -67,7 +68,7 @@ public class DriveControl extends LinearOpMode {
                         }
                         break;
 
-                case BUTTON_A:
+                 case BUTTON_A:
                     speedMultiplier = 0.25;
                     break;
 
@@ -93,9 +94,39 @@ public class DriveControl extends LinearOpMode {
                             gamepad1.left_stick_y * (float) speedMultiplier, setReversed);
                     break;
 
+
             }
+            GamePad.GameplayInputType inpType2 = gpIn2.WaitForGamepadInput(30);
+            switch (inpType2) {
+
+                case LEFT_STICK_BUTTON_ON:
+                    if (speedMultiplier != 1) {
+                        lastSpeed = speedMultiplier;
+                        speedMultiplier = 1;
+                    }
+                    break;
+
+                case LEFT_STICK_BUTTON_OFF:
+                    if (lastSpeed != 1) {
+                        speedMultiplier = lastSpeed;
+                        lastSpeed = 1;
+                    }
+                    break;
+
+                case JOYSTICK:
+                    drvTrain.setDriveVectorFromJoystick(gamepad2.left_stick_x * (float) speedMultiplier,
+                            gamepad2.right_stick_x * (float) speedMultiplier,
+                            gamepad2.left_stick_y * (float) speedMultiplier, setReversed);
+                    break;
+
+                case BUTTON_B:
+                    sound.quack();
+                    break;
+            }
+
+
             // Deferred Actions
-            ProcessDeferredActions();
+         //   ProcessDeferredActions();
         }
     }
 
@@ -105,25 +136,17 @@ public class DriveControl extends LinearOpMode {
 
         for(DeferredActionType actionType: action){
             switch(actionType){
-                case CLAW_FLIP_SUPLEX:
-                    break;
 
-                case CLAW_OPEN_GRIP_UP:
-                    break;
-
-                case CLAW_OPEN_GRIP_DOWN:
-                    break;
-
-                case CLAW_ARM_UP:
-                    break;
-
-                case CLAW_ARM_DOWN:
-                    break;
+              //  case ROBO_SOUND:
+               //     sound.makeRoboQuack();
+               //     break;
 
                 default:
                     telemetry.addLine("ERROR - Unsupported Deferred Action");
                     break;
             }
+
+
         }
     }
 

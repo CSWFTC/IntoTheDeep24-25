@@ -9,14 +9,9 @@ import static java.lang.System.currentTimeMillis;
 public class DeferredActions {
 
     public enum DeferredActionType {
-        NO_ACTION("None"),
-        CLAW_FLIP_SUPLEX("Claw Flip Suplex"),
-        CLAW_OPEN_GRIP_DOWN("Claw Open Grip (Arm Down)"),
-        CLAW_OPEN_GRIP_UP("Claw Open Grip (Arm Up)"),
-        CLAW_ARM_UP("Claw Arm Raise"),
-        CLAW_ARM_DOWN("Claw Arm Lower");
+        NO_ACTION("None");
 
-
+     //   ROBO_SOUND("Makes the Robot Quack");
         private final String description;
 
         DeferredActionType(String description) {
