@@ -10,11 +10,16 @@ import org.firstinspires.ftc.teamcode.Helper.GamePad;
 @TeleOp(name="SingleMotor", group="Hardware")
 public class SingleMotor extends LinearOpMode {
 
+    private DcMotor frontLeftMotor;
+
     @Override
     public void runOpMode() {
-        DcMotor motor = hardwareMap.get(DcMotor.class, "LeftFront");
+        DcMotor motor = hardwareMap.get(DcMotor.class, "frontLeft");
         motor.setDirection(DcMotorSimple.Direction.FORWARD);
         motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
+
 
         GamePad gpIn1 = new GamePad(gamepad1);
 
