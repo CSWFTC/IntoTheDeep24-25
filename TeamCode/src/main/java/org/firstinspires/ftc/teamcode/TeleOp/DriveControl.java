@@ -35,8 +35,7 @@ public class DriveControl extends LinearOpMode {
         GamePad gpIn1 = new GamePad(gamepad1);
         GamePad gpIn2 = new GamePad(gamepad2);
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
-        Quack sound = new Quack();
-
+    //    Quack sound = new Quack();
 
         waitForStart();
         if (isStopRequested()) return;
@@ -52,6 +51,8 @@ public class DriveControl extends LinearOpMode {
         while (opModeIsActive()) {
             update_telemetry(gpIn1, gpIn2);
 
+
+         //   sound.init(hardwareMap);
 
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
@@ -120,14 +121,14 @@ public class DriveControl extends LinearOpMode {
                             gamepad2.left_stick_y * (float) speedMultiplier, setReversed);
                     break;
 
-                case BUTTON_B:
-                    sound.init(hardwareMap);
-                    sound.quack();
+                case BUTTON_A:
+                    drvTrain.moveRobo();
                     break;
+
             }
 
             // Deferred Actions
-         //   ProcessDeferredActions();
+           ProcessDeferredActions();
         }
     }
 
