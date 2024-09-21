@@ -83,6 +83,10 @@ public class TestServoContinuous extends  LinearOpMode {
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
         telemetry.addLine("Servo Test");
         telemetry.addLine();
+        telemetry.addLine("*** Test Telemetry v0.1 ***");
+        telemetry.addLine();
+        telemetry.addLine(PARAMS.servoName);
+        telemetry.addLine();
 
         // Initialize Helpers
         try {
@@ -90,10 +94,8 @@ public class TestServoContinuous extends  LinearOpMode {
             gpInput = new GamePad(gamepad1);
             dashboard = FtcDashboard.getInstance();
             dashboard.clearTelemetry();
-
             telemetry.addLine("All Sensors Initialized");
             telemetry.addLine("");
-            telemetry.addLine(PARAMS.servoName);
             telemetry.addData(">", "Press Play to Start");
             telemetry.update();
             return (true);
