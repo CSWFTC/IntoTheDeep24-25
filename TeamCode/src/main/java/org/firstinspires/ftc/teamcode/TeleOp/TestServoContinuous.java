@@ -87,6 +87,7 @@ public class TestServoContinuous extends  LinearOpMode {
         telemetry.addLine();
         telemetry.addLine(PARAMS.servoName);
         telemetry.addLine();
+        telemetry.update();
 
         // Initialize Helpers
         try {
