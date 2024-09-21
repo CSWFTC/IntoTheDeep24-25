@@ -31,32 +31,47 @@ public class SingleMotor extends LinearOpMode {
                     break;
 
                 case BUTTON_A:
-                    //  backward
+                    //backward
                     motor.setDirection(DcMotorSimple.Direction.REVERSE);
-                    telemetry.addData("Direction", "Backward");
+
                     break;
 
                 case BUTTON_Y:
-                    //  forward
+                    //forward
                     motor.setDirection(DcMotorSimple.Direction.FORWARD);
-                    telemetry.addData("Direction", "Forward");
+
                     break;
 
                 case BUTTON_B:
                     motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                    telemetry.addData("Brake", "Engaged");
+
                     break;
 
                 case BUTTON_X:
                     motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-                    telemetry.addData("Brake", "Released");
+
                     break;
             }
 
 
             telemetry.addData("Position", motor.getCurrentPosition());
             telemetry.addData("Power", motor.getPower());
+            telemetry.addData("Direction", "Backward");
+            telemetry.addData("Direction", "Forward");
+            telemetry.addData("Brake", "Engaged");
+            telemetry.addData("Brake", "Released");
             telemetry.update();
+
+            if (motor.getZeroPowerBehavior() == DcMotor.ZeroPowerBehavior.BRAKE)
+               telemetry.addData("Brake", "Engaged");
+            else
+                telemetry.addData("Brake", "Released");
+
+            if (motor.getDirection()==DcMotorSimple.Direction.FORWARD)
+                motor.setDirection(DcMotorSimple.Direction.FORWARD);
+            else
+                motor.setDirection(DcMotorSimple.Direction.REVERSE);
+            }
         }
     }
-}
+
