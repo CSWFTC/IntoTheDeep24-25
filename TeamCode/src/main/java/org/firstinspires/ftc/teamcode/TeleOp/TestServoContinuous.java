@@ -29,7 +29,7 @@ public class TestServoContinuous extends  LinearOpMode {
     private boolean tlmServoForward = false;
 //    private double newPosition = 0;
 
-    private double turnValue = 0.5f;
+    private double turnValue = 0.0f;
 
 
     @Override
@@ -50,21 +50,21 @@ public class TestServoContinuous extends  LinearOpMode {
             GamePad.GameplayInputType inputType = gpInput.WaitForGamepadInput(100);
             switch (inputType) {
                 case BUTTON_A:
-                    this.turnValue = 0.6f;
+                    this.turnValue = 1.0f;
                     updateServo();
                     break;
                 case BUTTON_Y:
-                    this.turnValue = 0.4f;
+                    this.turnValue = -1.0f;
                     updateServo();
                     break;
                 case DPAD_DOWN:
-                    if (this.turnValue >= 0.1f) {
+                    if (this.turnValue > -1.0f) {
                         this.turnValue -= 0.1f;
                     }
                     updateServo();
                     break;
                 case DPAD_UP:
-                    if (this.turnValue <= 0.9f) {
+                    if (this.turnValue < 1.0f) {
                         this.turnValue += 0.1f;
                     }
                     updateServo();
@@ -75,9 +75,9 @@ public class TestServoContinuous extends  LinearOpMode {
 
     // update continuous servo based on turnValue
     private void updateServo() {
-//        servo.setPosition(this.turnValue);
-//        servo.setDirection();
         servo.setPower(this.turnValue);
+        telemetry.addLine("*** SERVO UPDATED ***");
+        telemetry.update();
         update_telemetry();
     }
 
@@ -94,7 +94,7 @@ public class TestServoContinuous extends  LinearOpMode {
 
         // Initialize Helpers
         try {
-            servo = hardwareMap.crservo.get(PARAMS.servoName);
+            servo = hardwareMap.get(CRServo.class, PARAMS.servoName);
             gpInput = new GamePad(gamepad1);
             dashboard = FtcDashboard.getInstance();
             dashboard.clearTelemetry();
