@@ -53,7 +53,45 @@ public class DriveControl extends LinearOpMode {
 
             GamePad.GameplayInputType inpType2 = gpIn2.WaitForGamepadInput(30);
             switch (inpType2) {
+                    case LEFT_STICK_BUTTON_ON:
+                        if (speedMultiplier != 1) {
+                            lastSpeed = speedMultiplier;
+                            speedMultiplier = 1;
+                        }
+                        break;
 
+                    case LEFT_STICK_BUTTON_OFF:
+                        if (lastSpeed != 1) {
+                            speedMultiplier = lastSpeed;
+                            lastSpeed = 1;
+                        }
+                        break;
+
+                case BUTTON_A:
+                    speedMultiplier = 0.25;
+                    break;
+
+                case BUTTON_X:
+                    speedMultiplier = 0.75;
+                    break;
+
+                case BUTTON_B:
+                    speedMultiplier = 0.5;
+                    break;
+
+                case BUTTON_Y:
+                    speedMultiplier = 1;
+                    break;
+
+                case BUTTON_BACK:
+                    setReversed = !setReversed;
+                    break;
+
+                case JOYSTICK:
+                    drvTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
+                            gamepad1.right_stick_x * (float) speedMultiplier,
+                            gamepad1.left_stick_y * (float) speedMultiplier, setReversed);
+                    break;
 
             }
             // Deferred Actions
