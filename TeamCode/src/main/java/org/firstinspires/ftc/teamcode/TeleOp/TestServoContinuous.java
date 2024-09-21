@@ -26,6 +26,8 @@ public class TestServoContinuous extends  LinearOpMode {
     private FtcDashboard dashboard;
     private CRServo servo;
 
+    private int iter = 0;
+
     private boolean tlmServoForward = false;
 //    private double newPosition = 0;
 
@@ -46,7 +48,7 @@ public class TestServoContinuous extends  LinearOpMode {
 //        servo.setDirection(tlmServoForward ? Servo.Direction.FORWARD : Servo.Direction.REVERSE);
 
         while (opModeIsActive()) {
-            update_telemetry();
+//            update_telemetry();
 
             GamePad.GameplayInputType inputType = gpInput.WaitForGamepadInput(100);
             switch (inputType) {
@@ -76,11 +78,12 @@ public class TestServoContinuous extends  LinearOpMode {
 
     // update continuous servo based on turnValue
     private void updateServo() {
+        this.iter += 1;
         servo.setPower(this.turnValue);
-        telemetry.addLine("*** SERVO UPDATED ***");
+        telemetry.addLine("`*** SERVO UPDATED ***"+" ITERATION: "+" "+Integer.toString(this.iter));
         telemetry.addLine(Double.toString(this.turnValue));
         telemetry.update();
-        update_telemetry();
+//        update_telemetry();
     }
 
     public boolean initialize() {
