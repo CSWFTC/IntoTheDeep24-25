@@ -10,9 +10,11 @@ import org.firstinspires.ftc.teamcode.Helper.GamePad;
 @TeleOp(name="SingleMotor", group="Hardware")
 public class SingleMotor extends LinearOpMode {
 
+    private DcMotor frontLeftMotor;
+
     @Override
     public void runOpMode() {
-        DcMotor motor = hardwareMap.get(DcMotor.class, "LeftFront");
+        DcMotor motor = hardwareMap.dcMotor.get("frontLeft");
         motor.setDirection(DcMotorSimple.Direction.FORWARD);
         motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -28,21 +30,20 @@ public class SingleMotor extends LinearOpMode {
                     motor.setPower(gamepad1.left_stick_y);
                     break;
 
-                    case BUTTON_A:
+                case BUTTON_A:
                     //  backward
-                    motor.setPower(-1);
+                    motor.setDirection(DcMotorSimple.Direction.REVERSE);
                     telemetry.addData("Direction", "Backward");
                     break;
 
                 case BUTTON_Y:
                     //  forward
-                    motor.setPower(1);
+                    motor.setDirection(DcMotorSimple.Direction.FORWARD);
                     telemetry.addData("Direction", "Forward");
                     break;
 
                 case BUTTON_B:
                     motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                    motor.setPower(0); // Stops the motor >:)
                     telemetry.addData("Brake", "Engaged");
                     break;
 
@@ -50,8 +51,6 @@ public class SingleMotor extends LinearOpMode {
                     motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
                     telemetry.addData("Brake", "Released");
                     break;
-
-
             }
 
 
