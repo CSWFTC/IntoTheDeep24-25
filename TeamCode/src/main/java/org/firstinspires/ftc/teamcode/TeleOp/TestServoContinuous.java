@@ -5,6 +5,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
@@ -23,7 +24,7 @@ public class TestServoContinuous extends  LinearOpMode {
 
     private GamePad gpInput;
     private FtcDashboard dashboard;
-    private Servo servo;
+    private CRServo servo;
 
     private boolean tlmServoForward = false;
 //    private double newPosition = 0;
@@ -41,7 +42,7 @@ public class TestServoContinuous extends  LinearOpMode {
         telemetry.clear();
 
         tlmServoForward = (PARAMS.servoForward != 0);
-        servo.setDirection(tlmServoForward ? Servo.Direction.FORWARD : Servo.Direction.REVERSE);
+//        servo.setDirection(tlmServoForward ? Servo.Direction.FORWARD : Servo.Direction.REVERSE);
 
         while (opModeIsActive()) {
             update_telemetry();
@@ -74,7 +75,9 @@ public class TestServoContinuous extends  LinearOpMode {
 
     // update continuous servo based on turnValue
     private void updateServo() {
-        servo.setPosition(this.turnValue);
+//        servo.setPosition(this.turnValue);
+//        servo.setDirection();
+        servo.setPower(this.turnValue);
         update_telemetry();
     }
 
@@ -91,7 +94,7 @@ public class TestServoContinuous extends  LinearOpMode {
 
         // Initialize Helpers
         try {
-            servo = hardwareMap.servo.get(PARAMS.servoName);
+            servo = hardwareMap.crservo.get(PARAMS.servoName);
             gpInput = new GamePad(gamepad1);
             dashboard = FtcDashboard.getInstance();
             dashboard.clearTelemetry();
