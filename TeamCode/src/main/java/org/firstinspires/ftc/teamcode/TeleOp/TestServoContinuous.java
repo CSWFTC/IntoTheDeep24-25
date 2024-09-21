@@ -34,6 +34,7 @@ public class TestServoContinuous extends  LinearOpMode {
 
     @Override
     public void runOpMode() {
+        dashboard.clearTelemetry();
         boolean init = initialize();
         waitForStart();
         if (isStopRequested() || !init) {
@@ -77,6 +78,7 @@ public class TestServoContinuous extends  LinearOpMode {
     private void updateServo() {
         servo.setPower(this.turnValue);
         telemetry.addLine("*** SERVO UPDATED ***");
+        telemetry.addLine(Double.toString(this.turnValue));
         telemetry.update();
         update_telemetry();
     }
@@ -97,7 +99,7 @@ public class TestServoContinuous extends  LinearOpMode {
             servo = hardwareMap.get(CRServo.class, PARAMS.servoName);
             gpInput = new GamePad(gamepad1);
             dashboard = FtcDashboard.getInstance();
-            dashboard.clearTelemetry();
+//            dashboard.clearTelemetry();
             telemetry.addLine("All Sensors Initialized");
             telemetry.addLine("");
             telemetry.addData(">", "Press Play to Start");
