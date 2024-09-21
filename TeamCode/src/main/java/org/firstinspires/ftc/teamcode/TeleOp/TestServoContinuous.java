@@ -16,7 +16,7 @@ public class TestServoContinuous extends  LinearOpMode {
     public static class Params {
         public String servoName = "roti";
         public double servoForward = 1;
-//        public double servoStartPos = 0.5d;
+        public double servoStartPos = 0.5d;
     }
 
     public static Params PARAMS = new Params();
@@ -93,12 +93,15 @@ public class TestServoContinuous extends  LinearOpMode {
 
             telemetry.addLine("All Sensors Initialized");
             telemetry.addLine("");
+            telemetry.addLine(PARAMS.servoName);
             telemetry.addData(">", "Press Play to Start");
             telemetry.update();
             return (true);
         } catch (Exception e) {
             telemetry.addLine("");
             telemetry.addLine("*** INITIALIZATION FAILED ***");
+            telemetry.addLine("*** ERROR LOGS: ***");
+            telemetry.addLine(e.toString());
             telemetry.update();
             return (false);
         }
