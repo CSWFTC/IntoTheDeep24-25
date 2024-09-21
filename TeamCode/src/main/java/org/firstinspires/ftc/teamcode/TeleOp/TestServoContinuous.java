@@ -6,7 +6,6 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -20,23 +19,32 @@ public class TestServoContinuous extends  LinearOpMode {
         public double servoStartPos = 0.5d;
     }
 
+    // Enum for telemetry which shows what type of button press was detected
+    private enum ServoUpdateEnum {
+        BUTTON_A,
+        BUTTON_B,
+        DPAD_UP,
+        DPAD_DOWN
+    }
+
     public static Params PARAMS = new Params();
 
     private GamePad gpInput;
     private FtcDashboard dashboard;
     private CRServo servo;
 
+    // button press count
     private int iter = 0;
 
-    private boolean tlmServoForward = false;
-//    private double newPosition = 0;
-
+    // initial turn value (neutral)
     private double turnValue = 0.0f;
-
 
     @Override
     public void runOpMode() {
+        // clear telemetry
         FtcDashboard.getInstance().clearTelemetry();
+
+        // init servo
         boolean init = initialize();
         waitForStart();
         if (isStopRequested() || !init) {
@@ -44,46 +52,43 @@ public class TestServoContinuous extends  LinearOpMode {
         }
         telemetry.clear();
 
-        tlmServoForward = (PARAMS.servoForward != 0);
-//        servo.setDirection(tlmServoForward ? Servo.Direction.FORWARD : Servo.Direction.REVERSE);
-
+        // main loop
         while (opModeIsActive()) {
-//            update_telemetry();
-
             GamePad.GameplayInputType inputType = gpInput.WaitForGamepadInput(100);
             switch (inputType) {
                 case BUTTON_A:
                     this.turnValue = 1.0f;
-                    updateServo();
+                    updateServo(ServoUpdateEnum.BUTTON_A);
                     break;
                 case BUTTON_Y:
                     this.turnValue = -1.0f;
-                    updateServo();
+                    updateServo(ServoUpdateEnum.BUTTON_B);
                     break;
                 case DPAD_DOWN:
                     if (this.turnValue > -1.0f) {
                         this.turnValue -= 0.1f;
                     }
-                    updateServo();
+                    updateServo(ServoUpdateEnum.DPAD_DOWN);
                     break;
                 case DPAD_UP:
                     if (this.turnValue < 1.0f) {
                         this.turnValue += 0.1f;
                     }
-                    updateServo();
+                    updateServo(ServoUpdateEnum.DPAD_UP);
                     break;
             }
         }
     }
 
     // update continuous servo based on turnValue
-    private void updateServo() {
+    private void updateServo(ServoUpdateEnum servoUpdateEnum) {
         this.iter += 1;
         servo.setPower(this.turnValue);
-        telemetry.addLine("`*** SERVO UPDATED ***"+" ITERATION: "+" "+Integer.toString(this.iter));
-        telemetry.addLine(Double.toString(this.turnValue));
-        telemetry.update();
-//        update_telemetry();
+        telemetry.addLine("Button Pressed:"+" "+servoUpdateEnum.toString());
+        telemetry.addLine("Control Press Count: "+Integer.toString(this.iter));
+        telemetry.addLine("\n\n");
+        // output additional telemetry
+        update_telemetry();
     }
 
     public boolean initialize() {
@@ -102,7 +107,6 @@ public class TestServoContinuous extends  LinearOpMode {
             servo = hardwareMap.get(CRServo.class, PARAMS.servoName);
             gpInput = new GamePad(gamepad1);
             dashboard = FtcDashboard.getInstance();
-//            dashboard.clearTelemetry();
             telemetry.addLine("All Sensors Initialized");
             telemetry.addLine("");
             telemetry.addData(">", "Press Play to Start");
@@ -119,21 +123,16 @@ public class TestServoContinuous extends  LinearOpMode {
     }
 
     private void update_telemetry() {
-        telemetry.addLine("Servo Test");
-        telemetry.addLine("*** SERVO UPDATED ***");
-        telemetry.addLine(Double.toString(this.turnValue));
         telemetry.addLine("Use Dpad to Change Rotational Speed");
         telemetry.addLine("  Up/Down    +/- 0.1");
         telemetry.addLine("Button A --> Spin Right");
         telemetry.addLine("Button B --> Spin Left");
         telemetry.addLine().addData("Name     ", PARAMS.servoName );
-        telemetry.addLine().addData("Direction", (tlmServoForward ? "Forward" : "Reverse") );
         telemetry.update();
 
         // FTC Dashboard Telemetry
         TelemetryPacket packet = new TelemetryPacket();
         packet.put("Name", PARAMS.servoName );
-        packet.put("Direction", (tlmServoForward ? 1 : 0));
         packet.put("TurnValue", this.turnValue);
         dashboard.sendTelemetryPacket(packet);
     }
