@@ -37,6 +37,7 @@ public class DriveControl extends LinearOpMode {
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
         Quack sound = new Quack();
 
+
         waitForStart();
         if (isStopRequested()) return;
 
@@ -120,6 +121,7 @@ public class DriveControl extends LinearOpMode {
                     break;
 
                 case BUTTON_B:
+                    sound.init(hardwareMap);
                     sound.quack();
                     break;
             }
