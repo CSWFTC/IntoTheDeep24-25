@@ -10,8 +10,7 @@ public class Quack {
     private LynxEmbeddedIMU imu;
     private int quackID;
     private Context appContext;
-
-    void init(HardwareMap hwMap) {
+    public void init(HardwareMap hwMap) {
         imu = hwMap.get(LynxEmbeddedIMU.class, "imu");
         BNO055IMU.Parameters params = new BNO055IMU.Parameters();
         imu.initialize(params);

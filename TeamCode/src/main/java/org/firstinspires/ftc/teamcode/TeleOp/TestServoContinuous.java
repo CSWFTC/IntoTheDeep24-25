@@ -117,6 +117,8 @@ public class TestServoContinuous extends  LinearOpMode {
 
     private void update_telemetry() {
         telemetry.addLine("Servo Test");
+        telemetry.addLine("*** SERVO UPDATED ***");
+        telemetry.addLine(Double.toString(this.turnValue));
         telemetry.addLine("Use Dpad to Change Rotational Speed");
         telemetry.addLine("  Up/Down    +/- 0.1");
         telemetry.addLine("Button A --> Spin Right");
