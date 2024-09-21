@@ -126,7 +126,6 @@ public class DriveControl extends LinearOpMode {
                     break;
             }
 
-
             // Deferred Actions
          //   ProcessDeferredActions();
         }
