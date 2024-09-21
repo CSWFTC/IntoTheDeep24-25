@@ -86,7 +86,8 @@ public class TestServoContinuous extends  LinearOpMode {
         servo.setPower(this.turnValue);
         telemetry.addLine("Button Pressed:"+" "+servoUpdateEnum.toString());
         telemetry.addLine("Control Press Count: "+Integer.toString(this.iter));
-        telemetry.addLine("\n\n");
+//        telemetry.addLine("\n\n");
+        telemetry.addLine();
         // output additional telemetry
         update_telemetry();
     }
