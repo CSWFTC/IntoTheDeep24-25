@@ -9,9 +9,11 @@ import static java.lang.System.currentTimeMillis;
 public class DeferredActions {
 
     public enum DeferredActionType {
-        NO_ACTION("None");
+        NO_ACTION("None"),
 
      //   ROBO_SOUND("Makes the Robot Quack");
+
+        MOVEMENT("Testing Deferred Actions");
         private final String description;
 
         DeferredActionType(String description) {
