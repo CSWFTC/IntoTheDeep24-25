@@ -34,7 +34,7 @@ public class TestServoContinuous extends  LinearOpMode {
 
     @Override
     public void runOpMode() {
-        dashboard.clearTelemetry();
+        FtcDashboard.getInstance().clearTelemetry();
         boolean init = initialize();
         waitForStart();
         if (isStopRequested() || !init) {
