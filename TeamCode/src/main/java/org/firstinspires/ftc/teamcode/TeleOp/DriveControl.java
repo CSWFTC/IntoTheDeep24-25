@@ -17,7 +17,7 @@ import java.util.Locale;
 
 @TeleOp(name = "Driver Control", group = "Competition!!")
 public class DriveControl extends LinearOpMode {
-    private static final String version = "4.1";
+    private static final String version = "5.0";
 
     private boolean setReversed = false;
    // private ClawMoves yclaw;
@@ -56,21 +56,21 @@ public class DriveControl extends LinearOpMode {
 
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
-                    case LEFT_STICK_BUTTON_ON:
-                        if (speedMultiplier != 1) {
-                            lastSpeed = speedMultiplier;
-                            speedMultiplier = 1;
-                        }
-                        break;
+                case LEFT_STICK_BUTTON_ON:
+                    if (speedMultiplier != 1) {
+                        lastSpeed = speedMultiplier;
+                        speedMultiplier = 1;
+                    }
+                    break;
 
-                    case LEFT_STICK_BUTTON_OFF:
-                        if (lastSpeed != 1) {
-                            speedMultiplier = lastSpeed;
-                            lastSpeed = 1;
-                        }
-                        break;
+                case LEFT_STICK_BUTTON_OFF:
+                    if (lastSpeed != 1) {
+                        speedMultiplier = lastSpeed;
+                        lastSpeed = 1;
+                    }
+                    break;
 
-                 case BUTTON_A:
+                case BUTTON_A:
                     speedMultiplier = 0.25;
                     break;
 
