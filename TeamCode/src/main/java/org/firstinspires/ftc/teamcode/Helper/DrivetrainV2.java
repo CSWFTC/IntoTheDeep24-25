@@ -40,7 +40,7 @@ public class DrivetrainV2 {
         drvMotorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         drvMotorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         drvMotorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
-Robot         drvMotorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        drvMotorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
         drvMotorFrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         drvMotorBackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
