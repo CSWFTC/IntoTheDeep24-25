@@ -71,6 +71,8 @@ public class SingleMotor extends LinearOpMode {
                 motor.setDirection(DcMotorSimple.Direction.FORWARD);
             else
                 motor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+            //work on later, reverses wrong?
             }
         }
     }
