@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Tests;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -26,7 +27,28 @@ public class TestRoadRunner extends LinearOpMode {
                 mecanumDrive.actionBuilder(
                         beginPose
                 )
-                        .lineToX(100d)
+                        .strafeTo(
+                                new Vector2d(0, 100)
+                        )
+                        .build()
+        );
+
+        Actions.runBlocking(
+                mecanumDrive.actionBuilder(
+                                beginPose
+                        )
+                        .strafeTo(
+                                new Vector2d(10, 100)
+                        )
+                        .build()
+        );
+        Actions.runBlocking(
+                mecanumDrive.actionBuilder(
+                                beginPose
+                        )
+                        .lineToY(
+                                200
+                        )
                         .build()
         );
     }
