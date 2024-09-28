@@ -106,7 +106,7 @@ public class AprilTag{
         telemetry.addData("Test1: ", iN);
     }
 
-    public void driveAprilTag(){
+   public void driveAprilTag(){
         int bNum = 0;
         boolean autoPilot = false;
       /*  if(iN == GamePad.GameplayInputType.BUTTON_B){
