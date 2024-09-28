@@ -12,7 +12,6 @@ public class TestRoadRunner2 {
     @Config
     @Autonomous
     public class TestRoadRunner extends LinearOpMode {
-        //    private MecanumDrive mecanumDrive = new MecanumDrive();
         private Pose2d beginPose = new Pose2d(0, 0, 0);
 
 
