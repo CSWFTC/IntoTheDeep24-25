@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
 
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -9,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions.DeferredActionType;
 import org.firstinspires.ftc.teamcode.Helper.DrivetrainV2;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
-import org.firstinspires.ftc.teamcode.Helper.Quack;
+
 
 import java.util.List;
 import java.util.Locale;
@@ -35,7 +36,8 @@ public class DriveControl extends LinearOpMode {
         GamePad gpIn1 = new GamePad(gamepad1);
         GamePad gpIn2 = new GamePad(gamepad2);
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
-    //    Quack sound = new Quack();
+        BumperTest bumpOne = new BumperTest();
+       // TestServo serv1 = hardwareMap.servo.get(PARAMS.);
 
         waitForStart();
         if (isStopRequested()) return;
@@ -43,16 +45,12 @@ public class DriveControl extends LinearOpMode {
 
         telemetry.clear();
 
-        //boolean suplex = false;
         double speedMultiplier = 1;
         double lastSpeed = 1;
-       //boolean viperOverride = false;
 
         while (opModeIsActive()) {
             update_telemetry(gpIn1, gpIn2);
 
-
-         //   sound.init(hardwareMap);
 
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
@@ -121,9 +119,9 @@ public class DriveControl extends LinearOpMode {
                             gamepad2.left_stick_y * (float) speedMultiplier, setReversed);
                     break;
 
-                case BUTTON_A:
-                    drvTrain.moveRobo();
-                    break;
+                case BUTTON_Y:
+                    DeferredActions.CreateDeferredAction(150, DeferredActions.DeferredActionType.MOVEMENT);
+
 
             }
 
@@ -138,10 +136,6 @@ public class DriveControl extends LinearOpMode {
 
         for(DeferredActionType actionType: action){
             switch(actionType){
-
-              //  case ROBO_SOUND:
-               //     sound.makeRoboQuack();
-               //     break;
 
                 default:
                     telemetry.addLine("ERROR - Unsupported Deferred Action");

@@ -82,14 +82,6 @@ public class DrivetrainV2 {
     }
 
 
-    public void moveRobo(){
-        setDriveVector(10,0,0);
-        DeferredActions.CreateDeferredAction(150, DeferredActions.DeferredActionType.MOVEMENT);
-        setDriveVector(0,0,90);
-        DeferredActions.CreateDeferredAction(150, DeferredActions.DeferredActionType.MOVEMENT);
-        setDriveVector(10,0,0);
-
-    }
 
 
     public void setBrakeStatus(boolean braking)  {
