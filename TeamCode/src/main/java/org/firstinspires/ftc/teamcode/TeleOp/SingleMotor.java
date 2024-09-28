@@ -5,22 +5,45 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
 
 @TeleOp(name="SingleMotor", group="Hardware")
 public class SingleMotor extends LinearOpMode {
 
-    private DcMotor frontLeftMotor;
+    public static final String version = "1.0";
+    public static class Params {
+        public String frontLeftMotor = "frontLeft";
+        public Boolean Forward = true;
 
+    }
+
+    public static Params PARAMS = new Params();
+    private DcMotor motor;
     @Override
     public void runOpMode() {
-        DcMotor motor = hardwareMap.dcMotor.get("frontLeft");
+        telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
+        telemetry.addLine("Driver Control");
+    telemetry.addData("Version Number", version);
+        telemetry.addLine();
+        telemetry.addData(">", "Press Start to Launch");
+        telemetry.update();
+
+
+        DcMotor motor = hardwareMap.dcMotor.get(PARAMS.frontLeftMotor);
+
+
+
         motor.setDirection(DcMotorSimple.Direction.FORWARD);
         motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         GamePad gpIn1 = new GamePad(gamepad1);
 
         waitForStart();
+
+        telemetry.clear();
+
 
         while (opModeIsActive()) {
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);

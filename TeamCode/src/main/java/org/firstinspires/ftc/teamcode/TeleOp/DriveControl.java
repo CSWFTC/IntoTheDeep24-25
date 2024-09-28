@@ -19,8 +19,9 @@ import java.util.Locale;
 @Config
 @TeleOp(name = "Driver Control", group = "Competition!!")
 public class DriveControl extends LinearOpMode {
-    private static final String version = "5.0";
 
+
+    private static final String version = "1.0";
     private boolean setReversed = false;
    // private ClawMoves yclaw;
 

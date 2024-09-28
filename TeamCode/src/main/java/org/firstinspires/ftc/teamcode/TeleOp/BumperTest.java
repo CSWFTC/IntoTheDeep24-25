@@ -13,11 +13,6 @@ public class BumperTest extends LinearOpMode {
     @Override
     public void runOpMode() {
         // Load Introduction and Wait for Start
-        telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
-        telemetry.addLine("Bump sensor test");
-        telemetry.addLine();
-        telemetry.addData(">", "Press Start to Launch");
-        telemetry.update();
 
         waitForStart();
         if (isStopRequested()) return;
