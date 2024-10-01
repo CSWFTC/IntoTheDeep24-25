@@ -40,7 +40,7 @@ public class DrivetrainV2 {
         drvMotorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         drvMotorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         drvMotorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        drvMotorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
+//        drvMotorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
         drvMotorFrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         drvMotorBackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -63,6 +63,13 @@ public class DrivetrainV2 {
         drvMotorBackLeft.setPower(pwrBackLeft);
         drvMotorFrontRight.setPower(pwrFrontRight);
         drvMotorBackRight.setPower(pwrBackRight);
+    }
+    /// ONLY USE FOR TESTING
+    public void setMotorsManually(boolean frontLeft, boolean frontRight, boolean backLeft, boolean backRight){
+        drvMotorBackLeft.setPower(backLeft ? 1.0 : 0.0);
+        drvMotorBackRight.setPower(backRight ? 1.0 : 0.0);
+        drvMotorFrontLeft.setPower(frontLeft ? 1.0 : 0.0);
+        drvMotorFrontRight.setPower(frontRight ? 1.0 : 0.0);
     }
 
 
