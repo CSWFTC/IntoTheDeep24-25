@@ -22,8 +22,8 @@ public class TestRRNavigation extends LinearOpMode {
 
         Actions.runBlocking(
                 mecanumDrive.actionBuilder(beginPose)
-                        .lineToX(
-                                50d
+                        .strafeTo(
+                                new Vector2d(50d, 0d)
                         )
                         .build()
         );
