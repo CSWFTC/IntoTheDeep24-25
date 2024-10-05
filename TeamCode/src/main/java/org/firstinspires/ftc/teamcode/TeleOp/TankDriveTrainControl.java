@@ -1,8 +1,4 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
-
-
-
-
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -59,26 +55,6 @@ import java.util.Locale;
                             speedMultiplier = lastSpeed;
                             lastSpeed = 1.0;
                         }
-                        break;
-
-                    case BUTTON_A:
-                        speedMultiplier = 0.25;
-                        break;
-
-                    case BUTTON_X:
-                        speedMultiplier = 0.75;
-                        break;
-
-                    case BUTTON_B:
-                        speedMultiplier = 0.5;
-                        break;
-
-                    case BUTTON_Y:
-                        speedMultiplier = 1.0;
-                        break;
-
-                    case BUTTON_BACK:
-                        setReversed = !setReversed;
                         break;
 
                     case JOYSTICK:
@@ -142,15 +118,6 @@ import java.util.Locale;
             telemetry.addLine().addData("GP1 Input", gpi1.getTelemetry_InputLastType().toString());
             telemetry.addLine().addData("L Joy  Y", "%6.3f", gamepad1.left_stick_y);
             telemetry.addLine().addData("R Joy  X", "%6.3f", gamepad1.right_stick_x);
-
-            telemetry.addLine();
-            telemetry.addLine("Gamepad #2");
-            String inpTime2 = new java.text.SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS", Locale.US).format(gpi2.getTelemetry_InputLastTimestamp());
-            telemetry.addLine().addData("GP2 Time", inpTime2);
-            telemetry.addLine().addData("GP2 Cnt", gpi2.getTelemetry_InputCount());
-            telemetry.addLine().addData("GP2 Input", gpi2.getTelemetry_InputLastType().toString());
-            telemetry.addLine().addData("L Joy  Y", "%6.3f", gamepad2.left_stick_y);
-            telemetry.addLine().addData("R Joy  X", "%6.3f", gamepad2.right_stick_x);
 
             telemetry.update();
         }
