@@ -18,6 +18,7 @@ import java.util.Locale;
         private boolean setReversed = false;
         private TankDriveTrain tankDriveTrain;
 
+
         @Override
         public void runOpMode() {
             telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
@@ -43,19 +44,6 @@ import java.util.Locale;
 
                 GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
                 switch (inpType1) {
-                    case LEFT_STICK_BUTTON_ON:
-                        if (speedMultiplier != 1.0) {
-                            lastSpeed = speedMultiplier;
-                            speedMultiplier = 1.0;
-                        }
-                        break;
-
-                    case LEFT_STICK_BUTTON_OFF:
-                        if (lastSpeed != 1.0) {
-                            speedMultiplier = lastSpeed;
-                            lastSpeed = 1.0;
-                        }
-                        break;
 
                     case JOYSTICK:
                         tankDriveTrain.setDriveFromJoystick(
@@ -69,19 +57,6 @@ import java.util.Locale;
 
                 GamePad.GameplayInputType inpType2 = gpIn2.WaitForGamepadInput(30);
                 switch (inpType2) {
-                    case LEFT_STICK_BUTTON_ON:
-                        if (speedMultiplier != 1.0) {
-                            lastSpeed = speedMultiplier;
-                            speedMultiplier = 1.0;
-                        }
-                        break;
-
-                    case LEFT_STICK_BUTTON_OFF:
-                        if (lastSpeed != 1.0) {
-                            speedMultiplier = lastSpeed;
-                            lastSpeed = 1.0;
-                        }
-                        break;
 
                     case JOYSTICK:
                         tankDriveTrain.setDriveFromJoystick(

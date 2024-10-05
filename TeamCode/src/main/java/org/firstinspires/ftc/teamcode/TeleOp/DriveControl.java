@@ -160,7 +160,7 @@ public class DriveControl extends LinearOpMode {
         telemetry.addLine();
         telemetry.addLine("Gamepad #2");
         String inpTime2 = new java.text.SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS", Locale.US).format(gpi2.getTelemetry_InputLastTimestamp());
-        telemetry.addLine().addData("GP2 Time", inpTime2);
+        telemetry.addLine().addData("GP 2 Time", inpTime2);
         telemetry.addLine().addData("GP2 Cnt", gpi2.getTelemetry_InputCount());
         telemetry.addLine().addData("GP2 Input", gpi2.getTelemetry_InputLastType().toString());
         telemetry.addLine().addData("L Joy  X", "%6.3f", gamepad2.left_stick_x).addData("Y", "%6.3f", gamepad2.left_stick_y);
