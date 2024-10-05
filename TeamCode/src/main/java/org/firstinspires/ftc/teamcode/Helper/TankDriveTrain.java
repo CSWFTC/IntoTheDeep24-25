@@ -4,10 +4,12 @@ package org.firstinspires.ftc.teamcode.Helper;
 import static java.lang.Thread.sleep;
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+@Config
 public class TankDriveTrain {
 
     public static TankDriveTrain.Params PARAMS = new TankDriveTrain.Params();
