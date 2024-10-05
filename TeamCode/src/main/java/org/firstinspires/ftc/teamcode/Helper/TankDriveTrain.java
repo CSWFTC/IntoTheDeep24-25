@@ -28,8 +28,8 @@ public class TankDriveTrain {
     }
 
     public TankDriveTrain(@NonNull HardwareMap hdwMap) {
-        leftMotor = hdwMap.dcMotor.get("leftMotor");
-        rightMotor = hdwMap.dcMotor.get("rightMotor");
+        leftMotor = hdwMap.dcMotor.get("tankLeft");
+        rightMotor = hdwMap.dcMotor.get("tankRight");
 
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
