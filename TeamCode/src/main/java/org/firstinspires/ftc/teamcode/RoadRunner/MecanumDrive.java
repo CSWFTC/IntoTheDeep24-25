@@ -70,15 +70,15 @@ public final class MecanumDrive {
         /* Configured with instructions from
          *  https://rr.brott.dev/docs/v1-0/tuning/
          */
-        public double inPerTick = 0.00318725;
+        public double inPerTick = 0.00328725;
         public double lateralInPerTick = 0.002097982788242009;
 
         // EXPERIMENT: CHANGED FROM 255 TO 4255
-        public double trackWidthTicks = 4255.99902003312604;
+        public double trackWidthTicks = 4106.7761807;
 
         // feedforward parameters (in tick units)
-        public double kS = 0.6318601813799885;
-        public double kV = 0.00038220738008624554;
+        public double kS = 0.7006158259199919;
+        public double kV = 0.00037840675824594256;
 
         // EXPERIMENT : CHANGED kA from 0.000001 to current value
         public double kA = 0.000085;
@@ -243,7 +243,7 @@ public final class MecanumDrive {
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // CHANGE : Reverse RIGHTBACK motor
-        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+//        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
