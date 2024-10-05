@@ -92,12 +92,14 @@ public class TestRoadRunner2 extends LinearOpMode {
             telemetry.update();
         }
 
+
         changePosition(getX(), getY(), Math.toRadians(270d));
 
 
         Actions.runBlocking(
                 mecanumDrive.actionBuilder(this.position)
-                        .lineToY(30d)
+                        .strafeTo(new Vector2d(-35, -20))
+                        .turnTo(300)
                         .build()
         );
 
