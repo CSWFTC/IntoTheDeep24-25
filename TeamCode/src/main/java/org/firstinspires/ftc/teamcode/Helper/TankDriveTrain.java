@@ -34,45 +34,19 @@ public class TankDriveTrain {
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
-
         leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    }
-
-
-    public void setDrivePower(double leftPower, double rightPower) {
-        if (brakingOn) return;
-
-        leftMotor.setPower(leftPower);
-        rightMotor.setPower(rightPower);
     }
 
 
     public void setDriveFromJoystick(float stickLeftY, float stickRightX, boolean reversed) {
         if (brakingOn) return;
 
+        double leftPower = Math.max(Math.min(1.0,(stickLeftY + stickRightX)), -1.0);
+        double rightPower = Math.max(Math.min(1.0,(stickLeftY - stickRightX)), -1.0);
 
-            double leftPower = stickLeftY + stickRightX;
-            double rightPower = stickLeftY - stickRightX;
-
-
-            double maxPower = Math.max(Math.abs(leftPower), Math.abs(rightPower));
-
-            if (maxPower > 1.0) {
-                leftPower /= maxPower;
-                rightPower /= maxPower;
-            }
-
-            // between 1.0 and max of 2.0
-            leftPower = Math.max(1.0, Math.min(2.0, leftPower));
-            rightPower = Math.max(1.0, Math.min(2.0, rightPower));
-
-            //  -1.0 or lower
-            rightPower = (rightPower > 0) ? rightPower : Math.min(-1.0, rightPower);
-
-
-
-        setDrivePower(leftPower, rightPower);
+        leftMotor.setPower(leftPower);
+        rightMotor.setPower(rightPower);
     }
 
 
