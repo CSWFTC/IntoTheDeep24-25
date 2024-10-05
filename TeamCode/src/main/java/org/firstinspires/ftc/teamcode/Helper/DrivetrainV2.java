@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Helper;
 import static java.lang.Thread.sleep;
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.dashboard.config.Config;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -15,7 +15,7 @@ public class DrivetrainV2 {
 
     private final DcMotor drvMotorFrontLeft;
 
-    @Config
+
     public static class Params {
         public double strafingAdjustment = 1.08;
         public double joystickYInputAdjustment  = -1;
