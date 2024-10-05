@@ -55,18 +55,6 @@ import java.util.Locale;
                 }
 
 
-                GamePad.GameplayInputType inpType2 = gpIn2.WaitForGamepadInput(30);
-                switch (inpType2) {
-
-                    case JOYSTICK:
-                        tankDriveTrain.setDriveFromJoystick(
-                                gamepad2.left_stick_y * (float) speedMultiplier,
-                                gamepad2.right_stick_x * (float) speedMultiplier,
-                                setReversed
-                        );
-                        break;
-                }
-
 
                 ProcessDeferredActions();
             }
