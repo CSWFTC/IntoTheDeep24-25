@@ -142,7 +142,13 @@ public class GamePad{
     // Class Constructor
     public GamePad(@NonNull Gamepad gp) {
         this.inputGPad = gp;
-        this.HapticsController = new GamepadHaptics(this.inputGPad);
+    }
+
+    public GamePad(@NonNull Gamepad gp, boolean enableHaptics) {
+        this.inputGPad = gp;
+        if (enableHaptics) {
+            this.HapticsController = new GamepadHaptics(this.inputGPad);
+        }
     }
 
     // Telemetry Data Getters
