@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class GamepadHaptics {
     private final Gamepad gpInput;
-    private ArrayList<HapticLogs> logs;
+    private ArrayList<HapticLogs> logs = new ArrayList<HapticLogs>();
 
     public GamepadHaptics(@NonNull Gamepad gpInput) {
         this.gpInput = gpInput;
