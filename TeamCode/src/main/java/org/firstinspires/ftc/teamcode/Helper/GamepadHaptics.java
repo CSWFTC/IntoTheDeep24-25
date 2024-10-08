@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.Helper;
 import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 import java.util.ArrayList;
 
 public class GamepadHaptics {
@@ -29,6 +31,13 @@ public class GamepadHaptics {
             res.add(log.getLog());
         }
         return res;
+    }
+
+    public void logTelemetry(Telemetry telemetry) {
+        for (String log : this.getLogs()){
+            telemetry.addLine(log);
+        }
+        telemetry.update();
     }
 
     public void runShortHaptic() {
