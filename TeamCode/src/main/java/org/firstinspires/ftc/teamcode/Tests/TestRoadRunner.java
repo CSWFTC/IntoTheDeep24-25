@@ -7,8 +7,6 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
-import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 
 @Config
@@ -27,6 +25,12 @@ public class TestRoadRunner extends LinearOpMode {
         telemetry.addLine("v0.1");
         telemetry.update();
 
+        Action moveRb3 = mecanumDrive.actionBuilder(mecanumDrive.pose)
+                .splineTo(new Vector2d(33,40.0), Math.toRadians(-89))
+                .build();
+        Actions.runBlocking(moveRb3);
+
+        /*
         Actions.runBlocking(
                 mecanumDrive.actionBuilder(
                         beginPose
@@ -34,13 +38,15 @@ public class TestRoadRunner extends LinearOpMode {
                         .turnTo(90d)
                         .build()
         );
+        */
 
         try {
-            wait(10l);
+            wait(1000);
         } catch(Exception e) {
         //
         }
 
+        /*
         Actions.runBlocking(
                 mecanumDrive.actionBuilder(
                                 beginPose
@@ -48,6 +54,7 @@ public class TestRoadRunner extends LinearOpMode {
                         .turnTo(360d)
                         .build()
         );
+        */
 
 //        Actions.runBlocking(
 //                mecanumDrive.actionBuilder(
