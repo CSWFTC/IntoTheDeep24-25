@@ -1,29 +1,29 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
 
-
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Helper.AprilTag;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions.DeferredActionType;
 import org.firstinspires.ftc.teamcode.Helper.DrivetrainV2;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
-
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 import java.util.List;
 import java.util.Locale;
 
 @Config
-@TeleOp(name = "Driver Control", group = "Competition!!")
-public class DriveControl extends LinearOpMode {
+@TeleOp(name = "April Tag Test", group = "Competition!!")
+public class AprilTagTest extends LinearOpMode {
 
 
     private static final String version = "1.0";
     private boolean setReversed = false;
-   // private ClawMoves yclaw;
+    // private ClawMoves yclaw;
 
     @Override
     public void runOpMode() {
@@ -39,7 +39,9 @@ public class DriveControl extends LinearOpMode {
         GamePad gpIn2 = new GamePad(gamepad2);
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
         BumperTest bumpOne = new BumperTest();
-       // TestServo serv1 = hardwareMap.servo.get(PARAMS.);
+        AprilTag aprilTag = new AprilTag(hardwareMap);
+        AprilTagDetection lastSeenAprilTag = null;
+        // TestServo serv1 = hardwareMap.servo.get(PARAMS.);
 
         waitForStart();
         if (isStopRequested()) return;
@@ -51,7 +53,11 @@ public class DriveControl extends LinearOpMode {
         double lastSpeed = 1;
 
         while (opModeIsActive()) {
-            update_telemetry(gpIn1, gpIn2);
+            AprilTagDetection result = aprilTag.lookForMatching();
+            if (result != null) {
+                lastSeenAprilTag = result;
+            }
+            update_telemetry(gpIn1, gpIn2, lastSeenAprilTag);
 
 
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
@@ -122,22 +128,22 @@ public class DriveControl extends LinearOpMode {
                     break;
 
                 case BUTTON_Y:
-                    DeferredActions.CreateDeferredAction(150, DeferredActions.DeferredActionType.MOVEMENT);
+                    DeferredActions.CreateDeferredAction(150, DeferredActionType.MOVEMENT);
 
 
             }
 
             // Deferred Actions
-           ProcessDeferredActions();
+            ProcessDeferredActions();
         }
     }
 
     // Deferred Actions
-    public void ProcessDeferredActions(){
+    public void ProcessDeferredActions() {
         List<DeferredActionType> action = DeferredActions.GetReadyActions();
 
-        for(DeferredActionType actionType: action){
-            switch(actionType){
+        for (DeferredActionType actionType : action) {
+            switch (actionType) {
 
                 default:
                     telemetry.addLine("ERROR - Unsupported Deferred Action");
@@ -148,7 +154,7 @@ public class DriveControl extends LinearOpMode {
         }
     }
 
-    private void update_telemetry(GamePad gpi1, GamePad gpi2) {
+    private void update_telemetry(GamePad gpi1, GamePad gpi2, AprilTagDetection aprilTag) {
         telemetry.addLine("Gamepad #1");
         String inpTime1 = new java.text.SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS", Locale.US).format(gpi1.getTelemetry_InputLastTimestamp());
         telemetry.addLine().addData("GP1 Time", inpTime1);
@@ -172,6 +178,9 @@ public class DriveControl extends LinearOpMode {
         telemetry.addLine().addData("Time", actTime);
         telemetry.addLine().addData("Action", DeferredActions.tlmLastAction.toString());
 
+        telemetry.addLine();
+        telemetry.addLine("AprilTag");
+        telemetry.addLine().addData("AprilTagPoseFtc", aprilTag.ftcPose);
         telemetry.update();
     }
 }

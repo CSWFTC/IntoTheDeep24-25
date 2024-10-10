@@ -53,12 +53,15 @@ public class GamePad{
         public int triggerLockoutInterval = 20;
         public int joystickButtonLockoutInterval = 300;
         public int joystickLockoutInterval = 20;  // should be Small
-
     }
 
+    /*
+    Accessible HapticsController inside of GamePad class
+    Based on GamepadHaptics class
+     */
+    public GamepadHaptics HapticsController;
+
     public static Params PARAMS = new Params();
-
-
 
     public enum GameplayInputType {
         NONE("No Input"),
@@ -139,6 +142,13 @@ public class GamePad{
     // Class Constructor
     public GamePad(@NonNull Gamepad gp) {
         this.inputGPad = gp;
+    }
+
+    public GamePad(@NonNull Gamepad gp, boolean enableHaptics) {
+        this.inputGPad = gp;
+        if (enableHaptics) {
+            this.HapticsController = new GamepadHaptics(this.inputGPad);
+        }
     }
 
     // Telemetry Data Getters
