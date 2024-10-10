@@ -16,6 +16,7 @@ public class TankDriveTrain {
 
     private final DcMotor leftMotor;
     private final DcMotor rightMotor;
+    private final DcMotor viperMotor;
     private volatile boolean brakingOn = false;
 
 
@@ -30,6 +31,8 @@ public class TankDriveTrain {
     public TankDriveTrain(@NonNull HardwareMap hdwMap) {
         leftMotor = hdwMap.dcMotor.get("tankLeft");
         rightMotor = hdwMap.dcMotor.get("tankRight");
+        viperMotor = hdwMap.dcMotor.get("Viper");
+
 
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -39,14 +42,16 @@ public class TankDriveTrain {
     }
 
 
-    public void setDriveFromJoystick(float stickLeftY, float stickRightX, boolean reversed) {
+    public void setDriveFromJoystick(float stickLeftY, float stickRightX) {
         if (brakingOn) return;
 
         double leftPower = Math.max(Math.min(1.0,(stickLeftY + stickRightX)), -1.0);
         double rightPower = Math.max(Math.min(1.0,(stickLeftY - stickRightX)), -1.0);
 
+
         leftMotor.setPower(leftPower);
         rightMotor.setPower(rightPower);
+
     }
 
 

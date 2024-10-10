@@ -16,7 +16,7 @@ import java.util.Locale;
 
         private static final String version = "1.0";
         private boolean setReversed = false;
-        private TankDriveTrain tankDriveTrain;
+        private TankDriveTrain tankerdrive;
 
 
         @Override
@@ -28,7 +28,7 @@ import java.util.Locale;
             telemetry.addData(">", "Press Start to Launch");
             telemetry.update();
 
-            tankDriveTrain = new TankDriveTrain(hardwareMap);
+            tankerdrive = new TankDriveTrain(hardwareMap);
             GamePad gpIn1 = new GamePad(gamepad1);
             GamePad gpIn2 = new GamePad(gamepad2);
 
@@ -46,12 +46,17 @@ import java.util.Locale;
                 switch (inpType1) {
 
                     case JOYSTICK:
-                        tankDriveTrain.setDriveFromJoystick(
+                        tankerdrive.setDriveFromJoystick(
                                 gamepad1.left_stick_y * (float) speedMultiplier,
-                                gamepad1.right_stick_x * (float) speedMultiplier,
-                                setReversed
+                                gamepad1.right_stick_x * (float) speedMultiplier
+
                         );
                         break;
+
+
+                    case BUTTON_A:
+                        tankerdrive.setDriveFromJoystick(0,0);
+
                 }
 
 
