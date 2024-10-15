@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.Helper.DeferredActions.DeferredActionType;
 import org.firstinspires.ftc.teamcode.Helper.DrivetrainV2;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagPoseFtc;
 
 import java.util.List;
 import java.util.Locale;
@@ -180,7 +181,19 @@ public class AprilTagTest extends LinearOpMode {
 
         telemetry.addLine();
         telemetry.addLine("AprilTag");
-        telemetry.addLine().addData("AprilTagPoseFtc", aprilTag.ftcPose);
+        telemetry.addLine()
+                .addData(
+                        (aprilTag != null)
+                                ?
+                                "AprilTagFtcPose"
+                                :
+                                "No April Tag Found",
+                        (aprilTag != null)
+                                ?
+                                "["+aprilTag.ftcPose.x+" "+aprilTag.ftcPose.y+" "+aprilTag.ftcPose.z+" "+aprilTag.ftcPose.bearing+"degrees]"
+                                :
+                                ""
+                );
         telemetry.update();
     }
 }

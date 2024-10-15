@@ -2,15 +2,10 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
 import org.firstinspires.ftc.teamcode.Helper.TankDriveTrain;
-
-
 
 import java.util.List;
 import java.util.Locale;
@@ -21,9 +16,6 @@ import java.util.Locale;
 
         private static final String version = "1.0";
         private boolean setReversed = false;
-        private DcMotor leftMotor;
-        private DcMotor rightMotor;
-        private DcMotor motor;
         private TankDriveTrain tankerdrive;
 
 
@@ -39,8 +31,6 @@ import java.util.Locale;
             tankerdrive = new TankDriveTrain(hardwareMap);
             GamePad gpIn1 = new GamePad(gamepad1);
             GamePad gpIn2 = new GamePad(gamepad2);
-            leftMotor = hardwareMap.dcMotor.get("tankLeft");
-            rightMotor = hardwareMap.dcMotor.get("tankRight");
 
             waitForStart();
             if (isStopRequested()) return;
@@ -58,17 +48,18 @@ import java.util.Locale;
                     case JOYSTICK:
                         tankerdrive.setDriveFromJoystick(
                                 gamepad1.left_stick_y * (float) speedMultiplier,
-                                gamepad1.right_stick_x * (float) speedMultiplier);
+                                gamepad1.right_stick_x * (float) speedMultiplier
+
+                        );
                         break;
+
 
                     case BUTTON_A:
                         tankerdrive.setDriveFromJoystick(0,0);
-                        break;
 
-                    case LEFT_TRIGGER:
-                        tankerdrive.antiLockBrake(true);
-                        break;
                 }
+
+
 
                 ProcessDeferredActions();
             }
@@ -95,9 +86,6 @@ import java.util.Locale;
             telemetry.addLine().addData("GP1 Input", gpi1.getTelemetry_InputLastType().toString());
             telemetry.addLine().addData("L Joy  Y", "%6.3f", gamepad1.left_stick_y);
             telemetry.addLine().addData("R Joy  X", "%6.3f", gamepad1.right_stick_x);
-           // telemetry.addLine().addData("Current SpeedLeft",leftMotor.getPower());
-            telemetry.addLine().addData("Current Speed",rightMotor.getPower());
-
 
             telemetry.update();
         }
