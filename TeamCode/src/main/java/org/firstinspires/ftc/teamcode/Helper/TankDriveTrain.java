@@ -24,7 +24,7 @@ public class TankDriveTrain {
         public double brakingGain = 0.15;
         public long brakingInterval = 100;
         public double brakingMaximumTime = (long) Math.ceil(1 / brakingGain) * brakingInterval;
-        public double viperMotorSpeed = 0.5; // Adjust the speed for the viperMotor
+        public double viperMotorSpeed = 0.5;
     }
 
     public TankDriveTrain(@NonNull HardwareMap hdwMap) {
@@ -99,7 +99,6 @@ public class TankDriveTrain {
         viperMotor.setPower(-PARAMS.viperMotorSpeed);
     }
 
-    //  viperMotor
     public void stopViperMotor() {
         viperMotor.setPower(0);
     }
