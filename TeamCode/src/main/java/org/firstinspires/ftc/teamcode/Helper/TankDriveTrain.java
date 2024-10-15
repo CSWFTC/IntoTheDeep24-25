@@ -18,7 +18,7 @@ public class TankDriveTrain {
     private final DcMotor viperMotor;
     private volatile boolean brakingOn = false;
 
-    private long st_time;
+    private long st_time = System.currentTimeMillis();
 
 
     public static class Params {
@@ -97,18 +97,32 @@ public class TankDriveTrain {
         viperMotor.setPower(PARAMS.viperMotorSpeed);
 
     }
-    public boolean antiLockBrake() {
-            st_time = System.currentTimeMillis();
 
-            if (st_time + 100 > System.currentTimeMillis()) {
-                leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-                rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            }
-            else if (System.currentTimeMillis() > st_time + 100 && System.currentTimeMillis() < st_time + 200) {
-                leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    public void moveViperDown(){
+        viperMotor.setPower(-PARAMS.viperMotorSpeed);
+    }
 
+    public void stopViperMotor(){
+        viperMotor.setPower(0);
+    }
+    public boolean antiLockBrake( Boolean brakeOn ) {
+
+        if(brakeOn) {
+            if (st_time + 100 <= System.currentTimeMillis()) {
+                if (leftMotor.getZeroPowerBehavior() == DcMotor.ZeroPowerBehavior.BRAKE) {
+                    leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+                    rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+                } else {
+                    leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                    rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                }
+                st_time = System.currentTimeMillis();
             }
+        } else {
+            leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        }
+
 
         return false;
     }

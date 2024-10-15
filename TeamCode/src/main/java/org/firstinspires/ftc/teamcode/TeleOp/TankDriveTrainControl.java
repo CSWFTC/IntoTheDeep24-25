@@ -54,28 +54,6 @@ import java.util.Locale;
                 case BUTTON_A:
                     tankerdrive.setDriveFromJoystick(0, 0);
                     break;
-                GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
-                switch (inpType1) {
-
-                    case JOYSTICK:
-                        tankerdrive.setDriveFromJoystick(
-                                gamepad1.left_stick_y * (float) speedMultiplier,
-                                gamepad1.right_stick_x * (float) speedMultiplier
-
-                        );
-                        break;
-
-
-                    case BUTTON_A:
-                        tankerdrive.setDriveFromJoystick(0,0);
-
-
-                    case LEFT_TRIGGER:
-                        if(gamepad1.left_trigger >= 0.5){
-                            tankerdrive.antiLockBrake();}
-
-                }
-
                 case DPAD_UP:
                     tankerdrive.moveViperUp();
                     break;
@@ -85,7 +63,15 @@ import java.util.Locale;
                 case DPAD_LEFT:
                     tankerdrive.stopViperMotor();
                     break;
-            }
+
+                case LEFT_TRIGGER:
+                    if(gamepad1.left_trigger >= 0.5)
+                        tankerdrive.antiLockBrake(true);
+                    else
+                        tankerdrive.antiLockBrake(false);
+
+                }
+
 
 
                 ProcessDeferredActions();
