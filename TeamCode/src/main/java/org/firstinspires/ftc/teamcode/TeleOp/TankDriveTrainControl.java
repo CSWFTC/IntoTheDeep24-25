@@ -57,6 +57,11 @@ import java.util.Locale;
                     case BUTTON_A:
                         tankerdrive.setDriveFromJoystick(0,0);
 
+
+                    case LEFT_TRIGGER:
+                        if(gamepad1.left_trigger >= 0.5){
+                            tankerdrive.antiLockBrake();}
+
                 }
 
 
@@ -64,7 +69,6 @@ import java.util.Locale;
                 ProcessDeferredActions();
             }
         }
-
 
         public void ProcessDeferredActions() {
             List<DeferredActions.DeferredActionType> action = DeferredActions.GetReadyActions();
@@ -86,6 +90,7 @@ import java.util.Locale;
             telemetry.addLine().addData("GP1 Input", gpi1.getTelemetry_InputLastType().toString());
             telemetry.addLine().addData("L Joy  Y", "%6.3f", gamepad1.left_stick_y);
             telemetry.addLine().addData("R Joy  X", "%6.3f", gamepad1.right_stick_x);
+            telemetry.addLine().addData("Left Trigger", gamepad1.left_trigger);
 
             telemetry.update();
         }

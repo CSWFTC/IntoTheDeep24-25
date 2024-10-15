@@ -19,9 +19,11 @@ public class TankDriveTrain {
     private final DcMotor viperMotor;
     private volatile boolean brakingOn = false;
 
+    private long st_time;
+
 
     public static class Params {
-        public double joystickYInputAdjustment  = -1;
+        public double joystickYInputAdjustment = -1;
         public double brakingStopThreshold = 0.25;
         public double brakingGain = 0.15;
         public long brakingInterval = 100;
@@ -37,16 +39,16 @@ public class TankDriveTrain {
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        // leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        // rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
 
     public void setDriveFromJoystick(float stickLeftY, float stickRightX) {
         if (brakingOn) return;
 
-        double leftPower = Math.max(Math.min(1.0,(stickLeftY + stickRightX)), -1.0);
-        double rightPower = Math.max(Math.min(1.0,(stickLeftY - stickRightX)), -1.0);
+        double leftPower = Math.max(Math.min(1.0, (stickLeftY + stickRightX)), -1.0);
+        double rightPower = Math.max(Math.min(1.0, (stickLeftY - stickRightX)), -1.0);
 
 
         leftMotor.setPower(leftPower);
@@ -93,5 +95,22 @@ public class TankDriveTrain {
 
         return stopped;
     }
+
+    public boolean antiLockBrake() {
+            st_time = System.currentTimeMillis();
+
+            if (st_time + 100 > System.currentTimeMillis()) {
+                leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+                rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            }
+            else if (System.currentTimeMillis() > st_time + 100 && System.currentTimeMillis() < st_time + 200) {
+                leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+            }
+
+        return false;
+    }
 }
+
 
