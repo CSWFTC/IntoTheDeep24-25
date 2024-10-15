@@ -11,7 +11,7 @@ example use:
 use EventBus.getInstance() to retrieve the singleton instance of the EventBus
 
 // you can edit return of onMessage when instantiating
-class TestSub implements Subscriber<Void> {
+abstract class TestSub implements Subscriber<Void> {
     @Override
     public Void onMessage() {
         // add ur onMessage code here
