@@ -92,6 +92,7 @@ public class TankDriveTrain {
     // viperMotor up
     public void moveViperUp() {
         viperMotor.setPower(PARAMS.viperMotorSpeed);
+
     }
 
     //  viperMotor down

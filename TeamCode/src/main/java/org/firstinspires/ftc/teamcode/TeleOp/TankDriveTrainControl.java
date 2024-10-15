@@ -52,15 +52,18 @@ public class TankDriveTrainControl extends LinearOpMode {
                 case BUTTON_A:
                     tankerdrive.setDriveFromJoystick(0, 0);
                     break;
+
+                case DPAD_UP:
+                    tankerdrive.moveViperUp();
+                    break;
+                case DPAD_DOWN:
+                    tankerdrive.moveViperDown();
+                    break;
+                case DPAD_LEFT:
+                    tankerdrive.stopViperMotor();
+                    break;
             }
 
-            if (gamepad1.dpad_up) {
-                tankerdrive.moveViperUp();
-            } else if (gamepad1.dpad_down) {
-                tankerdrive.moveViperDown();
-            } else if (gamepad1.dpad_left) {
-                tankerdrive.stopViperMotor();
-            }
 
             ProcessDeferredActions();
         }
