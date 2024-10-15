@@ -10,11 +10,15 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions.DeferredActionType;
 import org.firstinspires.ftc.teamcode.Helper.DrivetrainV2;
+import org.firstinspires.ftc.teamcode.Helper.EventBus;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
+import org.firstinspires.ftc.teamcode.Tests.HapticEventBusTester;
 
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 @Config
 @TeleOp(name = "Driver Control", group = "Competition!!")
@@ -40,6 +44,9 @@ public class DriveControl extends LinearOpMode {
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
         BumperTest bumpOne = new BumperTest();
        // TestServo serv1 = hardwareMap.servo.get(PARAMS.);
+
+//        new HapticEventBusTester();
+//        HapticEventBusTester hapticEvent = HapticEventBusTester.getInstance();
 
         waitForStart();
         if (isStopRequested()) return;
@@ -71,6 +78,9 @@ public class DriveControl extends LinearOpMode {
                     break;
 
                 case BUTTON_A:
+//                    Set<String> targets = new HashSet<>();
+//                    targets.add("haptic");
+//                    EventBus.getInstance().emit(targets, gpIn1);
                     speedMultiplier = 0.25;
                     break;
 

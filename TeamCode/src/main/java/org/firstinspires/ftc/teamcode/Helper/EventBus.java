@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.Helper;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -10,20 +13,39 @@ example use:
 
 use EventBus.getInstance() to retrieve the singleton instance of the EventBus
 
+WARNING: ALL Subscriber classes MUST BE PUBLIC
+
 // you can edit return of onMessage when instantiating
-abstract class TestSub implements Subscriber<Void> {
+public class TestSub implements Subscriber<Void> {
     @Override
     public Void onMessage() {
         // add ur onMessage code here
 
         return null;
     }
+
+    @Override
+    public Void onMessage(Object ... params) {
+        // add onMessage code with params
+
+        return null;
+    }
 }
 
 // for parameters in the Subscriber extension:
-abstract class SubWithParams implements Subscriber<String> {
-    public String onMessage(String name) {
-        return "Hello"+name;
+public class SubWithParams implements Subscriber<String> {
+    @Override
+    public String onMessage() {
+        // add ur onMessage code here
+
+        return null;
+    }
+
+    @Override
+    public String onMessage(Object ... params) {
+        // add onMessage code with params
+
+        return null;
     }
 }
 
@@ -65,9 +87,10 @@ public class EventBus {
 
             if (events.contains(subId)) {
                 try {
-                    Subscriber<?> subscriberInstance = subscriberClass.getDeclaredConstructor().newInstance();
+//                    Subscriber<?> subscriber = subscriberClass.getDeclaredConstructor().newInstance();
+                    Subscriber<?> subscriber = subscriberClass.newInstance();
 
-                    subscriberInstance.onMessage(params);
+                    subscriber.onMessage(params);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
