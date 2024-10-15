@@ -45,7 +45,8 @@ public class TestRoadRunner2 extends LinearOpMode {
 
         Actions.runBlocking(
               mecanumDrive.actionBuilder(this.position)
-                      .lineToX(100)
+//                      .lineToX(100
+                      .splineTo(new Vector2d(100, 0), Math.toRadians(180))
                       .build()
         );
 
@@ -54,11 +55,11 @@ public class TestRoadRunner2 extends LinearOpMode {
 
         changePosition(100, getY(), getHeading());
 
-        Actions.runBlocking(
-                mecanumDrive.actionBuilder(this.position)
-                        .turnTo(180)
-                        .build()
-        );
+//        Actions.runBlocking(
+//                mecanumDrive.actionBuilder(this.position)
+//                        .turnTo(180)
+//                        .build()
+//        );
 
         telemetry.addLine(mecanumDrive.pose.heading.toString());
         telemetry.update();
