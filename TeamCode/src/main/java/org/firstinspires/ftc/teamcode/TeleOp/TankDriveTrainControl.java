@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
+
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -42,6 +43,17 @@ import java.util.Locale;
             while (opModeIsActive()) {
                 updateTelemetry(gpIn1, gpIn2);
 
+            GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
+            switch (inpType1) {
+                case JOYSTICK:
+                    tankerdrive.setDriveFromJoystick(
+                            gamepad1.left_stick_y * (float) speedMultiplier,
+                            gamepad1.right_stick_x * (float) speedMultiplier
+                    );
+                    break;
+                case BUTTON_A:
+                    tankerdrive.setDriveFromJoystick(0, 0);
+                    break;
                 GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
                 switch (inpType1) {
 
@@ -64,6 +76,16 @@ import java.util.Locale;
 
                 }
 
+                case DPAD_UP:
+                    tankerdrive.moveViperUp();
+                    break;
+                case DPAD_DOWN:
+                    tankerdrive.moveViperDown();
+                    break;
+                case DPAD_LEFT:
+                    tankerdrive.stopViperMotor();
+                    break;
+            }
 
 
                 ProcessDeferredActions();

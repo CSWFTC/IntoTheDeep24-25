@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Helper;
 
-
 import static java.lang.Thread.sleep;
 import androidx.annotation.NonNull;
 
@@ -28,6 +27,7 @@ public class TankDriveTrain {
         public double brakingGain = 0.15;
         public long brakingInterval = 100;
         public double brakingMaximumTime = (long) Math.ceil(1 / brakingGain) * brakingInterval;
+        public double viperMotorSpeed = 0.5;
     }
 
     public TankDriveTrain(@NonNull HardwareMap hdwMap) {
@@ -38,11 +38,11 @@ public class TankDriveTrain {
 
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        viperMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         // rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
-
 
     public void setDriveFromJoystick(float stickLeftY, float stickRightX) {
         if (brakingOn) return;
@@ -50,12 +50,9 @@ public class TankDriveTrain {
         double leftPower = Math.max(Math.min(1.0, (stickLeftY + stickRightX)), -1.0);
         double rightPower = Math.max(Math.min(1.0, (stickLeftY - stickRightX)), -1.0);
 
-
         leftMotor.setPower(leftPower);
         rightMotor.setPower(rightPower);
-
     }
-
 
     public void setBrakeStatus(boolean braking) {
         brakingOn = braking;
@@ -82,7 +79,6 @@ public class TankDriveTrain {
         }
     }
 
-
     private boolean coasterBrakeMotor(DcMotor motor) {
         double curPower = motor.getPower();
         boolean stopped = (curPower == 0);
@@ -96,6 +92,11 @@ public class TankDriveTrain {
         return stopped;
     }
 
+    // viperMotor up
+    public void moveViperUp() {
+        viperMotor.setPower(PARAMS.viperMotorSpeed);
+
+    }
     public boolean antiLockBrake() {
             st_time = System.currentTimeMillis();
 
