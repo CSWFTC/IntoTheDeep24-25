@@ -32,7 +32,6 @@ public class TestRoadRunner extends LinearOpMode {
         telemetry.addLine("v0.1");
         telemetry.update();
 
-
         telemetry.addLine(mecanumDrive.pose.heading.toString());
         telemetry.update();
 
