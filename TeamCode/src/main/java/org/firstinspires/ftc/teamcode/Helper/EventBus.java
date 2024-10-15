@@ -20,6 +20,13 @@ class TestSub implements Subscriber<Void> {
     }
 }
 
+// for parameters in the Subscriber extension:
+abstract class SubWithParams implements Subscriber<String> {
+    public String onMessage(String name) {
+        return "Hello"+name;
+    }
+}
+
 // add a subscription of id 'telemetry'
 EventBus.getInstance().subscribe("telemetry", TestSub.class);
 
