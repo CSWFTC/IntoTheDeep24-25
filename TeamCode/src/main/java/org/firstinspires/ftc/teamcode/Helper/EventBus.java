@@ -51,7 +51,7 @@ public class EventBus {
         subscribers.remove(subId);
     }
 
-    public void emit(Set<String> events) {
+    public void emit(Set<String> events, Object ... params) {
         for (Map.Entry<String, Class<? extends Subscriber<?>>> entry : this.subscribers.entrySet()) {
             String subId = entry.getKey();
             Class<? extends Subscriber<?>> subscriberClass = entry.getValue();
@@ -60,7 +60,7 @@ public class EventBus {
                 try {
                     Subscriber<?> subscriberInstance = subscriberClass.getDeclaredConstructor().newInstance();
 
-                    subscriberInstance.onMessage();
+                    subscriberInstance.onMessage(params);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
