@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Helper;
 
-
 import static java.lang.Thread.sleep;
 import androidx.annotation.NonNull;
 
@@ -19,13 +18,13 @@ public class TankDriveTrain {
     private final DcMotor viperMotor;
     private volatile boolean brakingOn = false;
 
-
     public static class Params {
         public double joystickYInputAdjustment  = -1;
         public double brakingStopThreshold = 0.25;
         public double brakingGain = 0.15;
         public long brakingInterval = 100;
         public double brakingMaximumTime = (long) Math.ceil(1 / brakingGain) * brakingInterval;
+        public double viperMotorSpeed = 0.5; // Adjust the speed for the viperMotor
     }
 
     public TankDriveTrain(@NonNull HardwareMap hdwMap) {
@@ -33,27 +32,24 @@ public class TankDriveTrain {
         rightMotor = hdwMap.dcMotor.get("tankRight");
         viperMotor = hdwMap.dcMotor.get("Viper");
 
-
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        viperMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        viperMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
-
 
     public void setDriveFromJoystick(float stickLeftY, float stickRightX) {
         if (brakingOn) return;
 
-        double leftPower = Math.max(Math.min(1.0,(stickLeftY + stickRightX)), -1.0);
-        double rightPower = Math.max(Math.min(1.0,(stickLeftY - stickRightX)), -1.0);
-
+        double leftPower = Math.max(Math.min(1.0, (stickLeftY + stickRightX)), -1.0);
+        double rightPower = Math.max(Math.min(1.0, (stickLeftY - stickRightX)), -1.0);
 
         leftMotor.setPower(leftPower);
         rightMotor.setPower(rightPower);
-
     }
-
 
     public void setBrakeStatus(boolean braking) {
         brakingOn = braking;
@@ -80,7 +76,6 @@ public class TankDriveTrain {
         }
     }
 
-
     private boolean coasterBrakeMotor(DcMotor motor) {
         double curPower = motor.getPower();
         boolean stopped = (curPower == 0);
@@ -93,5 +88,21 @@ public class TankDriveTrain {
 
         return stopped;
     }
+
+    // viperMotor up
+    public void moveViperUp() {
+        viperMotor.setPower(PARAMS.viperMotorSpeed);
+    }
+
+    //  viperMotor down
+    public void moveViperDown() {
+        viperMotor.setPower(-PARAMS.viperMotorSpeed);
+    }
+
+    //  viperMotor
+    public void stopViperMotor() {
+        viperMotor.setPower(0);
+    }
 }
+
 
