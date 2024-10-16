@@ -5,9 +5,9 @@ THIS IS SOLELY A TEST CLASS FOR EVENTBUS
 package org.firstinspires.ftc.teamcode.Tests;
 
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
-import org.firstinspires.ftc.teamcode.Helper.Subscriber;
+import org.firstinspires.ftc.teamcode.Helper.EventBus.Subscriber;
 
-public class HapticEvent implements Subscriber<Void> {
+public class HapticEvent implements Subscriber<Void, Void> {
     public HapticEvent() {}
 
     @Override

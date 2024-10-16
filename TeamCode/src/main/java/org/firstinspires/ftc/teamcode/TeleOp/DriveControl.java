@@ -10,15 +10,11 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions.DeferredActionType;
 import org.firstinspires.ftc.teamcode.Helper.DrivetrainV2;
-import org.firstinspires.ftc.teamcode.Helper.EventBus;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
-import org.firstinspires.ftc.teamcode.Tests.HapticEventBusTester;
 
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
 @Config
 @TeleOp(name = "Driver Control", group = "Competition!!")
