@@ -21,21 +21,15 @@ import org.firstinspires.ftc.teamcode.Helper.Telemetry.TelemetryEvent;
 import java.util.HashSet;
 import java.util.Set;
 
-@TeleOp(name = "Concept: RevLED", group = "Concept")
+@TeleOp(name = "DI LED Test", group = "Concept")
 
 public class LEDTestDI extends LinearOpMode {
     LED frontLED_red;
     LED frontLED_green;
-    TelemetryTest tester = null;
+    TelemetryTest tester = new TelemetryTest();
 
     public void runOpMode() {
         DependencyInjector.register("telemetry", telemetry);
-
-        try {
-            this.tester = new TelemetryTest();
-        } catch(Exception e) {
-            //
-        }
 
         frontLED_green = hardwareMap.get(LED.class, "front_led_green");
         frontLED_red = hardwareMap.get(LED.class, "front_led_red");
@@ -46,16 +40,11 @@ public class LEDTestDI extends LinearOpMode {
             if (gamepad1.a) {
                 frontLED_red.on();
 
-                if (this.tester != null) {
-                    this.tester.logRedOn();
-                }
-
+                this.tester.logRedOn();
             } else {
                 frontLED_red.off();
 
-                if (this.tester != null) {
-                    this.tester.logRedOff();
-                }
+                this.tester.logRedOff();
             }
             if (gamepad1.b) {
                 frontLED_green.on();
