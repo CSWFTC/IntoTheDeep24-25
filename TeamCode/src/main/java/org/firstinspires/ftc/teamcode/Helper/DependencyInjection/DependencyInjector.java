@@ -1,15 +1,24 @@
+/*
+WARNING: DEPENDENCY INJECTOR IS ONLY TESTED ON SINGLE THREAD. DO NOT USE FOR MULTI-THREADED STUFF (before testing it)
+ */
+
 package org.firstinspires.ftc.teamcode.Helper.DependencyInjection;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class DependencyInjector {
-    private static final Map<String, Object> cache = new HashMap<>();
+    private static final Map<String, Object> cache = new ConcurrentHashMap<>();
 
     public static void register(String name, Object instance) {
         cache.put(name, instance);
+    }
+
+    public static void unregister(String name) {
+        cache.remove(name);
     }
 
     public static Object resolve(String name) throws Exception {
