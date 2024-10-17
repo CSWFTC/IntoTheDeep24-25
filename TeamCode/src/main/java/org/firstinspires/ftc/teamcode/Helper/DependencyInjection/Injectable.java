@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Helper.DependencyInjection;
 
 import java.lang.reflect.Field;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class Injectable {
     public boolean didInjectionFail = false;
@@ -14,6 +16,14 @@ public class Injectable {
             this.didInjectionFail = true;
             this.injectionFailException = e;
         }
+    }
+
+    public <T> void onCatch(BiConsumer<Exception, T> handler, T obj) {
+        handler.accept(this.injectionFailException, obj);
+    }
+
+    public <T> void onCatch(Consumer<Exception> handler) {
+        handler.accept(this.injectionFailException);
     }
 
     public Exception getException() {
