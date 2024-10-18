@@ -18,7 +18,6 @@ ReactiveState<String> name = new ReactiveState<>("bob");
 Now you have to add an annotation above your `ReactiveState` which specifies the callback function which will execute once the state is changed.
 
 ```java
-// before
 @StateChange("onChange") // name of callback func
 ReactiveState<String> name = new ReactiveState<>("bob");
 
