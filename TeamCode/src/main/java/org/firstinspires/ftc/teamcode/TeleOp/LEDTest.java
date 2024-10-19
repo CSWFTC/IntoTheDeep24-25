@@ -47,8 +47,10 @@ public class LEDTest extends LinearOpMode {
 
             switch (inpType) {
                 case JOYSTICK:
-                    srv.setPosition(gamepad1.left_stick_x);
-                    telemetry.addData("Current Servo Position", gamepad1.left_stick_x);
+                    double pos = 0;
+                    pos = (gamepad1.left_stick_x * 0.5) + 0.5;
+                    srv.setPosition(pos);
+                    telemetry.addData("Current Servo Position", pos);
                     telemetry.addLine();
                     telemetry.update();
                     break;
