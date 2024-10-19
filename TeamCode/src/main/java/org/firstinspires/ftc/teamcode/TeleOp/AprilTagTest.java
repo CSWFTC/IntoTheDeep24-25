@@ -141,7 +141,7 @@ public class AprilTagTest extends LinearOpMode {
                     break;
 
                 case BUTTON_Y:
-                    DeferredActions.CreateDeferredAction(150, DeferredActionType.MOVEMENT);
+                  //  DeferredActions.CreateDeferredAction(150, DeferredActionType.MOVEMENT);
 
 
             }

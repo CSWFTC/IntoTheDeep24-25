@@ -129,7 +129,7 @@ public class DriveControl extends LinearOpMode {
                     break;
 
                 case BUTTON_Y:
-                    DeferredActions.CreateDeferredAction(150, DeferredActions.DeferredActionType.MOVEMENT);
+                    //DeferredActions.CreateDeferredAction(150, DeferredActions.DeferredActionType.MOVEMENT);
 
 
             }
