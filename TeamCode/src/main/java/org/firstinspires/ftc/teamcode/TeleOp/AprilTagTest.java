@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 
 
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -11,8 +12,9 @@ import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions.DeferredActionType;
 import org.firstinspires.ftc.teamcode.Helper.DrivetrainV2;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
+import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
+import org.firstinspires.ftc.teamcode.RoadRunner.ThreeDeadWheelLocalizer;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
-import org.firstinspires.ftc.vision.apriltag.AprilTagPoseFtc;
 
 import java.util.List;
 import java.util.Locale;
@@ -39,9 +41,10 @@ public class AprilTagTest extends LinearOpMode {
         GamePad gpIn1 = new GamePad(gamepad1, false);
         GamePad gpIn2 = new GamePad(gamepad2);
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
-        BumperTest bumpOne = new BumperTest();
         AprilTag aprilTag = new AprilTag(hardwareMap);
-        AprilTagDetection lastSeenAprilTag = null;
+        AprilTagDetection foundTag = null;
+        ThreeDeadWheelLocalizer localizer = new ThreeDeadWheelLocalizer(hardwareMap, MecanumDrive.PARAMS.inPerTick);
+        Pose2d rrPose = null;
         // TestServo serv1 = hardwareMap.servo.get(PARAMS.);
 
         waitForStart();
@@ -56,9 +59,18 @@ public class AprilTagTest extends LinearOpMode {
         while (opModeIsActive()) {
             AprilTagDetection result = aprilTag.lookForMatching();
             if (result != null) {
-                lastSeenAprilTag = result;
+                foundTag = result;
+                if (rrPose == null) {
+                    rrPose = new Pose2d(foundTag.ftcPose.x, foundTag.ftcPose.y, foundTag.ftcPose.bearing);
+                } else {
+                    // TODO: Roadrunner-reported translations are the opposite of that reported by AprilTag, probably because the camera is mounted on the back
+                    rrPose = rrPose.plus(localizer.update().value());
+                }
+            } else {
+                rrPose = null;
+                foundTag = null;
             }
-            update_telemetry(gpIn1, gpIn2, lastSeenAprilTag);
+            update_telemetry(gpIn1, gpIn2, foundTag, rrPose);
 
 
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
@@ -129,7 +141,7 @@ public class AprilTagTest extends LinearOpMode {
                     break;
 
                 case BUTTON_Y:
-                    DeferredActions.CreateDeferredAction(150, DeferredActionType.MOVEMENT);
+                  //  DeferredActions.CreateDeferredAction(150, DeferredActionType.MOVEMENT);
 
 
             }
@@ -155,7 +167,7 @@ public class AprilTagTest extends LinearOpMode {
         }
     }
 
-    private void update_telemetry(GamePad gpi1, GamePad gpi2, AprilTagDetection aprilTag) {
+    private void update_telemetry(GamePad gpi1, GamePad gpi2, AprilTagDetection aprilTag, Pose2d rrPose) {
         telemetry.addLine("Gamepad #1");
         String inpTime1 = new java.text.SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS", Locale.US).format(gpi1.getTelemetry_InputLastTimestamp());
         telemetry.addLine().addData("GP1 Time", inpTime1);
@@ -190,7 +202,20 @@ public class AprilTagTest extends LinearOpMode {
                                 "No April Tag Found",
                         (aprilTag != null)
                                 ?
-                                "["+aprilTag.ftcPose.x+" "+aprilTag.ftcPose.y+" "+aprilTag.ftcPose.z+" "+aprilTag.ftcPose.bearing+"degrees]"
+                                "[" + aprilTag.ftcPose.x + " " + aprilTag.ftcPose.y + " " + aprilTag.ftcPose.z + " " + aprilTag.ftcPose.bearing + "degrees]"
+                                :
+                                ""
+                );
+        telemetry.addLine()
+                .addData(
+                        (rrPose != null)
+                                ?
+                                "RoadRunner Pose"
+                                :
+                                "No April Tag Found",
+                        (rrPose != null)
+                                ?
+                                "[" + rrPose.position.x + " " + rrPose.position.y + " " + rrPose.heading.toDouble() + "degrees]"
                                 :
                                 ""
                 );

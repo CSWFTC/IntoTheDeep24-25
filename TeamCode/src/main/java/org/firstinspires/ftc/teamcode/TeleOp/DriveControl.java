@@ -41,6 +41,9 @@ public class DriveControl extends LinearOpMode {
         BumperTest bumpOne = new BumperTest();
        // TestServo serv1 = hardwareMap.servo.get(PARAMS.);
 
+//        new HapticEventBusTester();
+//        HapticEventBusTester hapticEvent = HapticEventBusTester.getInstance();
+
         waitForStart();
         if (isStopRequested()) return;
 
@@ -71,6 +74,9 @@ public class DriveControl extends LinearOpMode {
                     break;
 
                 case BUTTON_A:
+//                    Set<String> targets = new HashSet<>();
+//                    targets.add("haptic");
+//                    EventBus.getInstance().emit(targets, gpIn1);
                     speedMultiplier = 0.25;
                     break;
 
@@ -123,7 +129,7 @@ public class DriveControl extends LinearOpMode {
                     break;
 
                 case BUTTON_Y:
-                    DeferredActions.CreateDeferredAction(150, DeferredActions.DeferredActionType.MOVEMENT);
+                    //DeferredActions.CreateDeferredAction(150, DeferredActions.DeferredActionType.MOVEMENT);
 
 
             }

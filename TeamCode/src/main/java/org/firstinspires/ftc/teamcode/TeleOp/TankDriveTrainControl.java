@@ -45,10 +45,11 @@ import java.util.Locale;
 
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
-                case JOYSTICK:
+                case JOYSTICK :
                     tankerdrive.setDriveFromJoystick(
                             gamepad1.left_stick_y * (float) speedMultiplier,
                             gamepad1.right_stick_x * (float) speedMultiplier
+
                     );
                     break;
                 case BUTTON_A:

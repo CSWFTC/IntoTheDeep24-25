@@ -10,10 +10,9 @@ public class DeferredActions {
 
     public enum DeferredActionType {
         NO_ACTION("None"),
+        PLAY_SOUND("Plays Quack");
 
-     //   ROBO_SOUND("Makes the Robot Quack");
 
-        MOVEMENT("Testing Deferred Actions");
         private final String description;
 
         DeferredActionType(String description) {
