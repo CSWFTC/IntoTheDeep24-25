@@ -39,6 +39,14 @@ public class AutoBlueBasket extends LinearOpMode {
         waitForStart();
         telemetry.clear();
 
+        toSub();
+        toPosOne();
+        toBasket();
+        toPosTwo();
+        toBasket();
+        toPosTwo();
+        toBasket();
+
     }
 
     private void toSub(){
@@ -63,7 +71,7 @@ public class AutoBlueBasket extends LinearOpMode {
         //pos one
         Action moveOne = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-44.5)
+                .splineTo(new Vector2d(-45, -40), Math.toRadians(0))
                 .build();
         Actions.runBlocking(moveOne);
 
@@ -72,17 +80,32 @@ public class AutoBlueBasket extends LinearOpMode {
 
     private void toPosTwo(){
         //pos two
+        Action moveTwo = drive.actionBuilder(drive.pose)
+                .setReversed(true)
+                .splineTo(new Vector2d(-45, -48), Math.toRadians(0))
+                .build();
+        Actions.runBlocking(moveTwo);
         //basket
     }
 
     private void toPosThree(){
         //pos three
+        Action moveThree = drive.actionBuilder(drive.pose)
+                .setReversed(true)
+                .splineTo(new Vector2d(-38, -50), Math.toRadians(320))
+                .build();
+        Actions.runBlocking(moveThree);
         //basket
     }
 
     private void toBasket(){
-
         //basket
+        Action moveBasket= drive.actionBuilder(drive.pose)
+                .setReversed(true)
+                .splineTo(new Vector2d(-12, -48), Math.toRadians(0))
+                .build();
+        Actions.runBlocking(moveBasket);
+
     }
 
 
