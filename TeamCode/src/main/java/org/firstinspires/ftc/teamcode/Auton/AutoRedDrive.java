@@ -46,20 +46,5 @@ public class AutoRedDrive extends LinearOpMode {
         );
     }
 
-    private void drive(){
-        Action driveRed = drive.actionBuilder(drive.pose)
-                .setReversed(true)
-                .lineToX(28)
-                //hang a specimen
-                .setReversed(false)
-                .lineToX(4)
-                .turnTo(Math.toRadians(-90))
-                .splineTo(new Vector2d(-28, 24), Math.toRadians(0))
-                //grab a sample
-                .turnTo(90)
-                .lineToX(28)
-                //.strafeTo(new Vector2d(51, 15))
-                .build();
-    }
 
 }

@@ -99,7 +99,7 @@ public class TankDriveTrain {
     }
 
     public void moveViperDown(){
-        viperMotor.setPower(-PARAMS.viperMotorSpeed);
+        viperMotor.setPower(-PARAMS.viperMotorSpeed); 
     }
 
     public void stopViperMotor(){
