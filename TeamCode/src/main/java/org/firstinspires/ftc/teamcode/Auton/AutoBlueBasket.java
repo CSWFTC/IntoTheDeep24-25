@@ -48,7 +48,7 @@ public class AutoBlueBasket extends LinearOpMode {
        // toPosTwo();
        // toBasket();
 
-        updateTelemetry(drive.pose.position);
+        //updateTelemetry(drive.pose.position);
 
     }
 
@@ -59,6 +59,8 @@ public class AutoBlueBasket extends LinearOpMode {
                 .lineToX(-44.5)
                 .build();
         Actions.runBlocking(movePos);
+        updateTelemetry(drive.pose.position);
+
 
         //TODO: add code for claw
 
@@ -68,6 +70,8 @@ public class AutoBlueBasket extends LinearOpMode {
                 .lineToX(-24.5)
                 .build();
         Actions.runBlocking(moveBack);
+        updateTelemetry(drive.pose.position);
+
     }
 
     private void toPosOne(){
@@ -77,6 +81,8 @@ public class AutoBlueBasket extends LinearOpMode {
                 .splineTo(new Vector2d(-42, -40), Math.toRadians(0))
                 .build();
         Actions.runBlocking(moveOne);
+        updateTelemetry(drive.pose.position);
+
 
         //basket
     }
