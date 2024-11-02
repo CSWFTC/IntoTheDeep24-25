@@ -39,6 +39,7 @@ public class AutoBlueBasket extends LinearOpMode {
         waitForStart();
         telemetry.clear();
 
+
         toSub();
        // toPosOne();
        // toBasket();
@@ -46,6 +47,8 @@ public class AutoBlueBasket extends LinearOpMode {
        // toBasket();
        // toPosTwo();
        // toBasket();
+
+        updateTelemetry(drive.pose.position);
 
     }
 
