@@ -70,8 +70,8 @@ public class AutoBlueBasket extends LinearOpMode {
     private void toPosOne(){
         //pos one
         Action moveOne = drive.actionBuilder(drive.pose)
-                .setReversed(true)
-                .splineTo(new Vector2d(-45, -40), Math.toRadians(0))
+                .setReversed(false)
+                .splineTo(new Vector2d(42, 40), Math.toRadians(0))
                 .build();
         Actions.runBlocking(moveOne);
 
