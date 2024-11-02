@@ -108,5 +108,13 @@ public class AutoBlueBasket extends LinearOpMode {
 
     }
 
+    private void updateTelemetry(Vector2d pos) {
+        telemetry.addLine("RoadRunner Auto Drive BLUE");
+        telemetry.addData("Current x Position", pos.x );
+        telemetry.addData("Current y Postion", pos.y);
+        telemetry.update();
+
+    }
+
 
 }
