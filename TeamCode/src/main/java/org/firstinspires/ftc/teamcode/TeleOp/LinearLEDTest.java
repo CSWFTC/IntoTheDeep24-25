@@ -5,22 +5,16 @@ This file is an LED TEST FILE - Which is used to test the TelemetryEvent class
 
 package org.firstinspires.ftc.teamcode.TeleOp;
 
-import com.acmerobotics.roadrunner.Line;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.LED;
-
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.EventBus.EventBus;
 import org.firstinspires.ftc.teamcode.Helper.Telemetry.TelemetryEvent;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@TeleOp(name = "Concept: RevLED", group = "Concept")
+@TeleOp(name = "Concept: RevLED 02", group = "Concept")
 
 public class LinearLEDTest extends LinearOpMode {
     LED frontLED_red;
