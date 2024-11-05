@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class DrivetrainV3 extends DrivetrainV2 {
-
         private long joystickStartTime = 0;
         private double currentPower = 0;
         private double maxPower = 1.0;
