@@ -24,8 +24,8 @@ public class SingleMotor extends LinearOpMode {
     @Override
     public void runOpMode() {
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
-        telemetry.addLine("Driver Control");
-    telemetry.addData("Version Number", version);
+        telemetry.addLine("Single Motor Test");
+        telemetry.addData("Version Number", version);
         telemetry.addLine();
         telemetry.addData(">", "Press Start to Launch");
         telemetry.update();

@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Config
-@TeleOp(name = "April Tag Test", group = "Competition!!")
+@TeleOp(name = "April Tag Test", group = "Test")
 public class AprilTagTest extends LinearOpMode {
 
 

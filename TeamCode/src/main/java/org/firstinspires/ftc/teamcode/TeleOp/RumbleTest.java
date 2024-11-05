@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Config
-@TeleOp(name = "Motor Test", group = "Competition!!")
+@TeleOp(name = "Rumble Test", group = "Test")
 public class RumbleTest extends LinearOpMode {
 
 

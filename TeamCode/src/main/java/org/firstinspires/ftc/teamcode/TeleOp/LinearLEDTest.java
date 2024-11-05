@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Helper.Telemetry.TelemetryEvent;
 import java.util.HashSet;
 import java.util.Set;
 
-@TeleOp(name = "Concept: RevLED 02", group = "Concept")
+@TeleOp(name = "Concept: RevLED 02", group = "Test")
 
 public class LinearLEDTest extends LinearOpMode {
     LED frontLED_red;

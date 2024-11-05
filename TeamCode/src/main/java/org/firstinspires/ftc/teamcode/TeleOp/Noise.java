@@ -39,7 +39,7 @@ import org.firstinspires.ftc.teamcode.Helper.Sound;
 
 import java.util.List;
 
-@TeleOp(name = "SoundPlay", group = "Competition!!")
+@TeleOp(name = "SoundPlay", group = "Test")
 
 public class Noise extends LinearOpMode {
 

@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.LED;
  into and the red should be the higher)
 */
 
-@TeleOp(name = "Concept: RevLED", group = "Concept")
+@TeleOp(name = "Concept: RevLED 01", group = "Test")
 
 public class LEDLights extends OpMode {
     LED frontLED_red;

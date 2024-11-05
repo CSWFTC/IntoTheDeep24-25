@@ -17,6 +17,7 @@ import com.acmerobotics.roadrunner.ftc.LateralRampLogger;
 import com.acmerobotics.roadrunner.ftc.ManualFeedforwardTuner;
 import com.acmerobotics.roadrunner.ftc.MecanumMotorDirectionDebugger;
 import com.qualcomm.hardware.lynx.LynxModule;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegistrar;
@@ -31,19 +32,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 public final class TuningOpModes {
-    // TODO: change this to TankDrive.class if you're using tank
     public static final Class<?> DRIVE_CLASS = MecanumDrive.class;
 
-    public static final String GROUP = "quickstart";
-    public static final boolean DISABLED = false;
+    public static final boolean DISABLED = false;   // Disable Tuning when Not it Use
 
     private TuningOpModes() {}
 
     private static OpModeMeta metaForClass(Class<? extends OpMode> cls) {
+        String prefix = "RR ";
+        if (cls.getSimpleName().equals("ForwardPushTest"))  prefix += "1. ";
+        if (cls.getSimpleName().equals("ForwardRampLogger"))  prefix += "2. ";
+        if (cls.getSimpleName().equals("LateralRampLogger"))  prefix += "3. ";
+        if (cls.getSimpleName().equals("AngularRampLogger"))  prefix += "4. ";
+        if (cls.getSimpleName().equals("ManualFeedforwardTuner"))  prefix += "5. ";
+        if (cls.getSimpleName().equals("ManualFeedbackTuner"))  prefix += "6. ";
+        if (cls.getSimpleName().equals("SplineTest"))  prefix += "7. ";
+
         return new OpModeMeta.Builder()
-                .setName(cls.getSimpleName())
-                .setGroup(GROUP)
+                .setName(prefix + cls.getSimpleName())
+                .setGroup("RRQuickStart")
                 .setFlavor(OpModeMeta.Flavor.TELEOP)
                 .build();
     }
@@ -154,12 +163,11 @@ public final class TuningOpModes {
         manager.register(metaForClass(AngularRampLogger.class), new AngularRampLogger(dvf));
         manager.register(metaForClass(ForwardPushTest.class), new ForwardPushTest(dvf));
         manager.register(metaForClass(ForwardRampLogger.class), new ForwardRampLogger(dvf));
-        manager.register(metaForClass(LateralPushTest.class), new LateralPushTest(dvf));
+        //manager.register(metaForClass(LateralPushTest.class), new LateralPushTest(dvf));
         manager.register(metaForClass(LateralRampLogger.class), new LateralRampLogger(dvf));
         manager.register(metaForClass(ManualFeedforwardTuner.class), new ManualFeedforwardTuner(dvf));
         manager.register(metaForClass(MecanumMotorDirectionDebugger.class), new MecanumMotorDirectionDebugger(dvf));
         manager.register(metaForClass(DeadWheelDirectionDebugger.class), new DeadWheelDirectionDebugger(dvf));
-
         manager.register(metaForClass(ManualFeedbackTuner.class), ManualFeedbackTuner.class);
         manager.register(metaForClass(SplineTest.class), SplineTest.class);
         manager.register(metaForClass(LocalizationTest.class), LocalizationTest.class);

@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-@TeleOp(name = "BumperTest", group = "Competition!!")
+@TeleOp(name = "BumperTest", group = "Test")
 public class BumperTest extends LinearOpMode {
 
     @Override
