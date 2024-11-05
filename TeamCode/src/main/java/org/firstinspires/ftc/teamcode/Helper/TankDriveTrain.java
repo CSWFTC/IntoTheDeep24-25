@@ -18,8 +18,11 @@ public class TankDriveTrain {
     private final DcMotor viperMotor;
     private volatile boolean brakingOn = false;
 
+    private long st_time = System.currentTimeMillis();
+
+
     public static class Params {
-        public double joystickYInputAdjustment  = -1;
+        public double joystickYInputAdjustment = -1;
         public double brakingStopThreshold = 0.25;
         public double brakingGain = 0.15;
         public long brakingInterval = 100;
@@ -32,13 +35,13 @@ public class TankDriveTrain {
         rightMotor = hdwMap.dcMotor.get("tankRight");
         viperMotor = hdwMap.dcMotor.get("Viper");
 
+
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         viperMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        viperMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        // leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        // rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void setDriveFromJoystick(float stickLeftY, float stickRightX) {
@@ -95,13 +98,33 @@ public class TankDriveTrain {
 
     }
 
-    //  viperMotor down
-    public void moveViperDown() {
-        viperMotor.setPower(-PARAMS.viperMotorSpeed);
+    public void moveViperDown(){
+        viperMotor.setPower(-PARAMS.viperMotorSpeed); 
     }
 
-    public void stopViperMotor() {
+    public void stopViperMotor(){
         viperMotor.setPower(0);
+    }
+    public boolean antiLockBrake( Boolean brakeOn ) {
+
+        if(brakeOn) {
+            if (st_time + 100 <= System.currentTimeMillis()) {
+                if (leftMotor.getZeroPowerBehavior() == DcMotor.ZeroPowerBehavior.BRAKE) {
+                    leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+                    rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+                } else {
+                    leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                    rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                }
+                st_time = System.currentTimeMillis();
+            }
+        } else {
+            leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        }
+
+
+        return false;
     }
 }
 

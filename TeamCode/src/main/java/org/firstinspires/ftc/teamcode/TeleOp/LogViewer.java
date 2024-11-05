@@ -34,7 +34,7 @@ public class LogViewer extends LinearOpMode{
 
     public static String type = "customFile";
 
-    private final GamePad gpInput = new GamePad(gamepad1, false);
+    private GamePad gpInput;
 
     public void runOpMode () {
         waitForStart();
@@ -44,6 +44,8 @@ public class LogViewer extends LinearOpMode{
 
         telemetry.addLine("A - many files, B - custom file, X - Browse Files");
         telemetry.update();
+
+        gpInput = new GamePad(gamepad1, false);
 
         while (opModeIsActive()) {
             GamePad.GameplayInputType inputType = gpInput.WaitForGamepadInput(30);

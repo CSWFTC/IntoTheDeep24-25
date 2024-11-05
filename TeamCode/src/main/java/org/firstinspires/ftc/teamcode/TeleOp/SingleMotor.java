@@ -14,7 +14,7 @@ public class SingleMotor extends LinearOpMode {
 
     public static final String version = "1.0";
     public static class Params {
-        public String frontLeftMotor = "frontLeft";
+        public String motorName = "testViper";
         public Boolean Forward = true;
 
     }
@@ -31,8 +31,7 @@ public class SingleMotor extends LinearOpMode {
         telemetry.update();
 
 
-        DcMotor motor = hardwareMap.dcMotor.get(PARAMS.frontLeftMotor);
-
+        DcMotor motor = hardwareMap.dcMotor.get(PARAMS.motorName);
 
 
         motor.setDirection(DcMotorSimple.Direction.FORWARD);
