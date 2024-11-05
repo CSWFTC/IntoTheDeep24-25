@@ -24,9 +24,11 @@ public class SpeedTestV1 extends LinearOpMode {
         while(opModeIsActive()) {
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
-                case  BUTTON_A:
+                case BUTTON_A:
+                    telemetry.addLine("Applied Smoothening");
                     driveTrain.applySmoothen();
                 case BUTTON_B:
+                    telemetry.addLine("Reset Smoothening");
                     driveTrain.resetSmoothen();
                 case JOYSTICK:
                     driveTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
@@ -35,5 +37,9 @@ public class SpeedTestV1 extends LinearOpMode {
                     break;
             }
         }
+        telemetry.addLine("Current MAX POWER: "+driveTrain.getMaxPower());
+        telemetry.addLine("Current ACCELERATION RATE: "+driveTrain.getAccelerationRate());
+
+        telemetry.update();
     }
 }

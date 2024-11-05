@@ -13,6 +13,14 @@ public class NewDriveTrain extends DrivetrainV2 {
     private double maxPower = 1.0;
     private double accelerationRate = 0.001;
 
+    public double getMaxPower() {
+        return this.maxPower;
+    }
+
+    public double getAccelerationRate() {
+        return this.accelerationRate;
+    }
+
     public NewDriveTrain(@NonNull HardwareMap hdwMap) {
         super(hdwMap);
 
@@ -29,8 +37,8 @@ public class NewDriveTrain extends DrivetrainV2 {
     }
 
     public void applySmoothen() {
-        this.maxPower = 0.5;
-        this.accelerationRate = 0.0005;
+        this.maxPower = 0.1;
+        this.accelerationRate = 0.00000005;
     }
 
     public void resetSmoothen() {
