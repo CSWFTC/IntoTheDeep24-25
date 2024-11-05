@@ -40,7 +40,7 @@ public class SpeedTestV1 extends LinearOpMode {
                             gamepad1.left_stick_y * (float) speedMultiplier, false);
                     break;
             }
-            telemetry.addLine(isSmoothening ? "Applied Smoothing" : "No Smoothening");
+            telemetry.addData("Applied Smoothing", (isSmoothening ? "Smooth" : "Raw"));
             telemetry.addLine("Current MAX POWER: "+driveTrain.getMaxPower());
             telemetry.addLine("Current ACCELERATION RATE: "+driveTrain.getAccelerationRate());
 
