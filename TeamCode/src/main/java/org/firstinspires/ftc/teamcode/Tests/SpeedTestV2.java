@@ -27,8 +27,10 @@ public class SpeedTestV2 extends LinearOpMode {
             switch (inpType1) {
                 case  BUTTON_A:
                     EventBus.getInstance().emit("apply_smoothen");
+                    break;
                 case BUTTON_B:
                     EventBus.getInstance().emit("reset_smoothen");
+                    break;
                 case JOYSTICK:
                     driveTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
                             gamepad1.right_stick_x * (float) speedMultiplier,
