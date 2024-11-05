@@ -25,7 +25,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Config
-@TeleOp(name = "LogViewer", group = "TeleOp")
+@TeleOp(name = "LogViewer", group = "Test")
 public class LogViewer extends LinearOpMode{
 
     public static String url = "";

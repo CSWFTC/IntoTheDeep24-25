@@ -14,12 +14,34 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
+import org.jetbrains.annotations.NotNull;
 
 @Config
 @Autonomous
+
 public class TestRoadRunner extends LinearOpMode {
 //    private MecanumDrive mecanumDrive = new MecanumDrive();
-    private Pose2d beginPose = new Pose2d(0, 0, 0);
+    private Pose2d beginPose = new Pose2d(-70, 0, 0);
+
+    private static Vector2d vec(double x, double y) {
+        return new Vector2d(x, y);
+    }
+
+    private static double rad(double r) {
+        return Math.toRadians(r);
+    }
+
+
+    private static VelConstraint constr( double c ) {
+        VelConstraint vel = new VelConstraint() {
+            @Override
+            public double maxRobotVel(@NotNull Pose2dDual<Arclength> pose2dDual, @NotNull PosePath posePath, double v) {
+                return c;
+            }
+        };
+
+        return vel;
+    }
 
 
     @Override
@@ -35,73 +57,40 @@ public class TestRoadRunner extends LinearOpMode {
         telemetry.addLine(mecanumDrive.pose.heading.toString());
         telemetry.update();
 
-        Action moveRb3 = mecanumDrive.actionBuilder(mecanumDrive.pose)
-                .splineTo(new Vector2d(33, 40.0), Math.toRadians(-89), new VelConstraint() {
-                    @Override
-                    public double maxRobotVel(@NonNull Pose2dDual<Arclength> pose2dDual, @NonNull PosePath posePath, double v) {
-                        return 1;
-                    }
-                })
-                .build();
-        Actions.runBlocking(moveRb3);
-
-
-        telemetry.addLine(mecanumDrive.pose.heading.toString());
-        telemetry.update();
-
-        /*
         Actions.runBlocking(
-                mecanumDrive.actionBuilder(
-                        beginPose
-                )
-                        .turnTo(90d)
+                mecanumDrive.actionBuilder(this.beginPose)
+                        .lineToY(-30)
+                        .lineToY(-40)
+                        .strafeTo(vec(40, -30))
+                        .turnTo(rad(0))
+                        .strafeTo(vec(40,-63))
+                        .strafeTo(vec(63,-63))
+                        .strafeTo(vec(40,-63))
+                        .strafeTo(vec(40, -30))
+                        .turnTo(rad(270))
+                        .strafeTo(vec(0, -40))
+//                        .strafeTo(vec(0, -30), constr(40))
+//                        .strafeTo(vec(0, -35))
+//                        .splineTo(vec(38, -34), rad(0))
+//                        .strafeTo(vec(40, -63), constr(100))
+//                        .strafeTo(vec(60, -63))
+//                        .strafeTo(vec(40, -63))
+//                        .strafeTo(vec(40, -25))
+//                        .strafeTo(vec(0, -50))
+//                        .splineTo(vec(0, -40), rad(90))
+//                        .turnTo(rad(270))
+//                        .strafeTo(vec(0, -30), constr(40))
+//                        .strafeTo(vec(0, -35))
+//                        .splineTo(vec(54, -34), rad(0))
+//                        .strafeTo(vec(54, -63), constr(100))
+//                        .strafeTo(vec(60, -63))
+//                        .strafeTo(vec(40, -63))
+//                        .strafeTo(vec(40, -25))
+//                        .strafeTo(vec(0, -50))
+//                        .splineTo(vec(0, -40), rad(90))
+//                        .turnTo(rad(270))
+//                        .strafeTo(vec(0, -30), constr(40))
                         .build()
         );
-        */
-
-        try {
-            wait(1000);
-        } catch(Exception e) {
-        //
-        }
-
-        /*
-        Actions.runBlocking(
-                mecanumDrive.actionBuilder(
-                                beginPose
-                        )
-                        .turnTo(360d)
-                        .build()
-        );
-        */
-
-//        Actions.runBlocking(
-//                mecanumDrive.actionBuilder(
-//                        beginPose
-//                )
-//                        .strafeTo(
-//                                new Vector2d(0, 100)
-//                        )
-//                        .build()
-//        );
-//
-//        Actions.runBlocking(
-//                mecanumDrive.actionBuilder(
-//                                beginPose
-//                        )
-//                        .strafeTo(
-//                                new Vector2d(10, 100)
-//                        )
-//                        .build()
-//        );
-//        Actions.runBlocking(
-//                mecanumDrive.actionBuilder(
-//                                beginPose
-//                        )
-//                        .lineToY(
-//                                200
-//                        )
-//                        .build()
-//        );
     }
 }

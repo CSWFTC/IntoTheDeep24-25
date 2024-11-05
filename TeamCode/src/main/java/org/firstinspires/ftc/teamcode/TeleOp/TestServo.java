@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Helper.GamePad;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @Config
-@TeleOp(name = "Position Servo Test", group = "Test")
+@TeleOp(name = "Position Servo Test", group = "Hardware")
 public class TestServo extends  LinearOpMode {
     public static class Params {
         public String servoName = "posi";

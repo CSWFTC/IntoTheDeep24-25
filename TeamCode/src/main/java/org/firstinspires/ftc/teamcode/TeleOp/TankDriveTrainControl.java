@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Locale;
 
     @Config
-    @TeleOp(name = "Tank Drive Control", group = "Competition")
+    @TeleOp(name = "Tank Drive Control", group = "Test")
     public class TankDriveTrainControl extends LinearOpMode {
 
         private static final String version = "1.0";

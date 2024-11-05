@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.Helper.Telemetry.TelemetryEvent;
 import java.util.HashSet;
 import java.util.Set;
 
-@TeleOp(name = "DI LED Test", group = "Concept")
+@TeleOp(name = "DI LED Test", group = "Test")
 
 public class LEDTestDI extends LinearOpMode {
     LED frontLED_red;

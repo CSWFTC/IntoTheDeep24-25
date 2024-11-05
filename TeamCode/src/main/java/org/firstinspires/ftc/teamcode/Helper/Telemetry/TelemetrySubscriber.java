@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Helper.Telemetry;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
+import org.firstinspires.ftc.teamcode.Helper.EventBus.Parser.ParamsParser;
 import org.firstinspires.ftc.teamcode.Helper.EventBus.Subscriber;
 
 public class TelemetrySubscriber implements Subscriber<TelemetrySubscriberResult, Void> {
@@ -8,24 +10,28 @@ public class TelemetrySubscriber implements Subscriber<TelemetrySubscriberResult
 
     @Override
     public TelemetrySubscriberResult onMessage(Object ... params) {
-        if (params.length > 0 && params[0] instanceof Telemetry)  {
-            Telemetry telemetry = (Telemetry) params[0];
-            if (params.length > 1 && params[1] instanceof String) {
-                String[] logs = ((String) params[1]).split("\n");
-                try {
-                    for (String log : logs) {
-                        telemetry.addLine(log);
-                    }
-                    telemetry.update();
-                } catch(Exception e) {
-                    return TelemetrySubscriberResult.ITERATION_ERROR;
-                }
-            } else {
-                return TelemetrySubscriberResult.NO_STRING_PROVIDED;
-            }
-        } else {
+        DependencyInjector.register("parser_params", params);
+        ParamsParser parser = new ParamsParser();
+        DependencyInjector.unregister("parser_params");
+
+        Telemetry telemetry = parser.getParam(0, Telemetry.class);
+        String logString = parser.getParam(1, String.class);
+
+        if (telemetry == null || logString == null) {
+            System.out.println("Error: Missing required parameters.");
             return TelemetrySubscriberResult.NO_TELEMETRY_OBJECT_PROVIDED;
         }
+
+        String[] logs = (logString).split("\n");
+        try {
+            for (String log : logs) {
+                telemetry.addLine(log);
+            }
+            telemetry.update();
+        } catch(Exception e) {
+            return TelemetrySubscriberResult.ITERATION_ERROR;
+        }
+
         return TelemetrySubscriberResult.SUCCESS;
     }
 

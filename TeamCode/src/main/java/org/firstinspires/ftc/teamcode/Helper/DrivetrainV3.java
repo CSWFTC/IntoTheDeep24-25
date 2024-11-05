@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Helper;
 
 import androidx.annotation.NonNull;
-
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class DrivetrainV3 extends DrivetrainV2 {
@@ -11,7 +10,7 @@ public class DrivetrainV3 extends DrivetrainV2 {
         private double maxPower = 1.0;
         private double accelerationRate = 0.001;
 
-        public DrivetrainV3(@NonNull com.qualcomm.robotcore.hardware.HardwareMap hdwMap) {
+        public DrivetrainV3(@NonNull HardwareMap hdwMap) {
             super(hdwMap);
         }
 

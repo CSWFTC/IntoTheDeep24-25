@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.Helper.DrivetrainV2;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-@TeleOp(name="Omni Drive To AprilTag") //this is the file name in hub
+@TeleOp(name="Omni Drive To AprilTag", group="Test") //this is the file name in hub
 public class DriveAprilTag extends LinearOpMode
 {
     // Adjust these numbers to suit your robot.
