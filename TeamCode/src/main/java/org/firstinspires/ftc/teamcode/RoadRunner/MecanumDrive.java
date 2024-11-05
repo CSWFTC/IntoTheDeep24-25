@@ -204,7 +204,7 @@ public final class MecanumDrive {
          *  https://rr.brott.dev/docs/v1-0/tuning/
          */
         public double inPerTick = 0.00197898324395183887931446923919;
-        public double lateralInPerTick = 0.002097982788242009;
+        public double lateralInPerTick = 0.001594705938883742;
 
         // EXPERIMENT: CHANGED FROM 255 TO 4255
         public double trackWidthTicks = 6725.100895929413;
@@ -214,7 +214,7 @@ public final class MecanumDrive {
         public double kV = 0.0003826028152255662;
 
         // EXPERIMENT : CHANGED kA from 0.000001 to current value
-        public double kA = 0.000085;
+        public double kA = 0.000075;
 
         // path profile parameters (in inches)
         public double maxWheelVel = 50;

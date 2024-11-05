@@ -36,7 +36,7 @@ public final class ThreeDeadWheelLocalizer implements Localizer {
 
         // TODO: reverse encoder directions if needed
 //        par1.setDirection(DcMotorSimple.Direction.REVERSE);
-        perp.setDirection(DcMotorSimple.Direction.REVERSE);
+        //perp.setDirection(DcMotorSimple.Direction.REVERSE);
 
         lastPar0Pos = par0.getPositionAndVelocity().position;
         lastPar1Pos = par1.getPositionAndVelocity().position;
@@ -96,8 +96,8 @@ public final class ThreeDeadWheelLocalizer implements Localizer {
     }
 
     public static class Params {
-        public double par0YTicks = -2266.291233927909; // y position of the first parallel encoder (in tick units)
-        public double par1YTicks = 2396.656669607493; // y position of the second parallel encoder (in tick units)
-        public double perpXTicks = -2196.67072288828; // x position of the perpendicular encoder (in tick units)
+        public double par0YTicks = -2298.3844819521005; // y position of the first parallel encoder (in tick units)
+        public double par1YTicks = 2380.3606868591387; // y position of the second parallel encoder (in tick units)
+        public double perpXTicks = -2226.2619547946038; // x position of the perpendicular encoder (in tick units)
     }
 }
