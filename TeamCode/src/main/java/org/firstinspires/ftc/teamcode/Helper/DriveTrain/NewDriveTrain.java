@@ -37,8 +37,8 @@ public class NewDriveTrain extends DrivetrainV2 {
     }
 
     public void applySmoothen() {
-        this.maxPower = 0.1;
-        this.accelerationRate = 0.00005;
+        this.maxPower = 0.6;
+        this.accelerationRate = 0.0005;
     }
 
     public void resetSmoothen() {
