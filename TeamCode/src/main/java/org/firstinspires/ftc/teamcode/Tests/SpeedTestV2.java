@@ -19,6 +19,8 @@ public class SpeedTestV2 extends LinearOpMode {
 
         double speedMultiplier = 1;
 
+        boolean isSmoothening  = false;
+
         waitForStart();
         if (isStopRequested()) return;
 
@@ -26,9 +28,11 @@ public class SpeedTestV2 extends LinearOpMode {
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
                 case  BUTTON_A:
+                    isSmoothening = true;
                     EventBus.getInstance().emit("apply_smoothen");
                     break;
                 case BUTTON_B:
+                    isSmoothening = true;
                     EventBus.getInstance().emit("reset_smoothen");
                     break;
                 case JOYSTICK:
@@ -37,6 +41,12 @@ public class SpeedTestV2 extends LinearOpMode {
                             gamepad1.left_stick_y * (float) speedMultiplier, false);
                     break;
             }
+
+            telemetry.addLine(isSmoothening ? "Applied Smoothing" : "No Smoothening");
+            telemetry.addLine("Current MAX POWER: "+driveTrain.getMaxPower());
+            telemetry.addLine("Current ACCELERATION RATE: "+driveTrain.getAccelerationRate());
+
+            telemetry.update();
         }
     }
 }
