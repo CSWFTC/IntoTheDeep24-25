@@ -35,14 +35,20 @@ public class SpeedTestV2 extends LinearOpMode {
                     isSmoothening = true;
                     EventBus.getInstance().emit("reset_smoothen");
                     break;
+            }
+
+            switch (inpType1) {
                 case JOYSTICK:
                     driveTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
                             gamepad1.right_stick_x * (float) speedMultiplier,
                             gamepad1.left_stick_y * (float) speedMultiplier, false);
                     break;
+                case NONE:
+                    driveTrain.handlePowerCut();
+                    break;
             }
 
-            telemetry.addLine(isSmoothening ? "Applied Smoothing" : "No Smoothening");
+            telemetry.addData("Applied Smoothing", (isSmoothening ? "Smooth" : "Raw"));
             telemetry.addLine("Current MAX POWER: "+driveTrain.getMaxPower());
             telemetry.addLine("Current ACCELERATION RATE: "+driveTrain.getAccelerationRate());
 
