@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 public class AutoBlueBasket extends LinearOpMode {
 
     public static class Params {
-        public int versionNumber = 8;
+        public double versionNumber = 8.1;
 
     }
 
@@ -47,8 +47,8 @@ public class AutoBlueBasket extends LinearOpMode {
         toBasket();
         toPosTwo();
         toBasket();
-        // toPosThree();
-        // toBasket();
+        toPosThree();
+        toBasket();
 
         //updateTelemetry(drive.pose.position);
 

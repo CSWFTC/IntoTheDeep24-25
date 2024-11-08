@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 public class AutoRedBasket extends LinearOpMode {
 
     public static class Params {
-        public int versionNumber = 0;
+        public double versionNumber = 8.1;
 
     }
 
