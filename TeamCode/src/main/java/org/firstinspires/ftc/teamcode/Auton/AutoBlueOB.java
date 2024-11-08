@@ -30,7 +30,7 @@ public class AutoBlueOB extends LinearOpMode {
         Actions.runBlocking(
                 drive.actionBuilder(drive.pose)
                         .setReversed(true)
-                        .lineToX(-44.5)
+                        .lineToX(-36)
                         //hang a specimen
                         .setReversed(false)
                         .lineToX(-20)
