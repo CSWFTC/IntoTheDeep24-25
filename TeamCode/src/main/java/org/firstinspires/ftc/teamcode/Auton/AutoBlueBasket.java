@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 public class AutoBlueBasket extends LinearOpMode {
 
     public static class Params {
-        public int versionNumber = 0;
+        public int versionNumber = 8;
 
     }
 
@@ -44,10 +44,10 @@ public class AutoBlueBasket extends LinearOpMode {
         updateTelemetry(drive.pose.position);
         toPosOne();
         updateTelemetry(drive.pose.position);
-        // toBasket();
-        // toPosTwo();
-        // toBasket();
-        // toPosTwo();
+        toBasket();
+        toPosTwo();
+        toBasket();
+        // toPosThree();
         // toBasket();
 
 
@@ -58,7 +58,7 @@ public class AutoBlueBasket extends LinearOpMode {
         //beginning position: ends at the sub
         Action movePos = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-44.5)
+                .lineToX(-26)
                 .build();
         Actions.runBlocking(movePos);
 
@@ -67,7 +67,7 @@ public class AutoBlueBasket extends LinearOpMode {
         //positioned back
         Action moveBack = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-24.5)
+                .lineToX(-20)
                 .build();
         Actions.runBlocking(moveBack);
     }
@@ -76,7 +76,7 @@ public class AutoBlueBasket extends LinearOpMode {
         //pos one
         Action moveOne = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-42, -40), Math.toRadians(180))
+                .splineTo(new Vector2d(-25, -38), Math.toRadians(180))
                 .build();
         Actions.runBlocking(moveOne);
 
@@ -86,8 +86,8 @@ public class AutoBlueBasket extends LinearOpMode {
     private void toPosTwo(){
         //pos two
         Action moveTwo = drive.actionBuilder(drive.pose)
-                .setReversed(true)
-                .splineTo(new Vector2d(-45, -48), Math.toRadians(0))
+                .setReversed(false)
+                .splineTo(new Vector2d(-25, -43), Math.toRadians(180))
                 .build();
         Actions.runBlocking(moveTwo);
         //basket
@@ -96,8 +96,8 @@ public class AutoBlueBasket extends LinearOpMode {
     private void toPosThree(){
         //pos three
         Action moveThree = drive.actionBuilder(drive.pose)
-                .setReversed(true)
-                .splineTo(new Vector2d(-38, -50), Math.toRadians(320))
+                .setReversed(false)
+                .splineTo(new Vector2d(-25, -43), Math.toRadians(320))
                 .build();
         Actions.runBlocking(moveThree);
         //basket
