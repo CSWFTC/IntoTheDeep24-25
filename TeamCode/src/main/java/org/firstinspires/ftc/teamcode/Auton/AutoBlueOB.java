@@ -9,8 +9,8 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 
-@Autonomous(name = "Auto Red", group = "RoadRunner")
-public class AutoRedDrive extends LinearOpMode {
+@Autonomous(name = "AutoBlueOB", group = "RoadRunner")
+public class AutoBlueOB extends LinearOpMode {
 
     public static class Params {
 
@@ -24,7 +24,7 @@ public class AutoRedDrive extends LinearOpMode {
 
         waitForStart();
 
-        telemetry.addData("okay", "so code needs to push5");
+        telemetry.addData("okay", "so code needs to push6");
         telemetry.update();
 
         Actions.runBlocking(
@@ -34,13 +34,13 @@ public class AutoRedDrive extends LinearOpMode {
                         //hang a specimen
                         .setReversed(false)
                         .lineToX(-20)
-                        .turnTo(Math.toRadians(-140))
+                        .turnTo(Math.toRadians(140))
                         .setReversed(true)
-                        .lineToY(15)
-                        .splineTo(new Vector2d(-45, 40), Math.toRadians(0))
+                        .lineToY(16)
+                        .splineTo(new Vector2d(-45, 41), Math.toRadians(0))
                         //grab a sample
-                        //.turnTo(90)
-                        //.lineToX(28)
+                        .turnTo(140)
+                        //.lineToX()
                         //.strafeTo(new Vector2d(51, 15))
                         .build()
         );
