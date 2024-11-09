@@ -26,12 +26,9 @@ public class AutoBlueOB extends LinearOpMode {
 
         telemetry.addData("okay", "so code needs to push6");
         telemetry.update();
-
-        Actions.runBlocking(
-                drive.actionBuilder(drive.pose)
-
-                        .build()
-        );
+        toLine();
+        markOne();
+        humanPlayer();
     }
 
     public void toLine(){
@@ -66,8 +63,9 @@ public class AutoBlueOB extends LinearOpMode {
                 .lineToX(-10)
                 .build();
         Actions.runBlocking(Player);
-
     }
+
+    public void
 
 
 }
