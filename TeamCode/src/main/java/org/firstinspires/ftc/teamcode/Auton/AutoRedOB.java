@@ -38,18 +38,18 @@ public class AutoRedOB extends LinearOpMode {
         //beginning position: ends at the sub
         Action movePos = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-44.5)
+                .lineToX(-26)
                 .build();
         Actions.runBlocking(movePos);
 
 
         Action moveBack = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-20 )
+                .lineToX(-10 )
                 .build();
         Actions.runBlocking(moveBack);
 
-        Action m
+        
 
 
 
