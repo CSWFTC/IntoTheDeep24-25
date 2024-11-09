@@ -29,21 +29,44 @@ public class AutoBlueOB extends LinearOpMode {
 
         Actions.runBlocking(
                 drive.actionBuilder(drive.pose)
-                        .setReversed(true)
-                        .lineToX(-36)
-                        //hang a specimen
-                        .setReversed(false)
-                        .lineToX(-20)
-                        .turnTo(Math.toRadians(140))
-                        .setReversed(true)
-                        .lineToY(16)
-                        .splineTo(new Vector2d(-45, 41), Math.toRadians(0))
-                        //grab a sample
-                        .turnTo(140)
-                        //.lineToX()
-                        //.strafeTo(new Vector2d(51, 15))
+
                         .build()
         );
+    }
+
+    public void toLine(){
+        //beginning position: ends at the sub
+        Action movePos = drive.actionBuilder(drive.pose)
+                .setReversed(true)
+                .lineToX(-26)
+                .build();
+        Actions.runBlocking(movePos);
+
+        //positioned back
+        Action moveBack = drive.actionBuilder(drive.pose)
+                .setReversed(true)
+                .lineToX(-20)
+                .build();
+        Actions.runBlocking(moveBack);
+    }
+
+    public void markOne(){
+        Action lineM1 = drive.actionBuilder(drive.pose)
+                .setReversed(false)
+                .splineTo(new Vector2d(-25, 38), Math.toRadians(180))
+                .build();
+        Actions.runBlocking(lineM1);
+    }
+
+    public void humanPlayer(){
+        Action Player = drive.actionBuilder(drive.pose)
+                .setReversed(true)
+                .lineToX(-12)
+                .lineToY(48)
+                .lineToX(-10)
+                .build();
+        Actions.runBlocking(Player);
+
     }
 
 
