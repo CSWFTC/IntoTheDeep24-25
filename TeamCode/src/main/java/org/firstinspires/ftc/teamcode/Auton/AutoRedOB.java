@@ -45,14 +45,23 @@ public class AutoRedOB extends LinearOpMode {
 
         Action moveBack = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-10 )
+                .lineToX(-20)
                 .build();
         Actions.runBlocking(moveBack);
+    }
 
-        
+
+        public void markOne(){
+            Action lineM1 = drive.actionBuilder(drive.pose)
+                    .setReversed(false)
+                    .splineTo(new Vector2d(-25, 38), Math.toRadians(180))
+                    .build();
+            Actions.runBlocking(lineM1);
+        }
 
 
 
     }
-}
+
+
 
