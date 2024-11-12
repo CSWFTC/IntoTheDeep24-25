@@ -62,9 +62,9 @@ public class AutoRedOB extends LinearOpMode {
     public void humanPlayer() {
         Action Player = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-8)
-                .lineToY(38)
-                .lineToX(-5)
+                .lineToX(-10)
+                .lineToY(10)
+                .lineToX(-10)
                 .build();
         Actions.runBlocking(Player);
 
