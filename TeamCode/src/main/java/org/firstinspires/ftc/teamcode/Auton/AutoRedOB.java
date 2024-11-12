@@ -28,7 +28,7 @@ public class AutoRedOB extends LinearOpMode {
         telemetry.update();
         toLine();
         markOne();
-        humanPlayer();
+
 
     }
 
@@ -59,17 +59,9 @@ public class AutoRedOB extends LinearOpMode {
 
     }
 
-    public void humanPlayer() {
-        Action Player = drive.actionBuilder(drive.pose)
-                .setReversed(true)
-                .lineToX(-10)
-                .lineToY(10)
-                .lineToX(-10)
-                .build();
-        Actions.runBlocking(Player);
 
 
     }
 
-}
+
 
