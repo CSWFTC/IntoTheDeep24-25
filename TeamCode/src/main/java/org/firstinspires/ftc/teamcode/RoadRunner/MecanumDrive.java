@@ -204,17 +204,16 @@ public final class MecanumDrive {
          *  https://rr.brott.dev/docs/v1-0/tuning/
          */
         public double inPerTick = 0.00197898324395183887931446923919;
-        public double lateralInPerTick = 0.0016546343590627057;
+        public double lateralInPerTick = 0.001506650571368013;
 
-        // EXPERIMENT: CHANGED FROM 255 TO 4255
-        public double trackWidthTicks = 6657.607308597517;
+        public double trackWidthTicks = 6862.697662453851;
 
         // feedforward parameters (in tick units)
-        public double kS = 0.8596057353751845;
-        public double kV = 0.0003826028152255662;
+        public double kS = 0.6527753226744335;
+        public double kV = 0.00038762301766220517;
 
         // EXPERIMENT : CHANGED kA from 0.000001 to current value
-        public double kA = 0.000025;
+        public double kA = 0.000042;
 
         // path profile parameters (in inches)
         public double maxWheelVel = 50;
@@ -227,8 +226,8 @@ public final class MecanumDrive {
 
         // path controller gains
         public double axialGain = 3.0;
-        public double lateralGain = 6.0;
-        public double headingGain = 9.0; // shared with turn
+        public double lateralGain = 5.0;
+        public double headingGain = 7.0; // shared with turn
 
         public double axialVelGain = 0.0;
         public double lateralVelGain = 0.0;
