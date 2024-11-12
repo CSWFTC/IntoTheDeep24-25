@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions.DeferredActionType;
 import org.firstinspires.ftc.teamcode.Helper.DrivetrainV2;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlide;
 
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class DriveControl extends LinearOpMode {
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
         BumperTest bumpOne = new BumperTest();
        // TestServo serv1 = hardwareMap.servo.get(PARAMS.);
+        ViperSlide vip = new ViperSlide(hardwareMap);
 
 //        new HapticEventBusTester();
 //        HapticEventBusTester hapticEvent = HapticEventBusTester.getInstance();
@@ -52,6 +54,8 @@ public class DriveControl extends LinearOpMode {
 
         double speedMultiplier = 1;
         double lastSpeed = 1;
+
+        boolean viperOverride = false;
 
         while (opModeIsActive()) {
             update_telemetry(gpIn1, gpIn2);
@@ -122,15 +126,16 @@ public class DriveControl extends LinearOpMode {
                     }
                     break;
 
-                case JOYSTICK:
-                    drvTrain.setDriveVectorFromJoystick(gamepad2.left_stick_x * (float) speedMultiplier,
-                            gamepad2.right_stick_x * (float) speedMultiplier,
-                            gamepad2.left_stick_y * (float) speedMultiplier, setReversed);
-                    break;
+                case BUTTON_BACK:
+                    viperOverride = true;
+
 
                 case BUTTON_Y:
                     //DeferredActions.CreateDeferredAction(150, DeferredActions.DeferredActionType.MOVEMENT);
 
+                case JOYSTICK:
+                    vip.moveViperWithPower(gamepad2.right_stick_y * -0.5, viperOverride);
+                    break;
 
             }
 
