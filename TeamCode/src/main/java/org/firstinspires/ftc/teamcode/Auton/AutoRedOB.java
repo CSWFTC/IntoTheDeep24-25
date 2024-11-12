@@ -26,12 +26,10 @@ public class AutoRedOB extends LinearOpMode {
 
         telemetry.addData("okay", "so code needs to push6");
         telemetry.update();
+        toLine();
+        markOne();
+        humanPlayer();
 
-        Actions.runBlocking(
-                drive.actionBuilder(drive.pose)
-
-                        .build()
-        );
     }
 
     public void toLine() {
@@ -51,17 +49,27 @@ public class AutoRedOB extends LinearOpMode {
     }
 
 
-        public void markOne(){
-            Action lineM1 = drive.actionBuilder(drive.pose)
-                    .setReversed(false)
-                    .splineTo(new Vector2d(-25, 38), Math.toRadians(180))
-                    .build();
-            Actions.runBlocking(lineM1);
-        }
-
+    public void markOne() {
+        Action lineM1 = drive.actionBuilder(drive.pose)
+                .setReversed(false)
+                .splineTo(new Vector2d(-25, 38), Math.toRadians(180))
+                .build();
+        Actions.runBlocking(lineM1);
 
 
     }
 
+    public void humanPlayer() {
+        Action Player = drive.actionBuilder(drive.pose)
+                .setReversed(true)
+                .lineToX(-8)
+                .lineToY(38)
+                .lineToX(-5)
+                .build();
+        Actions.runBlocking(Player);
 
+
+    }
+
+}
 
