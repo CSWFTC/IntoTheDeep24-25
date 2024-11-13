@@ -41,7 +41,7 @@ public class DriveControl extends LinearOpMode {
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
         BumperTest bumpOne = new BumperTest();
        // TestServo serv1 = hardwareMap.servo.get(PARAMS.);
-        ViperSlide vip = new ViperSlide(hardwareMap);
+        ViperSlide vip = new ViperSlide();
 
 //        new HapticEventBusTester();
 //        HapticEventBusTester hapticEvent = HapticEventBusTester.getInstance();
