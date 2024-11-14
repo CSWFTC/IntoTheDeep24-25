@@ -24,6 +24,8 @@ public class IntakeActionTest extends LinearOpMode {
             return;
         }
 
+        gpInput = new GamePad(gamepad1, false);
+
         while (opModeIsActive()) {
             GamePad.GameplayInputType inputType = gpInput.WaitForGamepadInput(100);
             switch (inputType) {
