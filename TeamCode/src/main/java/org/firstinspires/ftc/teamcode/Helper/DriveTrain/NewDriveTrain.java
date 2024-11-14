@@ -56,6 +56,10 @@ public class NewDriveTrain extends DrivetrainV2 {
         this.accelerationRate = 0.001;
     }
 
+    public float getCurrentPower() {
+        return (float)this.currentPower;
+    }
+
     public void handlePowerCut() {
         if (!(this.isSmoothened)) {
             this.decelVelocityVector = 0;
@@ -63,7 +67,8 @@ public class NewDriveTrain extends DrivetrainV2 {
         }
         if (this.currentPower > 0.1) {
             this.decelVelocityVector = Math.abs(this.decelVelocityVector) + (float)Math.abs(this.accelerationRate);
-            this.currentPower = Math.abs(this.currentPower) - Math.abs((double)this.decelVelocityVector);
+//            this.currentPower = Math.abs(this.currentPower) - Math.abs((double)this.decelVelocityVector);
+            this.currentPower = Math.abs(this.currentPower) - Math.abs(0.1);
 
             setDriveVectorFromJoystick(this.lastStickLeftX, this.lastStickRightX, this.lastStickLeftY, this.lastSetReversed);
         } else {
@@ -98,6 +103,20 @@ public class NewDriveTrain extends DrivetrainV2 {
         }
 
 
+        double rotate = stickRightX * currentPower;
+        double forward = stickLeftY * PARAMS.joystickYInputAdjustment * currentPower;
+        double strafe = stickLeftX * PARAMS.strafingAdjustment * currentPower;
+
+        if (setReversed) {
+            forward *= -1;
+            strafe *= -1;
+        }
+
+        setDriveVector(forward, strafe, rotate);
+    }
+
+    public void setDampenedDriveVector(float stickRightX, float stickLeftX, float stickLeftY, boolean setReversed) {
+        this.lastStickRightX = stickRightX;
         double rotate = stickRightX * currentPower;
         double forward = stickLeftY * PARAMS.joystickYInputAdjustment * currentPower;
         double strafe = stickLeftX * PARAMS.strafingAdjustment * currentPower;
