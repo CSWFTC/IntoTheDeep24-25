@@ -40,8 +40,9 @@ public class DriveControl extends LinearOpMode {
         GamePad gpIn2 = new GamePad(gamepad2);
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
         BumperTest bumpOne = new BumperTest();
-       // TestServo serv1 = hardwareMap.servo.get(PARAMS.);
-        ViperSlide vip = new ViperSlide();
+        ViperSlide vip = new ViperSlide(hardwareMap);
+
+        // TestServo serv1 = hardwareMap.servo.get(PARAMS.);
 
 //        new HapticEventBusTester();
 //        HapticEventBusTester hapticEvent = HapticEventBusTester.getInstance();
@@ -183,6 +184,7 @@ public class DriveControl extends LinearOpMode {
         String actTime = new java.text.SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS", Locale.US).format(DeferredActions.tlmLastActionTimestamp);
         telemetry.addLine().addData("Time", actTime);
         telemetry.addLine().addData("Action", DeferredActions.tlmLastAction.toString());
+
 
         telemetry.update();
     }

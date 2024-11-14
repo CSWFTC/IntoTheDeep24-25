@@ -17,7 +17,7 @@ public class ViperSlide {
     public static Params PARAMS = new Params();
     public DcMotorEx viperMotor;
 
-    public void viper(@NonNull HardwareMap hdwMap) {
+    public ViperSlide(@NonNull HardwareMap hdwMap) {
         viperMotor = hdwMap.get(DcMotorEx.class, "viperMotor");
         viperMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         viperMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
