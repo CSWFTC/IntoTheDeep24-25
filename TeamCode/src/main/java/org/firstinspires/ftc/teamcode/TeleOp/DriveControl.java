@@ -135,7 +135,7 @@ public class DriveControl extends LinearOpMode {
                     //DeferredActions.CreateDeferredAction(150, DeferredActions.DeferredActionType.MOVEMENT);
 
                 case JOYSTICK:
-                    vip.moveViperWithPower(gamepad2.right_stick_y * -0.5, viperOverride);
+                    vip.moveViperWithPower(gamepad2.right_stick_y * 0.7, viperOverride);
                     break;
 
             }
