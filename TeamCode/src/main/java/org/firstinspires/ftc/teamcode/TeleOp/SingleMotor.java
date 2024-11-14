@@ -14,7 +14,7 @@ public class SingleMotor extends LinearOpMode {
 
     public static final String version = "1.0";
     public static class Params {
-        public String motorName = "testViper";
+        public String motorName = "viperMotor";
         public Boolean Forward = true;
 
     }
@@ -73,6 +73,12 @@ public class SingleMotor extends LinearOpMode {
                     motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
                     break;
+
+                case BUTTON_L_BUMPER:
+                    motor.setTargetPosition(0);
+                    break;
+
+
             }
 
 
