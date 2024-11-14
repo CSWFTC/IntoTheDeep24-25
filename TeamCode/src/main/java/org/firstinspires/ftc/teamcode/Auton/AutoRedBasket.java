@@ -53,7 +53,7 @@ public class AutoRedBasket extends LinearOpMode {
         //beginning position: ends at the sub
         Action movePos = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-44.5)
+                .lineToX(-26)
                 .build();
         Actions.runBlocking(movePos);
 
@@ -62,7 +62,7 @@ public class AutoRedBasket extends LinearOpMode {
         //positioned back
         Action moveBack = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-24.5)
+                .lineToX(-20)
                 .build();
         Actions.runBlocking(moveBack);
     }
@@ -71,7 +71,7 @@ public class AutoRedBasket extends LinearOpMode {
         //pos one
         Action moveOne = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .splineTo(new Vector2d(-45, -40), Math.toRadians(0))
+                .splineTo(new Vector2d(-25, 38), Math.toRadians(180))
                 .build();
         Actions.runBlocking(moveOne);
 
@@ -82,7 +82,7 @@ public class AutoRedBasket extends LinearOpMode {
         //pos two
         Action moveTwo = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .splineTo(new Vector2d(-45, -48), Math.toRadians(0))
+                .splineTo(new Vector2d(-25, 43), Math.toRadians(180))
                 .build();
         Actions.runBlocking(moveTwo);
         //basket
@@ -92,7 +92,7 @@ public class AutoRedBasket extends LinearOpMode {
         //pos three
         Action moveThree = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .splineTo(new Vector2d(-38, -50), Math.toRadians(320))
+                .splineTo(new Vector2d(-25, 47), Math.toRadians(-20))
                 .build();
         Actions.runBlocking(moveThree);
         //basket
@@ -102,7 +102,7 @@ public class AutoRedBasket extends LinearOpMode {
         //basket
         Action moveBasket = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .splineTo(new Vector2d(-12, -48), Math.toRadians(0))
+                .splineTo(new Vector2d(-12, 48), Math.toRadians(320))
                 .build();
         Actions.runBlocking(moveBasket);
 

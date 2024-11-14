@@ -12,7 +12,6 @@ public class ViperSlide {
     public static class Params {
         public double viperSpeed = 0.5;
         public int viperMotorMaxPositionRelative = 3000;  // 30 inches - 3,000 tpi
-
     }
 
     public static Params PARAMS = new Params();
