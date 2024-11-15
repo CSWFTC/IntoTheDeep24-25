@@ -25,13 +25,13 @@ public class IntakeRotation extends Injectable {
     private IntakeAction intakeAction;
 
     public void activateRotation() {
-        this.servo.setPosition(-0.5);
+        this.servo.setPosition(0.5);
 
         this.intakeAction.isRotated.set(true);
     }
 
     public void deactivateRotation() {
-        this.servo.setPosition(0.5);
+        this.servo.setPosition(0);
 
         this.intakeAction.isRotated.set(false);
     }
@@ -43,6 +43,8 @@ public class IntakeRotation extends Injectable {
 
         try {
             this.servo = hardwareMap.servo.get(this.servoName);
+
+            this.servo.setPosition(0);
         } catch(Exception e) {
             this.initErrorStatus = true;
             this.initError = e.toString();

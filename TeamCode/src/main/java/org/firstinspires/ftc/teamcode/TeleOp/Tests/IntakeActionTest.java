@@ -4,9 +4,12 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
 import org.firstinspires.ftc.teamcode.Helper.Intake.IntakeAction;
+
+import java.util.List;
 
 @Config
 @TeleOp(name = "IntakeAction Test", group = "Tests")
@@ -39,6 +42,20 @@ public class IntakeActionTest extends LinearOpMode {
                     break;
             }
 
+
+            List<DeferredActions.DeferredActionType> action = DeferredActions.GetReadyActions();
+            for(DeferredActions.DeferredActionType actionType : action){
+                switch (actionType) {
+                    case ROTATE_INTAKE:
+                        this.intakeAction.TEST_rotation();
+                        break;
+                    case DEROTATE_INTAKE:
+                        this.intakeAction.TEST_derotate();
+                        break;
+                }
+            }
+
+
             telemetry.update();
         }
 
@@ -46,6 +63,7 @@ public class IntakeActionTest extends LinearOpMode {
 
     private int initialize() {
         try {
+            // inject the dependencies
             DependencyInjector.register("hdwMap", this.hardwareMap);
             DependencyInjector.register("intakeRotationServoName", "intakeRotationServo");
 
