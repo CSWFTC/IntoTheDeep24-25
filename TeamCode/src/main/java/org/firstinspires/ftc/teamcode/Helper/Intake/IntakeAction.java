@@ -6,6 +6,7 @@ package org.firstinspires.ftc.teamcode.Helper.Intake;
  */
 
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
+import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
 import org.firstinspires.ftc.teamcode.Helper.ReactiveState.Reactive;
 import org.firstinspires.ftc.teamcode.Helper.ReactiveState.ReactiveState;
 import org.firstinspires.ftc.teamcode.Helper.ReactiveState.StateChange;
@@ -40,10 +41,12 @@ public class IntakeAction {
     private void handlePinch() {
         if (this.isPinched.get()) {
             // emit a rotation event in 1 second
-            DeferredActions.CreateDeferredAction(1000, DeferredActions.DeferredActionType.ROTATE_INTAKE);
+//            DeferredActions.CreateDeferredAction(1000, DeferredActions.DeferredActionType.ROTATE_INTAKE);
+            this.intakeRotation.activateRotation();
         } else {
             // emit a derotation event after 1second
-            DeferredActions.CreateDeferredAction(1000, DeferredActions.DeferredActionType.DEROTATE_INTAKE);
+//            DeferredActions.CreateDeferredAction(1000, DeferredActions.DeferredActionType.DEROTATE_INTAKE);
+            this.intakeRotation.deactivateRotation();
         }
     }
 
@@ -79,6 +82,7 @@ public class IntakeAction {
         Reactive.init(this);
 
         this.intakeRotation = new IntakeRotation(this);
+
         this.pinch = new Pinch(this);
 
         if (this.intakeRotation.initErrorStatus) {
