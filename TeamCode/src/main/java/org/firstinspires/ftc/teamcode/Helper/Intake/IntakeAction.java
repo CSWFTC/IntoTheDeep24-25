@@ -17,6 +17,8 @@ public class IntakeAction {
 
     private IntakeRotation intakeRotation;
 
+    private Pinch pinch;
+
     @StateChange("handleRotate")
     public ReactiveState<Boolean> isRotated = new ReactiveState<>(false);
 
@@ -33,6 +35,8 @@ public class IntakeAction {
     }
 
 
+
+
     private void handlePinch() {
         if (this.isPinched.get()) {
             // emit a rotation event in 1 second
@@ -41,6 +45,14 @@ public class IntakeAction {
             // emit a derotation event after 1second
             DeferredActions.CreateDeferredAction(1000, DeferredActions.DeferredActionType.DEROTATE_INTAKE);
         }
+    }
+
+    public void TEST_activate_pinch() {
+        this.pinch.closeGrip();
+    }
+
+    public void TEST_deactivate_pinch() {
+        this.pinch.openGrip();
     }
 
     public void TEST_rsbp() {
@@ -67,9 +79,14 @@ public class IntakeAction {
         Reactive.init(this);
 
         this.intakeRotation = new IntakeRotation(this);
+        this.pinch = new Pinch(this);
 
         if (this.intakeRotation.initErrorStatus) {
             // ERR
+        }
+
+        if (this.pinch.initErrorStatus) {
+            //ERR
         }
     }
 }
