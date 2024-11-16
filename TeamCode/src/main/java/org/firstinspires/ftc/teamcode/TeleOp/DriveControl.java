@@ -23,7 +23,7 @@ import java.util.Locale;
 public class DriveControl extends LinearOpMode {
 
 
-    private static final String version = "1.0";
+    private static final String version = "1.1";
     private boolean setReversed = false;
    // private ClawMoves yclaw;
 
@@ -145,6 +145,9 @@ public class DriveControl extends LinearOpMode {
 
                 case BUTTON_B:
                     grab.closeGrip();
+
+                case BUTTON_L_BUMPER:
+                    vip.moveViperToZero();
 
             }
 

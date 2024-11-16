@@ -32,7 +32,7 @@ public class IntakeAction extends Injectable {
     @StateChange("handlePinch")
     public ReactiveState<Boolean> isPinched = new ReactiveState<>(false);
 
-    private void handleRotate() {
+    public void handleRotate() {
         if (this.isRotated.get()) {
             // emit
 
@@ -41,20 +41,20 @@ public class IntakeAction extends Injectable {
         }
     }
 
-
-
-
-    private void handlePinch() {
+    public void handlePinch() {
         if (this.isPinched.get()) {
             telemetry.addLine("Pinched");
             // emit a rotation event in 1 second
-//            DeferredActions.CreateDeferredAction(1000, DeferredActions.DeferredActionType.ROTATE_INTAKE);
-            this.intakeRotation.activateRotation();
+            DeferredActions.CreateDeferredAction(200, DeferredActions.DeferredActionType.DEROTATE_INTAKE);
+//            this.pinch.openGrip();
+//            this.intakeRotation.activateRotation();
         } else {
             telemetry.addLine("Not Pinched");
             // emit a derotation event after 1second
-//            DeferredActions.CreateDeferredAction(1000, DeferredActions.DeferredActionType.DEROTATE_INTAKE);
-            this.intakeRotation.deactivateRotation();
+            DeferredActions.CreateDeferredAction(200, DeferredActions.DeferredActionType.ROTATE_INTAKE);
+//            DeferredActions.CreateDeferredAction(500, DeferredActions.DeferredActionType.UNPINCH);
+            DeferredActions.CreateDeferredAction(900, DeferredActions.DeferredActionType.UNPINCH);
+//            this.intakeRotation.deactivateRotation();
         }
     }
 

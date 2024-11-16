@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.util.Range;
 public class ViperSlide {
     public static class Params {
         public double viperSpeed = 0.5;
-        public int viperMotorMaxPositionRelative = 3000;  // 30 inches - 3,000 tpi
+        public int viperMotorMaxPositionRelative = 15900;  // 30 inches - 3,000 tpi
     }
 
     public static Params PARAMS = new Params();
@@ -29,6 +29,13 @@ public class ViperSlide {
         viperMotor.setTargetPosition(checkedPosition);
         viperMotor.setPower(PARAMS.viperSpeed);
         viperMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
+
+    public void moveViperToZero(){
+        viperMotor.setTargetPosition(0);
+        viperMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
     }
 
     public void moveViperWithPower(double power, boolean override) {
@@ -49,8 +56,6 @@ public class ViperSlide {
                 else if (viperPosition <= (PARAMS.viperMotorMaxPositionRelative * 0.05))
                     power = Math.max(power, -0.4);
             }
-
-
             viperMotor.setPower(Range.clip(power, -1, 1));
         }
 

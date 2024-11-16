@@ -5,13 +5,14 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
 
 public class Pinch extends Injectable {
     public static class Params {
-        public double grabOpenPos = 0.600;
-        public double grabClosedPos = 0.355;
+        public double grabOpenPos = 0.850;
+        public double grabClosedPos = 0.455;
     }
 
     public boolean initErrorStatus = false;
@@ -22,6 +23,9 @@ public class Pinch extends Injectable {
     private IntakeAction intakeAction;
 
     public double tlmGrabPosition = -1;
+
+    @Inject("telemetry")
+    private Telemetry telemetry;
 
     @Inject("hdwMap")
     private HardwareMap hdwMap;
@@ -61,12 +65,14 @@ public class Pinch extends Injectable {
     public void closeGrip(){
         MovePincher(PARAMS.grabClosedPos);
 
+        this.telemetry.addLine("Pinched from PinchClass");
         this.intakeAction.isPinched.set(true);
     }
 
     public void openGrip(){
         MovePincher(PARAMS.grabOpenPos);
 
+        this.telemetry.addLine("UnPinched from PinchClass");
         this.intakeAction.isPinched.set(false);
     }
 
