@@ -24,7 +24,7 @@ public class IntakeRotation extends Injectable {
 
     private IntakeAction intakeAction;
 
-    public double servoBasePosition = 0.3;
+    public double servoBasePosition = 0.37;
 
     public void reduceSBP() {
         this.servoBasePosition -= 0.1;
@@ -40,7 +40,7 @@ public class IntakeRotation extends Injectable {
 
 
     public void activateRotation() {
-        this.servo.setPosition(0.9);
+        this.servo.setPosition(1);
 
         this.intakeAction.isRotated.set(true);
     }
