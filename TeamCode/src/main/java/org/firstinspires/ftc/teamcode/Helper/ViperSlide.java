@@ -31,6 +31,13 @@ public class ViperSlide {
         viperMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
+
+    public void moveViperToZero(){
+        viperMotor.setTargetPosition(0);
+        viperMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+    }
+
     public void moveViperWithPower(double power, boolean override) {
         viperMotor.getMode();
         viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
