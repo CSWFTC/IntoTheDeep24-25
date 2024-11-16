@@ -24,14 +24,29 @@ public class IntakeRotation extends Injectable {
 
     private IntakeAction intakeAction;
 
+    public double servoBasePosition = 0.3;
+
+    public void reduceSBP() {
+        this.servoBasePosition -= 0.1;
+    }
+
+    public void increaseSBP() {
+        this.servoBasePosition += 0.1;
+    }
+
+    public double TEST_getsbp() {
+        return this.servoBasePosition;
+    }
+
+
     public void activateRotation() {
-        this.servo.setPosition(0.5);
+        this.servo.setPosition(0.9);
 
         this.intakeAction.isRotated.set(true);
     }
 
     public void deactivateRotation() {
-        this.servo.setPosition(0);
+        this.servo.setPosition(servoBasePosition);
 
         this.intakeAction.isRotated.set(false);
     }
