@@ -49,6 +49,14 @@ public class IntakeActionTest extends LinearOpMode {
                     telemetry.addLine("TESTING derotation");
                     this.intakeAction.TEST_derotate();
                     break;
+                case BUTTON_X:
+                    telemetry.addLine("TESTING activate pinch");
+                    this.intakeAction.TEST_activate_pinch();
+                    break;
+                case BUTTON_Y:
+                    telemetry.addLine("TESTING deactivate pinch");
+                    this.intakeAction.TEST_deactivate_pinch();
+                    break;
                 case DPAD_DOWN:
                     telemetry.addLine("TESTING rspb");
                     this.intakeAction.TEST_rsbp();
@@ -83,12 +91,17 @@ public class IntakeActionTest extends LinearOpMode {
             // inject the dependencies
             DependencyInjector.register("hdwMap", this.hardwareMap);
             DependencyInjector.register("intakeRotationServoName", "intakeRotationServo");
+            DependencyInjector.register("pinchServoName", "pinchServo");
+            DependencyInjector.register("telemetry", this.telemetry);
 
             this.intakeAction = new IntakeAction();
+//            this.pinchAction = new Pinch();
 
             // clean up dependencies
             DependencyInjector.unregister("hdwMap");
             DependencyInjector.unregister("intakeRotationServoName");
+            DependencyInjector.unregister("pinchServoName");
+            DependencyInjector.unregister("telemetry");
         }
         catch(Exception e) {
             return 1;
