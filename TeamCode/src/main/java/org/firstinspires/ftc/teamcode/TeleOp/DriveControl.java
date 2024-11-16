@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions.DeferredActionType;
 import org.firstinspires.ftc.teamcode.Helper.DrivetrainV2;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
+import org.firstinspires.ftc.teamcode.Helper.Telemetry.Pinch;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide;
 
 
@@ -41,6 +42,7 @@ public class DriveControl extends LinearOpMode {
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
         BumperTest bumpOne = new BumperTest();
         ViperSlide vip = new ViperSlide(hardwareMap);
+        Pinch grab = new Pinch(hardwareMap);
 
         // TestServo serv1 = hardwareMap.servo.get(PARAMS.);
 
@@ -138,6 +140,12 @@ public class DriveControl extends LinearOpMode {
                     vip.moveViperWithPower(gamepad2.right_stick_y * -0.5, viperOverride);
                     break;
 
+                case BUTTON_A:
+                    grab.openGrip();
+
+                case BUTTON_B:
+                    grab.closeGrip();
+
             }
 
             // Deferred Actions
@@ -156,6 +164,7 @@ public class DriveControl extends LinearOpMode {
                     telemetry.addLine("ERROR - Unsupported Deferred Action");
                     break;
             }
+
 
 
         }
