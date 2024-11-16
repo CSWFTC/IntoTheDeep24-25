@@ -61,7 +61,7 @@ public class DriveControl extends LinearOpMode {
         boolean viperOverride = false;
 
         while (opModeIsActive()) {
-            update_telemetry(gpIn1, gpIn2);
+           // update_telemetry(gpIn1, gpIn2);
 
 
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
@@ -197,7 +197,7 @@ public class DriveControl extends LinearOpMode {
         telemetry.addLine().addData("Time", actTime);
         telemetry.addLine().addData("Action", DeferredActions.tlmLastAction.toString());
 
-       telemetry.addLine().addData("Postion", vip1.);
+    //   telemetry.addLine().addData("Postion", vip1.);
 
 
         telemetry.update();
