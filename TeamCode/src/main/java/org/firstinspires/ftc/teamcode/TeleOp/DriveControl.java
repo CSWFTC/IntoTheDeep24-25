@@ -147,7 +147,7 @@ public class DriveControl extends LinearOpMode {
                     grab.closeGrip();
 
                 case BUTTON_L_BUMPER:
-                    vip.moveViperToZero();
+                    vip.RetractViperAction();
 
             }
 
@@ -173,7 +173,7 @@ public class DriveControl extends LinearOpMode {
         }
     }
 
-    private void update_telemetry(GamePad gpi1, GamePad gpi2) {
+    private void update_telemetry(GamePad gpi1, GamePad gpi2, ViperSlide vip1) {
         telemetry.addLine("Gamepad #1");
         String inpTime1 = new java.text.SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS", Locale.US).format(gpi1.getTelemetry_InputLastTimestamp());
         telemetry.addLine().addData("GP1 Time", inpTime1);
@@ -196,6 +196,8 @@ public class DriveControl extends LinearOpMode {
         String actTime = new java.text.SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS", Locale.US).format(DeferredActions.tlmLastActionTimestamp);
         telemetry.addLine().addData("Time", actTime);
         telemetry.addLine().addData("Action", DeferredActions.tlmLastAction.toString());
+
+       telemetry.addLine().addData("Postion", vip1.);
 
 
         telemetry.update();
