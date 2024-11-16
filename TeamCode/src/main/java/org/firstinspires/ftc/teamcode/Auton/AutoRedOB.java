@@ -33,7 +33,6 @@ public class AutoRedOB extends LinearOpMode {
     }
 
     public void toLine() {
-        //beginning position: ends at the sub
         Action movePos = drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 .lineToX(-26)
