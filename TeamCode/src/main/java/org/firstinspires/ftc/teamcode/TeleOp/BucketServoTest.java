@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
 
-@TeleOp(name = "Position Servo Test", group = "Hardware")
+@TeleOp(name = "BucketServoTest", group = "Hardware")
 public class BucketServoTest extends LinearOpMode {
 
     public static class Params {
