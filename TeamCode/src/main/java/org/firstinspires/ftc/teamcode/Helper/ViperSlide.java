@@ -40,6 +40,7 @@ public class ViperSlide {
 
    public void moveViperWithPower(double power, boolean override) {
         viperMotor.getMode();
+        viperMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         if (!override) {
             int viperPosition = viperMotor.getCurrentPosition();
@@ -47,34 +48,19 @@ public class ViperSlide {
             if (power > 0) {
                 if (viperPosition >= PARAMS.viperMotorMaxPositionRelative)
                     power = 0;
-                else if (viperPosition <= (PARAMS.viperMotorMaxPositionRelative * 0.95))
+                else if (viperPosition >= (PARAMS.viperMotorMaxPositionRelative * 0.95))
                     power = Math.min(power, 0.5);
 
             } else {
                 if (viperPosition <= 0)
                     power = 0;
-                else if (viperPosition >= (PARAMS.viperMotorMaxPositionRelative * 0.05))
+                else if (viperPosition <= (PARAMS.viperMotorMaxPositionRelative * 0.05))
                     power = Math.max(power, -0.5);
             }
             viperMotor.setPower(Range.clip(power, -1, 1));
         }
 
     }
-
-   /* public void moveVip(double power, boolean override){
-        if(!override){
-            int viperPosition = viperMotor.getCurrentPosition();
-            if(power > 0 && viperPosition  PARAMS.viperMotorMaxPositionRelative){
-
-
-            }
-
-        }
-
-
-    }*/
-
-
 
     public Action RetractViperAction(){
         return packet -> {

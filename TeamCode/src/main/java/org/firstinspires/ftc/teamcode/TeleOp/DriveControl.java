@@ -61,7 +61,7 @@ public class DriveControl extends LinearOpMode {
         boolean viperOverride = false;
 
         while (opModeIsActive()) {
-           // update_telemetry(gpIn1, gpIn2);
+            update_telemetry(gpIn1, gpIn2);
 
 
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
@@ -173,7 +173,7 @@ public class DriveControl extends LinearOpMode {
         }
     }
 
-    private void update_telemetry(GamePad gpi1, GamePad gpi2, ViperSlide vip1) {
+    private void update_telemetry(GamePad gpi1, GamePad gpi2) {
         telemetry.addLine("Gamepad #1");
         String inpTime1 = new java.text.SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS", Locale.US).format(gpi1.getTelemetry_InputLastTimestamp());
         telemetry.addLine().addData("GP1 Time", inpTime1);
@@ -197,7 +197,7 @@ public class DriveControl extends LinearOpMode {
         telemetry.addLine().addData("Time", actTime);
         telemetry.addLine().addData("Action", DeferredActions.tlmLastAction.toString());
 
-    //   telemetry.addLine().addData("Postion", vip1.);
+
 
 
         telemetry.update();
