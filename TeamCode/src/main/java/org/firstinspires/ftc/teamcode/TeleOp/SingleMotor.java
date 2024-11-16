@@ -34,7 +34,7 @@ public class SingleMotor extends LinearOpMode {
         DcMotor motor = hardwareMap.dcMotor.get(PARAMS.motorName);
 
 
-        motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        motor.setDirection(DcMotorSimple.Direction.REVERSE);
         motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         GamePad gpIn1 = new GamePad(gamepad1);
@@ -74,10 +74,17 @@ public class SingleMotor extends LinearOpMode {
 
                     break;
 
-                case BUTTON_L_BUMPER:
-                    motor.setTargetPosition(0);
+                case BUTTON_BACK:
+                    motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     break;
 
+                case BUTTON_L_BUMPER:
+                    motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                    break;
+
+
+                    //-15628
+                //299
 
             }
 
