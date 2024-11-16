@@ -56,7 +56,7 @@ public class BucketServoTest extends LinearOpMode {
         telemetry.addLine();
 
         try {
-            bucketServo = hardwareMap.servo.get(PARAMS.servoName);  // Correctly fetching "bucketServo"
+            bucketServo = hardwareMap.servo.get(PARAMS.servoName);
             gpInput = new GamePad(gamepad1);
             dashboard = FtcDashboard.getInstance();
             dashboard.clearTelemetry();
@@ -107,13 +107,13 @@ public class BucketServoTest extends LinearOpMode {
 
     private void moveToPosition(double position) {
         targetServoPosition = clampPosition(position);
-        bucketServo.setPosition(targetServoPosition);  // Using the updated variable name
+        bucketServo.setPosition(targetServoPosition);
         currentServoPosition = targetServoPosition;
     }
 
     private void adjustPosition(double increment) {
         targetServoPosition = clampPosition(targetServoPosition + increment);
-        bucketServo.setPosition(targetServoPosition);  // Using the updated variable name
+        bucketServo.setPosition(targetServoPosition);
         currentServoPosition = targetServoPosition;
     }
 
