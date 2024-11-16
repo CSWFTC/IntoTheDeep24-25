@@ -77,6 +77,9 @@ public class IntakeActionTest extends LinearOpMode {
                     case DEROTATE_INTAKE:
                         this.intakeAction.TEST_derotate();
                         break;
+                    case UNPINCH:
+                        this.intakeAction.TEST_activate_pinch();
+                        break;
                 }
             }
 

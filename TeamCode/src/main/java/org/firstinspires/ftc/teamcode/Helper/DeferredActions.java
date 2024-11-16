@@ -12,7 +12,8 @@ public class DeferredActions {
         NO_ACTION("None"),
         PLAY_SOUND("Plays Quack"),
         ROTATE_INTAKE("Rotates the intake"),
-        DEROTATE_INTAKE("Derotates the intake")
+        DEROTATE_INTAKE("Derotates the intake"),
+        UNPINCH("Unpinch")
         ;
 
 
