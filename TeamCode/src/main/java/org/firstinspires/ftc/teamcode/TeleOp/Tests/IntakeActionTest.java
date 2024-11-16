@@ -17,6 +17,15 @@ public class IntakeActionTest extends LinearOpMode {
     private IntakeAction intakeAction;
     private GamePad gpInput;
 
+    // IGNORE THIS - its for local mock testing
+//    public static void main(String[] args) {
+//        System.out.println("hi");
+//
+//        IntakeActionTest iat = new IntakeActionTest();
+//
+//        iat.runOpMode();
+//    }
+
     @Override
     public void runOpMode() {
         waitForStart();
