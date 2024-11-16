@@ -43,6 +43,18 @@ public class IntakeAction {
         }
     }
 
+    public void TEST_rsbp() {
+        this.intakeRotation.reduceSBP();
+    }
+
+    public void TEST_isbp() {
+        this.intakeRotation.increaseSBP();
+    }
+
+    public double TEST_GET_SPB() {
+        return this.intakeRotation.TEST_getsbp();
+    }
+
     public void TEST_rotation() {
         this.intakeRotation.activateRotation();
     }

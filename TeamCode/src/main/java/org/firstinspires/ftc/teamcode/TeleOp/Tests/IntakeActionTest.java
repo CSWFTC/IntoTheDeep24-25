@@ -49,6 +49,14 @@ public class IntakeActionTest extends LinearOpMode {
                     telemetry.addLine("TESTING derotation");
                     this.intakeAction.TEST_derotate();
                     break;
+                case DPAD_DOWN:
+                    telemetry.addLine("TESTING rspb");
+                    this.intakeAction.TEST_rsbp();
+                    break;
+                case DPAD_UP:
+                    telemetry.addLine("TESTING ispb");
+                    this.intakeAction.TEST_isbp();
+                    break;
             }
 
 
@@ -64,7 +72,7 @@ public class IntakeActionTest extends LinearOpMode {
                 }
             }
 
-
+            telemetry.addData("SPB: ", this.intakeAction.TEST_GET_SPB());
             telemetry.update();
         }
 
