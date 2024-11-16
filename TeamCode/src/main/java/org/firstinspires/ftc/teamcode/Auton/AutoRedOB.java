@@ -51,7 +51,7 @@ public class AutoRedOB extends LinearOpMode {
     public void markOne() {
         Action lineM1 = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-25, 38), Math.toRadians(-180))
+                .splineTo(new Vector2d(-25, -38), Math.toRadians(-180))
                 .build();
         Actions.runBlocking(lineM1);
 
@@ -59,7 +59,7 @@ public class AutoRedOB extends LinearOpMode {
     }
 
     public void humanPlayer() {
-        Action Player = drive.actionBuilder(drive.pose)
+        Action   Player = drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 .lineToX(-12)
                 .lineToY(-49)
