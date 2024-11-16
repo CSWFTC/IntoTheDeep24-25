@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Pinch {
     public static class Params {
-        public double grabOpenPos = 0.600;
-        public double grabClosedPos = 0.355;
+        public double grabOpenPos = 1.100;
+        public double grabClosedPos = 0.200;
     }
     public static Params PARAMS = new Params();
 
@@ -36,7 +36,7 @@ public class Pinch {
      */
 
     public void closeGrip(){
-        MovePincher(PARAMS.grabClosedPos);
+            MovePincher(PARAMS.grabClosedPos);
     }
 
     public void openGrip(){
