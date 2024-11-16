@@ -16,7 +16,6 @@ public class SingleMotor extends LinearOpMode {
     public static class Params {
         public String motorName = "viperMotor";
         public Boolean Forward = true;
-
     }
 
     public static Params PARAMS = new Params();

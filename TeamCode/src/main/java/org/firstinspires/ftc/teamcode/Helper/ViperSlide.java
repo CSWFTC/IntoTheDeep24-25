@@ -24,7 +24,6 @@ public class ViperSlide {
 
     }
 
-
     public void moveViperToPosition(int position) {
         int checkedPosition = Range.clip(position, 0, PARAMS.viperMotorMaxPositionRelative);
         viperMotor.setTargetPosition(checkedPosition);
