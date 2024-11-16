@@ -92,6 +92,7 @@ public class IntakeActionTest extends LinearOpMode {
             DependencyInjector.register("hdwMap", this.hardwareMap);
             DependencyInjector.register("intakeRotationServoName", "intakeRotationServo");
             DependencyInjector.register("pinchServoName", "pinchServo");
+            DependencyInjector.register("telemetry", this.telemetry);
 
             this.intakeAction = new IntakeAction();
 //            this.pinchAction = new Pinch();
@@ -100,6 +101,7 @@ public class IntakeActionTest extends LinearOpMode {
             DependencyInjector.unregister("hdwMap");
             DependencyInjector.unregister("intakeRotationServoName");
             DependencyInjector.unregister("pinchServoName");
+            DependencyInjector.unregister("telemetry");
         }
         catch(Exception e) {
             return 1;
