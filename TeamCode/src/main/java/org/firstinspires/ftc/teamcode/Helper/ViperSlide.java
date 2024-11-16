@@ -45,16 +45,16 @@ public class ViperSlide {
         if (!override) {
             int viperPosition = viperMotor.getCurrentPosition();
 
-            if (power > 0) {
-                if (viperPosition >= PARAMS.viperMotorMaxPositionRelative)
+            if (power < 0) {
+                if (viperPosition <= PARAMS.viperMotorMaxPositionRelative)
                     power = 0;
-                else if (viperPosition >= (PARAMS.viperMotorMaxPositionRelative * 0.95))
+                else if (viperPosition <= (PARAMS.viperMotorMaxPositionRelative * 0.95))
                     power = Math.min(power, 0.5);
 
             } else {
-                if (viperPosition <= 0)
+                if (viperPosition >= 0)
                     power = 0;
-                else if (viperPosition <= (PARAMS.viperMotorMaxPositionRelative * 0.05))
+                else if (viperPosition >= (PARAMS.viperMotorMaxPositionRelative * 0.05))
                     power = Math.max(power, -0.5);
             }
             viperMotor.setPower(Range.clip(power, -1, 1));
