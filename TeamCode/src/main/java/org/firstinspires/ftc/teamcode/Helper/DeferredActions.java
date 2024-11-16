@@ -10,7 +10,10 @@ public class DeferredActions {
 
     public enum DeferredActionType {
         NO_ACTION("None"),
-        PLAY_SOUND("Plays Quack");
+        PLAY_SOUND("Plays Quack"),
+        ROTATE_INTAKE("Rotates the intake"),
+        DEROTATE_INTAKE("Derotates the intake")
+        ;
 
 
         private final String description;
