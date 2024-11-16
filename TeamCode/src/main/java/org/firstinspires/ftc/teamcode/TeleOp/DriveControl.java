@@ -9,8 +9,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions.DeferredActionType;
+import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
 import org.firstinspires.ftc.teamcode.Helper.DrivetrainV2;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
+import org.firstinspires.ftc.teamcode.Helper.Intake.IntakeAction;
 import org.firstinspires.ftc.teamcode.Helper.Telemetry.Pinch;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide;
 
@@ -22,10 +24,34 @@ import java.util.Locale;
 @TeleOp(name = "Driver Control", group = "Competition!!")
 public class DriveControl extends LinearOpMode {
 
+    private IntakeAction intakeAction;
 
     private static final String version = "1.1";
     private boolean setReversed = false;
    // private ClawMoves yclaw;
+
+    public int initialize() {
+        try {
+            // inject the dependencies
+            DependencyInjector.register("hdwMap", this.hardwareMap);
+            DependencyInjector.register("intakeRotationServoName", "intakeRotationServo");
+            DependencyInjector.register("pinchServoName", "pinchServo");
+            DependencyInjector.register("telemetry", this.telemetry);
+
+            this.intakeAction = new IntakeAction();
+//            this.pinchAction = new Pinch();
+
+            // clean up dependencies
+            DependencyInjector.unregister("hdwMap");
+            DependencyInjector.unregister("intakeRotationServoName");
+            DependencyInjector.unregister("pinchServoName");
+            DependencyInjector.unregister("telemetry");
+        }
+        catch(Exception e) {
+            return 1;
+        }
+        return 0;
+    }
 
     @Override
     public void runOpMode() {
@@ -42,7 +68,9 @@ public class DriveControl extends LinearOpMode {
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
         BumperTest bumpOne = new BumperTest();
         ViperSlide vip = new ViperSlide(hardwareMap);
-        Pinch grab = new Pinch(hardwareMap);
+//        Pinch grab = new Pinch(hardwareMap);
+
+
 
         // TestServo serv1 = hardwareMap.servo.get(PARAMS.);
 
@@ -50,7 +78,12 @@ public class DriveControl extends LinearOpMode {
 //        HapticEventBusTester hapticEvent = HapticEventBusTester.getInstance();
 
         waitForStart();
-        if (isStopRequested()) return;
+
+        int initRes = this.initialize();
+
+        if (isStopRequested() || (initRes == 1)) {
+            return;
+        }
 
 
         telemetry.clear();
@@ -61,7 +94,7 @@ public class DriveControl extends LinearOpMode {
         boolean viperOverride = false;
 
         while (opModeIsActive()) {
-           // update_telemetry(gpIn1, gpIn2);
+            update_telemetry(gpIn1, gpIn2);
 
 
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
@@ -78,6 +111,15 @@ public class DriveControl extends LinearOpMode {
                         speedMultiplier = lastSpeed;
                         lastSpeed = 1;
                     }
+                    break;
+
+                case DPAD_UP:
+                    this.intakeAction.TEST_derotate();
+                    break;
+
+                case DPAD_DOWN:
+                    telemetry.addLine("TESTING pickup");
+                    this.intakeAction.TEST_deactivate_pinch();
                     break;
 
                 case BUTTON_A:
@@ -131,23 +173,31 @@ public class DriveControl extends LinearOpMode {
 
                 case BUTTON_BACK:
                     viperOverride = true;
+                    break;
 
 
                 case BUTTON_Y:
                     //DeferredActions.CreateDeferredAction(150, DeferredActions.DeferredActionType.MOVEMENT);
+                    break;
 
                 case JOYSTICK:
                     vip.moveViperWithPower(gamepad2.right_stick_y * 0.7, viperOverride);
                     break;
 
                 case BUTTON_A:
-                    grab.openGrip();
+                    telemetry.addLine("TESTING pickup");
+                    this.intakeAction.TEST_deactivate_pinch();
+                    break;
 
-                case BUTTON_B:
-                    grab.closeGrip();
+//                case BUTTON_A:
+//                    grab.openGrip();
+//
+//                case BUTTON_B:
+//                    grab.closeGrip();
 
                 case BUTTON_L_BUMPER:
-                    vip.RetractViperAction();
+                    vip.moveViperToZero();
+                    break;
 
             }
 
@@ -162,7 +212,15 @@ public class DriveControl extends LinearOpMode {
 
         for(DeferredActionType actionType: action){
             switch(actionType){
-
+                case ROTATE_INTAKE:
+                    this.intakeAction.TEST_rotation();
+                    break;
+                case DEROTATE_INTAKE:
+                    this.intakeAction.TEST_derotate();
+                    break;
+                case UNPINCH:
+                    this.intakeAction.TEST_activate_pinch();
+                    break;
                 default:
                     telemetry.addLine("ERROR - Unsupported Deferred Action");
                     break;
@@ -173,7 +231,7 @@ public class DriveControl extends LinearOpMode {
         }
     }
 
-    private void update_telemetry(GamePad gpi1, GamePad gpi2, ViperSlide vip1) {
+    private void update_telemetry(GamePad gpi1, GamePad gpi2) {
         telemetry.addLine("Gamepad #1");
         String inpTime1 = new java.text.SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS", Locale.US).format(gpi1.getTelemetry_InputLastTimestamp());
         telemetry.addLine().addData("GP1 Time", inpTime1);
@@ -196,8 +254,6 @@ public class DriveControl extends LinearOpMode {
         String actTime = new java.text.SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS", Locale.US).format(DeferredActions.tlmLastActionTimestamp);
         telemetry.addLine().addData("Time", actTime);
         telemetry.addLine().addData("Action", DeferredActions.tlmLastAction.toString());
-
-    //   telemetry.addLine().addData("Postion", vip1.);
 
 
         telemetry.update();

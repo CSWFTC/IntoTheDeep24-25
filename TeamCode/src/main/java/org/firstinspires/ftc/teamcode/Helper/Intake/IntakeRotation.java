@@ -59,7 +59,7 @@ public class IntakeRotation extends Injectable {
         try {
             this.servo = hardwareMap.servo.get(this.servoName);
 
-            this.servo.setPosition(0);
+            this.servo.setPosition(servoBasePosition);
         } catch(Exception e) {
             this.initErrorStatus = true;
             this.initError = e.toString();
