@@ -11,8 +11,8 @@ import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
 
 public class Pinch extends Injectable {
     public static class Params {
-        public double grabOpenPos = 0.850;
-        public double grabClosedPos = 0.455;
+        public double grabOpenPos = 0.8;
+        public double grabClosedPos = 0.5;
     }
 
     public boolean initErrorStatus = false;
