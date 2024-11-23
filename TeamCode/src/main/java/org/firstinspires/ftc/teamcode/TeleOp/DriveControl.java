@@ -55,11 +55,11 @@ public class DriveControl extends LinearOpMode {
 
         waitForStart();
 
-        int initRes = this.initialize();
+    //    int initRes = this.initialize();
 
-        if (isStopRequested() || (initRes == 1)) {
-            return;
-        }
+    //    if (isStopRequested() || (initRes == 1)) {
+     //       return;
+     //   }
 
 
         telemetry.clear();
@@ -89,14 +89,14 @@ public class DriveControl extends LinearOpMode {
                     }
                     break;
 
-                case DPAD_UP:
+               /* case DPAD_UP:
                     this.intakeAction.TEST_derotate();
                     break;
 
                 case DPAD_DOWN:
                     telemetry.addLine("TESTING pickup");
                     this.intakeAction.TEST_deactivate_pinch();
-                    break;
+                    break;*/
 
                 case BUTTON_A:
 //                    Set<String> targets = new HashSet<>();
@@ -160,10 +160,10 @@ public class DriveControl extends LinearOpMode {
                     vip.moveViperWithPower(gamepad2.right_stick_y * 0.7, viperOverride);
                     break;
 
-                case BUTTON_A:
+               /* case BUTTON_A:
                     telemetry.addLine("TESTING pickup");
                     this.intakeAction.TEST_deactivate_pinch();
-                    break;
+                    break;*/
 
 //                case BUTTON_A:
 //                    grab.openGrip();
@@ -188,7 +188,7 @@ public class DriveControl extends LinearOpMode {
 
         for(DeferredActionType actionType: action){
             switch(actionType){
-                case ROTATE_INTAKE:
+             /*   case ROTATE_INTAKE:
                     this.intakeAction.TEST_rotation();
                     break;
                 case DEROTATE_INTAKE:
@@ -196,7 +196,7 @@ public class DriveControl extends LinearOpMode {
                     break;
                 case UNPINCH:
                     this.intakeAction.TEST_activate_pinch();
-                    break;
+                    break;*/
                 default:
                     telemetry.addLine("ERROR - Unsupported Deferred Action");
                     break;

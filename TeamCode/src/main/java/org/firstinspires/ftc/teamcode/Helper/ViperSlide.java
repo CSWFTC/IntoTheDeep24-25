@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
@@ -40,8 +41,9 @@ public class ViperSlide {
 
    public void moveViperWithPower(double power, boolean override) {
         viperMotor.getMode();
-        viperMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //viperMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+      //  viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+       // viperMotor.setDirection(DcMotor.Direction.REVERSE);
         if (!override) {
             int viperPosition = viperMotor.getCurrentPosition();
 
