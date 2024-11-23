@@ -64,9 +64,11 @@ public class ViperSlide {
 
     }
 
-    public Action RetractViperAction(){
+    public Action movetoPos(int pos, double power){
         return packet -> {
-            moveViperToPosition(0);
+            moveViperToPosition(pos);
+            viperMotor.setPower(power);
+            viperMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             return false;
         };
 

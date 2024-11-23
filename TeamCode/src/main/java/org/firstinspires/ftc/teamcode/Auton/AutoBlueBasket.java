@@ -20,6 +20,8 @@ public class AutoBlueBasket extends LinearOpMode {
         public double versionNumber = 8.1;
         public int maxPV = 15900;
         public int minPV= 10;
+        public double powerUp = -0.5;
+        public double powerDown = 0.5;
 
     }
 
@@ -115,7 +117,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(true)
                 .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveBasket, vip.moveViperToPosition(PARAMS.maxPV), vip.moveViperToPosition(PARAMS.minPV)));
+        Actions.runBlocking(new SequentialAction(moveBasket, vip.movetoPos(PARAMS.maxPV,PARAMS.powerUp ), vip.movetoPos(PARAMS.minPV, PARAMS.powerDown)));
 
     }
 
