@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperAction;
 import java.util.List;
 
 @Config
-@TeleOp(name = "IntakeAction Test", group = "Tests")
+@TeleOp(name = "VIPERandBUCKETAction Test", group = "Tests")
 public class ViperslideActionTest extends LinearOpMode {
 
     private ViperAction viperAction;
