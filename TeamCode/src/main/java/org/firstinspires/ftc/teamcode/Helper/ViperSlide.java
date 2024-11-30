@@ -4,14 +4,15 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
 
 public class ViperSlide {
     public static class Params {
-        public double viperSpeed = 0.5;
-        public int viperMotorMaxPositionRelative = 3000;  // 30 inches - 3,000 tpi
+        public double viperSpeed = 0.7;
+        public int viperMotorMaxPositionRelative = 15900;  //
     }
 
     public static Params PARAMS = new Params();
@@ -24,7 +25,6 @@ public class ViperSlide {
 
     }
 
-
     public void moveViperToPosition(int position) {
         int checkedPosition = Range.clip(position, 0, PARAMS.viperMotorMaxPositionRelative);
         viperMotor.setTargetPosition(checkedPosition);
@@ -32,33 +32,43 @@ public class ViperSlide {
         viperMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
-    public void moveViperWithPower(double power, boolean override) {
+
+    public void moveViperToZero(){
+        viperMotor.setTargetPosition(0);
+        viperMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+    }
+
+   public void moveViperWithPower(double power, boolean override) {
         viperMotor.getMode();
-        viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //viperMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+      //  viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+       // viperMotor.setDirection(DcMotor.Direction.REVERSE);
         if (!override) {
             int viperPosition = viperMotor.getCurrentPosition();
 
-            if (power > 0) {
-                if (viperPosition >= PARAMS.viperMotorMaxPositionRelative)
+            if (power < 0) {
+                if (viperPosition <= PARAMS.viperMotorMaxPositionRelative)
                     power = 0;
-                else if (viperPosition >= (PARAMS.viperMotorMaxPositionRelative * 0.95))
-                    power = Math.min(power, 0.4);
+                else if (viperPosition <= (PARAMS.viperMotorMaxPositionRelative * 0.95))
+                    power = Math.min(power, 0.5);
 
             } else {
-                if (viperPosition <= 0)
+                if (viperPosition >= 0)
                     power = 0;
-                else if (viperPosition <= (PARAMS.viperMotorMaxPositionRelative * 0.05))
-                    power = Math.max(power, -0.4);
+                else if (viperPosition >= (PARAMS.viperMotorMaxPositionRelative * 0.05))
+                    power = Math.max(power, -0.5);
             }
-
-
             viperMotor.setPower(Range.clip(power, -1, 1));
         }
 
     }
-    public Action RetractViperAction(){
+
+    public Action movetoPos(int pos, double power){
         return packet -> {
-            moveViperToPosition(0);
+            moveViperToPosition(pos);
+            viperMotor.setPower(power);
+            viperMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             return false;
         };
 

@@ -41,7 +41,7 @@ public class AutoBlueOB extends LinearOpMode {
 
         //positioned back
         Action moveBack = drive.actionBuilder(drive.pose)
-                .setReversed(true)
+                .setReversed(false)
                 .lineToX(-20)
                 .build();
         Actions.runBlocking(moveBack);
@@ -57,14 +57,22 @@ public class AutoBlueOB extends LinearOpMode {
 
     public void humanPlayer(){
         Action Player = drive.actionBuilder(drive.pose)
-                .setReversed(true)
+                .setReversed(false)
                 .lineToX(-12)
-                .lineToY(48)
-                .lineToX(-10)
+                //dropping
+                .lineToY(40)
+                //.lineToX(-19)
                 .build();
         Actions.runBlocking(Player);
     }
 
+    public void backToLine(){
+        Action backAgain = drive.actionBuilder(drive.pose)
+                .setReversed(false)
+                .splineTo(new Vector2d(-26, 0), Math.toRadians(180))
+                .build();
+        Actions.runBlocking(backAgain);
+    }
 
 
 

@@ -9,8 +9,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions.DeferredActionType;
+import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
 import org.firstinspires.ftc.teamcode.Helper.DrivetrainV2;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
+import org.firstinspires.ftc.teamcode.Helper.Intake.IntakeAction;
+import org.firstinspires.ftc.teamcode.Helper.Telemetry.Pinch;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide;
 
 
@@ -22,7 +25,7 @@ import java.util.Locale;
 public class DriveControl extends LinearOpMode {
 
 
-    private static final String version = "1.0";
+    private static final String version = "1.1";
     private boolean setReversed = false;
    // private ClawMoves yclaw;
 
@@ -41,6 +44,9 @@ public class DriveControl extends LinearOpMode {
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
         BumperTest bumpOne = new BumperTest();
         ViperSlide vip = new ViperSlide(hardwareMap);
+//        Pinch grab = new Pinch(hardwareMap);
+
+
 
         // TestServo serv1 = hardwareMap.servo.get(PARAMS.);
 
@@ -48,7 +54,12 @@ public class DriveControl extends LinearOpMode {
 //        HapticEventBusTester hapticEvent = HapticEventBusTester.getInstance();
 
         waitForStart();
-        if (isStopRequested()) return;
+
+    //    int initRes = this.initialize();
+
+    //    if (isStopRequested() || (initRes == 1)) {
+     //       return;
+     //   }
 
 
         telemetry.clear();
@@ -77,6 +88,15 @@ public class DriveControl extends LinearOpMode {
                         lastSpeed = 1;
                     }
                     break;
+
+               /* case DPAD_UP:
+                    this.intakeAction.TEST_derotate();
+                    break;
+
+                case DPAD_DOWN:
+                    telemetry.addLine("TESTING pickup");
+                    this.intakeAction.TEST_deactivate_pinch();
+                    break;*/
 
                 case BUTTON_A:
 //                    Set<String> targets = new HashSet<>();
@@ -129,13 +149,30 @@ public class DriveControl extends LinearOpMode {
 
                 case BUTTON_BACK:
                     viperOverride = true;
+                    break;
 
 
                 case BUTTON_Y:
                     //DeferredActions.CreateDeferredAction(150, DeferredActions.DeferredActionType.MOVEMENT);
+                    break;
 
                 case JOYSTICK:
-                    vip.moveViperWithPower(gamepad2.right_stick_y * -0.5, viperOverride);
+                    vip.moveViperWithPower(gamepad2.right_stick_y * 0.7, viperOverride);
+                    break;
+
+               /* case BUTTON_A:
+                    telemetry.addLine("TESTING pickup");
+                    this.intakeAction.TEST_deactivate_pinch();
+                    break;*/
+
+//                case BUTTON_A:
+//                    grab.openGrip();
+//
+//                case BUTTON_B:
+//                    grab.closeGrip();
+
+                case BUTTON_L_BUMPER:
+                    vip.moveViperToZero();
                     break;
 
             }
@@ -151,11 +188,20 @@ public class DriveControl extends LinearOpMode {
 
         for(DeferredActionType actionType: action){
             switch(actionType){
-
+             /*   case ROTATE_INTAKE:
+                    this.intakeAction.TEST_rotation();
+                    break;
+                case DEROTATE_INTAKE:
+                    this.intakeAction.TEST_derotate();
+                    break;
+                case UNPINCH:
+                    this.intakeAction.TEST_activate_pinch();
+                    break;*/
                 default:
                     telemetry.addLine("ERROR - Unsupported Deferred Action");
                     break;
             }
+
 
 
         }

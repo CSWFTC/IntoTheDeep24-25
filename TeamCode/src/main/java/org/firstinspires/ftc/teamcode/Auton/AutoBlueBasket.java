@@ -2,25 +2,33 @@ package org.firstinspires.ftc.teamcode.Auton;
 
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.acmerobotics.roadrunner.ftc.Actions;
-import com.sun.tools.javac.comp.Todo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlide;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
+
 
 @Autonomous(name = "Auto Blue Basket", group = "RoadRunner")
 public class AutoBlueBasket extends LinearOpMode {
 
     public static class Params {
         public double versionNumber = 8.1;
+        public int maxPV = 15900;
+        public int minPV= 10;
+        public double powerUp = -0.5;
+        public double powerDown = 0.5;
 
     }
 
     public static Params PARAMS = new Params();
     private MecanumDrive drive;
+    private ViperSlide vip;
+
 
 
     @Override
@@ -109,9 +117,11 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(true)
                 .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
                 .build();
-        Actions.runBlocking(moveBasket);
+        Actions.runBlocking(new SequentialAction(moveBasket, vip.movetoPos(PARAMS.maxPV,PARAMS.powerUp ), vip.movetoPos(PARAMS.minPV, PARAMS.powerDown)));
 
     }
+
+
 
     private void updateTelemetry(Vector2d pos) {
         telemetry.addLine("RoadRunner Auto Drive BLUE");

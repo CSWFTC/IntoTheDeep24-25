@@ -10,13 +10,15 @@ public class TelemetryTest extends Injectable {
     Telemetry telemetry = null;
 
     public void logRedOn() {
-        if (areDepsNull(telemetry)) return;
+        if (areDepsNull(telemetry))
+            return;
         this.telemetry.addLine("Red Light On");
-            this.telemetry.update();
+        this.telemetry.update();
     }
 
     public void logRedOff() {
-        if (areDepsNull(telemetry)) return;
+        if (areDepsNull(telemetry))
+            return;
         this.telemetry.addLine("Red Light Off");
         this.telemetry.update();
     }

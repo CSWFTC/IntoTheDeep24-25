@@ -33,7 +33,6 @@ public class AutoRedOB extends LinearOpMode {
     }
 
     public void toLine() {
-        //beginning position: ends at the sub
         Action movePos = drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 .lineToX(-26)
@@ -52,17 +51,33 @@ public class AutoRedOB extends LinearOpMode {
     public void markOne() {
         Action lineM1 = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-25, 38), Math.toRadians(-180))
+                .splineTo(new Vector2d(-25, -38), Math.toRadians(-180))
                 .build();
         Actions.runBlocking(lineM1);
 
 
     }
 
+    public void humanPlayer() {
+        Action Player = drive.actionBuilder(drive.pose)
+                .setReversed(true)
+                .lineToX(-12)
+                .lineToY(-49)
+                .lineToX(-10)
+                .build();
+        Actions.runBlocking(Player);
+    }
+
+    public void backToLine() {
+        Action backAgain = drive.actionBuilder(drive.pose)
+                .setReversed(false)
+                .splineTo(new Vector2d(-26, 0), Math.toRadians(180))
+                .build();
+        Actions.runBlocking(backAgain);
 
 
     }
-
+}
 
 
 
