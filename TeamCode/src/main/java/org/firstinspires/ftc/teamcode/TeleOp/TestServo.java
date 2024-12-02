@@ -98,7 +98,7 @@ public class TestServo extends  LinearOpMode {
     public boolean initialize() {
         // Load Introduction and Wait for Start
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
-        telemetry.addLine("Servo Test");
+        telemetry.addLine().addData("Servo Test:    ", PARAMS.servoName );
         telemetry.addLine();
 
         // Initialize Helpers
@@ -123,12 +123,12 @@ public class TestServo extends  LinearOpMode {
     }
 
     private void update_telemetry() {
-        telemetry.addLine("Servo Test");
-        telemetry.addLine("Use Dpad to Set Position");
+        telemetry.addLine().addData("Servo Test:    ", PARAMS.servoName );        telemetry.addLine("Use Dpad to Set Position");
         telemetry.addLine("  Up/Down    +/- 0.1");
         telemetry.addLine("  Left/Right +/- 0.005");
         telemetry.addLine("Button A --> GoTo New Position");
         telemetry.addLine("Left Bumper --> Change Direction/n");
+        telemetry.addLine();
         telemetry.addLine().addData("Name     ", PARAMS.servoName );
         telemetry.addLine().addData("Direction", (tlmServoForward ? "Forward" : "Reverse") );
         telemetry.addLine().addData("Curr Pos ", tlmServoPosition );
