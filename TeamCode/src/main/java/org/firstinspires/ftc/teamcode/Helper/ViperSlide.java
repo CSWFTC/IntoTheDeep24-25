@@ -22,6 +22,7 @@ public class ViperSlide {
         viperMotor = hdwMap.get(DcMotorEx.class, "viperMotor");
         viperMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         viperMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        viperMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
     }
 
@@ -41,22 +42,22 @@ public class ViperSlide {
 
    public void moveViperWithPower(double power, boolean override) {
         viperMotor.getMode();
-        //viperMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-      //  viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-       // viperMotor.setDirection(DcMotor.Direction.REVERSE);
+        viperMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        viperMotor.setDirection(DcMotor.Direction.REVERSE);
         if (!override) {
             int viperPosition = viperMotor.getCurrentPosition();
 
-            if (power < 0) {
-                if (viperPosition <= PARAMS.viperMotorMaxPositionRelative)
+            if (power > 0) {
+                if (viperPosition >= PARAMS.viperMotorMaxPositionRelative)
                     power = 0;
                 else if (viperPosition <= (PARAMS.viperMotorMaxPositionRelative * 0.95))
                     power = Math.min(power, 0.5);
 
             } else {
-                if (viperPosition >= 0)
+                if (viperPosition <= 0)
                     power = 0;
-                else if (viperPosition >= (PARAMS.viperMotorMaxPositionRelative * 0.05))
+                else if (viperPosition >= (PARAMS.viperMotorMaxPositionRelative * 0.002))
                     power = Math.max(power, -0.5);
             }
             viperMotor.setPower(Range.clip(power, -1, 1));
@@ -64,9 +65,9 @@ public class ViperSlide {
 
     }
 
-    public Action movetoPos(int pos, double power){
+    public Action moveToPos(int pos, double power){
         return packet -> {
-            moveViperToPosition(pos);
+            viperMotor.setTargetPosition(pos);
             viperMotor.setPower(power);
             viperMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             return false;

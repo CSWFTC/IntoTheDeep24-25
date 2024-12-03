@@ -1,8 +1,12 @@
 package org.firstinspires.ftc.teamcode.TeleOp.Tests;
 
+import android.os.SystemClock;
+
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
@@ -68,6 +72,7 @@ public class IntakeActionTest extends LinearOpMode {
             }
 
 
+
             List<DeferredActions.DeferredActionType> action = DeferredActions.GetReadyActions();
             for(DeferredActions.DeferredActionType actionType : action){
                 switch (actionType) {
@@ -83,9 +88,27 @@ public class IntakeActionTest extends LinearOpMode {
                 }
             }
 
+
             telemetry.addData("SPB: ", this.intakeAction.TEST_GET_SPB());
             telemetry.update();
         }
+
+
+
+    }
+
+    public Action pinch(){
+        return packet ->{
+            this.intakeAction.TEST_rotation();
+            SystemClock.sleep(100);
+            this.intakeAction.TEST_deactivate_pinch();
+            SystemClock.sleep(100);
+            this.intakeAction.TEST_derotate();
+            SystemClock.sleep(100);
+            this.intakeAction.TEST_activate_pinch();
+            SystemClock.sleep(100);
+            return false;
+        };
 
     }
 
@@ -96,7 +119,6 @@ public class IntakeActionTest extends LinearOpMode {
             DependencyInjector.register("intakeRotationServoName", "intakeRotationServo");
             DependencyInjector.register("pinchServoName", "pinchServo");
             DependencyInjector.register("telemetry", this.telemetry);
-
             this.intakeAction = new IntakeAction();
 //            this.pinchAction = new Pinch();
 
@@ -112,3 +134,5 @@ public class IntakeActionTest extends LinearOpMode {
        return 0;
     }
 }
+
+

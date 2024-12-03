@@ -5,6 +5,10 @@ package org.firstinspires.ftc.teamcode.Helper.Intake;
    it handles event scheduling and bus event emitting
  */
 
+import android.os.SystemClock;
+
+import com.acmerobotics.roadrunner.Action;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
@@ -102,4 +106,18 @@ public class IntakeAction extends Injectable {
             //ERR
         }
     }
+
+    public Action pinch(){
+        return packet ->{
+            TEST_rotation();
+            SystemClock.sleep(100);
+            TEST_deactivate_pinch();
+            SystemClock.sleep(100);
+            TEST_derotate();
+            SystemClock.sleep(100);
+            TEST_activate_pinch();
+            SystemClock.sleep(100);
+            return false;
+        };
+}
 }

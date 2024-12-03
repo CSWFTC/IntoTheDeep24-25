@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode.Helper.Intake;
 
+import android.os.SystemClock;
+
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -74,6 +77,18 @@ public class Pinch extends Injectable {
 
         this.telemetry.addLine("UnPinched from PinchClass");
         this.intakeAction.isPinched.set(false);
+    }
+
+    public Action movePincher(double pos) {
+        return packet ->{
+            openGrip();
+            SystemClock.sleep(100);
+            MovePincher(pos);
+            SystemClock.sleep(100);
+            closeGrip();
+
+            return false;
+    };
     }
 
 }

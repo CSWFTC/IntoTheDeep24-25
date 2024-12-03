@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Helper.GamePad;
 @TeleOp(name="SingleMotor", group="Hardware")
 public class SingleMotor extends LinearOpMode {
 
-    public static final String version = "1.3";
+    public static final String version = "1.3 ";
     public static class Params {
         public String motorName = "viperMotor";
         public Boolean Forward = true;
@@ -35,6 +35,9 @@ public class SingleMotor extends LinearOpMode {
 
         motor.setDirection(DcMotorSimple.Direction.REVERSE);
         motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+       //motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+       //motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
 
         GamePad gpIn1 = new GamePad(gamepad1);
 
@@ -66,9 +69,8 @@ public class SingleMotor extends LinearOpMode {
                 case BUTTON_B:
                    // motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                     motor.setTargetPosition(0);
+                    motor.setPower(0.5);
                     motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-
                     break;
 
                 case BUTTON_X:
@@ -83,10 +85,6 @@ public class SingleMotor extends LinearOpMode {
                 case BUTTON_L_BUMPER:
                     motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                     break;
-
-
-
-
             }
 
 

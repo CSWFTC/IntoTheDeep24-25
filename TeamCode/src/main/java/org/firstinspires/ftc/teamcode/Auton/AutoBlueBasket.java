@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
+import org.firstinspires.ftc.teamcode.Helper.Intake.IntakeAction;
 
 
 @Autonomous(name = "Auto Blue Basket", group = "RoadRunner")
@@ -20,14 +21,15 @@ public class AutoBlueBasket extends LinearOpMode {
         public double versionNumber = 8.1;
         public int maxPV = 15900;
         public int minPV= 10;
-        public double powerUp = -0.5;
-        public double powerDown = 0.5;
+        public double powerUp = 0.5;
+        public double powerDown = -0.5;
 
     }
 
     public static Params PARAMS = new Params();
     private MecanumDrive drive;
     private ViperSlide vip;
+    private IntakeAction intake;
 
 
 
@@ -57,9 +59,6 @@ public class AutoBlueBasket extends LinearOpMode {
         toBasket();
         toPosThree();
         toBasket();
-
-
-
     }
 
     private void toSub(){
@@ -68,7 +67,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(true)
                 .lineToX(-26)
                 .build();
-        Actions.runBlocking(movePos);
+        Actions.runBlocking(new SequentialAction(movePos, intake.pinch()));
 
         //TODO: add code for claw
 
@@ -87,7 +86,6 @@ public class AutoBlueBasket extends LinearOpMode {
                 .splineTo(new Vector2d(-25, -38), Math.toRadians(180))
                 .build();
         Actions.runBlocking(moveOne);
-
         //basket
     }
 
@@ -117,7 +115,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(true)
                 .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveBasket, vip.movetoPos(PARAMS.maxPV,PARAMS.powerUp ), vip.movetoPos(PARAMS.minPV, PARAMS.powerDown)));
+        Actions.runBlocking(moveBasket);
 
     }
 

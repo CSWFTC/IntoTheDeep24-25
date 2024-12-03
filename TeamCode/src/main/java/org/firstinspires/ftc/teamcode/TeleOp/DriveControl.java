@@ -171,6 +171,9 @@ public class DriveControl extends LinearOpMode {
 //                case BUTTON_B:
 //                    grab.closeGrip();
 
+            //    case BUTTON_A:
+              //      vip.movetoPos()
+
                 case BUTTON_L_BUMPER:
                     vip.moveViperToZero();
                     break;
