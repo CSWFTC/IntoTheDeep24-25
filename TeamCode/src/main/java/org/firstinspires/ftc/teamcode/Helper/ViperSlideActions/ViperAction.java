@@ -26,14 +26,21 @@ public class ViperAction extends Injectable {
     }
 
     public void TEST_activate_bucket() {
-        this.bucketAction.moveToPosition(5);
+        this.pos = 0.09;
+        this.bucketAction.moveToPosition(0.09);
+        this.bucketState.set(BucketState.TRANSPORT);
     }
 
-    private double pos = 0;
+    public double pos = 0.1;
 
     public void TEST_increment_bucket() {
-        pos += 1;
-        this.bucketAction.adjustPosition(pos);
+        pos += 0.01;
+        this.bucketAction.moveToPosition(pos);
+    }
+
+    public void TEST_decrement_bucket() {
+        pos -= 0.01;
+        this.bucketAction.moveToPosition(pos);
     }
 
     public ViperAction() {
@@ -46,5 +53,7 @@ public class ViperAction extends Injectable {
         if (this.bucketAction.initErrorStatus) {
             // ERR
         }
+
+        this.bucketAction.moveToPosition(this.pos);
     }
 }

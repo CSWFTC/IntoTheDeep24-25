@@ -35,12 +35,19 @@ public class ViperslideActionTest extends LinearOpMode {
             GamePad.GameplayInputType inputType = gpInput.WaitForGamepadInput(100);
             switch (inputType) {
                 case BUTTON_A:
-                    telemetry.addLine("ACTIVATING BUCKET");
                     this.viperAction.TEST_activate_bucket();
+                    telemetry.addLine("ACTIVATING BUCKET");
+                    telemetry.addData("pos", this.viperAction.pos);
                     break;
                 case DPAD_UP:
-                    telemetry.addLine("INCREMENTING BUCKET");
                     this.viperAction.TEST_increment_bucket();
+                    telemetry.addLine("INCREMENTING BUCKET");
+                    telemetry.addData("pos", this.viperAction.pos);
+                    break;
+                case DPAD_DOWN:
+                    telemetry.addLine("DECREMENTING BUCKET");
+                    telemetry.addData("pos", this.viperAction.pos);
+                    this.viperAction.TEST_decrement_bucket();
                     break;
             }
 
