@@ -31,7 +31,19 @@ public class ViperAction extends Injectable {
         this.bucketState.set(BucketState.TRANSPORT);
     }
 
-    public double pos = 0.1;
+
+    public void TEST_rotate_bucket() {
+        this.pos = 0.011;
+        this.bucketAction.moveToPosition(0.011);
+        this.bucketState.set(BucketState.TRANSPORT);
+    }
+
+    public double pos = 0.11;
+
+    public void TEST_reset_bucket() {
+        pos = 0.11;
+        this.bucketAction.moveToPosition(pos);
+    }
 
     public void TEST_increment_bucket() {
         pos += 0.01;
@@ -43,7 +55,7 @@ public class ViperAction extends Injectable {
         this.bucketAction.moveToPosition(pos);
     }
 
-    public ViperAction() {
+    public ViperAction() throws Exception {
         super();
         Reactive.init(this);
 
@@ -52,6 +64,7 @@ public class ViperAction extends Injectable {
 
         if (this.bucketAction.initErrorStatus) {
             // ERR
+            throw new Exception("Init Error: "+this.bucketAction.initError);
         }
 
         this.bucketAction.moveToPosition(this.pos);

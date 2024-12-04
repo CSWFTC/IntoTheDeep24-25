@@ -13,7 +13,10 @@ public class DeferredActions {
         PLAY_SOUND("Plays Quack"),
         ROTATE_INTAKE("Rotates the intake"),
         DEROTATE_INTAKE("Derotates the intake"),
-        UNPINCH("Unpinch")
+        UNPINCH("Unpinch"),
+        ROTATE_BUCKET("Rotate Bucket"),
+        RESET_SLIDER("Reset"),
+        RESET_BUCKET("reset")
         ;
 
 

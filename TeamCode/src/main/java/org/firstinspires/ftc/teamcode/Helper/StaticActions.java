@@ -39,6 +39,10 @@ public class StaticActions {
     private StaticActions() {
         // WARNING pls inject dependencies BEFORE initializing this
         this.intakeAction = new IntakeAction();
-        this.viperAction = new ViperAction();
+        try {
+            this.viperAction = new ViperAction();
+        } catch(Exception e) {
+            //
+        }
     }
 }
