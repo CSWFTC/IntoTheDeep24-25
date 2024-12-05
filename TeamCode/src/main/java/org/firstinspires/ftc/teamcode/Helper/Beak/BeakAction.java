@@ -20,11 +20,13 @@ public class BeakAction extends Injectable {
         public double armPickStartPos = 0.27;
         public double armBucketDropPos = 0.315;
         public double armPickReachPos = 0.39;
+        public double armDumpPos = 0.2;
 
         public double elbowDrivePos = 0.668;
         public double elbowPickStartPos = 0.56;
         public double elbowBucketDropPos = 0.69;
         public double elbowPickReachPos = 0.585;
+        public double elbowDumpPos = 0.64;
 
         public double beakOpenGatherPos = 0.4;
         public double beakOpenDropPos = 0.5;
@@ -77,6 +79,11 @@ public class BeakAction extends Injectable {
         MoveElbow(PARAMS.elbowPickStartPos);
         MoveArm(PARAMS.armPickStartPos);
         MoveBeak(PARAMS.beakOpenGatherPos);
+    }
+
+    public void PrepForBucketDump() {
+        MoveElbow(PARAMS.elbowDumpPos);
+        MoveArm(PARAMS.armDumpPos);
     }
 
     public void PickupReach() {

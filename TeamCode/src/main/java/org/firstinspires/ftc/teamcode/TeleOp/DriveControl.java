@@ -32,6 +32,8 @@ public class DriveControl extends LinearOpMode {
     private ViperAction viperAction;
 
 
+    private boolean isViperLocked = false;
+
     private static final String version = "1.1";
     private boolean setReversed = false;
    // private ClawMoves yclaw;
@@ -75,18 +77,26 @@ public class DriveControl extends LinearOpMode {
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
                 case LEFT_STICK_BUTTON_ON:
-                    if (speedMultiplier != 1) {
-                        lastSpeed = speedMultiplier;
+                    if (speedMultiplier < 0.5) {
                         speedMultiplier = 1;
+                    } else {
+                        speedMultiplier = 0.25;
                     }
                     break;
 
-                case LEFT_STICK_BUTTON_OFF:
-                    if (lastSpeed != 1) {
-                        speedMultiplier = lastSpeed;
-                        lastSpeed = 1;
-                    }
-                    break;
+//                case LEFT_STICK_BUTTON_ON:
+//                    if (speedMultiplier != 1) {
+//                        lastSpeed = speedMultiplier;
+//                        speedMultiplier = 1;
+//                    }
+//                    break;
+//
+//                case LEFT_STICK_BUTTON_OFF:
+//                    if (lastSpeed != 1) {
+//                        speedMultiplier = lastSpeed;
+//                        lastSpeed = 1;
+//                    }
+//                    break;
 
                /* case DPAD_UP:
                     this.intakeAction.TEST_derotate();
@@ -137,9 +147,17 @@ public class DriveControl extends LinearOpMode {
                 case DPAD_RIGHT:
                     this.beakAction.OpenBeak();
                     break;
-                case DPAD_DOWN:
-                    this.viperSlideHelper.moveToPosition((this.viperSlideHelper.getCurrentPosition()-5)*-1, 0.8);
+                case RIGHT_STICK_BUTTON_ON:
+                    // EMERGENCY OVERRIDE DO NOT EVER USE THIS UNLESS NEEDED
+                    this.isViperLocked = false;
                     break;
+//                case DPAD_DOWN:
+//                    if (!this.isViperLocked) {
+//                        this.isViperLocked = true;
+//                        this.viperSlideHelper.moveToPosition((this.viperSlideHelper.getCurrentPosition()-5)*-1, 0.8);
+//                        DeferredActions.CreateDeferredAction(6500, DeferredActionType.UNLOCK_VIPER);
+//                    }
+//                    break;
                 case BUTTON_X:
                     this.beakAction.PrepForPickup();
                     break;
@@ -153,14 +171,24 @@ public class DriveControl extends LinearOpMode {
                     DeferredActions.CreateDeferredAction(1000, DeferredActionType.SUPLEX_BEAK);
                     DeferredActions.CreateDeferredAction(2000, DeferredActionType.BEAK_OPEN);
                     break;
+                case BUTTON_L_BUMPER:
+                        this.beakAction.PrepForBucketDump();
+                    break;
                 case BUTTON_Y:
-                    this.viperSlideHelper.resetEncoders();
-                    this.viperSlideHelper.moveToPosition(3100, 0.8);
-                    telemetry.addLine("WENT UP SLIDE");
-                    DeferredActions.CreateDeferredAction(2500, DeferredActions.DeferredActionType.ROTATE_BUCKET);
-                    DeferredActions.CreateDeferredAction(5000, DeferredActions.DeferredActionType.RESET_SLIDER);
-                    DeferredActions.CreateDeferredAction(4000, DeferredActions.DeferredActionType.RESET_BUCKET);
-
+                    if (!isViperLocked) {
+                        this.isViperLocked = true;
+                        this.beakAction.PrepForBucketDump();
+                        DeferredActions.CreateDeferredAction(700, DeferredActionType.BUCKET_RISE_TALL);
+                        DeferredActions.CreateDeferredAction(7200, DeferredActionType.UNLOCK_VIPER);
+                    }
+                    break;
+                case RIGHT_TRIGGER:
+                    if (!isViperLocked) {
+                        this.isViperLocked = true;
+                        this.beakAction.PrepForBucketDump();
+                        DeferredActions.CreateDeferredAction(700, DeferredActionType.BUCKET_RISE_SMALL);
+                        DeferredActions.CreateDeferredAction(7200, DeferredActionType.UNLOCK_VIPER);
+                    }
                     break;
                 case LEFT_TRIGGER:
                     this.beakAction.DrivePosition();
@@ -180,6 +208,25 @@ public class DriveControl extends LinearOpMode {
 
         for(DeferredActionType actionType: action){
             switch(actionType){
+                case UNLOCK_VIPER:
+                    this.isViperLocked = false;
+                    break;
+                case BUCKET_RISE_SMALL:
+                        this.viperSlideHelper.resetEncoders();
+                        this.viperSlideHelper.moveToPosition(1178, 0.8);
+                        telemetry.addLine("WENT UP SLIDE");
+                        DeferredActions.CreateDeferredAction(2500, DeferredActions.DeferredActionType.ROTATE_BUCKET);
+                        DeferredActions.CreateDeferredAction(5000, DeferredActions.DeferredActionType.RESET_SLIDER);
+                        DeferredActions.CreateDeferredAction(4000, DeferredActions.DeferredActionType.RESET_BUCKET);
+                    break;
+                case BUCKET_RISE_TALL:
+                        this.viperSlideHelper.resetEncoders();
+                        this.viperSlideHelper.moveToPosition(3100, 0.8);
+                        telemetry.addLine("WENT UP SLIDE");
+                        DeferredActions.CreateDeferredAction(2500, DeferredActions.DeferredActionType.ROTATE_BUCKET);
+                        DeferredActions.CreateDeferredAction(5000, DeferredActions.DeferredActionType.RESET_SLIDER);
+                        DeferredActions.CreateDeferredAction(4000, DeferredActions.DeferredActionType.RESET_BUCKET);
+                    break;
                 case ROTATE_BUCKET:
                     this.viperAction.TEST_rotate_bucket();
                     break;
@@ -265,6 +312,7 @@ public class DriveControl extends LinearOpMode {
         String actTime = new java.text.SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS", Locale.US).format(DeferredActions.tlmLastActionTimestamp);
         telemetry.addLine().addData("Time", actTime);
         telemetry.addLine().addData("Action", DeferredActions.tlmLastAction.toString());
+        telemetry.addData("Locked: ", this.isViperLocked);
 
 
         telemetry.update();
