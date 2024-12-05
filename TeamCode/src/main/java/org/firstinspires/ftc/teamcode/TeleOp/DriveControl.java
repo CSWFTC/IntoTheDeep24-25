@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions.DeferredActionType;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
@@ -15,6 +16,8 @@ import org.firstinspires.ftc.teamcode.Helper.GamePad;
 import org.firstinspires.ftc.teamcode.Helper.Intake.IntakeAction;
 import org.firstinspires.ftc.teamcode.Helper.Telemetry.Pinch;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperAction;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperSlideHelper;
 
 
 import java.util.List;
@@ -24,6 +27,10 @@ import java.util.Locale;
 @TeleOp(name = "Driver Control", group = "Competition!!")
 public class DriveControl extends LinearOpMode {
 
+    private BeakAction beakAction;
+    private ViperSlideHelper viperSlideHelper;
+    private ViperAction viperAction;
+
 
     private static final String version = "1.1";
     private boolean setReversed = false;
@@ -31,6 +38,14 @@ public class DriveControl extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        waitForStart();
+
+        int initRes = this.initialize();
+
+        if (isStopRequested() || (initRes == 1)) {
+            return;
+        }
+
         // Load Introduction and Wait for Start
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
         telemetry.addLine("Driver Control");
@@ -44,23 +59,6 @@ public class DriveControl extends LinearOpMode {
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
         BumperTest bumpOne = new BumperTest();
         ViperSlide vip = new ViperSlide(hardwareMap);
-//        Pinch grab = new Pinch(hardwareMap);
-
-
-
-        // TestServo serv1 = hardwareMap.servo.get(PARAMS.);
-
-//        new HapticEventBusTester();
-//        HapticEventBusTester hapticEvent = HapticEventBusTester.getInstance();
-
-        waitForStart();
-
-    //    int initRes = this.initialize();
-
-    //    if (isStopRequested() || (initRes == 1)) {
-     //       return;
-     //   }
-
 
         telemetry.clear();
 
@@ -69,9 +67,10 @@ public class DriveControl extends LinearOpMode {
 
         boolean viperOverride = false;
 
+        this.beakAction.DrivePosition();
+
         while (opModeIsActive()) {
             update_telemetry(gpIn1, gpIn2);
-
 
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
@@ -132,49 +131,42 @@ public class DriveControl extends LinearOpMode {
             }
             GamePad.GameplayInputType inpType2 = gpIn2.WaitForGamepadInput(30);
             switch (inpType2) {
-
-                case LEFT_STICK_BUTTON_ON:
-                    if (speedMultiplier != 1) {
-                        lastSpeed = speedMultiplier;
-                        speedMultiplier = 1;
-                    }
+                case DPAD_LEFT:
+                    this.beakAction.CloseBeak();
                     break;
-
-                case LEFT_STICK_BUTTON_OFF:
-                    if (lastSpeed != 1) {
-                        speedMultiplier = lastSpeed;
-                        lastSpeed = 1;
-                    }
+                case DPAD_RIGHT:
+                    this.beakAction.OpenBeak();
                     break;
-
-                case BUTTON_BACK:
-                    viperOverride = true;
+                case DPAD_DOWN:
+                    this.viperSlideHelper.moveToPosition((this.viperSlideHelper.getCurrentPosition()-5)*-1, 0.8);
                     break;
-
-
+                case BUTTON_X:
+                    this.beakAction.PrepForPickup();
+                    break;
+                case BUTTON_B:
+                    this.beakAction.PickupReach();
+                    this.beakAction.OpenBeak();
+                    break;
+                case BUTTON_A:
+                    this.beakAction.CloseBeak();
+                    this.viperAction.TEST_activate_bucket();
+                    DeferredActions.CreateDeferredAction(1000, DeferredActionType.SUPLEX_BEAK);
+                    DeferredActions.CreateDeferredAction(2000, DeferredActionType.BEAK_OPEN);
+                    break;
                 case BUTTON_Y:
-                    //DeferredActions.CreateDeferredAction(150, DeferredActions.DeferredActionType.MOVEMENT);
+                    this.viperSlideHelper.resetEncoders();
+                    this.viperSlideHelper.moveToPosition(3100, 0.8);
+                    telemetry.addLine("WENT UP SLIDE");
+                    DeferredActions.CreateDeferredAction(2500, DeferredActions.DeferredActionType.ROTATE_BUCKET);
+                    DeferredActions.CreateDeferredAction(5000, DeferredActions.DeferredActionType.RESET_SLIDER);
+                    DeferredActions.CreateDeferredAction(4000, DeferredActions.DeferredActionType.RESET_BUCKET);
+
                     break;
-
-                case JOYSTICK:
-                    vip.moveViperWithPower(gamepad2.right_stick_y * 0.7, viperOverride);
+                case LEFT_TRIGGER:
+                    this.beakAction.DrivePosition();
                     break;
-
-               /* case BUTTON_A:
-                    telemetry.addLine("TESTING pickup");
-                    this.intakeAction.TEST_deactivate_pinch();
-                    break;*/
-
-//                case BUTTON_A:
-//                    grab.openGrip();
-//
-//                case BUTTON_B:
-//                    grab.closeGrip();
-
-                case BUTTON_L_BUMPER:
-                    vip.moveViperToZero();
+                default:
                     break;
-
             }
 
             // Deferred Actions
@@ -188,15 +180,28 @@ public class DriveControl extends LinearOpMode {
 
         for(DeferredActionType actionType: action){
             switch(actionType){
-             /*   case ROTATE_INTAKE:
-                    this.intakeAction.TEST_rotation();
+                case ROTATE_BUCKET:
+                    this.viperAction.TEST_rotate_bucket();
                     break;
-                case DEROTATE_INTAKE:
-                    this.intakeAction.TEST_derotate();
+                case RESET_BUCKET:
+                    this.viperAction.TEST_reset_bucket();
                     break;
-                case UNPINCH:
-                    this.intakeAction.TEST_activate_pinch();
-                    break;*/
+                case RESET_SLIDER:
+                    telemetry.addData("VIPERSLIDE b4 RESET POS: ", this.viperSlideHelper.getCurrentPosition());
+                    telemetry.addData("VIPERSLIDE POS: ", this.viperSlideHelper.getCurrentPosition());
+                    this.viperSlideHelper.moveToPosition((this.viperSlideHelper.getCurrentPosition()-5)*-1, 0.8);
+                    telemetry.addLine("Reset SLIDE");
+                    telemetry.addData("VIPERSLIDE FINAL POS: ", this.viperSlideHelper.getCurrentPosition());
+                    break;
+                case BEAK_OPEN:
+                    this.beakAction.OpenBeak();
+                    break;
+                case BEAK_CLOSE:
+                    this.beakAction.CloseBeak();
+                    break;
+                case SUPLEX_BEAK:
+                    this.beakAction.SuplexSample();
+                    break;
                 default:
                     telemetry.addLine("ERROR - Unsupported Deferred Action");
                     break;
@@ -205,6 +210,36 @@ public class DriveControl extends LinearOpMode {
 
 
         }
+    }
+
+    private int initialize() {
+        try {
+            // inject the dependencies
+            DependencyInjector.register("hdwMap", this.hardwareMap);
+            DependencyInjector.register("bucketServoName", "bucketServo");
+            DependencyInjector.register("telemetry", this.telemetry);
+
+            try {
+                this.viperAction = new ViperAction();
+            } catch(Exception e) {
+                telemetry.clear();
+                telemetry.addLine("AN ERROR OCCURED: "+e.toString());
+                telemetry.update();
+                throw new Exception(e);
+            }
+
+            this.beakAction = new BeakAction();
+            this.viperSlideHelper = new ViperSlideHelper();
+
+            // clean up dependencies
+            DependencyInjector.unregister("hdwMap");
+            DependencyInjector.unregister("telemetry");
+            DependencyInjector.unregister("bucketServoName");
+        }
+        catch(Exception e) {
+            return 1;
+        }
+        return 0;
     }
 
     private void update_telemetry(GamePad gpi1, GamePad gpi2) {
