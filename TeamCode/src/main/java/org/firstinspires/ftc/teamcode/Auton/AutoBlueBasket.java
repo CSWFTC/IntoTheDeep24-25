@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Helper.Intake.Pinch;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Helper.Intake.IntakeAction;
@@ -23,6 +24,7 @@ public class AutoBlueBasket extends LinearOpMode {
         public int minPV= 10;
         public double powerUp = 0.5;
         public double powerDown = -0.5;
+        public boolean easy = false;
 
     }
 
@@ -30,6 +32,7 @@ public class AutoBlueBasket extends LinearOpMode {
     private MecanumDrive drive;
     private ViperSlide vip;
     private IntakeAction intake;
+    private Pinch pinchin;
 
 
 
@@ -50,6 +53,7 @@ public class AutoBlueBasket extends LinearOpMode {
         telemetry.clear();
 
 
+        if(PARAMS.easy){
         toSub();
         updateTelemetry(drive.pose.position);
         toPosOne();
@@ -58,7 +62,13 @@ public class AutoBlueBasket extends LinearOpMode {
         toPosTwo();
         toBasket();
         toPosThree();
-        toBasket();
+        toBasket();}
+        else if(!PARAMS.easy) {
+            dumbBasket();
+            toBasket();
+        }
+
+
     }
 
     private void toSub(){
@@ -67,7 +77,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(true)
                 .lineToX(-26)
                 .build();
-        Actions.runBlocking(new SequentialAction(movePos, intake.pinch()));
+        Actions.runBlocking(new SequentialAction(movePos));
 
         //TODO: add code for claw
 
@@ -116,6 +126,15 @@ public class AutoBlueBasket extends LinearOpMode {
                 .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
                 .build();
         Actions.runBlocking(moveBasket);
+
+    }
+
+    private void dumbBasket(){
+        Action moveOut = drive.actionBuilder(drive.pose)
+                .setReversed(true)
+                .lineToX(-20)
+                .build();
+        Actions.runBlocking(moveOut);
 
     }
 
