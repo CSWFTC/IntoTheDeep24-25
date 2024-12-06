@@ -9,10 +9,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
 import org.firstinspires.ftc.teamcode.Helper.Intake.Pinch;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperAction;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperSlideHelper;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Helper.Intake.IntakeAction;
+
 
 
 @Autonomous(name = "Auto Blue Basket", group = "RoadRunner")
@@ -25,14 +29,17 @@ public class AutoBlueBasket extends LinearOpMode {
         public double powerUp = 0.5;
         public double powerDown = -0.5;
         public boolean easy = false;
+        public int maxVipPos = 3100;
+        public double vipPower = 0.8;
 
     }
 
     public static Params PARAMS = new Params();
     private MecanumDrive drive;
-    private ViperSlide vip;
     private IntakeAction intake;
-    private Pinch pinchin;
+    private BeakAction pinch;
+    private ViperAction bucket;
+    private ViperSlideHelper vip;
 
 
 
@@ -125,7 +132,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(true)
                 .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
                 .build();
-        Actions.runBlocking(moveBasket);
+        Actions.runBlocking(new SequentialAction(moveBasket,vip.moveVip(PARAMS.maxVipPos, PARAMS.vipPower), bucket.upBucket(), vip.resetVip()));
 
     }
 

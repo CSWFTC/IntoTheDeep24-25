@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Helper.ViperSlideActions;
 
+import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -35,6 +36,7 @@ public class ViperSlideHelper extends Injectable {
         viperMotor.setPower(power);
     }
 
+
     public boolean isAtTargetPosition() {
         return !viperMotor.isBusy();
     }
@@ -47,4 +49,24 @@ public class ViperSlideHelper extends Injectable {
     public int getCurrentPosition() {
         return viperMotor.getCurrentPosition();
     }
+
+    public Action moveVip(int pos1, double power){
+        return packet -> {
+            resetEncoders();
+            moveToPosition(pos1, power);
+            return false;
+        };
+
+    }
+
+    public Action resetVip(){
+        return packet ->{
+            getCurrentPosition();
+            moveToPosition((getCurrentPosition()-5)*-1, 0.8);
+        return false;
+        };
+
+    }
 }
+
+

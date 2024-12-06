@@ -107,17 +107,4 @@ public class IntakeAction extends Injectable {
         }
     }
 
-    public Action pinch(){
-        return packet ->{
-            TEST_rotation();
-            SystemClock.sleep(100);
-            TEST_deactivate_pinch();
-            SystemClock.sleep(100);
-            TEST_derotate();
-            SystemClock.sleep(100);
-            TEST_activate_pinch();
-            SystemClock.sleep(100);
-            return false;
-        };
-}
 }

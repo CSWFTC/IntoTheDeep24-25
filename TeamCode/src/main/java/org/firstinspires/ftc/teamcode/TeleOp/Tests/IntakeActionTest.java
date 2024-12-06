@@ -97,20 +97,7 @@ public class IntakeActionTest extends LinearOpMode {
 
     }
 
-    public Action pinch(){
-        return packet ->{
-            this.intakeAction.TEST_rotation();
-            SystemClock.sleep(100);
-            this.intakeAction.TEST_deactivate_pinch();
-            SystemClock.sleep(100);
-            this.intakeAction.TEST_derotate();
-            SystemClock.sleep(100);
-            this.intakeAction.TEST_activate_pinch();
-            SystemClock.sleep(100);
-            return false;
-        };
 
-    }
 
     private int initialize() {
         try {

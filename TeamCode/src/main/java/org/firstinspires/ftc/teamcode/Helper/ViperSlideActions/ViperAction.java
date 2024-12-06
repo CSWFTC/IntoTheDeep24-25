@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Helper.ViperSlideActions;
 
+import com.acmerobotics.roadrunner.Action;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
@@ -54,6 +56,16 @@ public class ViperAction extends Injectable {
         pos -= 0.01;
         this.bucketAction.moveToPosition(pos);
     }
+
+    public Action upBucket(){
+        return packet ->{
+            TEST_rotate_bucket();
+            TEST_reset_bucket();
+            return false;
+        };
+
+    }
+
 
     public ViperAction() throws Exception {
         super();

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Helper.Beak;
 import android.os.SystemClock;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
@@ -112,6 +113,28 @@ public class BeakAction extends Injectable {
         MoveArm(PARAMS.armBucketDropPos);
         MoveElbow(PARAMS.elbowBucketDropPos);
 //        DeferredActions.CreateDeferredAction(1000, DeferredActions.DeferredActionType.BEAK_OPEN);
+    }
+
+    public Action autElBucket(){
+        return packet ->{
+        MoveElbow(PARAMS.elbowPickStartPos);
+        return false;
+        };
+
+    }
+    public Action autonAct(){
+        return packet ->{
+            MoveElbow(PARAMS.elbowPickReachPos);
+            MoveArm(PARAMS.armPickReachPos);
+            MoveBeak(PARAMS.beakClosedPos);
+            MoveElbow(PARAMS.elbowBucketDropPos);
+            MoveArm(PARAMS.armBucketDropPos);
+            MoveBeak(PARAMS.beakOpenDropPos);
+
+          return false;
+        };
+
+
     }
 
 //    public void SuplexSample() {
