@@ -130,7 +130,8 @@ public class AutoBlueBasket extends LinearOpMode {
         //basket
         Action moveBasket= drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
+               // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
+                .strafeTo(new Vector2d(-14,-48))
                 .build();
         Actions.runBlocking(new SequentialAction(moveBasket,vip.moveVip(PARAMS.maxVipPos, PARAMS.vipPower)));
 
@@ -139,7 +140,7 @@ public class AutoBlueBasket extends LinearOpMode {
     private void dumbBasket(){
         Action moveOut = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-20)
+                .lineToX(-14)
                 .build();
         Actions.runBlocking(moveOut);
     }
