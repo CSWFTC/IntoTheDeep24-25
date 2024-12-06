@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Helper;
 
+import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
 import org.firstinspires.ftc.teamcode.Helper.Intake.IntakeAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperAction;
 
@@ -20,6 +21,7 @@ public class StaticActions {
 
     private IntakeAction intakeAction;
     private ViperAction viperAction;
+    private BeakAction beakAction;
 
     public IntakeAction getIntakeAction() {
         return this.intakeAction;
@@ -28,6 +30,8 @@ public class StaticActions {
     public ViperAction getViperAction() {
         return this.viperAction;
     }
+
+    public BeakAction getBeakAction() {return this.beakAction;}
 
     public synchronized static StaticActions getInstance() {
         if (instance == null) {
@@ -44,5 +48,7 @@ public class StaticActions {
         } catch(Exception e) {
             //
         }
+
+        this.beakAction = new BeakAction();
     }
 }
