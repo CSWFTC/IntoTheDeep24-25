@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.Helper.Intake.BeakState;
 import org.firstinspires.ftc.teamcode.Helper.ReactiveState.Reactive;
 import org.firstinspires.ftc.teamcode.Helper.ReactiveState.ReactiveState;
 import org.firstinspires.ftc.teamcode.Helper.ReactiveState.StateChange;
+import org.firstinspires.ftc.teamcode.Helper.StaticActions;
 
 @Config
 public class BeakAction extends Injectable {
@@ -124,6 +125,8 @@ public class BeakAction extends Injectable {
     }
     public Action autonAct(){
         return packet ->{
+            StaticActions staticActions = StaticActions.getInstance();
+            staticActions.getViperAction().TEST_activate_bucket();
             MoveElbow(PARAMS.elbowPickReachPos);
             MoveArm(PARAMS.armPickReachPos);
             MoveBeak(PARAMS.beakClosedPos);

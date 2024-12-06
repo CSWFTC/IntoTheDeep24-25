@@ -19,13 +19,13 @@ packet -> {
 public class StaticActions {
     private static StaticActions instance = null;
 
-    private IntakeAction intakeAction;
+//    private IntakeAction intakeAction;
     private ViperAction viperAction;
     private BeakAction beakAction;
 
-    public IntakeAction getIntakeAction() {
-        return this.intakeAction;
-    }
+//    public IntakeAction getIntakeAction() {
+//        return this.intakeAction;
+//    }
 
     public ViperAction getViperAction() {
         return this.viperAction;
@@ -42,7 +42,7 @@ public class StaticActions {
 
     private StaticActions() {
         // WARNING pls inject dependencies BEFORE initializing this
-        this.intakeAction = new IntakeAction();
+//        this.intakeAction = new IntakeAction();
         try {
             this.viperAction = new ViperAction();
         } catch(Exception e) {
