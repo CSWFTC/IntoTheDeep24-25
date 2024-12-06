@@ -16,7 +16,13 @@ public class DeferredActions {
         UNPINCH("Unpinch"),
         ROTATE_BUCKET("Rotate Bucket"),
         RESET_SLIDER("Reset"),
-        RESET_BUCKET("reset")
+        RESET_BUCKET("reset"),
+        BEAK_OPEN("open beak"),
+        BEAK_CLOSE("Close beak"),
+        SUPLEX_BEAK("suplex"),
+        BUCKET_RISE_TALL("rise tall"),
+        BUCKET_RISE_SMALL("rise small"),
+        UNLOCK_VIPER("unlock")
         ;
 
 

@@ -3,11 +3,17 @@ package org.firstinspires.ftc.teamcode.Helper.ViperSlideActions;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class ViperSlideHelper {
+import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
+import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
+
+public class ViperSlideHelper extends Injectable {
 
     private DcMotor viperMotor;
 
-    public ViperSlideHelper(HardwareMap hardwareMap) {
+    @Inject("hdwMap")
+    private HardwareMap hardwareMap;
+
+    public ViperSlideHelper() {
         viperMotor = hardwareMap.get(DcMotor.class, "viperMotor");
 
         viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

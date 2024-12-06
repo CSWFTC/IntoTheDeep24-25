@@ -134,7 +134,7 @@ public class ViperslideActionTest extends LinearOpMode {
                 throw new Exception(e);
             }
 
-                this.viperSlideHelper = new ViperSlideHelper(hardwareMap);
+                this.viperSlideHelper = new ViperSlideHelper();
 
             // clean up dependencies
             DependencyInjector.unregister("pinchServoName");
