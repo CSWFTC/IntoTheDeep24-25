@@ -142,7 +142,6 @@ public class AutoBlueBasket extends LinearOpMode {
                 .lineToX(-20)
                 .build();
         Actions.runBlocking(moveOut);
-
     }
 
 
