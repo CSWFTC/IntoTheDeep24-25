@@ -41,8 +41,8 @@ public class AutoRedBasket extends LinearOpMode {
         waitForStart();
         telemetry.clear();
 
-      dumbBasket();
-      toBasket();
+      forward();
+      toPark();
 
     }
 
@@ -85,7 +85,7 @@ public class AutoRedBasket extends LinearOpMode {
         //basket
     }
 
-    private void toBasket(){
+    private void toPark(){
         //basket
         Action moveBasket= drive.actionBuilder(drive.pose)
                 .setReversed(true)
@@ -96,7 +96,7 @@ public class AutoRedBasket extends LinearOpMode {
 
     }
 
-    private void dumbBasket(){
+    private void forward(){
         Action moveOut = drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 .lineToX(-9)
