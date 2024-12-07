@@ -66,6 +66,7 @@ public class DriveControl extends LinearOpMode {
 
         double speedMultiplier = 1;
         double lastSpeed = 1;
+        int times = 1;
 
         boolean viperOverride = false;
 
@@ -73,79 +74,21 @@ public class DriveControl extends LinearOpMode {
 
         while (opModeIsActive()) {
             update_telemetry(gpIn1, gpIn2);
+            //update_telemetry(gpIn1, gpIn2);
 
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
-                case LEFT_STICK_BUTTON_ON:
-                    if (speedMultiplier < 0.5) {
-                        speedMultiplier = 1;
-                    } else {
-                        speedMultiplier = 0.25;
-                    }
-                    break;
-
-//                case LEFT_STICK_BUTTON_ON:
-//                    if (speedMultiplier != 1) {
-//                        lastSpeed = speedMultiplier;
-//                        speedMultiplier = 1;
-//                    }
-//                    break;
-//
-//                case LEFT_STICK_BUTTON_OFF:
-//                    if (lastSpeed != 1) {
-//                        speedMultiplier = lastSpeed;
-//                        lastSpeed = 1;
-//                    }
-//                    break;
-
-               /* case DPAD_UP:
-                    this.intakeAction.TEST_derotate();
-                    break;
-
                 case DPAD_DOWN:
-                    telemetry.addLine("TESTING pickup");
-                    this.intakeAction.TEST_deactivate_pinch();
-                    break;*/
-
-                case BUTTON_A:
-//                    Set<String> targets = new HashSet<>();
-//                    targets.add("haptic");
-//                    EventBus.getInstance().emit(targets, gpIn1);
                     speedMultiplier = 0.25;
                     break;
-
-                case BUTTON_X:
+                case DPAD_LEFT:
                     speedMultiplier = 0.75;
                     break;
-
-                case BUTTON_B:
+                case DPAD_RIGHT:
                     speedMultiplier = 0.5;
                     break;
-
-                case BUTTON_Y:
+                case DPAD_UP:
                     speedMultiplier = 1;
-                    break;
-
-                case BUTTON_BACK:
-                    setReversed = !setReversed;
-                    break;
-
-                case JOYSTICK:
-//                    gpIn1.HapticsController.runShortHaptic();
-                    drvTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
-                            gamepad1.right_stick_x * (float) speedMultiplier,
-                            gamepad1.left_stick_y * (float) speedMultiplier, setReversed);
-                    break;
-
-
-            }
-            GamePad.GameplayInputType inpType2 = gpIn2.WaitForGamepadInput(30);
-            switch (inpType2) {
-                case DPAD_LEFT:
-                    this.beakAction.CloseBeak();
-                    break;
-                case DPAD_RIGHT:
-                    this.beakAction.OpenBeak();
                     break;
                 case RIGHT_STICK_BUTTON_ON:
                     // EMERGENCY OVERRIDE DO NOT EVER USE THIS UNLESS NEEDED
@@ -172,17 +115,74 @@ public class DriveControl extends LinearOpMode {
                     DeferredActions.CreateDeferredAction(2000, DeferredActionType.BEAK_OPEN);
                     break;
                 case BUTTON_L_BUMPER:
-                        this.beakAction.PrepForBucketDump();
-                    break;
-                case BUTTON_Y:
-                    if (!isViperLocked) {
-                        this.isViperLocked = true;
-                        this.beakAction.PrepForBucketDump();
-                        DeferredActions.CreateDeferredAction(700, DeferredActionType.BUCKET_RISE_TALL);
-                        DeferredActions.CreateDeferredAction(7200, DeferredActionType.UNLOCK_VIPER);
+                    //this.beakAction.PrepForBucketDump();
+                    time++;
+                    if(time%2==0) {
+                        this.beakAction.CloseBeak();
+                    } else {
+                        this.beakAction.OpenBeak();
                     }
                     break;
-                case RIGHT_TRIGGER:
+                case LEFT_TRIGGER:
+                    this.beakAction.DrivePosition();
+                    break;
+                case JOYSTICK:
+                    drvTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
+                            gamepad1.right_stick_x * (float) speedMultiplier,
+                            gamepad1.left_stick_y * (float) speedMultiplier, setReversed);
+                    break;
+
+
+            }
+            GamePad.GameplayInputType inpType2 = gpIn2.WaitForGamepadInput(30);
+            switch (inpType2) {
+                case LEFT_STICK_BUTTON_ON:
+                    if (speedMultiplier < 0.5) {
+                        speedMultiplier = 1;
+                    } else {
+                        speedMultiplier = 0.25;
+                    }
+                    break;
+
+//                case LEFT_STICK_BUTTON_ON:
+//                    if (speedMultiplier != 1) {
+//                        lastSpeed = speedMultiplier;
+//                        speedMultiplier = 1;
+//                    }
+//                    break;
+//
+//                case LEFT_STICK_BUTTON_OFF:
+//                    if (lastSpeed != 1) {
+//                        speedMultiplier = lastSpeed;
+//                        lastSpeed = 1;
+//                    }
+//                    break;
+
+               /*case DPAD_UP:
+                    this.intakeAction.TEST_derotate();
+                    break;
+
+                case DPAD_DOWN:
+                    telemetry.addLine("TESTING pickup");
+                    this.intakeAction.TEST_deactivate_pinch();
+                    break;*/
+
+                case BUTTON_A:
+//                    Set<String> targets = new HashSet<>();
+//                    targets.add("haptic");
+//                    EventBus.getInstance().emit(targets, gpIn1);
+                    speedMultiplier = 0.25;
+                    break;
+
+                case BUTTON_X:
+                    speedMultiplier = 0.75;
+                    break;
+
+                case BUTTON_B:
+                    speedMultiplier = 0.5;
+                    break;
+
+                case BUTTON_Y:
                     if (!isViperLocked) {
                         this.isViperLocked = true;
                         this.beakAction.PrepForBucketDump();
@@ -190,9 +190,11 @@ public class DriveControl extends LinearOpMode {
                         DeferredActions.CreateDeferredAction(7200, DeferredActionType.UNLOCK_VIPER);
                     }
                     break;
-                case LEFT_TRIGGER:
-                    this.beakAction.DrivePosition();
+
+                case BUTTON_BACK:
+                    setReversed = !setReversed;
                     break;
+
                 default:
                     break;
             }
