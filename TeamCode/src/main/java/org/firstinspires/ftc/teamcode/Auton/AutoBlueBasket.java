@@ -28,9 +28,10 @@ public class AutoBlueBasket extends LinearOpMode {
         public int minPV= 10;
         public double powerUp = 0.5;
         public double powerDown = -0.5;
-        public boolean easy = false;
+        public boolean easy = true;
         public int maxVipPos = 3100;
         public double vipPower = 0.8;
+
 
     }
 
@@ -60,7 +61,7 @@ public class AutoBlueBasket extends LinearOpMode {
         telemetry.clear();
 
 
-        if(PARAMS.easy){
+        if(!PARAMS.easy){
         toSub();
         updateTelemetry(drive.pose.position);
         toPosOne();
@@ -70,7 +71,7 @@ public class AutoBlueBasket extends LinearOpMode {
         toBasket();
         toPosThree();
         toBasket();}
-        else if(!PARAMS.easy) {
+        else if(PARAMS.easy) {
             dumbBasket();
             toBasket();
         }
@@ -133,14 +134,14 @@ public class AutoBlueBasket extends LinearOpMode {
                // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
                 .strafeTo(new Vector2d(-14,-48))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveBasket,vip.moveVip(PARAMS.maxVipPos, PARAMS.vipPower)));
+        Actions.runBlocking((moveBasket));
 
     }
 
     private void dumbBasket(){
         Action moveOut = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-14)
+                .lineToX(-9)
                 .build();
         Actions.runBlocking(moveOut);
     }

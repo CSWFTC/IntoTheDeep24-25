@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Auton;
 
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -16,6 +17,7 @@ public class AutoRedBasket extends LinearOpMode {
 
     public static class Params {
         public double versionNumber = 8.1;
+        public boolean easy = true;
 
     }
 
@@ -39,13 +41,8 @@ public class AutoRedBasket extends LinearOpMode {
         waitForStart();
         telemetry.clear();
 
-        toSub();
-        // toPosOne();
-        // toBasket();
-        // toPosTwo();
-        // toBasket();
-        // toPosTwo();
-        // toBasket();
+      dumbBasket();
+      toBasket();
 
     }
 
@@ -88,25 +85,26 @@ public class AutoRedBasket extends LinearOpMode {
         //basket
     }
 
-    private void toPosThree() {
-        //pos three
-        Action moveThree = drive.actionBuilder(drive.pose)
-                .setReversed(true)
-                .splineTo(new Vector2d(-25, 47), Math.toRadians(-20))
-                .build();
-        Actions.runBlocking(moveThree);
+    private void toBasket(){
         //basket
-    }
-
-    private void toBasket() {
-        //basket
-        Action moveBasket = drive.actionBuilder(drive.pose)
+        Action moveBasket= drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .splineTo(new Vector2d(-12, 48), Math.toRadians(320))
+                // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
+                .strafeTo(new Vector2d(-14,48))
                 .build();
-        Actions.runBlocking(moveBasket);
+        Actions.runBlocking((moveBasket));
 
     }
+
+    private void dumbBasket(){
+        Action moveOut = drive.actionBuilder(drive.pose)
+                .setReversed(true)
+                .lineToX(-9)
+                .build();
+        Actions.runBlocking(moveOut);
+    }
+
+
 }
 
 

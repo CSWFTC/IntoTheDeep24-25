@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 public class AutoBlueOB extends LinearOpMode {
 
     public static class Params {
-
+        public boolean easy = true;
     }
 
     public static Params PARAMS = new Params();
@@ -26,9 +26,15 @@ public class AutoBlueOB extends LinearOpMode {
 
         telemetry.addData("okay", "so code needs to push6");
         telemetry.update();
-        toLine();
-        markOne();
-        humanPlayer();
+
+        if(PARAMS.easy){
+            forward();
+            toPark();
+        }
+        else{
+            toLine();
+            markOne();
+            humanPlayer();}
     }
 
     public void toLine(){
@@ -72,6 +78,25 @@ public class AutoBlueOB extends LinearOpMode {
                 .splineTo(new Vector2d(-26, 0), Math.toRadians(180))
                 .build();
         Actions.runBlocking(backAgain);
+    }
+
+    private void toPark(){
+        //basket
+        Action moveBasket= drive.actionBuilder(drive.pose)
+                .setReversed(true)
+                // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
+                .strafeTo(new Vector2d(-14,48))
+                .build();
+        Actions.runBlocking((moveBasket));
+
+    }
+
+    private void forward(){
+        Action moveOut = drive.actionBuilder(drive.pose)
+                .setReversed(true)
+                .lineToX(-9)
+                .build();
+        Actions.runBlocking(moveOut);
     }
 
 
