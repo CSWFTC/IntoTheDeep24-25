@@ -13,13 +13,14 @@ import org.firstinspires.ftc.teamcode.Helper.Intake.BeakState;
 import org.firstinspires.ftc.teamcode.Helper.ReactiveState.Reactive;
 import org.firstinspires.ftc.teamcode.Helper.ReactiveState.ReactiveState;
 import org.firstinspires.ftc.teamcode.Helper.ReactiveState.StateChange;
+import org.firstinspires.ftc.teamcode.Helper.StaticActions;
 
 @Config
 public class BeakAction extends Injectable {
     public static class Params {
         public double armDrivePos = 0.2;
         public double armPickStartPos = 0.27;
-        public double armBucketDropPos = 0.315;
+        public double armBucketDropPos = 0.3;
         public double armPickReachPos = 0.39;
         public double armDumpPos = 0.2;
 
@@ -30,7 +31,7 @@ public class BeakAction extends Injectable {
         public double elbowDumpPos = 0.64;
 
         public double beakOpenGatherPos = 0.4;
-        public double beakOpenDropPos = 0.5;
+        public double beakOpenDropPos = 0.45;
         public double beakClosedPos = 0.75;
         public double beakSuplexOpenDelay = 1000;
     }
@@ -124,6 +125,8 @@ public class BeakAction extends Injectable {
     }
     public Action autonAct(){
         return packet ->{
+            StaticActions staticActions = StaticActions.getInstance();
+            staticActions.getViperAction().TEST_activate_bucket();
             MoveElbow(PARAMS.elbowPickReachPos);
             MoveArm(PARAMS.armPickReachPos);
             MoveBeak(PARAMS.beakClosedPos);
