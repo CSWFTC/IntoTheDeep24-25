@@ -1,10 +1,11 @@
-package org.firstinspires.ftc.teamcode.Helper.ViperSlideActions;
+package org.firstinspires.ftc.teamcode.Helper;
 
 import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
-import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.BucketAction;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperAction;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperSlideHelper;
 
 public class ViperBucketHelper  {
 
