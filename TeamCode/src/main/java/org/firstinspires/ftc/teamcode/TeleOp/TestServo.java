@@ -16,7 +16,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 @TeleOp(name = "Position Servo Test", group = "Hardware")
 public class TestServo extends  LinearOpMode {
     public static class Params {
-        public String servoName = "pinchServo";
+        public String servoName = "bucketServo";
         public double servoForward = 1;
         public double servoStartPos = 0.532;
         public double servoPresetPosX = 0.532;

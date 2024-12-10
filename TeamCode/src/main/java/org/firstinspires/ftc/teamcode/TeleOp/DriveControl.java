@@ -307,3 +307,4 @@ public class DriveControl extends LinearOpMode {
         telemetry.update();
     }
 }
+ // ok basically first gamepad  (gamepad 1
