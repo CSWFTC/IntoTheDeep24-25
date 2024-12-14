@@ -30,14 +30,14 @@ public class ViperAction extends Injectable {
     public void TEST_activate_bucket() {
         this.pos = 0.09;
         this.bucketAction.moveToPosition(0.09);
-        this.bucketState.set(BucketState.TRANSPORT);
+//        this.bucketState.set(BucketState.TRANSPORT);
     }
 
 
     public void TEST_rotate_bucket() {
         this.pos = 0.011;
         this.bucketAction.moveToPosition(0.011);
-        this.bucketState.set(BucketState.TRANSPORT);
+//        this.bucketState.set(BucketState.TRANSPORT);
     }
 
     public double pos = 0.11;
