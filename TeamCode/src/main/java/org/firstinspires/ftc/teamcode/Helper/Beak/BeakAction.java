@@ -116,29 +116,6 @@ public class BeakAction extends Injectable {
 //        DeferredActions.CreateDeferredAction(1000, DeferredActions.DeferredActionType.BEAK_OPEN);
     }
 
-    public Action autElBucket(){
-        return packet ->{
-        MoveElbow(PARAMS.elbowPickStartPos);
-        return false;
-        };
-
-    }
-    public Action autonAct(){
-        return packet ->{
-            StaticActions staticActions = StaticActions.getInstance();
-            staticActions.getViperAction().TEST_activate_bucket();
-            MoveElbow(PARAMS.elbowPickReachPos);
-            MoveArm(PARAMS.armPickReachPos);
-            MoveBeak(PARAMS.beakClosedPos);
-            MoveElbow(PARAMS.elbowBucketDropPos);
-            MoveArm(PARAMS.armBucketDropPos);
-            MoveBeak(PARAMS.beakOpenDropPos);
-
-          return false;
-        };
-
-
-    }
 
 //    public void SuplexSample() {
 //        if (tlmBeakPosition != PARAMS.beakClosedPos)  {
