@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Helper;
 
 import android.os.SystemClock;
 
+import com.acmerobotics.roadrunner.Action;
+
 import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
 import org.firstinspires.ftc.teamcode.Helper.Intake.Pinch;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.BucketLiftWrapper;
@@ -25,19 +27,36 @@ public class StaticActions {
         bucketLiftWrapper.moveToPosition((int)(bucketLiftWrapper.getCurrentPosition()-5)*-1);
     }
 
-    private void resetBucket() {
+    private void resetBuc() {
         bucketLiftWrapper.resetBucket();
     }
 
-    public void dumpBucketSmall() {
-        bucketLiftWrapper.resetEncoders();
-        bucketLiftWrapper.moveToPosition(1178);
-        SystemClock.sleep(1200);
-        dumpBucket();
-        SystemClock.sleep(1800);
-        resetBucket();
-        SystemClock.sleep(1100);
-        resetSlider();
+
+    public Action dumpBucketLowBasket() {
+        return packet -> {;
+            bucketLiftWrapper.moveToPosition(1178);
+            SystemClock.sleep(1200);
+            dumpBucket();
+            return false;
+        };
+    }
+
+    public Action retractBucket() {
+        return packet -> {;
+            bucketLiftWrapper.resetBucket();
+            SystemClock.sleep(1100);
+            resetSlider();
+            return false;
+        };
+    }
+
+    public Action dumpBucketHighBasket() {
+        return packet -> {;
+            bucketLiftWrapper.moveToPosition(1178);
+            SystemClock.sleep(1200);
+            dumpBucket();
+            return false;
+        };
     }
 
 
