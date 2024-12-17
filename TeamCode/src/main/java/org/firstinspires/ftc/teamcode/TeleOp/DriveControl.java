@@ -33,9 +33,9 @@ public class DriveControl extends LinearOpMode {
 
 
     private boolean isViperLocked = false;
-
     private static final String version = "1.1";
     private boolean setReversed = false;
+
    // private ClawMoves yclaw;
 
     @Override
@@ -60,7 +60,7 @@ public class DriveControl extends LinearOpMode {
         GamePad gpIn2 = new GamePad(gamepad2);
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
         BumperTest bumpOne = new BumperTest();
-        ViperSlide vip = new ViperSlide(hardwareMap);
+       // ViperSlide vip = new ViperSlide(hardwareMap);
 
         telemetry.clear();
 
@@ -168,6 +168,12 @@ public class DriveControl extends LinearOpMode {
                     }
                     break;
 
+                case BUTTON_R_BUMPER:
+                    DeferredActions.CreateDeferredAction(0000, DeferredActions.DeferredActionType.ROTATE_BUCKET);
+                    DeferredActions.CreateDeferredAction(2500, DeferredActions.DeferredActionType.RESET_SLIDER);
+                    DeferredActions.CreateDeferredAction(1800, DeferredActions.DeferredActionType.RESET_BUCKET);
+                    break;
+
 
                 case RIGHT_TRIGGER:
                     if (!isViperLocked) {
@@ -204,17 +210,17 @@ public class DriveControl extends LinearOpMode {
                         this.viperSlideHelper.resetEncoders();
                         this.viperSlideHelper.moveToPosition(1178, 0.8);
                         telemetry.addLine("WENT UP SLIDE");
-                        DeferredActions.CreateDeferredAction(1200, DeferredActions.DeferredActionType.ROTATE_BUCKET);
-                        DeferredActions.CreateDeferredAction(4100, DeferredActions.DeferredActionType.RESET_SLIDER);
-                        DeferredActions.CreateDeferredAction(3000, DeferredActions.DeferredActionType.RESET_BUCKET);
+                        // DeferredActions.CreateDeferredAction(1200, DeferredActions.DeferredActionType.ROTATE_BUCKET);
+                        // DeaferredActions.CreateDeferredAction(4100, DeferredActions.DeferredActionType.RESET_SLIDER);
+                        // DeferredActions.CreateDeferredAction(3000, DeferredActions.DeferredActionType.RESET_BUCKET);
                     break;
                 case BUCKET_RISE_TALL:
                         this.viperSlideHelper.resetEncoders();
                         this.viperSlideHelper.moveToPosition(3100, 0.8);
                         telemetry.addLine("WENT UP SLIDE");
-                        DeferredActions.CreateDeferredAction(2000, DeferredActions.DeferredActionType.ROTATE_BUCKET);
-                        DeferredActions.CreateDeferredAction(4500, DeferredActions.DeferredActionType.RESET_SLIDER);
-                        DeferredActions.CreateDeferredAction(3800, DeferredActions.DeferredActionType.RESET_BUCKET);
+                        //DeferredActions.CreateDeferredAction(2000, DeferredActions.DeferredActionType.ROTATE_BUCKET);
+                       // DeferredActions.CreateDeferredAction(4500, DeferredActions.DeferredActionType.RESET_SLIDER);
+                        //DeferredActions.CreateDeferredAction(3800, DeferredActions.DeferredActionType.RESET_BUCKET);
                     break;
                 case ROTATE_BUCKET:
                     this.viperAction.TEST_rotate_bucket();

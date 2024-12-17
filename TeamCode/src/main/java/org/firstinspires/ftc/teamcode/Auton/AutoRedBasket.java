@@ -10,6 +10,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.sun.tools.javac.comp.Todo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 
 @Autonomous(name = "Auto Red Basket", group = "RoadRunner")
@@ -27,6 +28,10 @@ public class AutoRedBasket extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+
+        DependencyInjector.register("hdw Map", this.hardwareMap);
+        DependencyInjector.register("bucketServoName", "bucketServo");
+        DependencyInjector.register("telementry", this.telemetry);
 
         drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
@@ -90,7 +95,7 @@ public class AutoRedBasket extends LinearOpMode {
         Action moveBasket= drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
-                .strafeTo(new Vector2d(-14,48))
+                .strafeTo(new Vector2d(-2,-48))
                 .build();
         Actions.runBlocking((moveBasket));
 
@@ -99,7 +104,7 @@ public class AutoRedBasket extends LinearOpMode {
     private void forward(){
         Action moveOut = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-9)
+                .lineToX(-5)
                 .build();
         Actions.runBlocking(moveOut);
     }

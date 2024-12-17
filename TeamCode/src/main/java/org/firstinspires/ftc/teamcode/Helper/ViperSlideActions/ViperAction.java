@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Helper.ViperSlideActions;
 
+import android.os.SystemClock;
+
 import com.acmerobotics.roadrunner.Action;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -9,6 +11,8 @@ import org.firstinspires.ftc.teamcode.Helper.Intake.IntakeAction;
 import org.firstinspires.ftc.teamcode.Helper.ReactiveState.Reactive;
 import org.firstinspires.ftc.teamcode.Helper.ReactiveState.ReactiveState;
 import org.firstinspires.ftc.teamcode.Helper.ReactiveState.StateChange;
+import org.firstinspires.ftc.teamcode.Helper.StaticActions;
+
 
 public class ViperAction extends Injectable {
     public static class Params {
@@ -21,6 +25,7 @@ public class ViperAction extends Injectable {
     @Inject("telemetry")
     private Telemetry telemetry;
 
+    @Inject("viperName")
     private BucketAction bucketAction;
 
     public void bucketChange() {
@@ -57,6 +62,7 @@ public class ViperAction extends Injectable {
         this.bucketAction.moveToPosition(pos);
     }
 
+    /*
     public Action upBucket(){
         return packet ->{
             TEST_rotate_bucket();
@@ -65,7 +71,7 @@ public class ViperAction extends Injectable {
         };
 
     }
-
+*/
 
     public ViperAction() throws Exception {
         super();
@@ -81,4 +87,30 @@ public class ViperAction extends Injectable {
 
         this.bucketAction.moveToPosition(this.pos);
     }
+
+/*
+    public Action viperUpAction(){
+        return packet ->{
+            StaticActions staticActions = StaticActions.getInstance ();
+            staticActions.getViperAction().TEST_activate_bucket();
+            SystemClock.sleep(200);
+            staticActions.getViperAction().TEST_rotate_bucket();
+            SystemClock.sleep(200);
+            staticActions.getViperAction().TEST_reset_bucket();
+            return false;
+        };
+
+
+    }
+
+    public Action viperUpActionOne() {
+        return packet -> {
+         TEST_activate_bucket();
+         SystemClock.sleep(200);
+         TEST_rotate_bucket();
+         SystemClock.sleep(200);
+         TEST_reset_bucket();
+         return false;
+        };
+    }*/
 }

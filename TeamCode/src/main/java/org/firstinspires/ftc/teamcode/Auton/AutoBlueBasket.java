@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
+import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
 import org.firstinspires.ftc.teamcode.Helper.Intake.Pinch;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperAction;
@@ -31,8 +32,6 @@ public class AutoBlueBasket extends LinearOpMode {
         public boolean easy = true;
         public int maxVipPos = 3100;
         public double vipPower = 0.8;
-
-
     }
 
     public static Params PARAMS = new Params();
@@ -42,13 +41,17 @@ public class AutoBlueBasket extends LinearOpMode {
     private ViperAction bucket;
     private ViperSlideHelper vip;
 
-
-
     @Override
     public void runOpMode(){
+     /*   DependencyInjector.register("hdw Map", this.hardwareMap);
+        DependencyInjector.register("bucketServoName", "bucketServo");
+        DependencyInjector.register("pinchServoName", "servoName"); //pinch
+        DependencyInjector.register("viperName", "bucketAction"); //viper + bucket
+        DependencyInjector.register("intakeRotationServoName", "servoName");
+        DependencyInjector.register("telementry", this.telemetry);*/
 
         drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
-
+      //  bucket = new ViperAction(hardwareMap);
         //Load Introduction and Wait for Start
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.CLASSIC);
         telemetry.addLine("RoadRunner Auto Drive Basket Blue");
@@ -77,6 +80,13 @@ public class AutoBlueBasket extends LinearOpMode {
         }
 
 
+   /*     DependencyInjector.unregister("hdw Map");
+        DependencyInjector.unregister("bucketServoName");
+        DependencyInjector.unregister("pinchServoName"); //pinch
+        DependencyInjector.unregister("pinchServoName");
+        DependencyInjector.unregister("intakeRotationServoName");
+        DependencyInjector.unregister("telementry");*/
+
     }
 
     private void toSub(){
@@ -103,7 +113,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-25, -38), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(moveOne);
+        Actions.runBlocking(new SequentialAction(moveOne));
         //basket
     }
 

@@ -87,8 +87,7 @@ public class Pinch extends Injectable {
             SystemClock.sleep(100);
             closeGrip();
 
-            return false;
-    };
+            return false;};
     }
 
 }

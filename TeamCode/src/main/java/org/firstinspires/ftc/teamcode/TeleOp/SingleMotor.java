@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
 
 @TeleOp(name="SingleMotor", group="Hardware")
