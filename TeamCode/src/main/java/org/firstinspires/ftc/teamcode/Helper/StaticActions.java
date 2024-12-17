@@ -1,37 +1,64 @@
 package org.firstinspires.ftc.teamcode.Helper;
 
+import android.os.SystemClock;
+
+import com.acmerobotics.roadrunner.Action;
+
 import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
-import org.firstinspires.ftc.teamcode.Helper.Intake.IntakeAction;
-import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperAction;
-
-/*
-HOW TO USE INSIDE OF THE LAMBDA:
-
-packet -> {
-    StaticActions actions = StaticActions.getInstance();
-
-    actions.getIntakeAction().whateverMethod();
-    actions.getViperAction().whateverMethod();
-}
-
- */
+import org.firstinspires.ftc.teamcode.Helper.Intake.Pinch;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.BucketLiftWrapper;
 
 public class StaticActions {
     private static StaticActions instance = null;
 
-//    private IntakeAction intakeAction;
-    private ViperAction viperAction;
     private BeakAction beakAction;
+    private BucketLiftWrapper bucketLiftWrapper;
 
-//    public IntakeAction getIntakeAction() {
-//        return this.intakeAction;
-//    }
+    // option available for fine grained control
+    public BucketLiftWrapper getBucketLiftWrapper(){ return this.bucketLiftWrapper;}
+    public BeakAction getBeakAction() {return this.beakAction;}
 
-    public ViperAction getViperAction() {
-        return this.viperAction;
+    // pre-orchestrated action controls
+    private void dumpBucket() {
+        bucketLiftWrapper.dumpBucket();
     }
 
-    public BeakAction getBeakAction() {return this.beakAction;}
+    private void resetSlider() {
+        bucketLiftWrapper.moveToPosition((int)(bucketLiftWrapper.getCurrentPosition()-5)*-1);
+    }
+
+    private void resetBuc() {
+        bucketLiftWrapper.resetBucket();
+    }
+
+
+    public Action dumpBucketLowBasket() {
+        return packet -> {;
+            bucketLiftWrapper.moveToPosition(1178);
+            SystemClock.sleep(1200);
+            dumpBucket();
+            return false;
+        };
+    }
+
+    public Action retractBucket() {
+        return packet -> {;
+            bucketLiftWrapper.resetBucket();
+            SystemClock.sleep(1100);
+            resetSlider();
+            return false;
+        };
+    }
+
+    public Action dumpBucketHighBasket() {
+        return packet -> {;
+            bucketLiftWrapper.moveToPosition(1178);
+            SystemClock.sleep(1200);
+            dumpBucket();
+            return false;
+        };
+    }
+
 
     public synchronized static StaticActions getInstance() {
         if (instance == null) {
@@ -41,14 +68,11 @@ public class StaticActions {
     }
 
     private StaticActions() {
-        // WARNING pls inject dependencies BEFORE initializing this
-//        this.intakeAction = new IntakeAction();
         try {
-            this.viperAction = new ViperAction();
-        } catch(Exception e) {
-            //
+            this.beakAction = new BeakAction();
+            this.bucketLiftWrapper = new BucketLiftWrapper();
+        } catch(Exception e){
+            // uh oh
         }
-
-        this.beakAction = new BeakAction();
     }
 }
