@@ -14,20 +14,20 @@ public class ViperBucketHelper  {
     private ViperAction viperAction;
 
     public static class Params {
-        public double bucketStartPos = 0.11;  // Tucked in
-        public double bucketCatchPos = 0.085;  // Catch from Beak
-        public double bucketDumpPos = 0.01;    // Dump to Basket
+        public double bucketStartPos = 0.11;
+        public double bucketCatchPos = 0.085;
+        public double bucketDumpPos = 0.01;
 
         public int viperStartPos = 0;
 
         public boolean viperMotorReverse = true;
-        public double viperHighBasketPos = 3150;  // High Basket
-        public double viperLowBasketPos = 1220;  // Low Basket (Approx 38% of High Basket)
-        public double viperCatchPoint = 0;       // Catch Point for Sample
+        public double viperHighBasketPos = 3150;
+        public double viperLowBasketPos = 1220;
+        public double viperCatchPoint = 0;
         public double viperMotorSpeed = 0.9;
 
-        public double dumpLowBasketDelay = 750;  //ms To Wait for Dump
-        public double dumpHighBasketDelay = 1250;  //ms To Wait for Dump
+        public double dumpLowBasketDelay = 750;
+        public double dumpHighBasketDelay = 1250;
     }
 
     public static Params PARAMS = new Params();
@@ -79,6 +79,9 @@ public class ViperBucketHelper  {
     }
 }
 
+//TODO: 1. prep for catch (ready for catch) (position 0), High & low basket; buttons man, override, dump
+//TODO: Integrate into one class
+//refer to old code & motor test
 
 
 
