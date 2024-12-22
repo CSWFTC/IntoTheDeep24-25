@@ -15,9 +15,9 @@ public class TestTwoMotors extends LinearOpMode {
     public static final String version = "1.0 ";
 
     public static class Params {
-        public String motor1Name = "climbLeftMotor";
+        public String motor1Name = "hookLeft";
         public Boolean motor1Forward = true;
-        public String motor2Name = "climb LeftMotor";
+        public String motor2Name = "hookRight";
         public Boolean motor2Forward = true;
     }
 
@@ -27,7 +27,7 @@ public class TestTwoMotors extends LinearOpMode {
     @Override
     public void runOpMode() {
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
-        telemetry.addLine("Single Motor Test");
+        telemetry.addLine("Two Motor Test");
         telemetry.addData("Version Number", version);
         telemetry.addLine();
         telemetry.addData(">", "Press Start to Launch");
