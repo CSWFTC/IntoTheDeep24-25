@@ -8,39 +8,36 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
 
 @Config
 @TeleOp(name="SingleMotor", group="Hardware")
 public class SingleMotor extends LinearOpMode {
 
-    public static final String version = "1.3 ";
+    public static final String version = "1.4";
     public static class Params {
         public String motorName = "hookLeft";
-        public Boolean Forward = true;
+        public Boolean motorForward = true;
     }
 
     public static Params PARAMS = new Params();
-    private DcMotor motor;
+
     @Override
     public void runOpMode() {
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
-        telemetry.addLine("Single Motor Test");
+
+        telemetry.addLine().addData("Single Motor Test:  ", PARAMS.motorName );
+        telemetry.addLine();
         telemetry.addData("Version Number", version);
         telemetry.addLine();
         telemetry.addData(">", "Press Start to Launch");
         telemetry.update();
 
-
         DcMotor motor = hardwareMap.dcMotor.get(PARAMS.motorName);
 
-
+        motor.setDirection((PARAMS.motorForward) ? DcMotorSimple.Direction.FORWARD : DcMotorSimple.Direction.REVERSE);
         motor.setDirection(DcMotorSimple.Direction.REVERSE);
         motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-       //motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-       //motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
 
         GamePad gpIn1 = new GamePad(gamepad1);
 
@@ -66,19 +63,19 @@ public class SingleMotor extends LinearOpMode {
                 case BUTTON_Y:
                     //forward
                     motor.setDirection(DcMotorSimple.Direction.FORWARD);
-
                     break;
 
                 case BUTTON_B:
-                   // motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                     motor.setTargetPosition(0);
                     motor.setPower(0.5);
                     motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     break;
 
                 case BUTTON_X:
-                    motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-
+                    if (motor.getZeroPowerBehavior() == DcMotor.ZeroPowerBehavior.FLOAT)
+                        motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                    else
+                        motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
                     break;
 
                 case BUTTON_R_BUMPER:
@@ -91,26 +88,13 @@ public class SingleMotor extends LinearOpMode {
             }
 
 
+            telemetry.addLine().addData("Motor:  ", PARAMS.motorName );
             telemetry.addData("Position", motor.getCurrentPosition());
             telemetry.addData("Power", motor.getPower());
-            telemetry.addData("Direction", "Backward");
-            telemetry.addData("Direction", "Forward");
-            telemetry.addData("Brake", "Engaged");
-            telemetry.addData("Brake", "Released");
+            telemetry.addLine().addData("Direction  ", ((motor.getDirection() == DcMotorSimple.Direction.FORWARD) ? "Forward" : "Reverse") );
+            telemetry.addData("Zero Power", (motor.getZeroPowerBehavior() == DcMotor.ZeroPowerBehavior.FLOAT) ? "Float" : "Brake");
             telemetry.update();
-
-            if (motor.getZeroPowerBehavior() == DcMotor.ZeroPowerBehavior.BRAKE)
-               telemetry.addData("Brake", "Engaged");
-            else
-                telemetry.addData("Brake", "Released");
-
-            if (motor.getDirection()==DcMotorSimple.Direction.FORWARD)
-                motor.setDirection(DcMotorSimple.Direction.FORWARD);
-            else
-                motor.setDirection(DcMotorSimple.Direction.REVERSE);
-
-
-            }
         }
     }
+}
 
