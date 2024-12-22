@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -9,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
 
+@Config
 @TeleOp(name="Two Motor Test", group="Hardware")
 public class TestTwoMotors extends LinearOpMode {
 
@@ -18,7 +20,7 @@ public class TestTwoMotors extends LinearOpMode {
         public String motor1Name = "hookLeft";
         public Boolean motor1Forward = true;
         public String motor2Name = "hookRight";
-        public Boolean motor2Forward = true;
+        public Boolean motor2Forward = false;
     }
 
     public static Params PARAMS = new Params();

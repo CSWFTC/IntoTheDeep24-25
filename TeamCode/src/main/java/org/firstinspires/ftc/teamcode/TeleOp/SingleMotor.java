@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -10,12 +11,13 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
 
+@Config
 @TeleOp(name="SingleMotor", group="Hardware")
 public class SingleMotor extends LinearOpMode {
 
     public static final String version = "1.3 ";
     public static class Params {
-        public String motorName = "viperMotor";
+        public String motorName = "hookLeft";
         public Boolean Forward = true;
     }
 
