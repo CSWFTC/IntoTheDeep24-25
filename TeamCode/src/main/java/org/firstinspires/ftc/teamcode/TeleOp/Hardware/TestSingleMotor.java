@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.TeleOp;
+package org.firstinspires.ftc.teamcode.TeleOp.Hardware;
 
 
 import com.acmerobotics.dashboard.config.Config;
@@ -11,8 +11,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
 
 @Config
-@TeleOp(name="SingleMotor", group="Hardware")
-public class SingleMotor extends LinearOpMode {
+@TeleOp(name="Test Single Motor", group="Hardware")
+public class TestSingleMotor extends LinearOpMode {
 
     public static final String version = "1.4";
     public static class Params {

@@ -13,8 +13,6 @@ import org.firstinspires.ftc.teamcode.Helper.DeferredActions.DeferredActionType;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
 import org.firstinspires.ftc.teamcode.Helper.DrivetrainV2;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
-import org.firstinspires.ftc.teamcode.Helper.Intake.IntakeAction;
-import org.firstinspires.ftc.teamcode.Helper.Telemetry.Pinch;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperSlideHelper;
@@ -30,25 +28,21 @@ public class BackupDriveControl extends LinearOpMode {
     private BeakAction beakAction;
     private ViperSlideHelper viperSlideHelper;
     private ViperAction viperAction;
-
-
     private boolean isViperLocked = false;
-
     private boolean showKeybinds = false;
-
     private static final String version = "1.1";
     private boolean setReversed = false;
     // private ClawMoves yclaw;
 
     @Override
     public void runOpMode() {
+        int initRes = initialize();
+
         waitForStart();
 
-        int initRes = this.initialize();
-
-        if (isStopRequested() || (initRes == 1)) {
+        if (isStopRequested() || (initRes == 1))
             return;
-        }
+
 
         // Load Introduction and Wait for Start
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
@@ -61,7 +55,6 @@ public class BackupDriveControl extends LinearOpMode {
         GamePad gpIn1 = new GamePad(gamepad1, false);
         GamePad gpIn2 = new GamePad(gamepad2);
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
-        BumperTest bumpOne = new BumperTest();
         ViperSlide vip = new ViperSlide(hardwareMap);
 
         telemetry.clear();
@@ -378,7 +371,6 @@ public class BackupDriveControl extends LinearOpMode {
         telemetry.addLine().addData("Time", actTime);
         telemetry.addLine().addData("Action", DeferredActions.tlmLastAction.toString());
         telemetry.addData("ViperSlide Locked State : ", this.isViperLocked);
-
 
         telemetry.update();
     }

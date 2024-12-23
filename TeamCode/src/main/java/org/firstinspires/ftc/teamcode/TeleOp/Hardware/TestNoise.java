@@ -27,22 +27,20 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.TeleOp;
+package org.firstinspires.ftc.teamcode.TeleOp.Hardware;
 
-import com.qualcomm.ftccommon.SoundPlayer;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.Sound;
 
 import java.util.List;
 
-@TeleOp(name = "SoundPlay", group = "Test")
-
-public class Noise extends LinearOpMode {
-
+@Disabled
+@TeleOp(name = "Test Noise", group = "Hardware")
+public class TestNoise extends LinearOpMode {
     public void runOpMode() {
         Sound duck = new Sound(hardwareMap.appContext);
         duck.processActions();
@@ -50,10 +48,8 @@ public class Noise extends LinearOpMode {
         telemetry.addData(">", "Press Start to continue");
         telemetry.update();
         waitForStart();
-        boolean Test100 = true;
 
         while (opModeIsActive()) {
-
             telemetry.addData("Playing", "Duck File");
             telemetry.update();
 
@@ -73,10 +69,6 @@ public class Noise extends LinearOpMode {
                         duck.playSTF();
                 }
             }
-
-
         }
-
     }
-
 }

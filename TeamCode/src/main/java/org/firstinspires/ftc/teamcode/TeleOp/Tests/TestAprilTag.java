@@ -1,8 +1,9 @@
-package org.firstinspires.ftc.teamcode.TeleOp;
+package org.firstinspires.ftc.teamcode.TeleOp.Tests;
 
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -19,11 +20,9 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import java.util.List;
 import java.util.Locale;
 
-@Config
-@TeleOp(name = "April Tag Test", group = "Test")
-public class AprilTagTest extends LinearOpMode {
-
-
+@Disabled
+@TeleOp(name = "Test April Tag", group = "Test")
+public class TestAprilTag extends LinearOpMode {
     private static final String version = "1.0";
     private boolean setReversed = false;
     // private ClawMoves yclaw;
@@ -42,7 +41,7 @@ public class AprilTagTest extends LinearOpMode {
         GamePad gpIn2 = new GamePad(gamepad2);
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
         AprilTag aprilTag = new AprilTag(hardwareMap);
-        AprilTagDetection foundTag = null;
+        AprilTagDetection foundTag;
         ThreeDeadWheelLocalizer localizer = new ThreeDeadWheelLocalizer(hardwareMap, MecanumDrive.PARAMS.inPerTick);
         Pose2d rrPose = null;
         // TestServo serv1 = hardwareMap.servo.get(PARAMS.);

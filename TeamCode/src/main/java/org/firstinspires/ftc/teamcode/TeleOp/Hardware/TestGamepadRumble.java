@@ -1,7 +1,7 @@
-package org.firstinspires.ftc.teamcode.TeleOp;
+package org.firstinspires.ftc.teamcode.TeleOp.Hardware;
 
 
-import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -14,71 +14,50 @@ import org.firstinspires.ftc.teamcode.Helper.GamePad;
 import java.util.List;
 import java.util.Locale;
 
-@Config
-@TeleOp(name = "Motor Test", group = "Competition!!")
-public class MotorTest extends LinearOpMode {
-
-
+@Disabled
+@TeleOp(name = "Test Gamepad Rumble", group = "Hardware")
+public class TestGamepadRumble extends LinearOpMode {
     private static final String version = "1.0";
-    private boolean setReversed = false;
-   // private ClawMoves yclaw;
-    private boolean frontLeft, backLeft, frontRight, backRight = false;
+
     @Override
     public void runOpMode() {
         // Load Introduction and Wait for Start
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
-        telemetry.addLine("Motor Test");
+        telemetry.addLine("Gamepad Rumble Test");
         telemetry.addData("Version Number", version);
         telemetry.addLine();
         telemetry.addData(">", "Press Start to Launch");
         telemetry.addLine();
-        telemetry.addData(">", "A = Back Right, B = Front Right, X = Back Left, Y = Front Left");
         telemetry.update();
 
         GamePad gpIn1 = new GamePad(gamepad1);
         GamePad gpIn2 = new GamePad(gamepad2);
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
-        BumperTest bumpOne = new BumperTest();
-       // TestServo serv1 = hardwareMap.servo.get(PARAMS.);
+        TestBumper bumpOne = new TestBumper();
+        // TestServo serv1 = hardwareMap.servo.get(PARAMS.);
 
         waitForStart();
         if (isStopRequested()) return;
-
-
         telemetry.clear();
-
-        double speedMultiplier = 1;
-        double lastSpeed = 1;
 
         while (opModeIsActive()) {
             update_telemetry(gpIn1, gpIn2);
-
-
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
                 case BUTTON_A:
-                    backRight = !backRight;
+                    gamepad1.rumble(0.9, 0, 200);
                     break;
 
                 case BUTTON_X:
-                    backLeft = !backLeft;
+                    if (!gamepad1.isRumbling())  // Check for possible overlap of rumbles.
+                        gamepad1.rumbleBlips(3);
                     break;
-
-                case BUTTON_B:
-                    frontRight = !frontRight;
-                    break;
-
-                case BUTTON_Y:
-                   frontLeft = !frontLeft;
-                    break;
-
             }
-            drvTrain.setMotorsManually(frontLeft, frontRight, backLeft, backRight);
-            }
-
-            // Deferred Actions
-           ProcessDeferredActions();
         }
+
+        // Deferred Actions
+        ProcessDeferredActions();
+    }
 
     // Deferred Actions
     public void ProcessDeferredActions(){
@@ -102,7 +81,6 @@ public class MotorTest extends LinearOpMode {
         telemetry.addLine().addData("GP1 Time", inpTime1);
         telemetry.addLine().addData("GP1 Cnt", gpi1.getTelemetry_InputCount());
         telemetry.addLine().addData("GP1 Input", gpi1.getTelemetry_InputLastType().toString());
-        telemetry.addLine().addData("Front Left", frontLeft).addData("Front Right", frontRight).addData("Back Left", backLeft).addData("Back Right", backRight);
 
         telemetry.addLine();
         telemetry.addLine("Deferred Actions");

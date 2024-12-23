@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.TeleOp;
+package org.firstinspires.ftc.teamcode.TeleOp.Hardware;
 
 
 import com.acmerobotics.dashboard.config.Config;
@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
 
 @Config
-@TeleOp(name="Two Motor Test", group="Hardware")
+@TeleOp(name="Test Two Motors", group="Hardware")
 public class TestTwoMotors extends LinearOpMode {
 
     public static final String version = "1.0 ";

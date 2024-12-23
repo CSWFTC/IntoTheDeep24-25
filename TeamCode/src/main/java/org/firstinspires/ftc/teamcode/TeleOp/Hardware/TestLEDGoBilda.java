@@ -1,5 +1,7 @@
-package org.firstinspires.ftc.teamcode.TeleOp;
+package org.firstinspires.ftc.teamcode.TeleOp.Hardware;
 
+import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -7,9 +9,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
 
-@TeleOp(name="LEDTestJosh", group="Test")
-public class LEDTest extends LinearOpMode {
-
+@Disabled
+@Config
+@TeleOp(name="Test LED GoBilda", group="Hardware")
+public class TestLEDGoBilda extends LinearOpMode {
     public static class Params {
         public double servoStartPos = 0.532;
         public String servoName = "posi";
@@ -22,7 +25,7 @@ public class LEDTest extends LinearOpMode {
     @Override
     public void runOpMode() {
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
-        telemetry.addLine("Driver Control");
+        telemetry.addLine("LED GoBilda Test - Josh");
         telemetry.addData("Version Number", 1.0);
         telemetry.addLine();
         telemetry.addData(">", "Press Start to Launch");
@@ -47,8 +50,7 @@ public class LEDTest extends LinearOpMode {
 
             switch (inpType) {
                 case JOYSTICK:
-                    double pos = 0;
-                    pos = (gamepad1.left_stick_x * 0.5) + 0.5;
+                    double pos = (gamepad1.left_stick_x * 0.5) + 0.5;
                     srv.setPosition(pos);
                     telemetry.addData("Current Servo Position", pos);
                     telemetry.addLine();
@@ -59,7 +61,6 @@ public class LEDTest extends LinearOpMode {
                     break;
 
             }
-
         }
     }
 }

@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode.TeleOp;
+package org.firstinspires.ftc.teamcode.TeleOp.Hardware;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.LED;
 
 /*This OpMode assumes that the REV Digital Indicator is setup as 2 Digital Channels named
@@ -11,9 +11,9 @@ import com.qualcomm.robotcore.hardware.LED;
  into and the red should be the higher)
 */
 
-@TeleOp(name = "Concept: RevLED 01", group = "Test")
-
-public class LEDLights extends OpMode {
+@Disabled
+@TeleOp(name = "Test LED REV 01", group = "Test")
+public class TestRevLED01 extends OpMode {
     LED frontLED_red;
     LED frontLED_green;
 
