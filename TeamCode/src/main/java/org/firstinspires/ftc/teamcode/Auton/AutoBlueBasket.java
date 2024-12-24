@@ -112,7 +112,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-25, -38), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(moveOne);
+        Actions.runBlocking(new SequentialAction(moveOne, staticActions.armForward()));
         //basket
     }
 
@@ -122,7 +122,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-25, -43), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(new ParallelAction(moveTwo, staticActions.retractBucket()));
+        Actions.runBlocking(new SequentialAction(moveTwo, staticActions.armForward()));
         //basket
     }
 
@@ -132,7 +132,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-25, -43), Math.toRadians(320))
                 .build();
-        Actions.runBlocking(new ParallelAction(moveThree, staticActions.retractBucket()));
+        Actions.runBlocking(new SequentialAction(moveThree, staticActions.armForward()));
         //basket
     }
 
@@ -143,7 +143,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
                 .strafeTo(new Vector2d(-2,-48))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveBasket, staticActions.dumpBucketLowBasket()));
+        Actions.runBlocking(new SequentialAction(moveBasket, staticActions.dumpBucketHighBasket(), staticActions.retractBucket()));
 
     }
 

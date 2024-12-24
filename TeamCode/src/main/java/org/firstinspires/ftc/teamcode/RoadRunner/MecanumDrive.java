@@ -96,7 +96,7 @@ public final class MecanumDrive {
         public boolean leftBackReverse = true;
         public boolean leftFrontReverse = true;
         public boolean rightBackReverse = false;
-        public boolean rightFrontReverse = true;
+        public boolean rightFrontReverse = false;
     }
 
     public static Params PARAMS = new Params();
