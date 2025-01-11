@@ -20,8 +20,8 @@ public class BeakAction extends Injectable {
     public static class Params {
         public double armDrivePos = 0.2;
         public double armPickStartPos = 0.27;
-        public double armBucketDropPos = 0.28;
-        public double armPickReachPos = 0.39;
+        public double armBucketDropPos = 0.25;
+        public double armPickReachPos = 0.4;
         public double armDumpPos = 0.2;
 
         public double elbowDrivePos = 0.668;
