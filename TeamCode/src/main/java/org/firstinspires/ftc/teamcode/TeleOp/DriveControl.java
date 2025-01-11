@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
+import org.firstinspires.ftc.teamcode.Helper.ClawHelper;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions.DeferredActionType;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
@@ -24,6 +25,7 @@ public class DriveControl extends LinearOpMode {
     private BeakAction beakAction;
     private ViperSlideHelper viperSlideHelper;
     private ViperAction viperAction;
+    private ClawHelper clawhelper;
 
     private boolean isViperLocked = false;
     private static final String version = "1.1";
@@ -143,11 +145,11 @@ public class DriveControl extends LinearOpMode {
                     break;
 
                 case BUTTON_X:
-                    speedMultiplier = 0.75;
+                    clawhelper.closeGrip();
                     break;
 
                 case BUTTON_B:
-                    speedMultiplier = 0.5;
+                    clawhelper.openGrip();
                     break;
 
                 case LEFT_TRIGGER:
