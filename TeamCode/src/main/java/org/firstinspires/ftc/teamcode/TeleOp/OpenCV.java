@@ -25,6 +25,7 @@ public class OpenCV extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+            // openCVHelper.openCameraAndStart();
 //            double distance = openCVHelper.getDistanceToSample();
 //
 //            if (distance > 0) {
