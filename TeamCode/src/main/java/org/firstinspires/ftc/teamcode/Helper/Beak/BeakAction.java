@@ -3,11 +3,17 @@ package org.firstinspires.ftc.teamcode.Helper.Beak;
 import android.os.SystemClock;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
+import org.firstinspires.ftc.teamcode.Helper.Intake.BeakState;
 import org.firstinspires.ftc.teamcode.Helper.ReactiveState.Reactive;
+import org.firstinspires.ftc.teamcode.Helper.ReactiveState.ReactiveState;
+import org.firstinspires.ftc.teamcode.Helper.ReactiveState.StateChange;
+import org.firstinspires.ftc.teamcode.Helper.StaticActions;
 
 @Config
 public class BeakAction extends Injectable {
@@ -15,13 +21,15 @@ public class BeakAction extends Injectable {
         public double armDrivePos = 0.2;
         public double armPickStartPos = 0.27;
         public double armBucketDropPos = 0.25;
-        public double armPickReachPos = 0.4;
+        public double armPickReachPos = 0.36;
+        //min=0.36
         public double armDumpPos = 0.2;
 
         public double elbowDrivePos = 0.668;
         public double elbowPickStartPos = 0.56;
         public double elbowBucketDropPos = 0.69;
-        public double elbowPickReachPos = 0.585;
+        public double elbowPickReachPos = 0.56;
+        //min=0.56
         public double elbowDumpPos = 0.64;
 
         public double beakOpenGatherPos = 0.4;
@@ -120,4 +128,5 @@ public class BeakAction extends Injectable {
 //        MoveElbow(PARAMS.elbowBucketDropPos);
 //        DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexOpenDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
 //    }
+
 }
