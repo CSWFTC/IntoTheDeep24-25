@@ -72,8 +72,8 @@ public class BeakAction extends Injectable {
     }
 
     private void MoveElbow(double position) {
-       elbow.setPosition(position);
-       targetElbowPosition=position;
+        elbow.setPosition(position);
+        targetElbowPosition=position;
     }
 
     private void MoveBeak(double position) {
