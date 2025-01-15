@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.Helper.Beak;
 
-import android.os.SystemClock;
-
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -14,20 +12,27 @@ import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
 @Config
 public class BeakAction extends Injectable {
     public static class Params {
+        // Drive Position - Protect Arm
         public double armDrivePos = 0.2;
-        public double armPickStartPos = 0.27;
-        public double armBucketDropPos = 0.25;
-        public double armPickReachPos = 0.36;
-        //min=0.36
-        public double armDumpPos = 0.2;
-
         public double elbowDrivePos = 0.668;
+
+        // Sample Pickup Start - Clear Submersible Bar
+        public double armPickStartPos = 0.27;
         public double elbowPickStartPos = 0.56;
-        public double elbowBucketDropPos = 0.69;
+
+        // Pickup Reach Position - Minimum Reach
+        public double armPickReachPos = 0.36;
         public double elbowPickReachPos = 0.56;
-        //min=0.56
+
+        // Suplex Sample into Bucket
+        public double armBucketDropPos = 0.25;
+        public double elbowBucketDropPos = 0.69;
+
+        // Move Arm Clear of Bucket - So Bucket Can Dump
+        public double armDumpPos = 0.2;
         public double elbowDumpPos = 0.64;
 
+        // Beak Positions
         public double beakOpenGatherPos = 0.4;
         public double beakOpenDropPos = 0.45;
         public double beakClosedPos = 0.75;
@@ -50,7 +55,6 @@ public class BeakAction extends Injectable {
 
     public BeakAction() {
         super();
-
 
         beak =hardwareMap.servo.get("beakServo");
         beak.setDirection(Servo.Direction.FORWARD);
@@ -118,15 +122,13 @@ public class BeakAction extends Injectable {
         MoveArm(PARAMS.armBucketDropPos);
         MoveElbow(PARAMS.elbowBucketDropPos);
         DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexOpenDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
-
     }
 
     public void SuplexCloseBeak() {
         if (targetBeakPosition != PARAMS.beakClosedPos)  {
             MoveBeak(PARAMS.beakClosedPos);
             DeferredActions.CreateDeferredAction(100, DeferredActions.DeferredActionType.SUPLEX_BEAK);
-        }else {
+        } else
             SuplexSample();
-        }
     }
 }
