@@ -5,6 +5,7 @@ import android.os.SystemClock;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
@@ -14,7 +15,7 @@ import org.firstinspires.ftc.teamcode.Helper.ReactiveState.Reactive;
 import org.firstinspires.ftc.teamcode.Helper.ReactiveState.ReactiveState;
 import org.firstinspires.ftc.teamcode.Helper.ReactiveState.StateChange;
 import org.firstinspires.ftc.teamcode.Helper.StaticActions;
-
+import com.qualcomm.robotcore.hardware.Servo;
 @Config
 public class BeakAction extends Injectable {
     public static class Params {
@@ -45,33 +46,56 @@ public class BeakAction extends Injectable {
     public double tlmBeakPosition = -1;
 
 
+    public class Beak {
+        private final Servo beak;
+
+        private BeakAction beakAction;
+
+        public Beak(BeakAction beakAction) {
+            this.beakAction = beakAction;
+            beak = beakAction.hardwareMap.servo.get("beakServo");
+            beak.setDirection(Servo.Direction.FORWARD);
+        }
+
+        public void moveBeak(double position) {
+            beak.setPosition(position);
+            this.beakAction.tlmBeakPosition = position;
+        }
+    }
     @Inject("hdwMap")
     public HardwareMap hardwareMap;
 
-    private Beak beak;
-    private Arm arm;
-    private Elbow elbow;
-
-    private void MoveArm(double position) {
-        this.arm.moveArm(position);
-    }
-
-    private void MoveElbow(double position) {
-        this.elbow.moveElbow(position);
-    }
-
-    private void MoveBeak(double position) {
-        this.beak.moveBeak(position);
-    }
+    private final Servo beak;
+    private final Servo arm;
+    private final Servo elbow;
 
     public BeakAction() {
         super();
         Reactive.init(this);
 
-        this.beak = new Beak(this);
-        this.arm = new Arm(this);
-        this.elbow = new Elbow(this);
+        beak =hardwareMap.servo.get("beakServo");
+        beak.setDirection(Servo.Direction.FORWARD);
+
+        arm =hardwareMap.servo.get("armServo");
+        arm.setDirection(Servo.Direction.FORWARD);
+
+        elbow =hardwareMap.servo.get("elbowServo");
+        elbow.setDirection(Servo.Direction.FORWARD);
     }
+
+    private void MoveArm(double position) {
+        arm.setPosition(position);
+    }
+
+    private void MoveElbow(double position) {
+       elbow.setPosition(position);
+    }
+
+    private void MoveBeak(double position) {
+        beak.setPosition(position);
+    }
+
+
 
     public void DrivePosition() {
         MoveArm(PARAMS.armDrivePos);
