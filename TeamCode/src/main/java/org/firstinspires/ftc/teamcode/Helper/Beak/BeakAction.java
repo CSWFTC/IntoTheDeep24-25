@@ -50,7 +50,7 @@ public class BeakAction extends Injectable {
 
     public BeakAction() {
         super();
-        Reactive.init(this);
+
 
         beak =hardwareMap.servo.get("beakServo");
         beak.setDirection(Servo.Direction.FORWARD);
