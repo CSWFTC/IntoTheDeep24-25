@@ -38,16 +38,19 @@ public class BeakActionTest extends LinearOpMode {
             GamePad.GameplayInputType inputType = gpInput.WaitForGamepadInput(100);
             switch (inputType) {
                 case BUTTON_A:
-                    this.beakAction.PrepForPickup();
+                    beakAction.PrepForPickup();
                     break;
                 case BUTTON_B:
-                    this.beakAction.PickupReach();
+                    beakAction.PickupReach();
                     break;
                 case DPAD_DOWN:
-                    this.beakAction.CloseBeak();
+                    beakAction.CloseBeak();
                     break;
                 case DPAD_UP:
-                    this.beakAction.OpenBeak();
+                    beakAction.OpenBeak();
+                    break;
+                case BUTTON_Y:
+                   beakAction.SuplexCloseBeak();
                     break;
             }
 
@@ -56,10 +59,13 @@ public class BeakActionTest extends LinearOpMode {
             for(DeferredActions.DeferredActionType actionType : action){
                 switch (actionType) {
                     case BEAK_OPEN:
-                        this.beakAction.OpenBeak();
+                        beakAction.OpenBeak();
                         break;
                     case BEAK_CLOSE:
-                        this.beakAction.CloseBeak();
+                        beakAction.CloseBeak();
+                        break;
+                    case SUPLEX_BEAK:
+                        beakAction.SuplexSample();
                         break;
                     default:
                         break;
