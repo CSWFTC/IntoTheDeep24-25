@@ -37,6 +37,30 @@ public class BeakAction extends Injectable {
         public double beakOpenDropPos = 0.45;
         public double beakClosedPos = 0.75;
         public double beakSuplexOpenDelay = 600;
+
+        //new values
+        //start sample pickup in submerisible
+        public double armPickupPrepPos = 0.27;
+        public double armPickupMinPos = 0.36;
+        public double elbowPickupMinPos = 0.56;
+        public double armPickupStartDelay = 750;
+
+        //quarter point of reach
+        public double armpickup1Qtr = 0.395;
+        public double eblowpickup1Qtr = 0.569;
+
+        // Midpoint of Reach for Sample
+        public double armPickupMiddlePos = 0.395;
+        public double elbowPickupMiddlePos = 0.585;
+
+        // Three Quarter Point of Reach
+        public double armPickup3QtrPos = 0.423;
+        public double elbowPickup3QtrPos = 0.598;
+
+        // Maximum Reach for Sample
+        public double armPickupMaxPos = 0.505;
+        public double elbowPickupMaxPos = 0.625;
+        public double armPickupMaxDelay = 250;
     }
 
     public static Params PARAMS = new Params();
@@ -119,16 +143,18 @@ public class BeakAction extends Injectable {
     }
 
     public void SuplexSample() {
-        MoveArm(PARAMS.armBucketDropPos);
-        MoveElbow(PARAMS.elbowBucketDropPos);
-        DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexOpenDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
-    }
-
-    public void SuplexCloseBeak() {
         if (targetBeakPosition != PARAMS.beakClosedPos)  {
             MoveBeak(PARAMS.beakClosedPos);
             DeferredActions.CreateDeferredAction(100, DeferredActions.DeferredActionType.SUPLEX_BEAK);
-        } else
-            SuplexSample();
+        } else {
+            MoveArm(PARAMS.armBucketDropPos);
+            MoveElbow(PARAMS.elbowBucketDropPos);
+            DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexOpenDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
+        }
     }
+
+    public void pickUPrichOut(){
+
+    }
+
 }
