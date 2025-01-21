@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Helper.Beak;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
@@ -61,6 +62,9 @@ public class BeakAction extends Injectable {
         public double armPickupMaxPos = 0.505;
         public double elbowPickupMaxPos = 0.625;
         public double armPickupMaxDelay = 250;
+
+        //speed
+       // public double reachSpeed = 0.
     }
 
     public static Params PARAMS = new Params();
@@ -104,8 +108,6 @@ public class BeakAction extends Injectable {
         beak.setPosition(position);
         targetBeakPosition=position;
     }
-
-
 
     public void DrivePosition() {
         MoveArm(PARAMS.armDrivePos);
@@ -153,7 +155,48 @@ public class BeakAction extends Injectable {
         }
     }
 
-    public void pickUPrichOut(){
+    public double conversion (double input){
+        double armAngle = 0.491924 * Math.pow(input, -4.42152 );
+        double elbAngle = (90-armAngle);
+        double elbPos = 0.42194 * Math.pow(elbAngle, 0.0769263);
+
+        return elbPos;
+    }
+
+    public void pickUpJoystick(float power){
+        boolean rightPosition = (targetArmPosition>= PARAMS.armPickupMinPos && targetArmPosition<= PARAMS.armPickupMaxPos)? true: false;
+
+        if(rightPosition){
+            if(targetArmPosition <= PARAMS.armpickup1Qtr) {
+                // Zone 1
+                double armPos = Range.clip((targetArmPosition + (power * 0.0011)), PARAMS.armPickupMinPos, PARAMS.armPickupMaxPos);
+                double elbPos = conversion(armPos);
+                MoveArm(armPos);
+                MoveElbow(elbPos);
+            }
+            else if(targetArmPosition <= PARAMS.armPickupMiddlePos) {
+               // Zone 2
+                double armPos = Range.clip((targetArmPosition + (power * 0.0024)), PARAMS.armPickupMinPos, PARAMS.armPickupMaxPos);
+                double elbPos = conversion(armPos);
+                MoveArm(armPos);
+                MoveElbow(elbPos);
+            }
+            else if(targetArmPosition <= PARAMS.armPickup3QtrPos){
+                // Zone 3
+                double armPos = Range.clip((targetArmPosition + (power* 0.0028)), PARAMS.armPickupMinPos, PARAMS.armPickupMaxPos);
+                double elbPos = conversion(armPos);
+                MoveArm(armPos);
+                MoveElbow(elbPos);
+            }
+            else if(targetArmPosition <= PARAMS.armPickupMaxPos){
+                //Zone 4
+                double armPos = Range.clip((targetArmPosition + (power * 0.0082)), PARAMS.armPickupMinPos, PARAMS.armPickupMaxPos);
+                double elbPos = conversion(armPos);
+                MoveArm(armPos);
+                MoveElbow(elbPos);
+            }
+
+        }
 
     }
 
