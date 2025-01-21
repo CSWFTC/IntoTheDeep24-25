@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.TeleOp.Tests;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.roadrunner.PoseVelocity2d;
-import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -12,7 +10,6 @@ import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjec
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperSlideHelper;
-import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 
 import java.util.List;
 
@@ -21,7 +18,6 @@ import java.util.List;
 public class BeakActionTest extends LinearOpMode {
     private BeakAction beakAction;
     private GamePad gpInput;
-    private MecanumDrive drive;
 
     @Override
     public void runOpMode() {
@@ -54,15 +50,7 @@ public class BeakActionTest extends LinearOpMode {
                     beakAction.OpenBeak();
                     break;
                 case BUTTON_Y:
-                    beakAction.SuplexSample();
-                    break;
-
-                case JOYSTICK:
-                    beakAction.pickUpJoystick(-gamepad1.right_stick_y);
-                    drive.setDrivePowers(new PoseVelocity2d(
-                            new Vector2d(-gamepad1.left_stick_y, -gamepad1.left_stick_x),
-                            -gamepad1.right_stick_x));
-                    drive.updatePoseEstimate();
+//                   beakAction.SuplexCloseBeak();
                     break;
             }
 
