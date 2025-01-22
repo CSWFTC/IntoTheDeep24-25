@@ -9,7 +9,6 @@ import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
 
-
 @Config
 public class BeakAction extends Injectable {
     public static class Params {
