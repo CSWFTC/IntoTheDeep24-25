@@ -178,7 +178,6 @@ public class BeakAction extends Injectable {
             MoveArm(armPos);
             MoveElbow(elbPos);
         }
-
         //0.0025
     }
 
