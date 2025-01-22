@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.TeleOp.Tests;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -34,6 +35,7 @@ public class BeakActionTest extends LinearOpMode {
         }
 
         gpInput = new GamePad(gamepad1, false);
+        drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
         this.beakAction.DrivePosition();
 
@@ -59,9 +61,7 @@ public class BeakActionTest extends LinearOpMode {
 
                 case JOYSTICK:
                     beakAction.pickUpJoystick(-gamepad1.right_stick_y);
-                    drive.setDrivePowers(new PoseVelocity2d(
-                            new Vector2d(-gamepad1.left_stick_y, -gamepad1.left_stick_x),
-                            -gamepad1.right_stick_x));
+                    //drive.setDrivePowers(new PoseVelocity2d( new Vector2d(-gamepad1.left_stick_y, -gamepad1.left_stick_x), -gamepad1.right_stick_x));
                     drive.updatePoseEstimate();
                     break;
             }
@@ -100,7 +100,7 @@ public class BeakActionTest extends LinearOpMode {
                 this.beakAction = new BeakAction();
             } catch(Exception e) {
                 telemetry.clear();
-                telemetry.addLine("AN ERROR OCCURED: "+e.toString());
+                telemetry.addLine("AN ERROR OCCURED: " +e.toString());
                 telemetry.update();
                 throw new Exception(e);
             }

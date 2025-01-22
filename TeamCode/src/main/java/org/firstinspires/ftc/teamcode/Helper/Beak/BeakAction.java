@@ -158,46 +158,28 @@ public class BeakAction extends Injectable {
     public double conversion (double input){
         double armAngle = 0.491924 * Math.pow(input, -4.42152 );
         double elbAngle = (90-armAngle);
-        double elbPos = 0.42194 * Math.pow(elbAngle, 0.0769263);
 
+        double elbPos = 0;
+        if(elbAngle <= 50) {
+            elbPos = 0.42194 * Math.pow(elbAngle, 0.0769263);
+        }
+        else if (elbAngle > 50 ) {
+            elbPos = 0.4194 * Math.pow(elbAngle, 0.089263);
+        }
         return elbPos;
     }
 
     public void pickUpJoystick(float power){
-        boolean rightPosition = (targetArmPosition>= PARAMS.armPickupMinPos && targetArmPosition<= PARAMS.armPickupMaxPos)? true: false;
+        boolean rightPosition = ((targetArmPosition >= PARAMS.armPickupMinPos) && (targetArmPosition <= PARAMS.armPickupMaxPos));
 
-        if(rightPosition){
-            if(targetArmPosition <= PARAMS.armpickup1Qtr) {
-                // Zone 1
-                double armPos = Range.clip((targetArmPosition + (power * 0.0011)), PARAMS.armPickupMinPos, PARAMS.armPickupMaxPos);
-                double elbPos = conversion(armPos);
-                MoveArm(armPos);
-                MoveElbow(elbPos);
-            }
-            else if(targetArmPosition <= PARAMS.armPickupMiddlePos) {
-               // Zone 2
-                double armPos = Range.clip((targetArmPosition + (power * 0.0024)), PARAMS.armPickupMinPos, PARAMS.armPickupMaxPos);
-                double elbPos = conversion(armPos);
-                MoveArm(armPos);
-                MoveElbow(elbPos);
-            }
-            else if(targetArmPosition <= PARAMS.armPickup3QtrPos){
-                // Zone 3
-                double armPos = Range.clip((targetArmPosition + (power* 0.0028)), PARAMS.armPickupMinPos, PARAMS.armPickupMaxPos);
-                double elbPos = conversion(armPos);
-                MoveArm(armPos);
-                MoveElbow(elbPos);
-            }
-            else if(targetArmPosition <= PARAMS.armPickupMaxPos){
-                //Zone 4
-                double armPos = Range.clip((targetArmPosition + (power * 0.0082)), PARAMS.armPickupMinPos, PARAMS.armPickupMaxPos);
-                double elbPos = conversion(armPos);
-                MoveArm(armPos);
-                MoveElbow(elbPos);
-            }
-
+        if(rightPosition) {
+            double armPos = Range.clip((targetArmPosition + (power * 0.003)), PARAMS.armPickupMinPos, PARAMS.armPickupMaxPos);
+            double elbPos = conversion(armPos);
+            MoveArm(armPos);
+            MoveElbow(elbPos);
         }
 
+        //0.0025
     }
 
 }
