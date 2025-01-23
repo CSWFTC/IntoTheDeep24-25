@@ -42,6 +42,7 @@ public class ClawHelper {
     public Action placeOnSub () {
         return packet -> {
             MoveGrip(PARAMS.gripOpenPos);
+            SystemClock.sleep(100);
             return false;
         };
     }
