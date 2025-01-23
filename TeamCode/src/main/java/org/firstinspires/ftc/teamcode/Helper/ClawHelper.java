@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode.Helper;
 
+import android.os.SystemClock;
+
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -36,7 +39,11 @@ public class ClawHelper {
     /*
      * Autonomous Claw Movements
      */
-
-
+    public Action placeOnSub () {
+        return packet -> {
+            MoveGrip(PARAMS.gripOpenPos);
+            return false;
+        };
+    }
 
 }

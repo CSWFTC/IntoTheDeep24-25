@@ -2,11 +2,13 @@ package org.firstinspires.ftc.teamcode.Auton;
 
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.acmerobotics.roadrunner.ftc.Actions;
 
+import org.firstinspires.ftc.teamcode.Helper.ClawHelper;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 
 @Autonomous(name = "AutoBlueOB", group = "RoadRunner")
@@ -18,6 +20,7 @@ public class AutoBlueOB extends LinearOpMode {
 
     public static Params PARAMS = new Params();
     private MecanumDrive drive;
+    private ClawHelper Roar;
 
     public void runOpMode(){
         drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
@@ -32,6 +35,7 @@ public class AutoBlueOB extends LinearOpMode {
             toPark();
         }
         else{
+            Roar.closeGrip();
             toLine();
             markOne();
             humanPlayer();
@@ -48,9 +52,9 @@ public class AutoBlueOB extends LinearOpMode {
         //beginning position: ends at the sub
         Action movePos = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-26)
+                .lineToX(-24)
                 .build();
-        Actions.runBlocking(movePos);
+        Actions.runBlocking(new SequentialAction(movePos, Roar.placeOnSub()));
 
         //positioned back
         Action moveBack = drive.actionBuilder(drive.pose)
