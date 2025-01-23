@@ -145,11 +145,13 @@ public class DriveControl extends LinearOpMode {
                     break;
 
                 case BUTTON_X:
-                    clawhelper.closeGrip();
-                    break;
-
-                case BUTTON_B:
-                    clawhelper.openGrip();
+                    times++;
+                    if (times%2 == 0){
+                        clawhelper.closeGrip();
+                    }
+                    else {
+                        clawhelper.openGrip();
+                    }
                     break;
 
                 case LEFT_TRIGGER:
