@@ -16,7 +16,7 @@ public class ClawHelper {
     private final Servo clawServo;
 
     public ClawHelper(@NonNull HardwareMap hdwMap) {
-        clawServo = hdwMap.servo.get("ClawServo");
+        clawServo = hdwMap.servo.get("clawServo");
         clawServo.setDirection(Servo.Direction.FORWARD);
     }
 

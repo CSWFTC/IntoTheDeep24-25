@@ -7,7 +7,6 @@ import com.acmerobotics.roadrunner.Action;
 import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
 import org.firstinspires.ftc.teamcode.Helper.Intake.Pinch;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.BucketLiftWrapper;
-//import org.firstinspires.ftc.teamcode.Helper.
 
 public class StaticActions {
     private static StaticActions instance = null;
@@ -61,7 +60,8 @@ public class StaticActions {
     }
 
 
-   public Action armForward(){
+
+    public Action armForward(){
         return packet -> {;
             beakAction.PickupReach();
             SystemClock.sleep(1100);

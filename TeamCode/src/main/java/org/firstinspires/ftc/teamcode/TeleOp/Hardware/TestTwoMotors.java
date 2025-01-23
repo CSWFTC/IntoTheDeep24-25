@@ -18,7 +18,7 @@ public class TestTwoMotors extends LinearOpMode {
 
     public static class Params {
         public String motor1Name = "hookLeft";
-        public Boolean motor1Forward = true;
+        public Boolean motor1Forward = false;
         public String motor2Name = "hookRight";
         public Boolean motor2Forward = false;
     }
