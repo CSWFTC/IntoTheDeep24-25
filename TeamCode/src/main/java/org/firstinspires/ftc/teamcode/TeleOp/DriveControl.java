@@ -13,7 +13,6 @@ import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjec
 import org.firstinspires.ftc.teamcode.Helper.DrivetrainV2;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperAction;
-import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperSlideHelper;
 
 
 import java.util.List;
@@ -23,7 +22,6 @@ import java.util.Locale;
 @TeleOp(name = "Driver Control", group = "Competition!!")
 public class DriveControl extends LinearOpMode {
     private BeakAction beakAction;
-    private ViperSlideHelper viperSlideHelper;
     private ViperAction viperAction;
     private ClawHelper clawhelper;
 
@@ -103,7 +101,6 @@ public class DriveControl extends LinearOpMode {
                     break;
                 case BUTTON_A:
                     this.beakAction.CloseBeak();
-                    this.viperAction.TEST_activate_bucket();
                     DeferredActions.CreateDeferredAction(1000, DeferredActionType.SUPLEX_BEAK);
                     DeferredActions.CreateDeferredAction(2000, DeferredActionType.BEAK_OPEN);
                     break;
@@ -183,6 +180,8 @@ public class DriveControl extends LinearOpMode {
                     setReversed = !setReversed;
                     break;
 
+
+
                 default:
                     break;
             }
@@ -202,33 +201,31 @@ public class DriveControl extends LinearOpMode {
                     this.isViperLocked = false;
                     break;
                 case BUCKET_RISE_SMALL:
-                        this.viperSlideHelper.resetEncoders();
-                        this.viperSlideHelper.moveToPosition(1178, 0.8);
+                        this.viperAction.resetEncoders();
+                        this.viperAction.moveToPosition(1178);
                         telemetry.addLine("WENT UP SLIDE");
                         // DeferredActions.CreateDeferredAction(1200, DeferredActions.DeferredActionType.ROTATE_BUCKET);
                         // DeaferredActions.CreateDeferredAction(4100, DeferredActions.DeferredActionType.RESET_SLIDER);
                         // DeferredActions.CreateDeferredAction(3000, DeferredActions.DeferredActionType.RESET_BUCKET);
                     break;
                 case BUCKET_RISE_TALL:
-                        this.viperSlideHelper.resetEncoders();
-                        this.viperSlideHelper.moveToPosition(3100, 0.8);
+                        this.viperAction.resetEncoders();
+                        this.viperAction.moveToPosition(3100);
                         telemetry.addLine("WENT UP SLIDE");
                         //DeferredActions.CreateDeferredAction(2000, DeferredActions.DeferredActionType.ROTATE_BUCKET);
                        // DeferredActions.CreateDeferredAction(4500, DeferredActions.DeferredActionType.RESET_SLIDER);
                         //DeferredActions.CreateDeferredAction(3800, DeferredActions.DeferredActionType.RESET_BUCKET);
                     break;
                 case ROTATE_BUCKET:
-                    this.viperAction.TEST_rotate_bucket();
                     break;
                 case RESET_BUCKET:
-                    this.viperAction.TEST_reset_bucket();
                     break;
                 case RESET_SLIDER:
-                    telemetry.addData("VIPERSLIDE b4 RESET POS: ", this.viperSlideHelper.getCurrentPosition());
-                    telemetry.addData("VIPERSLIDE POS: ", this.viperSlideHelper.getCurrentPosition());
-                    this.viperSlideHelper.moveToPosition((this.viperSlideHelper.getCurrentPosition()-5)*-1, 0.8);
+                    telemetry.addData("VIPERSLIDE b4 RESET POS: ", this.viperAction.getCurrentPosition());
+                    telemetry.addData("VIPERSLIDE POS: ", this.viperAction.getCurrentPosition());
+                    this.viperAction.moveToPosition((this.viperAction.getCurrentPosition()-5)*-1);
                     telemetry.addLine("Reset SLIDE");
-                    telemetry.addData("VIPERSLIDE FINAL POS: ", this.viperSlideHelper.getCurrentPosition());
+                    telemetry.addData("VIPERSLIDE FINAL POS: ", this.viperAction.getCurrentPosition());
                     break;
                 case BEAK_OPEN:
                     this.beakAction.OpenBeak();
@@ -265,7 +262,7 @@ public class DriveControl extends LinearOpMode {
             }
 
             this.beakAction = new BeakAction();
-            this.viperSlideHelper = new ViperSlideHelper();
+            this.viperAction = new ViperAction();
 
             // clean up dependencies
             DependencyInjector.unregister("hdwMap");

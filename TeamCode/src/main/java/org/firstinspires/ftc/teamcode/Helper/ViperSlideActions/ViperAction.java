@@ -1,14 +1,15 @@
 package org.firstinspires.ftc.teamcode.Helper.ViperSlideActions;
-
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import android.os.SystemClock;
+
+import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
+import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.BucketAction;
 
-
-public class ViperAction {
+public class ViperAction extends Injectable {
     public static class Params {
 
         public boolean viperMotorReverse = true;
@@ -26,8 +27,10 @@ public class ViperAction {
     private final  DcMotor viperMotor;
     private BucketAction bucketAction;
 
+    @Inject("hdwMap")
+    private HardwareMap hardwareMap;
 
-    public ViperAction(HardwareMap hardwareMap) {
+    public ViperAction() {
         viperMotor = hardwareMap.get(DcMotor.class, "viperMotor");
         viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         viperMotor.setDirection(DcMotor.Direction.REVERSE);
@@ -84,14 +87,14 @@ public class ViperAction {
 
 
     public void dumpLowBasket() {
-        moveToLowBasket();  // Move to low basket
+        moveToLowBasket();
         SystemClock.sleep((long) PARAMS.dumpLowBasketDelay);
 
     }
 
 
     public void dumpHighBasket() {
-        moveToHighBasket();  // Move to high basket
+        moveToHighBasket();
         SystemClock.sleep((long) PARAMS.dumpHighBasketDelay);
 
     }
