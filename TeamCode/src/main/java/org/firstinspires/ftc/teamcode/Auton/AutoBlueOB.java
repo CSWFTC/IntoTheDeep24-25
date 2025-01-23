@@ -25,6 +25,8 @@ public class AutoBlueOB extends LinearOpMode {
     public void runOpMode(){
         drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
+        Roar = new ClawHelper(hardwareMap);
+
         waitForStart();
 
         telemetry.addData("okay", "so code needs to push6");
