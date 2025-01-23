@@ -14,21 +14,21 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
 import org.firstinspires.ftc.teamcode.Helper.Intake.Pinch;
-import org.firstinspires.ftc.teamcode.Helper.StaticActions;
+//import org.firstinspires.ftc.teamcode.Helper.StaticActions;
 import org.firstinspires.ftc.teamcode.Helper.ViperBucketHelper;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperSlideHelper;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Helper.Intake.IntakeAction;
-
+import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
 
 
 @Autonomous(name = "Auto Blue Basket", group = "RoadRunner")
 public class AutoBlueBasket extends LinearOpMode {
 
     public static class Params {
-        public double versionNumber = 8.1;
+        public double versionNumber = 8.2;
         public int maxPV = 15900;
         public int minPV= 10;
         public double powerUp = 0.5;
@@ -45,8 +45,11 @@ public class AutoBlueBasket extends LinearOpMode {
     private IntakeAction intake;
     private BeakAction pinch;
     private ViperAction bucket;
-    ViperSlideHelper vip = new ViperSlideHelper();
-    private StaticActions staticActions;
+
+    private BeakAction arm;
+
+   // ViperSlideHelper vip = new ViperSlideHelper();
+  //  private StaticActions staticActions;
 
 
 
@@ -54,9 +57,10 @@ public class AutoBlueBasket extends LinearOpMode {
     public void runOpMode(){
 
         drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
-        DependencyInjector.register("hdwMap", hardwareMap);
-        staticActions = StaticActions.getInstance();
+     //   DependencyInjector.register("hdwMap", hardwareMap);
+    //    staticActions = new StaticActions();
 
+        arm = new BeakAction();
 
         //Load Introduction and Wait for Start
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.CLASSIC);
@@ -66,24 +70,26 @@ public class AutoBlueBasket extends LinearOpMode {
         telemetry.addLine();
         telemetry.update();
 
+   //     pinch.
+
         waitForStart();
         telemetry.clear();
 
 
-        if(!PARAMS.easy){
+      //  if(!PARAMS.){
             toSub();
-            updateTelemetry(drive.pose.position);
+            //updateTelemetry(drive.pose.position);
             toPosOne();
-            updateTelemetry(drive.pose.position);
+            //updateTelemetry(drive.pose.position);
             toBasket();
             toPosTwo();
-            toBasket();
-            toPosThree();
-            toBasket();}
-        else if(PARAMS.easy) {
+           // toBasket();
+           // toPosThree();
+          //  toBasket();
+        /*else if(PARAMS.easy) {
             dumbBasket();
             toBasket();
-        }
+        }*/
 
 
     }
@@ -112,7 +118,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-25, -38), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveOne, staticActions.armForward()));
+        Actions.runBlocking(new SequentialAction(moveOne, arm.PickUpReachAuton()));
         //basket
     }
 
@@ -122,7 +128,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-25, -43), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveTwo, staticActions.armForward(), staticActions.retractBucket()));
+        Actions.runBlocking(new SequentialAction(moveTwo, arm.PickUpReachAuton()));
         //basket
     }
 
@@ -132,7 +138,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-25, -43), Math.toRadians(320))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveThree, staticActions.armForward(),staticActions.retractBucket()));
+        Actions.runBlocking(new SequentialAction(moveThree, arm.PickUpReachAuton()));
         //basket
     }
 
@@ -143,7 +149,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
                 .strafeTo(new Vector2d(-2,-48))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveBasket, staticActions.dumpBucketHighBasket(), staticActions.retractBucket()));
+        Actions.runBlocking(new SequentialAction(moveBasket));
 
     }
 

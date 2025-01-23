@@ -2,25 +2,30 @@ package org.firstinspires.ftc.teamcode.Auton;
 
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.acmerobotics.roadrunner.ftc.Actions;
 
+import org.firstinspires.ftc.teamcode.Helper.ClawHelper;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 
 @Autonomous(name = "AutoBlueOB", group = "RoadRunner")
 public class AutoBlueOB extends LinearOpMode {
 
     public static class Params {
-        public boolean easy = true;
+        public boolean easy = false;
     }
 
     public static Params PARAMS = new Params();
     private MecanumDrive drive;
+    private ClawHelper Roar;
 
     public void runOpMode(){
         drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
+
+        Roar = new ClawHelper(hardwareMap);
 
         waitForStart();
 
@@ -32,18 +37,26 @@ public class AutoBlueOB extends LinearOpMode {
             toPark();
         }
         else{
+            Roar.closeGrip();
             toLine();
             markOne();
-            humanPlayer();}
+            humanPlayer();
+            GoBack();
+            toPark();
+            GoBack();
+            Reverse();
+            backToLine();
+            updateTelemetry(drive.pose.position);
+        }
     }
 
     public void toLine(){
         //beginning position: ends at the sub
         Action movePos = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-26)
+                .lineToX(-24)
                 .build();
-        Actions.runBlocking(movePos);
+        Actions.runBlocking(new SequentialAction(movePos, Roar.placeOnSub()));
 
         //positioned back
         Action moveBack = drive.actionBuilder(drive.pose)
@@ -63,18 +76,30 @@ public class AutoBlueOB extends LinearOpMode {
 
     public void humanPlayer(){
         Action Player = drive.actionBuilder(drive.pose)
-                .setReversed(false)
-                .lineToX(-12)
-                //dropping
-                .lineToY(40)
-                //.lineToX(-19)
+                .setReversed(true)
+                .lineToX(-20)
                 .build();
         Actions.runBlocking(Player);
     }
 
+    public void GoBack(){
+        Action back = drive.actionBuilder(drive.pose)
+                .setReversed(false)
+                .lineToX(-20)
+                .build();
+        Actions.runBlocking(back);
+    }
+    public void Reverse(){
+        Action turnAgain = drive.actionBuilder(drive.pose)
+                .setReversed(true)
+                .turnTo(260)
+                .build();
+        Actions.runBlocking(turnAgain);
+    }
+
     public void backToLine(){
         Action backAgain = drive.actionBuilder(drive.pose)
-                .setReversed(false)
+                .setReversed(true)
                 .splineTo(new Vector2d(-26, 0), Math.toRadians(180))
                 .build();
         Actions.runBlocking(backAgain);
@@ -97,6 +122,14 @@ public class AutoBlueOB extends LinearOpMode {
                 .lineToX(-4)
                 .build();
         Actions.runBlocking(moveOut);
+    }
+
+    private void updateTelemetry(Vector2d pos) {
+        telemetry.addLine("RoadRunner Auto Drive BLUE");
+        telemetry.addData("Current x Position", pos.x );
+        telemetry.addData("Current y Postion", pos.y);
+        telemetry.update();
+
     }
 
 
