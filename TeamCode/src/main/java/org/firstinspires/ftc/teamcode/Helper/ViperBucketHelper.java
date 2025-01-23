@@ -3,13 +3,11 @@ package org.firstinspires.ftc.teamcode.Helper;
 import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.BucketAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperAction;
-import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperSlideHelper;
 
 public class ViperBucketHelper  {
     private HardwareMap hardwareMap;
-    private ViperSlideHelper viperSlideHelper;
+    private ViperAction viperSlideHelper;
     private BucketAction bucketAction;
     private ViperAction viperAction;
 
@@ -39,7 +37,7 @@ public class ViperBucketHelper  {
         viperAction = new ViperAction();
         bucketAction = new BucketAction(viperAction);
 
-        viperSlideHelper = new ViperSlideHelper();
+        viperSlideHelper = new ViperAction();
 
         if (this.bucketAction.initErrorStatus) {
             throw new Exception("BucketAction Init Error: " + this.bucketAction.initError);
@@ -82,6 +80,9 @@ public class ViperBucketHelper  {
 //TODO: 1. prep for catch (ready for catch) (position 0), High & low basket; buttons man, override, dump
 //TODO: Integrate into one class
 //refer to old code & motor test
+
+//driver control
+//
 
 
 

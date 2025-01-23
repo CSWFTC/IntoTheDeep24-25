@@ -6,9 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
-import org.firstinspires.ftc.teamcode.Helper.Intake.IntakeAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperAction;
-import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperSlideHelper;
 
 import java.util.List;
 
@@ -19,7 +17,7 @@ public class ViperslideActionTest extends LinearOpMode {
     private ViperAction viperAction;
     private GamePad gpInput;
 
-    private ViperSlideHelper viperSlideHelper;
+    private ViperAction viperSlideHelper;
 
     @Override
     public void runOpMode() {
@@ -134,7 +132,7 @@ public class ViperslideActionTest extends LinearOpMode {
                 throw new Exception(e);
             }
 
-                this.viperSlideHelper = new ViperSlideHelper();
+                this.viperSlideHelper = new ViperAction();
 
             // clean up dependencies
             DependencyInjector.unregister("pinchServoName");
