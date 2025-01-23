@@ -1,75 +1,46 @@
-package org.firstinspires.ftc.teamcode.Helper.ViperSlideActions;
-
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
 
 public class BucketAction extends Injectable {
     public static class Params {
-        public double servoStartPos = 0.532;
-        public double servoPresetPosX = 0.532;
-        public double servoPresetPosB = 0.532;
+        public String bucketServoName = "bucketServo";
+        public boolean bucketServoReverse = false;
+        public double bucketStartPos = 0.12;   // Tucked in For Driving
+        public double bucketCatchPos = 0.085;  // Catch from Beak
+        public double bucketDumpPos = 0.01;    // Dump to Basket
     }
-
-    private boolean isServoForward = false;
-    private double currentServoPosition = 0.0;
-    private double targetServoPosition = PARAMS.servoStartPos;
-
-    private static final double POSITION_INCREMENT_LARGE = 0.1;
-    private static final double POSITION_INCREMENT_SMALL = 0.005;
 
     public static Params PARAMS = new Params();
 
-    @Inject("bucketServoName")
-    public String servoName;
-
-    public boolean initErrorStatus = false;
-    public String initError = "";
-
-    private ViperAction viperAction;
+    private double targetServoPosition = 0;
 
     @Inject("hdwMap")
     private HardwareMap hardwareMap;
 
     private Servo bucketServo;
 
-    public BucketAction(ViperAction viperAction) {
+    public BucketAction() {
         super();
-        this.viperAction = viperAction;
-
-        try {
-            this.bucketServo = hardwareMap.servo.get(this.servoName);
-        } catch(Exception e) {
-            this.initErrorStatus = true;
-            this.initError = e.toString();
-        }
+        bucketServo = hardwareMap.servo.get(PARAMS.bucketServoName);
+        bucketServo.setDirection((PARAMS.bucketServoReverse) ? Servo.Direction.REVERSE : Servo.Direction.FORWARD);
     }
 
-    public void moveToPosition(double position) {
-        targetServoPosition = clampPosition(position);
-        bucketServo.setPosition(targetServoPosition);
-        currentServoPosition = targetServoPosition;
+    private void MoveBucket(double position) {
+        bucketServo.setPosition(position);
+        targetServoPosition = position;
     }
 
-    public void adjustPosition(double increment) {
-        targetServoPosition = clampPosition(targetServoPosition + increment);
-        bucketServo.setPosition(targetServoPosition);
-        currentServoPosition = targetServoPosition;
+    public void StartPosition() {
+        MoveBucket(PARAMS.bucketStartPos);
     }
 
-    public double clampPosition(double position) {
-        // Ensure the servo position stays between 0.0 and 1.0
-        return Math.min(1.0, Math.max(0.0, position));
+    public void DumpSample() {
+        MoveBucket(PARAMS.bucketDumpPos);
     }
 
-    public void toggleServoDirection() {
-        isServoForward = !isServoForward;
-        updateServoDirection();
-    }
-
-    public void updateServoDirection() {
-        bucketServo.setDirection(isServoForward ? Servo.Direction.FORWARD : Servo.Direction.REVERSE);
+    public void PrepForCatch() {
+        MoveBucket(PARAMS.bucketCatchPos);
     }
 }
