@@ -5,6 +5,7 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.sun.tools.javac.comp.Todo;
@@ -13,8 +14,10 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 
+@Disabled
 @Autonomous(name = "Auto Red Basket", group = "RoadRunner")
 public class AutoRedBasket extends LinearOpMode {
+
 
     public static class Params {
         public double versionNumber = 8.1;

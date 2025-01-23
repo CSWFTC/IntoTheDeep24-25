@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode.Helper.Beak;
 
+import android.os.SystemClock;
+
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
@@ -132,6 +135,7 @@ public class BeakAction extends Injectable {
             MoveBeak(PARAMS.beakOpenGatherPos);
     }
 
+
     public void CloseBeak() {
         MoveBeak(PARAMS.beakClosedPos);
     }
@@ -178,6 +182,17 @@ public class BeakAction extends Injectable {
             MoveElbow(elbPos);
         }
         //0.0025
+    }
+
+    public Action PickUpReachAuton() {
+        return packet ->{
+            PickupReach();
+            SystemClock.sleep(100);
+            SuplexSample();
+            SystemClock.sleep(100);
+            PrepForPickup();
+            return false;
+        };
     }
 
 }
