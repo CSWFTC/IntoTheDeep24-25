@@ -1,116 +1,99 @@
 package org.firstinspires.ftc.teamcode.Helper.ViperSlideActions;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import android.os.SystemClock;
 
-import com.acmerobotics.roadrunner.Action;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
-import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
-import org.firstinspires.ftc.teamcode.Helper.Intake.IntakeAction;
-import org.firstinspires.ftc.teamcode.Helper.ReactiveState.Reactive;
-import org.firstinspires.ftc.teamcode.Helper.ReactiveState.ReactiveState;
-import org.firstinspires.ftc.teamcode.Helper.ReactiveState.StateChange;
-import org.firstinspires.ftc.teamcode.Helper.StaticActions;
-
-
-public class ViperAction extends Injectable {
+public class ViperAction {
     public static class Params {
+
+        public boolean viperMotorReverse = true;
+        public double viperHighBasketPos = 3150;  // High Basket
+        public double viperLowBasketPos = 1220;  // Low Basket (Approx 38% of High Basket)
+        public double viperCatchPoint = 0;       // Catch Point for Sample
+        public double viperMotorSpeed = 0.9;
+
+        public double dumpLowBasketDelay = 750;  //ms To Wait for Dump
+        public double dumpHighBasketDelay = 1250;  //ms To Wait for Dump
     }
+
     public static Params PARAMS = new Params();
 
-    @StateChange("bucketChange")
-    public ReactiveState<BucketState> bucketState = new ReactiveState<>(BucketState.INACTIVE);
-
-    @Inject("telemetry")
-    private Telemetry telemetry;
-
-    @Inject("viperName")
+    private final  DcMotor viperMotor;
     private BucketAction bucketAction;
 
-    public void bucketChange() {
 
+    public ViperAction(HardwareMap hardwareMap) {
+        viperMotor = hardwareMap.get(DcMotor.class, "viperMotor");
+        viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        viperMotor.setDirection(DcMotor.Direction.REVERSE);
+
+        viperMotor.setDirection((PARAMS.viperMotorReverse)? DcMotorSimple.Direction.REVERSE:DcMotorSimple.Direction.FORWARD);
+        viperMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        viperMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void TEST_activate_bucket() {
-        this.pos = 0.09;
-        this.bucketAction.moveToPosition(0.09);
-//        this.bucketState.set(BucketState.TRANSPORT);
+
+
+
+    public void moveToPosition(int targetPosition) {
+        viperMotor.setTargetPosition(targetPosition);
+        viperMotor.setPower(PARAMS.viperMotorSpeed);
+        viperMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
 
-    public void TEST_rotate_bucket() {
-        this.pos = 0.011;
-        this.bucketAction.moveToPosition(0.011);
-//        this.bucketState.set(BucketState.TRANSPORT);
+    public boolean isAtTargetPosition() {
+        return !viperMotor.isBusy();
     }
 
-    public double pos = 0.11;
 
-    public void TEST_reset_bucket() {
-        pos = 0.11;
-        this.bucketAction.moveToPosition(pos);
+    public void resetEncoders() {
+        viperMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void TEST_increment_bucket() {
-        pos += 0.01;
-        this.bucketAction.moveToPosition(pos);
+
+    public int getCurrentPosition() {
+        return viperMotor.getCurrentPosition();
     }
 
-    public void TEST_decrement_bucket() {
-        pos -= 0.01;
-        this.bucketAction.moveToPosition(pos);
+
+    public void moveToHighBasket() {
+        moveToPosition((int) PARAMS.viperHighBasketPos);
+        waitUntilAtTarget();
     }
 
-    /*
-    public Action upBucket(){
-        return packet ->{
-            TEST_rotate_bucket();
-            TEST_reset_bucket();
-            return false;
-        };
 
+    public void moveToLowBasket() {
+        moveToPosition((int) PARAMS.viperLowBasketPos);
+        waitUntilAtTarget();
     }
-*/
-
-    public ViperAction() throws Exception {
-        super();
-        Reactive.init(this);
-
-        this.bucketAction = new BucketAction(this);
 
 
-        if (this.bucketAction.initErrorStatus) {
-            // ERR
-            throw new Exception("Init Error: "+this.bucketAction.initError);
+    private void waitUntilAtTarget() {
+        while (viperMotor.isBusy()) {
+
         }
-
-        this.bucketAction.moveToPosition(this.pos);
     }
 
-/*
-    public Action viperUpAction(){
-        return packet ->{
-            StaticActions staticActions = StaticActions.getInstance ();
-            staticActions.getViperAction().TEST_activate_bucket();
-            SystemClock.sleep(200);
-            staticActions.getViperAction().TEST_rotate_bucket();
-            SystemClock.sleep(200);
-            staticActions.getViperAction().TEST_reset_bucket();
-            return false;
-        };
 
+    public void dumpLowBasket() {
+        moveToLowBasket();  // Move to low basket
+        SystemClock.sleep((long) PARAMS.dumpLowBasketDelay);
 
     }
 
-    public Action viperUpActionOne() {
-        return packet -> {
-         TEST_activate_bucket();
-         SystemClock.sleep(200);
-         TEST_rotate_bucket();
-         SystemClock.sleep(200);
-         TEST_reset_bucket();
-         return false;
-        };
-    }*/
+
+    public void dumpHighBasket() {
+        moveToHighBasket();  // Move to high basket
+        SystemClock.sleep((long) PARAMS.dumpHighBasketDelay);
+
+    }
 }
+
+
