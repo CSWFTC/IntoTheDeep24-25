@@ -31,7 +31,6 @@ public class AutoBlueOB extends LinearOpMode {
         Tiger = new ViperAction(hardwareMap);
 
         Roar.CloseGrip();
-        Tiger.perfMoveForSub();
 
         waitForStart();
 
@@ -51,6 +50,8 @@ public class AutoBlueOB extends LinearOpMode {
             GoBack();
             Reverse();
             backToLine();
+            forward();
+            toPark();
             updateTelemetry(drive.pose.position);
         }
     }
@@ -61,7 +62,7 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(true)
                 .lineToX(-28.5)
                 .build();
-        Actions.runBlocking(new SequentialAction(movePos,Tiger.perfClawDropOnSub(), Roar.placeOnSub()));
+        Actions.runBlocking(new SequentialAction(movePos,Tiger.perfBeforeDropOff(), Tiger.perfClawDropOnSub(), Roar.placeOnSub()));
 
         //positioned back
         Action moveBack = drive.actionBuilder(drive.pose)
