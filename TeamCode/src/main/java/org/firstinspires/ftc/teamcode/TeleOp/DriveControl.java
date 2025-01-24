@@ -136,6 +136,14 @@ public class DriveControl extends LinearOpMode {
                     viperAction.moveWithPower(gamepad2.right_trigger);
                     break;
 
+                case DPAD_UP:
+                    viperAction.perfMoveForSub();
+                    break;
+
+                case DPAD_DOWN:
+                    viperAction.moveForSub();
+                    break;
+
                 case BUTTON_X:
                     viperAction.moveToHighBasket();
                     break;
