@@ -101,7 +101,12 @@ public class DriveControl extends LinearOpMode {
                 case BUTTON_R_BUMPER:
                     beakAction.ToggleBeak();
                     break;
-                    
+                case RIGHT_TRIGGER:
+                    beakAction.changingArmDown();
+                    break;
+                case LEFT_TRIGGER:
+                    beakAction.changingArmUp();
+                    break;
                 case JOYSTICK:
                     drvTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
                             gamepad1.right_stick_x * (float) speedMultiplier,
