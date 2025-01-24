@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
+import org.firstinspires.ftc.teamcode.Helper.HangAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.BucketAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
@@ -27,6 +28,7 @@ public class DriveControl extends LinearOpMode {
     private ViperAction viperAction;
     private BucketAction bucketAction;
     private ClawAction clawAction;
+    private HangAction hangAction;
 
     private boolean isViperLocked = false;
     private static final String version = "1.1";
@@ -68,15 +70,16 @@ public class DriveControl extends LinearOpMode {
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
                 case DPAD_DOWN:
-                    beakAction.ToggleBeak();
+                    beakAction.DrivePosition();
                     break;
                 case DPAD_LEFT:
-                    this.beakAction.PrepForPickup();
+                    beakAction.PrepForPickup();
                     break;
                 case DPAD_RIGHT:
+                    beakAction.PickupReachMiddle();
                     break;
                 case DPAD_UP:
-                    this.beakAction.PickupReach();
+                    beakAction.SuplexSample();
                     break;
                 case LEFT_STICK_BUTTON_ON:
                     if (speedMultiplier < 0.5) {
@@ -85,11 +88,7 @@ public class DriveControl extends LinearOpMode {
                         speedMultiplier = 0.25;
                     }
                     break;
-                case RIGHT_STICK_BUTTON_ON:
-                    // EMERGENCY OVERRIDE DO NOT EVER USE THIS UNLESS NEEDED
-//                    this.isViperLocked = false;
-//                    break;
-//                case BUTTON_X:
+                case BUTTON_X:
                     speedMultiplier = 0.75;
                     break;
                 case BUTTON_B:
@@ -101,17 +100,14 @@ public class DriveControl extends LinearOpMode {
                 case BUTTON_Y:
                     speedMultiplier = 1;
                     break;
-                case BUTTON_L_BUMPER:
-                    this.beakAction.PrepForBucketDump();
-                    break;
                 case BUTTON_R_BUMPER:
-                    this.beakAction.CloseBeak();
-                    DeferredActions.CreateDeferredAction(1000, DeferredActionType.SUPLEX_BEAK);
-                    DeferredActions.CreateDeferredAction(2000, DeferredActionType.BEAK_OPEN);
+                    beakAction.ToggleBeak();
                     break;
-
+                case RIGHT_TRIGGER:
+                    beakAction.changingArmDown();
+                    break;
                 case LEFT_TRIGGER:
-                    this.beakAction.DrivePosition();
+                    beakAction.changingArmUp();
                     break;
                 case JOYSTICK:
                     drvTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
@@ -151,6 +147,11 @@ public class DriveControl extends LinearOpMode {
                     viperAction.resetEncoders();
 
                 // TODO:  Add Code for Left Joystick to Drive Climb Motors
+
+                case JOYSTICK:
+                    hangAction.moveMotors(-gamepad1.left_stick_y);
+
+
          }
 
             // Deferred Actions
@@ -195,27 +196,18 @@ public class DriveControl extends LinearOpMode {
 
     private int initialize() {
         try {
-            // inject the dependencies
-            DependencyInjector.register("hdwMap", hardwareMap);
-            DependencyInjector.register("telemetry", this.telemetry);
 
-            try {
-                this.viperAction = new ViperAction(hardwareMap);
-            } catch(Exception e) {
-                telemetry.clear();
-                telemetry.addLine("AN ERROR OCCURED: "+e.toString());
-                telemetry.update();
-                throw new Exception(e);
-            }
+            beakAction = new BeakAction(hardwareMap);
+            viperAction = new ViperAction(hardwareMap);
+            hangAction = new HangAction (hardwareMap);
+            bucketAction = new BucketAction(hardwareMap);
+            clawAction = new ClawAction(hardwareMap);
 
-            this.beakAction = new BeakAction(hardwareMap);
-            this.viperAction = new ViperAction(hardwareMap);
-
-            // clean up dependencies
-            DependencyInjector.unregister("hdwMap");
-            DependencyInjector.unregister("telemetry");
         }
         catch(Exception e) {
+            telemetry.clear();
+            telemetry.addLine("AN ERROR OCCURED: "+e.toString());
+            telemetry.update();
             return 1;
         }
         return 0;

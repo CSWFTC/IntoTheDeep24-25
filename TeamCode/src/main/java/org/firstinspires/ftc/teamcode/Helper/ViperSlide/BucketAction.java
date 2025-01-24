@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Helper.ViperSlide;
 
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
@@ -48,5 +49,20 @@ public class BucketAction {
             DumpSample();
         else
             PrepForCatch();
+    }
+
+    public Action autonDumpSample(){
+        return packet ->{
+            DumpSample();
+          return false;
+        };
+
+    }
+
+    public Action autonPrepForCatch(){
+        return packet ->{
+          PrepForCatch();
+          return false;
+        };
     }
 }
