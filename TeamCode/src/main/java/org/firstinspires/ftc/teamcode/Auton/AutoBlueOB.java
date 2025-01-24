@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.acmerobotics.roadrunner.ftc.Actions;
 
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ViperAction;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 
 @Autonomous(name = "AutoBlueOB", group = "RoadRunner")
@@ -21,11 +22,13 @@ public class AutoBlueOB extends LinearOpMode {
     public static Params PARAMS = new Params();
     private MecanumDrive drive;
     private ClawAction Roar;
+    private ViperAction Tiger;
 
     public void runOpMode(){
         drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
         Roar = new ClawAction(hardwareMap);
+        Tiger = new ViperAction(hardwareMap);
 
         waitForStart();
 
@@ -38,6 +41,7 @@ public class AutoBlueOB extends LinearOpMode {
         }
         else{
             Roar.CloseGrip();
+            Tiger.moveForSub();
             toLine();
             markOne();
             humanPlayer();
@@ -56,7 +60,7 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(true)
                 .lineToX(-25)
                 .build();
-        Actions.runBlocking(new SequentialAction(movePos, Roar.placeOnSub()));
+        Actions.runBlocking(new SequentialAction(movePos,Tiger.clawDropOnSub(), Roar.placeOnSub()));
 
         //positioned back
         Action moveBack = drive.actionBuilder(drive.pose)

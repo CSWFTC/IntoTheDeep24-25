@@ -202,7 +202,7 @@ public class DriveControl extends LinearOpMode {
             DependencyInjector.register("telemetry", this.telemetry);
 
             try {
-                this.viperAction = new ViperAction();
+                this.viperAction = new ViperAction(hardwareMap);
             } catch(Exception e) {
                 telemetry.clear();
                 telemetry.addLine("AN ERROR OCCURED: "+e.toString());
@@ -211,7 +211,7 @@ public class DriveControl extends LinearOpMode {
             }
 
             this.beakAction = new BeakAction(hardwareMap);
-            this.viperAction = new ViperAction();
+            this.viperAction = new ViperAction(hardwareMap);
 
             // clean up dependencies
             DependencyInjector.unregister("hdwMap");

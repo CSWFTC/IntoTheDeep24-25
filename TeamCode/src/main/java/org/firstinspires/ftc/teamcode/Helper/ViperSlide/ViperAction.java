@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.util.Range;
 
 import android.os.SystemClock;
 
+import androidx.annotation.NonNull;
+
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
 
@@ -20,6 +22,11 @@ public class ViperAction extends Injectable {
         public double viperMotorSpeed = 0.9;
         public double viperMaxPos = 3500;
         public double viperPowerLimitPos = 3200;
+        public double clawLow = 400;
+        public double clawLowHang = 100;
+        public double clawHigh = 1000;
+        public double clawHighHang = 700;
+        public double clawWall = 0;
 
         public double dumpLowBasketDelay = 750;    //ms To Wait for Dump
         public double dumpHighBasketDelay = 1250;  //ms To Wait for Dump
@@ -31,17 +38,14 @@ public class ViperAction extends Injectable {
     private BucketAction bucketAction;
     private ClawAction clawAction;
 
-    @Inject("hdwMap")
-    private HardwareMap hardwareMap;
-
-    public ViperAction() {
-        viperMotor = hardwareMap.get(DcMotor.class, "viperMotor");
+    public ViperAction(@NonNull HardwareMap hdwMap) {
+        viperMotor = hdwMap.get(DcMotor.class, "viperMotor");
         viperMotor.setDirection((PARAMS.viperMotorReverse)? DcMotorSimple.Direction.REVERSE:DcMotorSimple.Direction.FORWARD);
         viperMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         viperMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bucketAction = new BucketAction();
-        clawAction = new ClawAction(hardwareMap);
+        clawAction = new ClawAction(hdwMap);
     }
 
 
@@ -87,8 +91,6 @@ public class ViperAction extends Injectable {
         moveToPosition((int) PARAMS.viperLowBasketPos);
     }
 
-
-
     /*
      * Autonomous Viper Movements
      */
@@ -107,6 +109,27 @@ public class ViperAction extends Injectable {
             SystemClock.sleep((long) PARAMS.dumpHighBasketDelay);
             bucketAction.DumpSample();
             return false;
+        };
+    }
+
+    /*
+    Claw + Viper
+     */
+    public void moveForSub () { moveToPosition((int) PARAMS.clawLow);}
+    public void placeOnSub () {moveToPosition((int) PARAMS.clawLowHang);}
+    public void clawHuman () {moveToPosition((int) PARAMS.clawWall);}
+    public void perfMoveForSub () {moveToPosition((int) PARAMS.clawHigh);}
+    public void perfPlaceOnSub () {moveToPosition((int) PARAMS.clawHighHang);}
+
+    /*
+    Claw + Viper Auton
+     */
+
+    public Action clawDropOnSub () {
+        return packet -> {
+            placeOnSub();
+            SystemClock.sleep(150);
+          return false;
         };
     }
 }
