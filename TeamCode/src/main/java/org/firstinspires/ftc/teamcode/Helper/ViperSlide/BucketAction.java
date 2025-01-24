@@ -5,8 +5,7 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
-import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
+
 
 public class BucketAction {
     public static class Params {
@@ -16,8 +15,9 @@ public class BucketAction {
     }
 
     public static Params PARAMS = new Params();
+
     public double targetBucketPosition = -1;
-    private Servo bucketServo;
+    private final Servo bucketServo;
 
 
     public BucketAction(@NonNull HardwareMap hdwMap) {
