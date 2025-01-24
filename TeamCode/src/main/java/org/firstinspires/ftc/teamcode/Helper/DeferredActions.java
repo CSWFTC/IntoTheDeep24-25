@@ -20,6 +20,7 @@ public class DeferredActions {
         BEAK_OPEN("open beak"),
         BEAK_CLOSE("Close beak"),
         SUPLEX_BEAK("Suplex"),
+        BACK_BEAK("move beak back"),
         BUCKET_RISE_TALL("rise tall"),
         BUCKET_RISE_SMALL("rise small"),
         UNLOCK_VIPER("unlock")

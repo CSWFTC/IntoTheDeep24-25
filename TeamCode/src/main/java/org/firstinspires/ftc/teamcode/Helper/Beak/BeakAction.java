@@ -41,6 +41,7 @@ public class BeakAction {
         public double beakOpenDropPos = 0.5;
         public double beakClosedPos = 0.75;
         public double beakSuplexOpenDelay = 600;
+        public double beakSuplexDriveDelay = 750;
 
         //new values
         public double armPickupMinPos = 0.36;
@@ -94,10 +95,11 @@ public class BeakAction {
     }
 
     public void PrepForPickup() {
+        OpenBeak();
         MoveElbow(PARAMS.elbowPickStartPos);
         MoveArm(PARAMS.armPickStartPos);
-        //MoveBeak(PARAMS.beakOpenGatherPos);
-        OpenBeak();
+
+
     }
 
     public void PrepForBucketDump() {
@@ -141,6 +143,7 @@ public class BeakAction {
             MoveArm(PARAMS.armBucketDropPos);
             MoveElbow(PARAMS.elbowBucketDropPos);
             DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexOpenDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
+            DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexDriveDelay, DeferredActions.DeferredActionType.BACK_BEAK);
         }
     }
 
