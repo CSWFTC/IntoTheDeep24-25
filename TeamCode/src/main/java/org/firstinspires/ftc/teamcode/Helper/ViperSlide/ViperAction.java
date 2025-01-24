@@ -13,8 +13,8 @@ import androidx.annotation.NonNull;
 public class ViperAction {
     public static class Params {
         public boolean viperMotorReverse = true;
-        public double viperHighBasketPos = 2700;  // High Basket
-        public double viperLowBasketPos = 950;   // Low Basket (Approx 38% of High Basket)
+        public double viperHighBasketPos = 3000;  // High Basket
+        public double viperLowBasketPos = 1050;   // Low Basket (Approx 38% of High Basket)
         public double viperCatchPoint = 0;        // Catch Point for Sample
         public double viperMotorSpeed = 0.9;
         public double viperMaxPos = 3500;
