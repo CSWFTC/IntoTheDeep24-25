@@ -63,7 +63,7 @@ public class ClawAction {
     public Action grabFromHuman () {
         return packet -> {
             MoveGrip(PARAMS.gripClosedPos);
-            SystemClock.sleep(100);
+            SystemClock.sleep(180);
             return false;
         };
     }
