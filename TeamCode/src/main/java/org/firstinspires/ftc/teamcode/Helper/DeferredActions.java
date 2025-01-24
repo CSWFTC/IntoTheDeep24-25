@@ -23,8 +23,8 @@ public class DeferredActions {
         BACK_BEAK("move beak back"),
         BUCKET_RISE_TALL("rise tall"),
         BUCKET_RISE_SMALL("rise small"),
-        UNLOCK_VIPER("unlock")
-        ;
+        UNLOCK_VIPER("unlock"),
+        ARM("hi");
 
 
         private final String description;
