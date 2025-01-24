@@ -11,11 +11,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
-import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
-import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
+
 
 @Config
-public class BeakAction extends Injectable {
+public class BeakAction {
     public static class Params {
         // Drive Position - Protect Arm
         public double armDrivePos = 0.2;
@@ -53,20 +52,16 @@ public class BeakAction extends Injectable {
 
     public static Params PARAMS = new Params();
 
-    public double targetArmPosition = -1;
-    public double targetElbowPosition = -1;
-    public double targetBeakPosition = -1;
+    public static double targetArmPosition = -1;
+    public static double targetElbowPosition = -1;
+    public static double targetBeakPosition = -1;
 
-
-   // @Inject("hdwMap")
-    public HardwareMap hardwareMap;
 
     private final Servo beak;
     private final Servo arm;
     private final Servo elbow;
 
     public BeakAction(@NonNull HardwareMap hardwareMap) {
-     //   super();
         beak = hardwareMap.servo.get("beakServo");
         beak.setDirection(Servo.Direction.FORWARD);
 
@@ -102,7 +97,7 @@ public class BeakAction extends Injectable {
         MoveElbow(PARAMS.elbowPickStartPos);
         MoveArm(PARAMS.armPickStartPos);
         //MoveBeak(PARAMS.beakOpenGatherPos);
-        beakOpenPick();
+        OpenBeak();
     }
 
     public void PrepForBucketDump() {
@@ -171,17 +166,6 @@ public class BeakAction extends Injectable {
         OpenBeak();
     }
 
-    public void beakOpenPick(){
-        beak.setPosition(0.4);
-
-    }
-    public void beakOpenSuplex(){
-        beak.setPosition(0.5);
-    }
-    public void beakClose(){
-        beak.setPosition(0.75);
-    }
-
    public void changingArmUp(){
         double currentArm = arm.getPosition();
 
@@ -204,7 +188,7 @@ public class BeakAction extends Injectable {
    public void newMiddlePos(){
         MoveElbow(0.40);
         MoveElbow(0.585);
-        beakOpenPick();
+        OpenBeak();
    }
 
     public Action PickUpReachAuton() {
