@@ -28,8 +28,6 @@ public class TestRevLED02 extends LinearOpMode {
         // Testing TelemetryEvent
         TelemetryEvent __ = TelemetryEvent.getInstance(); // sets up listener
 
-        this.targets.add("push_telemetry");
-
         frontLED_green = hardwareMap.get(LED.class, "front_led_green");
         frontLED_red = hardwareMap.get(LED.class, "front_led_red");
 
@@ -37,19 +35,14 @@ public class TestRevLED02 extends LinearOpMode {
 
         while (opModeIsActive()) {
             if (gamepad1.a) {
-                frontLED_red.on();
-                this.eventBus.emit(this.targets, telemetry, "Red Light Status \n ON");
-
+                frontLED_red.on()
             } else {
                 frontLED_red.off();
-                this.eventBus.emit(this.targets, telemetry, "Red Light Status \n OFF");
             }
             if (gamepad1.b) {
                 frontLED_green.on();
-                this.eventBus.emit(this.targets, telemetry, "Green Light Status \n ON");
             } else {
                 frontLED_green.off();
-                this.eventBus.emit(this.targets, telemetry, "Green Light Status \n OFF");
             }
         }
     }
