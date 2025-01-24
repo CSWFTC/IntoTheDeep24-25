@@ -1,26 +1,32 @@
 package org.firstinspires.ftc.teamcode.Auton;
 
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
-//import org.firstinspires.ftc.teamcode.Helper.StaticActions;
-import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ViperAction;
+import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
+import org.firstinspires.ftc.teamcode.Helper.Intake.Pinch;
+//import org.firstinspires.ftc.teamcode.Helper.ViperBucketHelper;
+//import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperAction;
+//import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperAction;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Helper.Intake.IntakeAction;
+import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
 
 
 @Autonomous(name = "Auto Blue Basket", group = "RoadRunner")
 public class AutoBlueBasket extends LinearOpMode {
 
     public static class Params {
-        public double versionNumber = 8.2;
+        public double versionNumber = 8.3;
         public int maxPV = 15900;
         public int minPV= 10;
         public double powerUp = 0.5;
@@ -36,8 +42,7 @@ public class AutoBlueBasket extends LinearOpMode {
     private MecanumDrive drive;
     private IntakeAction intake;
     private BeakAction pinch;
-    private ViperAction bucket;
-
+    //private ViperAction bucket;
     private BeakAction arm;
 
    // ViperSlideHelper vip = new ViperSlideHelper();
@@ -52,7 +57,7 @@ public class AutoBlueBasket extends LinearOpMode {
      //   DependencyInjector.register("hdwMap", hardwareMap);
     //    staticActions = new StaticActions();
 
-        arm = new BeakAction();
+        arm = new BeakAction(hardwareMap);
 
         //Load Introduction and Wait for Start
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.CLASSIC);
@@ -70,14 +75,12 @@ public class AutoBlueBasket extends LinearOpMode {
 
       //  if(!PARAMS.){
             toSub();
-            //updateTelemetry(drive.pose.position);
             toPosOne();
-            //updateTelemetry(drive.pose.position);
             toBasket();
             toPosTwo();
-           // toBasket();
-           // toPosThree();
-          //  toBasket();
+            toBasket();
+            toPosThree();
+            toBasket();
         /*else if(PARAMS.easy) {
             dumbBasket();
             toBasket();
@@ -139,7 +142,7 @@ public class AutoBlueBasket extends LinearOpMode {
         Action moveBasket= drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
-                .strafeTo(new Vector2d(-2,-48))
+                .strafeTo(new Vector2d(-10,-48))
                 .build();
         Actions.runBlocking(new SequentialAction(moveBasket));
 

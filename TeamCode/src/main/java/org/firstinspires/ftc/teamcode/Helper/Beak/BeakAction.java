@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Helper.Beak;
 
 import android.os.SystemClock;
 
+import androidx.annotation.NonNull;
+
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -76,16 +78,15 @@ public class BeakAction extends Injectable {
     public double targetBeakPosition = -1;
 
 
-    @Inject("hdwMap")
+   // @Inject("hdwMap")
     public HardwareMap hardwareMap;
 
     private final Servo beak;
     private final Servo arm;
     private final Servo elbow;
 
-    public BeakAction() {
-        super();
-
+    public BeakAction(@NonNull HardwareMap hardwareMap) {
+     //   super();
         beak = hardwareMap.servo.get("beakServo");
         beak.setDirection(Servo.Direction.FORWARD);
 
@@ -161,7 +162,7 @@ public class BeakAction extends Injectable {
     }
 
     public double conversion (double input){
-        double armAngle = 0.491924 * Math.pow(input, -4.42152 );
+      /*  double armAngle = 0.491924 * Math.pow(input, -4.42152 );
         double elbAngle = (90-armAngle);
 
         double elbPos = 0;
@@ -171,6 +172,9 @@ public class BeakAction extends Injectable {
         else if (elbAngle > 50 ) {
             elbPos = 0.4194 * Math.pow(elbAngle, 0.089263);
         }
+        return elbPos; */
+
+        double elbPos = 0.774589 * Math.pow(input, 0.311196 );
         return elbPos;
     }
 
@@ -186,13 +190,27 @@ public class BeakAction extends Injectable {
         //0.0025
     }
 
+    public void SuplexSampleAuton(){
+        MoveArm(PARAMS.armBucketDropPos);
+        MoveElbow(PARAMS.elbowBucketDropPos);
+        OpenBeak();
+
+    }
+
     public Action PickUpReachAuton() {
         return packet ->{
             PickupReach();
-            SystemClock.sleep(100);
+            SystemClock.sleep(250);
+             SuplexSampleAuton();
+             SystemClock.sleep(250);
+             PrepForPickup();
+            return false;
+        };
+    }
+
+    public Action SuplexAuton() {
+        return packet ->{
             SuplexSample();
-            SystemClock.sleep(100);
-            PrepForPickup();
             return false;
         };
     }
