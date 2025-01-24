@@ -45,7 +45,7 @@ public class BeakActionTest extends LinearOpMode {
                     beakAction.AutonPos();
                     break;
                 case BUTTON_B:
-                    beakAction.newMiddlePos();
+                    beakAction.PickupReachMiddle();
                     break;
                 case DPAD_DOWN:
                     beakAction.CloseBeak();
