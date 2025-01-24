@@ -193,8 +193,9 @@ public class BeakAction {
 
    public void autonReach(){
         OpenBeak();
-        MoveElbow(0.57);
-        DeferredActions.CreateDeferredAction( (long) PARAMS.beakArmDelay, DeferredActions.DeferredActionType.ARM);
+       MoveArm(0.40);
+        MoveElbow(0.);
+     //   DeferredActions.CreateDeferredAction( (long) PARAMS.beakArmDelay, DeferredActions.DeferredActionType.ARM);
         CloseBeak();
    }
 
