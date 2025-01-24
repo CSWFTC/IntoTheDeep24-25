@@ -145,6 +145,21 @@ public class ViperAction {
             return false;
         };
     }
+    public Action perfClawDropOnSub () {
+        return packet -> {
+            perfPlaceOnSub();
+            SystemClock.sleep(1000);
+            return false;
+        };
+    }
+
+    public Action perfBeforeDropOff() {
+        return packet -> {
+            perfMoveForSub();
+            SystemClock.sleep(1000);
+            return false;
+        };
+    }
 }
 
 
