@@ -1,12 +1,10 @@
 package org.firstinspires.ftc.teamcode.Tests;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Helper.DriveTrain.NewDriveTrain;
-import org.firstinspires.ftc.teamcode.Helper.EventBus.EventBus;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
 
 @Config
@@ -31,12 +29,12 @@ public class SpeedTestV1 extends LinearOpMode {
                 case BUTTON_A:
                     isSmoothening = true;
 //                    driveTrain.applySmoothen();
-                    EventBus.getInstance().emit("apply_smoothen");
+
                     break;
                 case BUTTON_B:
                     isSmoothening = false;
 //                    driveTrain.resetSmoothen();
-                    EventBus.getInstance().emit("reset_smoothen");
+
                     break;
                 case JOYSTICK:
                     telemetry.addData("LEFT STICK X", gamepad1.left_stick_x);

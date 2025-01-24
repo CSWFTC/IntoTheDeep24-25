@@ -5,8 +5,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
 import org.firstinspires.ftc.teamcode.Helper.DrivetrainV2;
-import org.firstinspires.ftc.teamcode.Helper.EventBus.EventBus;
-import org.opencv.core.Mat;
 
 public class NewDriveTrain extends DrivetrainV2 {
     private long joystickStartTime = 0;
@@ -32,14 +30,10 @@ public class NewDriveTrain extends DrivetrainV2 {
     public NewDriveTrain(@NonNull HardwareMap hdwMap) {
         super(hdwMap);
 
-        EventBus bus = EventBus.getInstance();
+
         DependencyInjector.register("drive_train", this);
 
-        DriveTrainSubscriberApplySmoothen smoothen = new DriveTrainSubscriberApplySmoothen();
-        DriveTrainSubscriberResetSmoothen resetSmoothen = new DriveTrainSubscriberResetSmoothen();
 
-        bus.subscribe("apply_smoothen", smoothen.getClass());
-        bus.subscribe("reset_smoothen", resetSmoothen.getClass());
 
         DependencyInjector.unregister("drive_train");
     }

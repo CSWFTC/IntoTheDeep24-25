@@ -84,6 +84,9 @@ public class BeakActionTest extends LinearOpMode {
                     case SUPLEX_BEAK:
                         beakAction.SuplexSample();
                         break;
+                    case ARM:
+                        beakAction.MoveArm(0.38);
+                        break;
                     default:
                         break;
                 }
