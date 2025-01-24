@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
 
-public class ViperAction extends Injectable {
+public class ViperAction {
     public static class Params {
         public boolean viperMotorReverse = true;
         public double viperHighBasketPos = 3100;  // High Basket
@@ -44,7 +44,7 @@ public class ViperAction extends Injectable {
         viperMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         viperMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        bucketAction = new BucketAction();
+        bucketAction = new BucketAction(hdwMap);
         clawAction = new ClawAction(hdwMap);
     }
 

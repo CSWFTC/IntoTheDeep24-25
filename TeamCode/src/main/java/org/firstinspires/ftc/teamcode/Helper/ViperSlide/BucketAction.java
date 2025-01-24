@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.Helper.ViperSlide;
 
+import androidx.annotation.NonNull;
+
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
 
-public class BucketAction extends Injectable {
+public class BucketAction {
     public static class Params {
         public boolean bucketServoReverse = false;
         public double bucketStartPos = 0.12;   // Tucked in For Driving
@@ -17,13 +19,9 @@ public class BucketAction extends Injectable {
     public double targetBucketPosition = -1;
     private Servo bucketServo;
 
-    @Inject("hdwMap")
-    private HardwareMap hardwareMap;
 
-
-    public BucketAction() {
-        super();
-        bucketServo = hardwareMap.servo.get("bucketServo");
+    public BucketAction(@NonNull HardwareMap hdwMap) {
+        bucketServo = hdwMap.servo.get("bucketServo");
         bucketServo.setDirection((PARAMS.bucketServoReverse) ?
                 Servo.Direction.REVERSE : Servo.Direction.FORWARD);
     }
