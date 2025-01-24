@@ -67,16 +67,18 @@ public class DriveControl extends LinearOpMode {
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
                 case DPAD_DOWN:
-                    speedMultiplier = 0.25;
+
                     break;
                 case DPAD_LEFT:
-                    speedMultiplier = 0.75;
+
                     break;
                 case DPAD_RIGHT:
-                    speedMultiplier = 0.5;
+
                     break;
                 case DPAD_UP:
-                    speedMultiplier = 1;
+                    this.beakAction.CloseBeak();
+                    DeferredActions.CreateDeferredAction(1000, DeferredActionType.SUPLEX_BEAK);
+                    DeferredActions.CreateDeferredAction(2000, DeferredActionType.BEAK_OPEN);
                     break;
                 case LEFT_STICK_BUTTON_ON:
                     if (speedMultiplier < 0.5) {
@@ -97,16 +99,25 @@ public class DriveControl extends LinearOpMode {
 //                    }
 //                    break;
                 case BUTTON_X:
-                    this.beakAction.PrepForPickup();
+                    speedMultiplier = 0.75;
+                    //this.beakAction.PrepForPickup();
+                    //break;
                     break;
                 case BUTTON_B:
-                    this.beakAction.PickupReach();
-                    this.beakAction.OpenBeak();
+                    //this.beakAction.PickupReach();
+                    //this.beakAction.OpenBeak();
+                    //break;
+                    speedMultiplier = 0.25;
                     break;
                 case BUTTON_A:
-                    this.beakAction.CloseBeak();
-                    DeferredActions.CreateDeferredAction(1000, DeferredActionType.SUPLEX_BEAK);
-                    DeferredActions.CreateDeferredAction(2000, DeferredActionType.BEAK_OPEN);
+                    //this.beakAction.CloseBeak();
+                   // DeferredActions.CreateDeferredAction(1000, DeferredActionType.SUPLEX_BEAK);
+                    //DeferredActions.CreateDeferredAction(2000, DeferredActionType.BEAK_OPEN);
+                    speedMultiplier = 0.5;
+                    break;
+
+                case BUTTON_Y:
+                    speedMultiplier = 1;
                     break;
                 case BUTTON_L_BUMPER:
                     this.beakAction.PrepForBucketDump();
