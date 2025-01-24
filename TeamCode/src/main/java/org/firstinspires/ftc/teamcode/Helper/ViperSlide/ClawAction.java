@@ -60,4 +60,12 @@ public class ClawAction {
         };
     }
 
+    public Action grabFromHuman () {
+        return packet -> {
+            MoveGrip(PARAMS.gripClosedPos);
+            SystemClock.sleep(100);
+            return false;
+        };
+    }
+
 }

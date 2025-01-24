@@ -102,7 +102,7 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(true)
                 .splineTo(new Vector2d(-26, 0), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(backAgain);
+        Actions.runBlocking(new SequentialAction(backAgain, Roar.placeOnSub()));
     }
 
     private void toPark(){
@@ -112,7 +112,7 @@ public class AutoBlueOB extends LinearOpMode {
                 // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
                 .strafeTo(new Vector2d(-2,48))
                 .build();
-        Actions.runBlocking((moveBasket));
+        Actions.runBlocking(new SequentialAction(moveBasket, Roar.grabFromHuman()));
 
     }
 
