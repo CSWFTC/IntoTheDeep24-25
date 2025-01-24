@@ -86,13 +86,13 @@ public class BeakAction extends Injectable {
     public BeakAction() {
         super();
 
-        beak =hardwareMap.servo.get("beakServo");
+        beak = hardwareMap.servo.get("beakServo");
         beak.setDirection(Servo.Direction.FORWARD);
 
-        arm =hardwareMap.servo.get("armServo");
+        arm = hardwareMap.servo.get("armServo");
         arm.setDirection(Servo.Direction.FORWARD);
 
-        elbow =hardwareMap.servo.get("elbowServo");
+        elbow = hardwareMap.servo.get("elbowServo");
         elbow.setDirection(Servo.Direction.FORWARD);
     }
 
@@ -124,8 +124,10 @@ public class BeakAction extends Injectable {
     }
 
     public void PrepForBucketDump() {
-        MoveElbow(PARAMS.elbowDumpPos);
-        MoveArm(PARAMS.armDumpPos);
+        if (targetElbowPosition != PARAMS.elbowDumpPos)
+            MoveElbow(PARAMS.elbowDumpPos);
+        if (targetArmPosition != PARAMS.armDumpPos)
+            MoveArm(PARAMS.armDumpPos);
     }
 
     public void PickupReach() {

@@ -2,17 +2,14 @@ package org.firstinspires.ftc.teamcode.TeleOp.Tests;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.PoseVelocity2d;
-import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
-import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperAction;
-import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperSlideHelper;
+import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ViperAction;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 
 import java.util.List;
@@ -28,7 +25,7 @@ public class BeakActionTest extends LinearOpMode {
     public void runOpMode() {
         waitForStart();
 
-        int initRes = this.initialize();
+        int initRes = initialize();
 
         if (isStopRequested() || (initRes == 1)) {
             return;
@@ -37,7 +34,7 @@ public class BeakActionTest extends LinearOpMode {
         gpInput = new GamePad(gamepad1, false);
         drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
-        this.beakAction.DrivePosition();
+        beakAction.DrivePosition();
 
 
         while (opModeIsActive()) {
@@ -97,7 +94,7 @@ public class BeakActionTest extends LinearOpMode {
             DependencyInjector.register("telemetry", this.telemetry);
 
             try {
-                this.beakAction = new BeakAction();
+                beakAction = new BeakAction();
             } catch(Exception e) {
                 telemetry.clear();
                 telemetry.addLine("AN ERROR OCCURED: " +e.toString());

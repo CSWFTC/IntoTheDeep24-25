@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.acmerobotics.roadrunner.ftc.Actions;
 
-import org.firstinspires.ftc.teamcode.Helper.ClawHelper;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 
 @Autonomous(name = "AutoBlueOB", group = "RoadRunner")
@@ -20,12 +20,12 @@ public class AutoBlueOB extends LinearOpMode {
 
     public static Params PARAMS = new Params();
     private MecanumDrive drive;
-    private ClawHelper Roar;
+    private ClawAction Roar;
 
     public void runOpMode(){
         drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
-        Roar = new ClawHelper(hardwareMap);
+        Roar = new ClawAction();
 
         waitForStart();
 
@@ -37,7 +37,7 @@ public class AutoBlueOB extends LinearOpMode {
             toPark();
         }
         else{
-            Roar.closeGrip();
+            Roar.CloseGrip();
             toLine();
             markOne();
             humanPlayer();

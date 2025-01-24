@@ -6,13 +6,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
-import org.firstinspires.ftc.teamcode.Helper.ClawHelper;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlide.BucketAction;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions.DeferredActionType;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
 import org.firstinspires.ftc.teamcode.Helper.DrivetrainV2;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
-import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperAction;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ViperAction;
 
 
 import java.util.List;
@@ -23,7 +24,8 @@ import java.util.Locale;
 public class DriveControl extends LinearOpMode {
     private BeakAction beakAction;
     private ViperAction viperAction;
-    private ClawHelper clawhelper;
+    private BucketAction bucketAction;
+    private ClawAction clawAction;
 
     private boolean isViperLocked = false;
     private static final String version = "1.1";
@@ -32,7 +34,7 @@ public class DriveControl extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        int initRes = this.initialize();
+        int initRes = initialize();
 
         waitForStart();
 
@@ -51,15 +53,10 @@ public class DriveControl extends LinearOpMode {
         GamePad gpIn1 = new GamePad(gamepad1, false);
         GamePad gpIn2 = new GamePad(gamepad2);
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
-       // ViperSlide vip = new ViperSlide(hardwareMap);
 
         telemetry.clear();
 
         double speedMultiplier = 1;
-        double lastSpeed = 1;
-        int times = 1;
-
-        boolean viperOverride = false;
 
         this.beakAction.DrivePosition();
 
@@ -80,6 +77,13 @@ public class DriveControl extends LinearOpMode {
                     break;
                 case DPAD_UP:
                     speedMultiplier = 1;
+                    break;
+                case LEFT_STICK_BUTTON_ON:
+                    if (speedMultiplier < 0.5) {
+                        speedMultiplier = 1;
+                    } else {
+                        speedMultiplier = 0.25;
+                    }
                     break;
                 case RIGHT_STICK_BUTTON_ON:
                     // EMERGENCY OVERRIDE DO NOT EVER USE THIS UNLESS NEEDED
@@ -121,70 +125,40 @@ public class DriveControl extends LinearOpMode {
                             gamepad1.right_stick_x * (float) speedMultiplier,
                             gamepad1.left_stick_y * (float) speedMultiplier, setReversed);
                     break;
-
-
             }
+
             GamePad.GameplayInputType inpType2 = gpIn2.WaitForGamepadInput(30);
             switch (inpType2) {
-                case LEFT_STICK_BUTTON_ON:
-                    if (speedMultiplier < 0.5) {
-                        speedMultiplier = 1;
-                    } else {
-                        speedMultiplier = 0.25;
-                    }
-                    break;
-
-                case BUTTON_A:
-//                    Set<String> targets = new HashSet<>();
-//                    targets.add("haptic");
-//                    EventBus.getInstance().emit(targets, gpIn1);
-                    speedMultiplier = 0.25;
-                    break;
-
-                case BUTTON_X:
-                    times++;
-                    if (times%2 == 0){
-                        clawhelper.closeGrip();
-                    }
-                    else {
-                        clawhelper.openGrip();
-                    }
-                    break;
-
-                case LEFT_TRIGGER:
-                    if (!isViperLocked) {
-                        this.isViperLocked = true;
-                        this.beakAction.PrepForBucketDump();
-                        DeferredActions.CreateDeferredAction(700, DeferredActionType.BUCKET_RISE_SMALL);
-                        DeferredActions.CreateDeferredAction(6500, DeferredActionType.UNLOCK_VIPER);
-                    }
+                case BUTTON_L_BUMPER:
+                    bucketAction.ToggleBucket();
                     break;
 
                 case BUTTON_R_BUMPER:
-                    DeferredActions.CreateDeferredAction(0000, DeferredActions.DeferredActionType.ROTATE_BUCKET);
-                    DeferredActions.CreateDeferredAction(2500, DeferredActions.DeferredActionType.RESET_SLIDER);
-                    DeferredActions.CreateDeferredAction(1800, DeferredActions.DeferredActionType.RESET_BUCKET);
+                    clawAction.ToggleGrip();
                     break;
 
+                case LEFT_TRIGGER:
+                    beakAction.PrepForBucketDump();  // Move Beak Clear of Bucket
+                    viperAction.moveWithPower(-gamepad2.left_trigger);
+                    break;
 
                 case RIGHT_TRIGGER:
-                    if (!isViperLocked) {
-                        this.isViperLocked = true;
-                        this.beakAction.PrepForBucketDump();
-                        DeferredActions.CreateDeferredAction(700, DeferredActionType.BUCKET_RISE_TALL);
-                        DeferredActions.CreateDeferredAction(7200, DeferredActionType.UNLOCK_VIPER);
-                    }
+                    beakAction.PrepForBucketDump();  // Move Beak Clear of Bucket
+                    viperAction.moveWithPower(gamepad2.right_trigger);
                     break;
 
-                case BUTTON_BACK:
-                    setReversed = !setReversed;
+                case BUTTON_X:
+                    viperAction.moveToHighBasket();
                     break;
 
+                case BUTTON_B:
+                    viperAction.moveToLowBasket();
 
+                case RIGHT_STICK_BUTTON_ON:
+                    viperAction.resetEncoders();
 
-                default:
-                    break;
-            }
+                // TODO:  Add Code for Left Joystick to Drive Climb Motors
+         }
 
             // Deferred Actions
            ProcessDeferredActions();
@@ -201,32 +175,22 @@ public class DriveControl extends LinearOpMode {
                     this.isViperLocked = false;
                     break;
                 case BUCKET_RISE_SMALL:
-                        this.viperAction.resetEncoders();
-                        this.viperAction.moveToPosition(1178);
-                        telemetry.addLine("WENT UP SLIDE");
-                        // DeferredActions.CreateDeferredAction(1200, DeferredActions.DeferredActionType.ROTATE_BUCKET);
-                        // DeaferredActions.CreateDeferredAction(4100, DeferredActions.DeferredActionType.RESET_SLIDER);
-                        // DeferredActions.CreateDeferredAction(3000, DeferredActions.DeferredActionType.RESET_BUCKET);
+                    viperAction.moveToLowBasket();
                     break;
                 case BUCKET_RISE_TALL:
-                        this.viperAction.resetEncoders();
-                        this.viperAction.moveToPosition(3100);
-                        telemetry.addLine("WENT UP SLIDE");
-                        //DeferredActions.CreateDeferredAction(2000, DeferredActions.DeferredActionType.ROTATE_BUCKET);
-                       // DeferredActions.CreateDeferredAction(4500, DeferredActions.DeferredActionType.RESET_SLIDER);
-                        //DeferredActions.CreateDeferredAction(3800, DeferredActions.DeferredActionType.RESET_BUCKET);
+                    viperAction.moveToHighBasket();
                     break;
                 case ROTATE_BUCKET:
                     break;
                 case RESET_BUCKET:
                     break;
-                case RESET_SLIDER:
-                    telemetry.addData("VIPERSLIDE b4 RESET POS: ", this.viperAction.getCurrentPosition());
-                    telemetry.addData("VIPERSLIDE POS: ", this.viperAction.getCurrentPosition());
-                    this.viperAction.moveToPosition((this.viperAction.getCurrentPosition()-5)*-1);
-                    telemetry.addLine("Reset SLIDE");
-                    telemetry.addData("VIPERSLIDE FINAL POS: ", this.viperAction.getCurrentPosition());
-                    break;
+                //case RESET_SLIDER:
+                //    telemetry.addData("VIPERSLIDE b4 RESET POS: ", this.viperAction.getCurrentPosition());
+                //    telemetry.addData("VIPERSLIDE POS: ", this.viperAction.getCurrentPosition());
+                //    this.viperAction.moveToPosition((this.viperAction.getCurrentPosition()-5)*-1);
+                //    telemetry.addLine("Reset SLIDE");
+                //    telemetry.addData("VIPERSLIDE FINAL POS: ", this.viperAction.getCurrentPosition());
+                //    break;
                 case BEAK_OPEN:
                     this.beakAction.OpenBeak();
                     break;
