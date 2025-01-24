@@ -221,7 +221,7 @@ public class BeakAction {
         };
     }
 
-    public Action suplexAuton(){
+    public Action SuplexAuton(){
         return packet ->{
             SuplexSampleAuton();
             SystemClock.sleep(2000);
