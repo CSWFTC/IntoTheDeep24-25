@@ -65,7 +65,7 @@ public class DriveControl extends LinearOpMode {
 
         while (opModeIsActive()) {
             update_telemetry(gpIn1, gpIn2);
-            //update_telemetry(gpIn1, gpIn2);
+
 
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
@@ -136,23 +136,30 @@ public class DriveControl extends LinearOpMode {
                     viperAction.moveWithPower(gamepad2.right_trigger);
                     break;
 
+                case DPAD_UP:
+                    viperAction.perfMoveForSub();
+                    break;
+
+                case DPAD_DOWN:
+                    viperAction.moveForSub();
+                    break;
+
                 case BUTTON_X:
                     viperAction.moveToHighBasket();
                     break;
 
                 case BUTTON_B:
                     viperAction.moveToLowBasket();
+                    break;
 
                 case RIGHT_STICK_BUTTON_ON:
                     viperAction.resetEncoders();
-
-                // TODO:  Add Code for Left Joystick to Drive Climb Motors
+                    break;
 
                 case JOYSTICK:
-                    hangAction.moveMotors(-gamepad1.left_stick_y);
-
-
-         }
+                    hangAction.moveMotors(-gamepad2.left_stick_y);
+                    break;
+            }
 
             // Deferred Actions
            ProcessDeferredActions();

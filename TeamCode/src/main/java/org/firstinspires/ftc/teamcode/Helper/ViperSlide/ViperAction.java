@@ -13,19 +13,19 @@ import androidx.annotation.NonNull;
 public class ViperAction {
     public static class Params {
         public boolean viperMotorReverse = true;
-        public double viperHighBasketPos = 3100;  // High Basket
-        public double viperLowBasketPos = 1200;   // Low Basket (Approx 38% of High Basket)
+        public double viperHighBasketPos = 3000;  // High Basket
+        public double viperLowBasketPos = 1050;   // Low Basket (Approx 38% of High Basket)
         public double viperCatchPoint = 0;        // Catch Point for Sample
         public double viperMotorSpeed = 0.9;
         public double viperMaxPos = 3500;
         public double viperPowerLimitPos = 3200;
-        public double clawLow = 460;
-        public double clawLowHang = 70;
-        public double clawHigh = 1000;
-        public double clawHighHang = 700;
+        public double clawLow = 377;
+        public double clawLowHang = 77;
+        public double clawHigh = 1800;
+        public double clawHighHang = 1200;
         public double clawWall = 0;
 
-        public double dumpLowBasketDelay = 750;    //ms To Wait for Dump
+        public double dumpLowBasketDelay = 750 ;    //ms To Wait for Dump
         public double dumpHighBasketDelay = 1250;  //ms To Wait for Dump
     }
 
@@ -145,7 +145,6 @@ public class ViperAction {
             return false;
         };
     }
-
     public Action perfClawDropOnSub () {
         return packet -> {
             perfPlaceOnSub();
