@@ -201,6 +201,7 @@ public class DriveControl extends LinearOpMode {
             viperAction = new ViperAction(hardwareMap);
             hangAction = new HangAction (hardwareMap);
             bucketAction = new BucketAction(hardwareMap);
+            clawAction = new ClawAction(hardwareMap);
 
         }
         catch(Exception e) {
