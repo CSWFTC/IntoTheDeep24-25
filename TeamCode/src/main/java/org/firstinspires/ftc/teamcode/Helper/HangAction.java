@@ -5,32 +5,29 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class HangAction {
-    private DcMotor Left;
-    private DcMotor Right;
-
+    private final DcMotor left;
+    private final DcMotor right;
 
 
     public HangAction(HardwareMap hardwareMap) {
+        left = hardwareMap.get(DcMotor.class, "hookLeft");
+        right = hardwareMap.get(DcMotor.class, "hookRight");
 
-        Left = hardwareMap.get(DcMotor.class, "hookLeft");
-        Right = hardwareMap.get(DcMotor.class, "hookRight");
+        left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        left.setDirection(DcMotorSimple.Direction.FORWARD);
+        right.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-
-        Left.setDirection(DcMotorSimple.Direction.FORWARD);
-        Right.setDirection(DcMotorSimple.Direction.FORWARD);
+        left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
 
     public void moveMotors(double power) {
-        Left.setPower(power);
-        Right.setPower(power);
+        left.setPower(power);
+        right.setPower(power);
     }
-
-
 }
 
 
