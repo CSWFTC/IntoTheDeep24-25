@@ -1,63 +1,68 @@
- package org.firstinspires.ftc.teamcode.Helper;
-
+package org.firstinspires.ftc.teamcode.Helper;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class HangHelper {
-    private DcMotor motor1;
-    private DcMotor motor2;
+    private DcMotor Left;
+    private DcMotor Right;
 
 
-    public HangHelper(DcMotor motor1, DcMotor motor2) {
-        motor1 = motor1;
-        motor2 = motor2;
+    public HangHelper(HardwareMap hardwareMap) {
+
+        Left = hardwareMap.get(DcMotor.class, "hookLeft");
+        Right = hardwareMap.get(DcMotor.class, "hookRight");
 
 
-        motor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        motor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        Left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        Left.setDirection(DcMotorSimple.Direction.FORWARD);
+        Right.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
 
     public void moveMotors(double power) {
-        motor1.setPower(power);
-        motor2.setPower(power);
+        Left.setPower(power);
+        Right.setPower(power);
     }
 
-    // direction for both motors
+
     public void setMotorDirection(boolean forward) {
         if (forward) {
-            motor1.setDirection(DcMotorSimple.Direction.FORWARD);
-            motor2.setDirection(DcMotorSimple.Direction.FORWARD);
+            Left.setDirection(DcMotorSimple.Direction.FORWARD);
+            Right.setDirection(DcMotorSimple.Direction.FORWARD);
         } else {
-            motor1.setDirection(DcMotorSimple.Direction.REVERSE);
-            motor2.setDirection(DcMotorSimple.Direction.REVERSE);
+            Left.setDirection(DcMotorSimple.Direction.REVERSE);
+            Right.setDirection(DcMotorSimple.Direction.REVERSE);
         }
     }
 
-    //specific target position
+
     public void moveToPosition(int targetPosition) {
-        motor1.setTargetPosition(targetPosition);
-        motor2.setTargetPosition(targetPosition);
+        Left.setTargetPosition(targetPosition);
+        Right.setTargetPosition(targetPosition);
 
-        motor1.setPower(0.5);
-        motor2.setPower(0.5);
+        Left.setPower(0.5);
+        Right.setPower(0.5);
 
-        motor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
 
     public void resetEncoders() {
-        motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
-
 }
+
 
 
