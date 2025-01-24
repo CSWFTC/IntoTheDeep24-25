@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Auton;
 
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
@@ -31,7 +32,6 @@ public class AutoBlueOB extends LinearOpMode {
         Tiger = new ViperAction(hardwareMap);
 
         Roar.CloseGrip();
-        Tiger.perfMoveForSub();
 
         waitForStart();
 
@@ -51,6 +51,8 @@ public class AutoBlueOB extends LinearOpMode {
             GoBack();
             Reverse();
             backToLine();
+            forward();
+            toPark();
             updateTelemetry(drive.pose.position);
         }
     }
@@ -59,9 +61,15 @@ public class AutoBlueOB extends LinearOpMode {
         //beginning position: ends at the sub
         Action movePos = drive.actionBuilder(drive.pose)
                 .setReversed(true)
+                .lineToX(-27)
+                .build();
+        Actions.runBlocking(new ParallelAction(movePos,Tiger.perfBeforeDropOff()));
+
+        Action extraMove = drive.actionBuilder(drive.pose)
+                .setReversed(true)
                 .lineToX(-28.5)
                 .build();
-        Actions.runBlocking(new SequentialAction(movePos,Tiger.perfClawDropOnSub(), Roar.placeOnSub()));
+        Actions.runBlocking(new SequentialAction(extraMove, Tiger.perfClawDropOnSub(), Roar.placeOnSub()));
 
         //positioned back
         Action moveBack = drive.actionBuilder(drive.pose)
