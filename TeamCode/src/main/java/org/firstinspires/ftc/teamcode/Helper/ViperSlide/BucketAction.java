@@ -10,7 +10,6 @@ import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
 
 public class BucketAction {
     public static class Params {
-        public boolean bucketServoReverse = false;
         public double bucketStartPos = 0.12;   // Tucked in For Driving
         public double bucketCatchPos = 0.085;  // Catch from Beak
         public double bucketDumpPos = 0.01;    // Dump to Basket
@@ -23,8 +22,7 @@ public class BucketAction {
 
     public BucketAction(@NonNull HardwareMap hdwMap) {
         bucketServo = hdwMap.servo.get("bucketServo");
-        bucketServo.setDirection((PARAMS.bucketServoReverse) ?
-                Servo.Direction.REVERSE : Servo.Direction.FORWARD);
+        bucketServo.setDirection(Servo.Direction.FORWARD);
     }
 
     private void MoveBucket(double position) {
