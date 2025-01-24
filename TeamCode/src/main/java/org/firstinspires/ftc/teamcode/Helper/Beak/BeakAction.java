@@ -39,14 +39,16 @@ public class BeakAction extends Injectable {
 
         // Beak Positions
         public double beakOpenGatherPos = 0.4;
-        public double beakOpenDropPos = 0.45;
+        public double beakOpenDropPos = 0.5;
         public double beakClosedPos = 0.75;
         public double beakSuplexOpenDelay = 600;
 
         //new values
-        //start sample pickup in submerisible
         public double armPickupMinPos = 0.36;
         public double armPickupMaxPos = 0.505;
+
+        public double armNewMin = 0.27;
+        public double armNewMax = 0.585;
     }
 
     public static Params PARAMS = new Params();
@@ -55,6 +57,13 @@ public class BeakAction extends Injectable {
     public double targetElbowPosition = -1;
     public double targetBeakPosition = -1;
 
+    public void ToggleBeak() {
+        if (targetBeakPosition == PARAMS.beakClosedPos) {
+            OpenBeak();
+        } else {
+            CloseBeak();
+        }
+    }
 
    // @Inject("hdwMap")
     public HardwareMap hardwareMap;
@@ -99,7 +108,8 @@ public class BeakAction extends Injectable {
     public void PrepForPickup() {
         MoveElbow(PARAMS.elbowPickStartPos);
         MoveArm(PARAMS.armPickStartPos);
-        MoveBeak(PARAMS.beakOpenGatherPos);
+        //MoveBeak(PARAMS.beakOpenGatherPos);
+        beakOpenPick();
     }
 
     public void PrepForBucketDump() {
@@ -144,10 +154,10 @@ public class BeakAction extends Injectable {
     }
 
     public void pickUpJoystick(float power){
-        boolean rightPosition = ((targetArmPosition >= PARAMS.armPickupMinPos) && (targetArmPosition <= PARAMS.armPickupMaxPos));
+        boolean rightPosition = ((targetArmPosition >= PARAMS.armNewMin) && (targetArmPosition <= PARAMS.armNewMax));
 
         if(rightPosition) {
-            double armPos = Range.clip((targetArmPosition + (power * 0.003)), PARAMS.armPickupMinPos, PARAMS.armPickupMaxPos);
+            double armPos = Range.clip((targetArmPosition + (power * 0.004)), PARAMS.armNewMin, PARAMS.armNewMax);
             double elbPos = conversion(armPos);
             MoveArm(armPos);
             MoveElbow(elbPos);
@@ -160,10 +170,41 @@ public class BeakAction extends Injectable {
         OpenBeak();
     }
 
-    public void beak(){
-
+    public void beakOpenPick(){
+        beak.setPosition(0.4);
 
     }
+    public void beakOpenSuplex(){
+        beak.setPosition(0.5);
+    }
+    public void beakClose(){
+        beak.setPosition(0.75);
+    }
+
+   public void changingArmUp(){
+        double currentArm = arm.getPosition();
+
+        if(currentArm <= 0.505){
+            double setArm = currentArm + 0.005;
+            MoveArm(setArm);
+        }
+   }
+
+   public void changingArmDown(){
+       double currentArm = arm.getPosition();
+
+       if(currentArm >= 0.36){
+           double setArm = currentArm - 0.005;
+           MoveArm(setArm);
+       }
+
+   }
+
+   public void newMiddlePos(){
+        MoveElbow(0.40);
+        MoveElbow(0.585);
+        beakOpenPick();
+   }
 
     public Action PickUpReachAuton() {
         return packet ->{
