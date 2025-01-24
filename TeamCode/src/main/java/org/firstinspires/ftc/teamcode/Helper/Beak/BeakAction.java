@@ -198,25 +198,26 @@ public class BeakAction {
        }
 
    }
-   public void AutonPos(){
+
+   public void autonReach(){
+        beakStart();
         MoveArm(0.40);
         MoveElbow(0.585);
    }
 
-   public void autonReach(){
-        OpenBeak();
-        MoveArm(0.40);
-        MoveElbow(0.585);
-     //   DeferredActions.CreateDeferredAction( (long) PARAMS.beakArmDelay, DeferredActions.DeferredActionType.ARM);
-        CloseBeak();
+   public void autonClose(){
+        MoveBeak(0.75);
    }
 
 
 
     public Action PickUpReachAuton() {
         return packet ->{
-            //OpenBeak();
+            beakStart();
+            SystemClock.sleep(2000);
             autonReach();
+            SystemClock.sleep(2000);
+            autonClose();
             SystemClock.sleep(2000);
             SuplexSampleAuton();
             SystemClock.sleep(2000);
@@ -225,20 +226,16 @@ public class BeakAction {
         };
     }
 
-    public Action opB(){
-        return packet -> {
-            OpenBeak();
-          return false;
-        };
-
+    public void beakStart(){
+        MoveBeak(0.40);
     }
-
     public Action SuplexAuton() {
         return packet ->{
             SuplexSample();
             return false;
         };
     }
+
 
 
 

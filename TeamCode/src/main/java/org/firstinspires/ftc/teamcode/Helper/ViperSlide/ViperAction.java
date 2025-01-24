@@ -20,7 +20,7 @@ public class ViperAction {
         public double viperMaxPos = 3500;
         public double viperPowerLimitPos = 3200;
         public double clawLow = 460;
-        public double clawLowHang = 80;
+        public double clawLowHang = 70;
         public double clawHigh = 1000;
         public double clawHighHang = 700;
         public double clawWall = 0;
@@ -145,6 +145,8 @@ public class ViperAction {
             return false;
         };
     }
+
+
 }
 
 
