@@ -45,30 +45,8 @@ public class BeakAction extends Injectable {
 
         //new values
         //start sample pickup in submerisible
-        public double armPickupPrepPos = 0.27;
         public double armPickupMinPos = 0.36;
-        public double elbowPickupMinPos = 0.56;
-        public double armPickupStartDelay = 750;
-
-        //quarter point of reach
-        public double armpickup1Qtr = 0.395;
-        public double eblowpickup1Qtr = 0.569;
-
-        // Midpoint of Reach for Sample
-        public double armPickupMiddlePos = 0.395;
-        public double elbowPickupMiddlePos = 0.585;
-
-        // Three Quarter Point of Reach
-        public double armPickup3QtrPos = 0.423;
-        public double elbowPickup3QtrPos = 0.598;
-
-        // Maximum Reach for Sample
         public double armPickupMaxPos = 0.505;
-        public double elbowPickupMaxPos = 0.625;
-        public double armPickupMaxDelay = 250;
-
-        //speed
-       // public double reachSpeed = 0.
     }
 
     public static Params PARAMS = new Params();
@@ -138,7 +116,6 @@ public class BeakAction extends Injectable {
             MoveBeak(PARAMS.beakOpenGatherPos);
     }
 
-
     public void CloseBeak() {
         MoveBeak(PARAMS.beakClosedPos);
     }
@@ -162,18 +139,6 @@ public class BeakAction extends Injectable {
     }
 
     public double conversion (double input){
-      /*  double armAngle = 0.491924 * Math.pow(input, -4.42152 );
-        double elbAngle = (90-armAngle);
-
-        double elbPos = 0;
-        if(elbAngle <= 50) {
-            elbPos = 0.42194 * Math.pow(elbAngle, 0.0769263);
-        }
-        else if (elbAngle > 50 ) {
-            elbPos = 0.4194 * Math.pow(elbAngle, 0.089263);
-        }
-        return elbPos; */
-
         double elbPos = 0.774589 * Math.pow(input, 0.311196 );
         return elbPos;
     }
@@ -187,13 +152,16 @@ public class BeakAction extends Injectable {
             MoveArm(armPos);
             MoveElbow(elbPos);
         }
-        //0.0025
     }
 
     public void SuplexSampleAuton(){
         MoveArm(PARAMS.armBucketDropPos);
         MoveElbow(PARAMS.elbowBucketDropPos);
         OpenBeak();
+    }
+
+    public void beak(){
+
 
     }
 
@@ -214,5 +182,7 @@ public class BeakAction extends Injectable {
             return false;
         };
     }
+
+
 
 }

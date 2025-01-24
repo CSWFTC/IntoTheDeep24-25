@@ -90,11 +90,11 @@ public class BeakActionTest extends LinearOpMode {
     private int initialize() {
         try {
             // inject the dependencies
-            DependencyInjector.register("hdwMap", this.hardwareMap);
-            DependencyInjector.register("telemetry", this.telemetry);
+            DependencyInjector.register("hdwMap", hardwareMap);
+            DependencyInjector.register("telemetry", telemetry);
 
             try {
-                beakAction = new BeakAction();
+                beakAction = new BeakAction(hardwareMap);
             } catch(Exception e) {
                 telemetry.clear();
                 telemetry.addLine("AN ERROR OCCURED: " +e.toString());

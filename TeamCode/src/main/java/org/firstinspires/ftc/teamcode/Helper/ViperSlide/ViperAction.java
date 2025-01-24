@@ -41,7 +41,7 @@ public class ViperAction extends Injectable {
         viperMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bucketAction = new BucketAction();
-        clawAction = new ClawAction();
+        clawAction = new ClawAction(hardwareMap);
     }
 
 

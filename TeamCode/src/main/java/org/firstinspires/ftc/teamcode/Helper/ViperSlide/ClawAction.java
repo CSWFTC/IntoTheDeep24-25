@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Helper.ViperSlide;
 
 import android.os.SystemClock;
 
+import androidx.annotation.NonNull;
+
 import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -9,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
 
-public class ClawAction extends Injectable {
+public class ClawAction {
     public static class Params {
         public boolean gripServoReverse = false;
         public double gripOpenPos = 0.7;
@@ -20,12 +22,8 @@ public class ClawAction extends Injectable {
     public double targetGripPosition = -1;
     private final Servo clawServo;
 
-    @Inject("hdwMap")
-    private HardwareMap hardwareMap;
-
-    public ClawAction() {
-        super();
-        clawServo = hardwareMap.servo.get("clawServo");
+    public ClawAction(@NonNull HardwareMap hdwMap) {
+        clawServo = hdwMap.servo.get("clawServo");
         clawServo.setDirection((PARAMS.gripServoReverse) ?
                 Servo.Direction.REVERSE : Servo.Direction.FORWARD);
 
