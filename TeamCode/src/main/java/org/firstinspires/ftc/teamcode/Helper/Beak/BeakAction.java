@@ -28,6 +28,10 @@ public class BeakAction {
         public double armPickReachPos = 0.36;
         public double elbowPickReachPos = 0.56;
 
+        // Pickup Reach Position - Middle Reach
+        public double armPickReachMiddlePos = 0.40;
+        public double elbowPickReachMiddlePos = 0.585;
+
         // Suplex Sample into Bucket
         public double armBucketDropPos = 0.25;
         public double elbowBucketDropPos = 0.69;
@@ -101,8 +105,6 @@ public class BeakAction {
         OpenBeak();
         MoveElbow(PARAMS.elbowPickStartPos);
         MoveArm(PARAMS.armPickStartPos);
-
-
     }
 
     public void PrepForBucketDump() {
@@ -117,6 +119,12 @@ public class BeakAction {
         MoveArm(PARAMS.armPickReachPos);
         if (targetBeakPosition != PARAMS.beakOpenGatherPos)
             MoveBeak(PARAMS.beakOpenGatherPos);
+    }
+
+    public void PickupReachMiddle() {
+        MoveArm(PARAMS.armPickReachMiddlePos);
+        MoveElbow(PARAMS.elbowPickReachMiddlePos);
+
     }
 
     public void CloseBeak() {
@@ -203,11 +211,7 @@ public class BeakAction {
         CloseBeak();
    }
 
-   public void newMiddlePos(){
-        MoveArm(0.40);
-        MoveElbow(0.585);
-        CloseBeak();
-   }
+
 
     public Action PickUpReachAuton() {
         return packet ->{
