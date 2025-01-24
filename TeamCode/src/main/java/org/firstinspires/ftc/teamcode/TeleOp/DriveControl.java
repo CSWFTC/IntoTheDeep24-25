@@ -73,11 +73,10 @@ public class DriveControl extends LinearOpMode {
                 case DPAD_LEFT:
                     this.beakAction.PrepForPickup();
                     break;
-//                    break;
                 case DPAD_RIGHT:
+                    break;
                 case DPAD_UP:
                     this.beakAction.PickupReach();
-                    this.beakAction.OpenBeak();
                     break;
                 case LEFT_STICK_BUTTON_ON:
                     if (speedMultiplier < 0.5) {
