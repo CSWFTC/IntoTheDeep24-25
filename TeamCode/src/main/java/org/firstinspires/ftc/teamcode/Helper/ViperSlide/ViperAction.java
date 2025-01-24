@@ -20,7 +20,7 @@ public class ViperAction {
         public double viperMaxPos = 3500;
         public double viperPowerLimitPos = 3200;
         public double clawLow = 450;
-        public double clawLowHang = 95;
+        public double clawLowHang = 90;
         public double clawHigh = 1000;
         public double clawHighHang = 700;
         public double clawWall = 0;
@@ -133,7 +133,7 @@ public class ViperAction {
     public Action clawHumanGrab () {
         return packet -> {
             clawHuman();
-            SystemClock.sleep(180);
+            SystemClock.sleep(300);
             return false;
         };
     }
@@ -141,7 +141,7 @@ public class ViperAction {
     public Action beforeDropOff () {
         return packet -> {
             moveForSub();
-            SystemClock.sleep(180);
+            SystemClock.sleep(300);
             return false;
         };
     }

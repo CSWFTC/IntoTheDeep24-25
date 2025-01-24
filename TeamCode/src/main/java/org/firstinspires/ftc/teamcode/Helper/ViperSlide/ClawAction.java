@@ -55,7 +55,7 @@ public class ClawAction {
     public Action placeOnSub () {
         return packet -> {
             MoveGrip(PARAMS.gripOpenPos);
-            SystemClock.sleep(100);
+            SystemClock.sleep(200);
             return false;
         };
     }
@@ -63,7 +63,7 @@ public class ClawAction {
     public Action grabFromHuman () {
         return packet -> {
             MoveGrip(PARAMS.gripClosedPos);
-            SystemClock.sleep(180);
+            SystemClock.sleep(200);
             return false;
         };
     }

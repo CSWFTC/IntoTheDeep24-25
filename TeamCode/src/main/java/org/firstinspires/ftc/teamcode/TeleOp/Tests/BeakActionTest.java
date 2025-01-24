@@ -41,7 +41,8 @@ public class BeakActionTest extends LinearOpMode {
             GamePad.GameplayInputType inputType = gpInput.WaitForGamepadInput(100);
             switch (inputType) {
                 case BUTTON_A:
-                    beakAction.PrepForPickup();
+                   // beakAction.PrepForPickup();
+                    beakAction.AutonPos();
                     break;
                 case BUTTON_B:
                     beakAction.newMiddlePos();
