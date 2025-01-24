@@ -68,15 +68,16 @@ public class DriveControl extends LinearOpMode {
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
                 case DPAD_DOWN:
-                    beakAction.ToggleBeak();
+                    beakAction.DrivePosition();
                     break;
                 case DPAD_LEFT:
-                    this.beakAction.PrepForPickup();
+                    beakAction.PrepForPickup();
                     break;
                 case DPAD_RIGHT:
+                    beakAction.PickupReachMiddle();
                     break;
                 case DPAD_UP:
-                    this.beakAction.PickupReach();
+                    beakAction.SuplexSample();
                     break;
                 case LEFT_STICK_BUTTON_ON:
                     if (speedMultiplier < 0.5) {
@@ -85,11 +86,7 @@ public class DriveControl extends LinearOpMode {
                         speedMultiplier = 0.25;
                     }
                     break;
-                case RIGHT_STICK_BUTTON_ON:
-                    // EMERGENCY OVERRIDE DO NOT EVER USE THIS UNLESS NEEDED
-//                    this.isViperLocked = false;
-//                    break;
-//                case BUTTON_X:
+                case BUTTON_X:
                     speedMultiplier = 0.75;
                     break;
                 case BUTTON_B:
@@ -101,18 +98,10 @@ public class DriveControl extends LinearOpMode {
                 case BUTTON_Y:
                     speedMultiplier = 1;
                     break;
-                case BUTTON_L_BUMPER:
-                    this.beakAction.PrepForBucketDump();
-                    break;
                 case BUTTON_R_BUMPER:
-                    this.beakAction.CloseBeak();
-                    DeferredActions.CreateDeferredAction(1000, DeferredActionType.SUPLEX_BEAK);
-                    DeferredActions.CreateDeferredAction(2000, DeferredActionType.BEAK_OPEN);
+                    beakAction.ToggleBeak();
                     break;
-
-                case LEFT_TRIGGER:
-                    this.beakAction.DrivePosition();
-                    break;
+                    
                 case JOYSTICK:
                     drvTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
                             gamepad1.right_stick_x * (float) speedMultiplier,
