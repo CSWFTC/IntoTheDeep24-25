@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
+import org.firstinspires.ftc.teamcode.Helper.HangAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.BucketAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
@@ -27,6 +28,7 @@ public class DriveControl extends LinearOpMode {
     private ViperAction viperAction;
     private BucketAction bucketAction;
     private ClawAction clawAction;
+    private HangAction hangAction;
 
     private boolean isViperLocked = false;
     private static final String version = "1.1";
@@ -145,6 +147,11 @@ public class DriveControl extends LinearOpMode {
                     viperAction.resetEncoders();
 
                 // TODO:  Add Code for Left Joystick to Drive Climb Motors
+
+                case JOYSTICK:
+                    hangAction.moveMotors(-gamepad1.left_stick_y);
+
+
          }
 
             // Deferred Actions
@@ -189,27 +196,16 @@ public class DriveControl extends LinearOpMode {
 
     private int initialize() {
         try {
-            // inject the dependencies
-            DependencyInjector.register("hdwMap", hardwareMap);
-            DependencyInjector.register("telemetry", this.telemetry);
 
-            try {
-                this.viperAction = new ViperAction(hardwareMap);
-            } catch(Exception e) {
-                telemetry.clear();
-                telemetry.addLine("AN ERROR OCCURED: "+e.toString());
-                telemetry.update();
-                throw new Exception(e);
-            }
+            beakAction = new BeakAction(hardwareMap);
+            viperAction = new ViperAction(hardwareMap);
+            hangAction = new HangAction (hardwareMap);
 
-            this.beakAction = new BeakAction(hardwareMap);
-            this.viperAction = new ViperAction(hardwareMap);
-
-            // clean up dependencies
-            DependencyInjector.unregister("hdwMap");
-            DependencyInjector.unregister("telemetry");
         }
         catch(Exception e) {
+            telemetry.clear();
+            telemetry.addLine("AN ERROR OCCURED: "+e.toString());
+            telemetry.update();
             return 1;
         }
         return 0;
