@@ -142,15 +142,16 @@ public class DriveControl extends LinearOpMode {
 
                 case BUTTON_B:
                     viperAction.moveToLowBasket();
+                    break;
 
                 case RIGHT_STICK_BUTTON_ON:
                     viperAction.resetEncoders();
+                    break;
 
                 case JOYSTICK:
                     hangAction.moveMotors(-gamepad1.left_stick_y);
-
-
-         }
+                    break;
+            }
 
             // Deferred Actions
            ProcessDeferredActions();
