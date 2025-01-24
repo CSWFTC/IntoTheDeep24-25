@@ -43,6 +43,8 @@ public class BeakAction {
         public double beakSuplexOpenDelay = 600;
         public double beakSuplexDriveDelay = 750;
 
+        public double beakArmDelay = 1000;
+
         //new values
         public double armPickupMinPos = 0.36;
         public double armPickupMaxPos = 0.505;
@@ -63,6 +65,7 @@ public class BeakAction {
     private final Servo elbow;
 
     public BeakAction(@NonNull HardwareMap hardwareMap) {
+     //   super();
         beak = hardwareMap.servo.get("beakServo");
         beak.setDirection(Servo.Direction.FORWARD);
 
@@ -73,7 +76,7 @@ public class BeakAction {
         elbow.setDirection(Servo.Direction.FORWARD);
     }
 
-    private void MoveArm(double position) {
+    public void MoveArm(double position) {
         arm.setPosition(position);
         targetArmPosition=position;
     }
@@ -188,6 +191,13 @@ public class BeakAction {
 
    }
 
+   public void autonReach(){
+        OpenBeak();
+        MoveElbow(0.57);
+        DeferredActions.CreateDeferredAction( (long) PARAMS.beakArmDelay, DeferredActions.DeferredActionType.ARM);
+        CloseBeak();
+   }
+
    public void newMiddlePos(){
         MoveElbow(0.40);
         MoveElbow(0.585);
@@ -196,11 +206,12 @@ public class BeakAction {
 
     public Action PickUpReachAuton() {
         return packet ->{
-            PickupReach();
-            SystemClock.sleep(250);
-             SuplexSampleAuton();
-             SystemClock.sleep(250);
-             PrepForPickup();
+            OpenBeak();
+            autonReach();
+            SystemClock.sleep(1000);
+            SuplexSampleAuton();
+            SystemClock.sleep(1000);
+            PrepForPickup();
             return false;
         };
     }
