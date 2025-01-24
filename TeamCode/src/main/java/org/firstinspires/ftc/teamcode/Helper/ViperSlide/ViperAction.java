@@ -10,9 +10,6 @@ import android.os.SystemClock;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
-import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
-
 public class ViperAction {
     public static class Params {
         public boolean viperMotorReverse = true;
@@ -22,7 +19,7 @@ public class ViperAction {
         public double viperMotorSpeed = 0.9;
         public double viperMaxPos = 3500;
         public double viperPowerLimitPos = 3200;
-        public double clawLow = 400;
+        public double clawLow = 450;
         public double clawLowHang = 100;
         public double clawHigh = 1000;
         public double clawHighHang = 700;
@@ -122,14 +119,30 @@ public class ViperAction {
     public void perfPlaceOnSub () {moveToPosition((int) PARAMS.clawHighHang);}
 
     /*
-    Claw + Viper Auton
+    Claw + Viper Auto
      */
 
     public Action clawDropOnSub () {
         return packet -> {
             placeOnSub();
-            SystemClock.sleep(150);
+            SystemClock.sleep(180);
           return false;
+        };
+    }
+
+    public Action clawHumanGrab () {
+        return packet -> {
+            clawHuman();
+            SystemClock.sleep(180);
+            return false;
+        };
+    }
+
+    public Action beforeDropOff () {
+        return packet -> {
+            moveForSub();
+            SystemClock.sleep(180);
+            return false;
         };
     }
 }

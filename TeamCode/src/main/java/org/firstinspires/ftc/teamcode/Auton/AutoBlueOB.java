@@ -30,6 +30,9 @@ public class AutoBlueOB extends LinearOpMode {
         Roar = new ClawAction(hardwareMap);
         Tiger = new ViperAction(hardwareMap);
 
+        Roar.CloseGrip();
+        Tiger.moveForSub();
+
         waitForStart();
 
         telemetry.addData("okay", "so code needs to push6");
@@ -40,8 +43,6 @@ public class AutoBlueOB extends LinearOpMode {
             toPark();
         }
         else{
-            Roar.CloseGrip();
-            Tiger.moveForSub();
             toLine();
             markOne();
             humanPlayer();
@@ -58,7 +59,7 @@ public class AutoBlueOB extends LinearOpMode {
         //beginning position: ends at the sub
         Action movePos = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-25)
+                .lineToX(-26)
                 .build();
         Actions.runBlocking(new SequentialAction(movePos,Tiger.clawDropOnSub(), Roar.placeOnSub()));
 
@@ -106,7 +107,7 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(true)
                 .splineTo(new Vector2d(-27, 0), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(new SequentialAction(backAgain, Roar.placeOnSub()));
+        Actions.runBlocking(new SequentialAction(backAgain, Tiger.clawDropOnSub(), Roar.placeOnSub()));
     }
 
     private void toPark(){
@@ -116,7 +117,7 @@ public class AutoBlueOB extends LinearOpMode {
                 // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
                 .strafeTo(new Vector2d(-2,48))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveBasket, Roar.grabFromHuman()));
+        Actions.runBlocking(new SequentialAction(moveBasket,  Tiger.clawHumanGrab(), Roar.grabFromHuman(), Tiger.beforeDropOff()));
 
     }
 
