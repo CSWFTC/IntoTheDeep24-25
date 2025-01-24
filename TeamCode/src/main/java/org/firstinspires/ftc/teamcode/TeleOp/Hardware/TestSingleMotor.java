@@ -18,6 +18,7 @@ public class TestSingleMotor extends LinearOpMode {
     public static class Params {
         public String motorName = "viperMotor";
         public Boolean motorForward = false;
+        public double motorTestPosition = 400;
     }
 
     public static Params PARAMS = new Params();
@@ -34,10 +35,10 @@ public class TestSingleMotor extends LinearOpMode {
         telemetry.update();
 
         DcMotor motor = hardwareMap.dcMotor.get(PARAMS.motorName);
-
         motor.setDirection((PARAMS.motorForward) ? DcMotorSimple.Direction.FORWARD : DcMotorSimple.Direction.REVERSE);
-        motor.setDirection(DcMotorSimple.Direction.REVERSE);
         motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         GamePad gpIn1 = new GamePad(gamepad1);
 
@@ -51,6 +52,8 @@ public class TestSingleMotor extends LinearOpMode {
             switch (inpType1) {
 
                 case JOYSTICK:
+                    if (motor.getMode() != DcMotor.RunMode.RUN_USING_ENCODER)
+                        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                     motor.setPower(gamepad1.left_stick_y);
                     break;
 
@@ -72,10 +75,9 @@ public class TestSingleMotor extends LinearOpMode {
                     break;
 
                 case BUTTON_X:
-                    if (motor.getZeroPowerBehavior() == DcMotor.ZeroPowerBehavior.FLOAT)
-                        motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                    else
-                        motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+                    motor.setTargetPosition((int) PARAMS.motorTestPosition);
+                    motor.setPower(0.5);
+                    motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     break;
 
                 case BUTTON_R_BUMPER:
@@ -83,7 +85,10 @@ public class TestSingleMotor extends LinearOpMode {
                     break;
 
                 case BUTTON_L_BUMPER:
-                    motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                    if (motor.getZeroPowerBehavior() == DcMotor.ZeroPowerBehavior.FLOAT)
+                        motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                    else
+                        motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
                     break;
             }
 
