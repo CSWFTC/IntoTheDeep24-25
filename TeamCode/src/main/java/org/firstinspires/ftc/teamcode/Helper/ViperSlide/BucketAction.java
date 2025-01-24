@@ -10,9 +10,9 @@ import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
 
 public class BucketAction {
     public static class Params {
-        public double bucketStartPos = 0.12;   // Tucked in For Driving
-        public double bucketCatchPos = 0.085;  // Catch from Beak
-        public double bucketDumpPos = 0.01;    // Dump to Basket
+        public double bucketStartPos = 0.28;   // Tucked in For Driving
+        public double bucketCatchPos = 0.32;  // Catch from Beak
+        public double bucketDumpPos = 0.22;    // Dump to Basket
     }
 
     public static Params PARAMS = new Params();
