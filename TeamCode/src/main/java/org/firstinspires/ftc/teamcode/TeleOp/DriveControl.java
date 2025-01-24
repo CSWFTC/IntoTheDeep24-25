@@ -87,9 +87,9 @@ public class DriveControl extends LinearOpMode {
                     break;
                 case RIGHT_STICK_BUTTON_ON:
                     // EMERGENCY OVERRIDE DO NOT EVER USE THIS UNLESS NEEDED
-                    this.isViperLocked = false;
-                    break;
-                case BUTTON_X:
+//                    this.isViperLocked = false;
+//                    break;
+//                case BUTTON_X:
                     speedMultiplier = 0.75;
                     break;
                 case BUTTON_B:
@@ -98,7 +98,6 @@ public class DriveControl extends LinearOpMode {
                 case BUTTON_A:
                     speedMultiplier = 0.5;
                     break;
-
                 case BUTTON_Y:
                     speedMultiplier = 1;
                     break;
