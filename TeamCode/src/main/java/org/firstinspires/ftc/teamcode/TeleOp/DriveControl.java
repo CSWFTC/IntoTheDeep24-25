@@ -90,13 +90,6 @@ public class DriveControl extends LinearOpMode {
                     // EMERGENCY OVERRIDE DO NOT EVER USE THIS UNLESS NEEDED
                     this.isViperLocked = false;
                     break;
-//                case DPAD_DOWN:
-//                    if (!this.isViperLocked) {
-//                        this.isViperLocked = true;
-//                        this.viperSlideHelper.moveToPosition((this.viperSlideHelper.getCurrentPosition()-5)*-1, 0.8);
-//                        DeferredActions.CreateDeferredAction(6500, DeferredActionType.UNLOCK_VIPER);
-//                    }
-//                    break;
                 case BUTTON_X:
                     speedMultiplier = 0.75;
                     break;
@@ -112,12 +105,6 @@ public class DriveControl extends LinearOpMode {
                     break;
                 case BUTTON_L_BUMPER:
                     this.beakAction.PrepForBucketDump();
-//                    time++;
-//                    if(time%2==0) {
-//                        this.beakAction.CloseBeak();
-//                    } else {
-//                        this.beakAction.OpenBeak();
-//                    }
                     break;
                 case BUTTON_R_BUMPER:
                     this.beakAction.CloseBeak();
@@ -192,13 +179,6 @@ public class DriveControl extends LinearOpMode {
                     break;
                 case RESET_BUCKET:
                     break;
-                //case RESET_SLIDER:
-                //    telemetry.addData("VIPERSLIDE b4 RESET POS: ", this.viperAction.getCurrentPosition());
-                //    telemetry.addData("VIPERSLIDE POS: ", this.viperAction.getCurrentPosition());
-                //    this.viperAction.moveToPosition((this.viperAction.getCurrentPosition()-5)*-1);
-                //    telemetry.addLine("Reset SLIDE");
-                //    telemetry.addData("VIPERSLIDE FINAL POS: ", this.viperAction.getCurrentPosition());
-                //    break;
                 case BEAK_OPEN:
                     this.beakAction.OpenBeak();
                     break;
