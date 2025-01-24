@@ -23,7 +23,7 @@ public class HangHelper {
         motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    //  forward or backward based on input
+
     public void moveMotors(double power) {
         motor1.setPower(power);
         motor2.setPower(power);
@@ -40,7 +40,7 @@ public class HangHelper {
         }
     }
 
-    // sets motors to a specific target position (for hanging)
+    //specific target position
     public void moveToPosition(int targetPosition) {
         motor1.setTargetPosition(targetPosition);
         motor2.setTargetPosition(targetPosition);
@@ -52,7 +52,7 @@ public class HangHelper {
         motor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
-    // Reset
+
     public void resetEncoders() {
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
