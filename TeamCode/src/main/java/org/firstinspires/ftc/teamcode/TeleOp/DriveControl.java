@@ -204,9 +204,6 @@ public class DriveControl extends LinearOpMode {
                     telemetry.addLine("ERROR - Unsupported Deferred Action");
                     break;
             }
-
-
-
         }
     }
 
@@ -225,7 +222,7 @@ public class DriveControl extends LinearOpMode {
                 throw new Exception(e);
             }
 
-            this.beakAction = new BeakAction();
+            this.beakAction = new BeakAction(hardwareMap);
             this.viperAction = new ViperAction();
 
             // clean up dependencies
