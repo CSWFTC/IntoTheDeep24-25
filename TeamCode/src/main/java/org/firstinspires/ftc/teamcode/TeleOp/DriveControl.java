@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.Helper.GamePad;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ViperAction;
 
 
+
 import java.util.List;
 import java.util.Locale;
 
@@ -67,18 +68,16 @@ public class DriveControl extends LinearOpMode {
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
                 case DPAD_DOWN:
-
+                    beakAction.ToggleBeak();
                     break;
                 case DPAD_LEFT:
-
+                    this.beakAction.PrepForPickup();
                     break;
+//                    break;
                 case DPAD_RIGHT:
-
-                    break;
                 case DPAD_UP:
-                    this.beakAction.CloseBeak();
-                    DeferredActions.CreateDeferredAction(1000, DeferredActionType.SUPLEX_BEAK);
-                    DeferredActions.CreateDeferredAction(2000, DeferredActionType.BEAK_OPEN);
+                    this.beakAction.PickupReach();
+                    this.beakAction.OpenBeak();
                     break;
                 case LEFT_STICK_BUTTON_ON:
                     if (speedMultiplier < 0.5) {
@@ -100,19 +99,11 @@ public class DriveControl extends LinearOpMode {
 //                    break;
                 case BUTTON_X:
                     speedMultiplier = 0.75;
-                    //this.beakAction.PrepForPickup();
-                    //break;
                     break;
                 case BUTTON_B:
-                    //this.beakAction.PickupReach();
-                    //this.beakAction.OpenBeak();
-                    //break;
                     speedMultiplier = 0.25;
                     break;
                 case BUTTON_A:
-                    //this.beakAction.CloseBeak();
-                   // DeferredActions.CreateDeferredAction(1000, DeferredActionType.SUPLEX_BEAK);
-                    //DeferredActions.CreateDeferredAction(2000, DeferredActionType.BEAK_OPEN);
                     speedMultiplier = 0.5;
                     break;
 
@@ -128,6 +119,12 @@ public class DriveControl extends LinearOpMode {
 //                        this.beakAction.OpenBeak();
 //                    }
                     break;
+                case BUTTON_R_BUMPER:
+                    this.beakAction.CloseBeak();
+                    DeferredActions.CreateDeferredAction(1000, DeferredActionType.SUPLEX_BEAK);
+                    DeferredActions.CreateDeferredAction(2000, DeferredActionType.BEAK_OPEN);
+                    break;
+
                 case LEFT_TRIGGER:
                     this.beakAction.DrivePosition();
                     break;

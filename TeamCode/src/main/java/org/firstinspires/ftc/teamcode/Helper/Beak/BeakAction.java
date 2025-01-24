@@ -54,6 +54,13 @@ public class BeakAction extends Injectable {
     public double targetElbowPosition = -1;
     public double targetBeakPosition = -1;
 
+    public void ToggleBeak() {
+        if (targetBeakPosition == PARAMS.beakClosedPos) {
+            OpenBeak();
+        } else {
+            CloseBeak();
+        }
+    }
 
    // @Inject("hdwMap")
     public HardwareMap hardwareMap;
