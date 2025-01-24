@@ -40,13 +40,7 @@ public class AutoBlueBasket extends LinearOpMode {
 
     public static Params PARAMS = new Params();
     private MecanumDrive drive;
-    private IntakeAction intake;
-    private BeakAction pinch;
-    //private ViperAction bucket;
     private BeakAction arm;
-
-   // ViperSlideHelper vip = new ViperSlideHelper();
-  //  private StaticActions staticActions;
 
 
 

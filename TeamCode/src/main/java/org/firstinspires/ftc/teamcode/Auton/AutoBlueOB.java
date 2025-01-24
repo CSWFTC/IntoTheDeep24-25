@@ -25,7 +25,7 @@ public class AutoBlueOB extends LinearOpMode {
     public void runOpMode(){
         drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
-        Roar = new ClawAction();
+        Roar = new ClawAction(hardwareMap);
 
         waitForStart();
 
