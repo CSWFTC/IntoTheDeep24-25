@@ -1,25 +1,16 @@
 package org.firstinspires.ftc.teamcode.Auton;
 
 import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
-import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
-import org.firstinspires.ftc.teamcode.Helper.Intake.Pinch;
-//import org.firstinspires.ftc.teamcode.Helper.ViperBucketHelper;
-//import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperAction;
-//import org.firstinspires.ftc.teamcode.Helper.ViperSlideActions.ViperAction;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
-import org.firstinspires.ftc.teamcode.Helper.Intake.IntakeAction;
-import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
 
 
 @Autonomous(name = "Auto Blue Basket", group = "RoadRunner")

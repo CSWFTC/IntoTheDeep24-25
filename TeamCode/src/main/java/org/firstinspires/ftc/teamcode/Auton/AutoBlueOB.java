@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.acmerobotics.roadrunner.ftc.Actions;
 
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ViperAction;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 
 @Autonomous(name = "AutoBlueOB", group = "RoadRunner")
@@ -21,11 +22,13 @@ public class AutoBlueOB extends LinearOpMode {
     public static Params PARAMS = new Params();
     private MecanumDrive drive;
     private ClawAction Roar;
+    private ViperAction Tiger;
 
     public void runOpMode(){
         drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
         Roar = new ClawAction(hardwareMap);
+        Tiger = new ViperAction(hardwareMap);
 
         waitForStart();
 
@@ -38,6 +41,7 @@ public class AutoBlueOB extends LinearOpMode {
         }
         else{
             Roar.CloseGrip();
+            Tiger.moveForSub();
             toLine();
             markOne();
             humanPlayer();
@@ -54,9 +58,9 @@ public class AutoBlueOB extends LinearOpMode {
         //beginning position: ends at the sub
         Action movePos = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-24)
+                .lineToX(-25)
                 .build();
-        Actions.runBlocking(new SequentialAction(movePos, Roar.placeOnSub()));
+        Actions.runBlocking(new SequentialAction(movePos,Tiger.clawDropOnSub(), Roar.placeOnSub()));
 
         //positioned back
         Action moveBack = drive.actionBuilder(drive.pose)
@@ -100,9 +104,9 @@ public class AutoBlueOB extends LinearOpMode {
     public void backToLine(){
         Action backAgain = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .splineTo(new Vector2d(-26, 0), Math.toRadians(180))
+                .splineTo(new Vector2d(-27, 0), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(backAgain);
+        Actions.runBlocking(new SequentialAction(backAgain, Roar.placeOnSub()));
     }
 
     private void toPark(){
@@ -112,7 +116,7 @@ public class AutoBlueOB extends LinearOpMode {
                 // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
                 .strafeTo(new Vector2d(-2,48))
                 .build();
-        Actions.runBlocking((moveBasket));
+        Actions.runBlocking(new SequentialAction(moveBasket, Roar.grabFromHuman()));
 
     }
 

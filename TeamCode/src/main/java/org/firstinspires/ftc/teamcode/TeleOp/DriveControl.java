@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.Helper.GamePad;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ViperAction;
 
 
+
 import java.util.List;
 import java.util.Locale;
 
@@ -67,16 +68,16 @@ public class DriveControl extends LinearOpMode {
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
                 case DPAD_DOWN:
-                    speedMultiplier = 0.25;
+                    beakAction.ToggleBeak();
                     break;
                 case DPAD_LEFT:
-                    speedMultiplier = 0.75;
+                    this.beakAction.PrepForPickup();
                     break;
+//                    break;
                 case DPAD_RIGHT:
-                    speedMultiplier = 0.5;
-                    break;
                 case DPAD_UP:
-                    speedMultiplier = 1;
+                    this.beakAction.PickupReach();
+                    this.beakAction.OpenBeak();
                     break;
                 case LEFT_STICK_BUTTON_ON:
                     if (speedMultiplier < 0.5) {
@@ -89,34 +90,28 @@ public class DriveControl extends LinearOpMode {
                     // EMERGENCY OVERRIDE DO NOT EVER USE THIS UNLESS NEEDED
                     this.isViperLocked = false;
                     break;
-//                case DPAD_DOWN:
-//                    if (!this.isViperLocked) {
-//                        this.isViperLocked = true;
-//                        this.viperSlideHelper.moveToPosition((this.viperSlideHelper.getCurrentPosition()-5)*-1, 0.8);
-//                        DeferredActions.CreateDeferredAction(6500, DeferredActionType.UNLOCK_VIPER);
-//                    }
-//                    break;
                 case BUTTON_X:
-                    this.beakAction.PrepForPickup();
+                    speedMultiplier = 0.75;
                     break;
                 case BUTTON_B:
-                    this.beakAction.PickupReach();
-                    this.beakAction.OpenBeak();
+                    speedMultiplier = 0.25;
                     break;
                 case BUTTON_A:
+                    speedMultiplier = 0.5;
+                    break;
+
+                case BUTTON_Y:
+                    speedMultiplier = 1;
+                    break;
+                case BUTTON_L_BUMPER:
+                    this.beakAction.PrepForBucketDump();
+                    break;
+                case BUTTON_R_BUMPER:
                     this.beakAction.CloseBeak();
                     DeferredActions.CreateDeferredAction(1000, DeferredActionType.SUPLEX_BEAK);
                     DeferredActions.CreateDeferredAction(2000, DeferredActionType.BEAK_OPEN);
                     break;
-                case BUTTON_L_BUMPER:
-                    this.beakAction.PrepForBucketDump();
-//                    time++;
-//                    if(time%2==0) {
-//                        this.beakAction.CloseBeak();
-//                    } else {
-//                        this.beakAction.OpenBeak();
-//                    }
-                    break;
+
                 case LEFT_TRIGGER:
                     this.beakAction.DrivePosition();
                     break;
@@ -184,13 +179,6 @@ public class DriveControl extends LinearOpMode {
                     break;
                 case RESET_BUCKET:
                     break;
-                //case RESET_SLIDER:
-                //    telemetry.addData("VIPERSLIDE b4 RESET POS: ", this.viperAction.getCurrentPosition());
-                //    telemetry.addData("VIPERSLIDE POS: ", this.viperAction.getCurrentPosition());
-                //    this.viperAction.moveToPosition((this.viperAction.getCurrentPosition()-5)*-1);
-                //    telemetry.addLine("Reset SLIDE");
-                //    telemetry.addData("VIPERSLIDE FINAL POS: ", this.viperAction.getCurrentPosition());
-                //    break;
                 case BEAK_OPEN:
                     this.beakAction.OpenBeak();
                     break;
@@ -214,7 +202,7 @@ public class DriveControl extends LinearOpMode {
             DependencyInjector.register("telemetry", this.telemetry);
 
             try {
-                this.viperAction = new ViperAction();
+                this.viperAction = new ViperAction(hardwareMap);
             } catch(Exception e) {
                 telemetry.clear();
                 telemetry.addLine("AN ERROR OCCURED: "+e.toString());
@@ -223,7 +211,7 @@ public class DriveControl extends LinearOpMode {
             }
 
             this.beakAction = new BeakAction(hardwareMap);
-            this.viperAction = new ViperAction();
+            this.viperAction = new ViperAction(hardwareMap);
 
             // clean up dependencies
             DependencyInjector.unregister("hdwMap");

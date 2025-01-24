@@ -44,7 +44,7 @@ public class BeakActionTest extends LinearOpMode {
                     beakAction.PrepForPickup();
                     break;
                 case BUTTON_B:
-                    beakAction.PickupReach();
+                    beakAction.newMiddlePos();
                     break;
                 case DPAD_DOWN:
                     beakAction.CloseBeak();
@@ -54,6 +54,14 @@ public class BeakActionTest extends LinearOpMode {
                     break;
                 case BUTTON_Y:
                     beakAction.SuplexSample();
+                    break;
+
+                case RIGHT_TRIGGER:
+                    beakAction.changingArmUp();
+                    break;
+
+                case LEFT_TRIGGER:
+                    beakAction.changingArmUp();
                     break;
 
                 case JOYSTICK:
@@ -80,8 +88,6 @@ public class BeakActionTest extends LinearOpMode {
                         break;
                 }
             }
-
-//            telemetry.addData("SPB: ", this.intakeAction.TEST_GET_SPB());
             telemetry.update();
         }
 
