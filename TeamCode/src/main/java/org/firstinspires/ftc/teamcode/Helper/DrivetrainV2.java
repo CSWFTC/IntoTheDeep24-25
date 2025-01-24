@@ -41,8 +41,6 @@ public class DrivetrainV2 {
         // Account for motor mounting direction in our robot design
         drvMotorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         drvMotorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        drvMotorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
-//        drvMotorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
         drvMotorFrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         drvMotorBackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
