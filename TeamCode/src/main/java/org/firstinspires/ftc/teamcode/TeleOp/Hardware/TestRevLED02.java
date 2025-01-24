@@ -9,8 +9,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.LED;
-import org.firstinspires.ftc.teamcode.Helper.EventBus.EventBus;
-import org.firstinspires.ftc.teamcode.Helper.Telemetry.TelemetryEvent;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,13 +18,13 @@ import java.util.Set;
 public class TestRevLED02 extends LinearOpMode {
     LED frontLED_red;
     LED frontLED_green;
-    EventBus eventBus = EventBus.getInstance();
+
     Set<String> targets = new HashSet<>();
 
     @Override
     public void runOpMode() {
         // Testing TelemetryEvent
-        TelemetryEvent __ = TelemetryEvent.getInstance(); // sets up listener
+       // sets up listener
 
         frontLED_green = hardwareMap.get(LED.class, "front_led_green");
         frontLED_red = hardwareMap.get(LED.class, "front_led_red");
@@ -35,7 +33,7 @@ public class TestRevLED02 extends LinearOpMode {
 
         while (opModeIsActive()) {
             if (gamepad1.a) {
-                frontLED_red.on()
+                frontLED_red.on();
             } else {
                 frontLED_red.off();
             }
