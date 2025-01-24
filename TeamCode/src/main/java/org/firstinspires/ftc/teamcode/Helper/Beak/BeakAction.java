@@ -209,8 +209,6 @@ public class BeakAction {
         MoveBeak(0.75);
    }
 
-
-
     public Action PickUpReachAuton() {
         return packet ->{
             beakStart();
@@ -219,21 +217,22 @@ public class BeakAction {
             SystemClock.sleep(2000);
             autonClose();
             SystemClock.sleep(2000);
+            return false;
+        };
+    }
+
+    public Action suplexAuton(){
+        return packet ->{
             SuplexSampleAuton();
             SystemClock.sleep(2000);
             PrepForPickup();
-            return false;
+            SystemClock.sleep(2000);
+          return false;
         };
     }
 
     public void beakStart(){
         MoveBeak(0.40);
-    }
-    public Action SuplexAuton() {
-        return packet ->{
-            SuplexSample();
-            return false;
-        };
     }
 
 

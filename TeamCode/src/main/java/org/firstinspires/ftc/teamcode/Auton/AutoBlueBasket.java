@@ -12,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ViperAction;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlide.BucketAction;
 
 
 @Autonomous(name = "Auto Blue Basket", group = "RoadRunner")
@@ -35,6 +36,7 @@ public class AutoBlueBasket extends LinearOpMode {
     private BeakAction arm;
 
     private ViperAction vip;
+    private BucketAction bucket;
 
 
 
@@ -46,6 +48,8 @@ public class AutoBlueBasket extends LinearOpMode {
     //    staticActions = new StaticActions();
 
         arm = new BeakAction(hardwareMap);
+        vip = new ViperAction(hardwareMap);
+        bucket = new BucketAction(hardwareMap);
 
         //Load Introduction and Wait for Start
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.CLASSIC);
@@ -100,7 +104,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-17, -38), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveOne, arm.PickUpReachAuton()), vip.dumpSampleHighBasket());
+        Actions.runBlocking(new SequentialAction(moveOne, bucket.autonPrepForCatch(), arm.PickUpReachAuton(), vip.dumpSampleHighBasket(), bucket.autonDumpSample()));
     }
     private void toPosTwo(){
         //pos two
