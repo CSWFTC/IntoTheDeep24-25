@@ -44,7 +44,6 @@ public class BeakAction extends Injectable {
         public double beakSuplexOpenDelay = 600;
 
         //new values
-        //start sample pickup in submerisible
         public double armPickupMinPos = 0.36;
         public double armPickupMaxPos = 0.505;
     }
@@ -160,10 +159,36 @@ public class BeakAction extends Injectable {
         OpenBeak();
     }
 
-    public void beak(){
-
+    public void beakOpenPick(){
+        beak.setPosition(0.4);
 
     }
+    public void beakOpenSuplex(){
+        beak.setPosition(0.5);
+    }
+    public void beakClose(){
+        beak.setPosition(0.75);
+    }
+
+   public void changingArmUp(){
+        double currentArm = arm.getPosition();
+
+        if(currentArm <= 0.505){
+            double setArm = currentArm + 0.05;
+            arm.setPosition(setArm);
+        }
+   }
+
+   public void changingArmDown(){
+       double currentArm = arm.getPosition();
+
+       if(currentArm >= 0.36){
+           double setArm = currentArm - 0.05;
+           arm.setPosition(setArm);
+       }
+
+   }
+
 
     public Action PickUpReachAuton() {
         return packet ->{

@@ -80,8 +80,6 @@ public class BeakActionTest extends LinearOpMode {
                         break;
                 }
             }
-
-//            telemetry.addData("SPB: ", this.intakeAction.TEST_GET_SPB());
             telemetry.update();
         }
 
