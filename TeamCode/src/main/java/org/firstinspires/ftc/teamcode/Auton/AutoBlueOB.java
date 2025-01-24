@@ -31,7 +31,7 @@ public class AutoBlueOB extends LinearOpMode {
         Tiger = new ViperAction(hardwareMap);
 
         Roar.CloseGrip();
-        Tiger.moveForSub();
+        Tiger.perfMoveForSub();
 
         waitForStart();
 
@@ -59,16 +59,16 @@ public class AutoBlueOB extends LinearOpMode {
         //beginning position: ends at the sub
         Action movePos = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-28)
+                .lineToX(-28.5)
                 .build();
-        Actions.runBlocking(new SequentialAction(movePos,Tiger.clawDropOnSub(), Roar.placeOnSub()));
+        Actions.runBlocking(new SequentialAction(movePos,Tiger.perfClawDropOnSub(), Roar.placeOnSub()));
 
         //positioned back
         Action moveBack = drive.actionBuilder(drive.pose)
                 .setReversed(false)
                 .lineToX(-20)
                 .build();
-        Actions.runBlocking(moveBack);
+        Actions.runBlocking(new SequentialAction(moveBack, Tiger.clawHumanGrab()));
     }
 
     public void markOne(){
@@ -105,9 +105,9 @@ public class AutoBlueOB extends LinearOpMode {
     public void backToLine(){
         Action backAgain = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .splineTo(new Vector2d(-29, 3), Math.toRadians(180))
+                .splineTo(new Vector2d(-29, -5), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(new SequentialAction(backAgain, Tiger.clawDropOnSub(), Roar.placeOnSub()));
+        Actions.runBlocking(new SequentialAction(backAgain, Tiger.perfClawDropOnSub(), Roar.placeOnSub()));
     }
 
     private void toPark(){
@@ -115,9 +115,9 @@ public class AutoBlueOB extends LinearOpMode {
         Action moveBasket= drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
-                .strafeTo(new Vector2d(-1,48))
+                .strafeTo(new Vector2d(0,48))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveBasket,  Tiger.clawHumanGrab(), Roar.grabFromHuman(), Tiger.beforeDropOff()));
+        Actions.runBlocking(new SequentialAction(moveBasket, Roar.grabFromHuman(), Tiger.perfBeforeDropOff()));
 
     }
 

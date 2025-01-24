@@ -11,13 +11,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ViperAction;
 
 
 @Autonomous(name = "Auto Blue Basket", group = "RoadRunner")
 public class AutoBlueBasket extends LinearOpMode {
 
     public static class Params {
-        public double versionNumber = 8.3;
+        public double versionNumber = 8.6;
         public int maxPV = 15900;
         public int minPV= 10;
         public double powerUp = 0.5;
@@ -32,6 +33,8 @@ public class AutoBlueBasket extends LinearOpMode {
     public static Params PARAMS = new Params();
     private MecanumDrive drive;
     private BeakAction arm;
+
+    private ViperAction vip;
 
 
 
@@ -52,12 +55,8 @@ public class AutoBlueBasket extends LinearOpMode {
         telemetry.addLine();
         telemetry.update();
 
-   //     pinch.
-
-      //  arm.DrivePosition();
 
         waitForStart();
-
         telemetry.clear();
 
 
@@ -99,10 +98,9 @@ public class AutoBlueBasket extends LinearOpMode {
         //pos one
         Action moveOne = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-19, -38), Math.toRadians(180))
+                .splineTo(new Vector2d(-17, -38), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(new SequentialAction(arm.opB(),moveOne, arm.PickUpReachAuton()));
-        //basket
+        Actions.runBlocking(new SequentialAction(moveOne, arm.PickUpReachAuton()), vip.dumpSampleHighBasket());
     }
     private void toPosTwo(){
         //pos two

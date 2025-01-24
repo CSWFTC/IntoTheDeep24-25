@@ -42,7 +42,7 @@ public class BeakActionTest extends LinearOpMode {
             switch (inputType) {
                 case BUTTON_A:
                    // beakAction.PrepForPickup();
-                    beakAction.AutonPos();
+                   // beakAction.AutonPos();
                     break;
                 case BUTTON_B:
                     beakAction.PickupReachMiddle();
