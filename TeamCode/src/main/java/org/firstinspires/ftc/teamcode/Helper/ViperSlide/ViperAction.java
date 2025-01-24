@@ -19,14 +19,14 @@ public class ViperAction {
         public double viperMotorSpeed = 0.9;
         public double viperMaxPos = 3500;
         public double viperPowerLimitPos = 3200;
-        public double clawLow = 460;
-        public double clawLowHang = 70;
-        public double clawHigh = 1000;
+        public double clawLow = 377;
+        public double clawLowHang = 80;
+        public double clawHigh = 1800;
         public double clawHighHang = 700;
         public double clawWall = 0;
 
         public double dumpLowBasketDelay = 750;    //ms To Wait for Dump
-        public double dumpHighBasketDelay = 1250;  //ms To Wait for Dump
+        public double dumpHighBasketDelay = 2700;  //ms To Wait for Dump
     }
 
     public static Params PARAMS = new Params();
@@ -145,7 +145,6 @@ public class ViperAction {
             return false;
         };
     }
-
     public Action perfClawDropOnSub () {
         return packet -> {
             perfPlaceOnSub();
