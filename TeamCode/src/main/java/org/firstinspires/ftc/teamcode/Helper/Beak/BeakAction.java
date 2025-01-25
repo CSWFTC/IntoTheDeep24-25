@@ -215,20 +215,34 @@ public class BeakAction {
             SystemClock.sleep(2000);
             autonReach();
             SystemClock.sleep(2000);
-            autonClose();
-            SystemClock.sleep(2000);
             return false;
         };
     }
 
     public Action SuplexAuton(){
         return packet ->{
+           // autonClose();
             SuplexSampleAuton();
             SystemClock.sleep(2000);
             PrepForPickup();
-            SystemClock.sleep(2000);
           return false;
         };
+    }
+
+    public Action autonCloseBeak(){
+        return packet ->{
+            autonClose();
+          return false;
+        };
+
+    }
+
+    public Action moveArmAuton(){
+        return packet -> {
+          MoveArm(0.44);
+          return false;
+        };
+
     }
 
     public void beakStart(){

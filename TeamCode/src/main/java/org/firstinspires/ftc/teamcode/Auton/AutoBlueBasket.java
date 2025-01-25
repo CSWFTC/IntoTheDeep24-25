@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Auton;
 
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
@@ -13,13 +14,14 @@ import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ViperAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.BucketAction;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 
 
 @Autonomous(name = "Auto Blue Basket", group = "RoadRunner")
 public class AutoBlueBasket extends LinearOpMode {
 
     public static class Params {
-        public double versionNumber = 8.6;
+        public double versionNumber = 8.8;
         public int maxPV = 15900;
         public int minPV= 10;
         public double powerUp = 0.5;
@@ -37,6 +39,7 @@ public class AutoBlueBasket extends LinearOpMode {
 
     private ViperAction vip;
     private BucketAction bucket;
+    private ClawAction claw;
 
 
 
@@ -44,12 +47,11 @@ public class AutoBlueBasket extends LinearOpMode {
     public void runOpMode(){
 
         drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
-     //   DependencyInjector.register("hdwMap", hardwareMap);
-    //    staticActions = new StaticActions();
 
         arm = new BeakAction(hardwareMap);
         vip = new ViperAction(hardwareMap);
         bucket = new BucketAction(hardwareMap);
+        claw = new ClawAction(hardwareMap);
 
         //Load Introduction and Wait for Start
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.CLASSIC);
@@ -60,18 +62,19 @@ public class AutoBlueBasket extends LinearOpMode {
         telemetry.update();
 
 
+        arm.DrivePosition();
         waitForStart();
         telemetry.clear();
 
 
       //  if(!PARAMS.){
             toSub();
-            toPosOne();
+            toNewPosOne();
             toBasket();
-            toPosTwo();
-            toBasket();
-            toPosThree();
-            toBasket();
+         //   toPosTwo();
+         //   toBasket();
+         //   toPosThree();
+         //   toBasket();
         /*else if(PARAMS.easy) {
             dumbBasket();
             toBasket();
@@ -84,27 +87,39 @@ public class AutoBlueBasket extends LinearOpMode {
         //beginning position: ends at the sub
         Action movePos = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-26)
+                .lineToX(-27)
                 .build();
-        Actions.runBlocking(new SequentialAction(movePos));
+        Actions.runBlocking(new ParallelAction(movePos,vip.perfBeforeDropOff()));
 
-        //TODO: add code for claw
+        Action extraMove = drive.actionBuilder(drive.pose)
+                .setReversed(true)
+                .lineToX(-28.5)
+                .build();
+        Actions.runBlocking(new SequentialAction(extraMove, vip.perfClawDropOnSub(), claw.placeOnSub()));
 
         //positioned back
         Action moveBack = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-20)
+                .lineToX(-12)
                 .build();
         Actions.runBlocking(moveBack);
     }
 
+    private void toNewPosOne(){
+        Action moveOne = drive.actionBuilder(drive.pose)
+                .setReversed(false)
+                .splineTo(new Vector2d(-26.6, -24.0), Math.toRadians(-134.2))
+                .build();
+        Actions.runBlocking(new SequentialAction(moveOne, bucket.autonPrepForCatch(), arm.PickUpReachAuton()), new ParallelAction(arm.autonCloseBeak(),arm.SuplexAuton()));
+
+    }
     private void toPosOne(){
         //pos one
         Action moveOne = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-18.5, -40), Math.toRadians(180))
+                .splineTo(new Vector2d(-18.0, -39.6), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveOne, arm.PickUpReachAuton(),bucket.autonPrepForCatch(), arm.SuplexAuton(), vip.dumpSampleHighBasket(), bucket.autonDumpSample()));
+        Actions.runBlocking(new SequentialAction(moveOne, bucket.autonPrepForCatch(), arm.PickUpReachAuton()));
     }
     private void toPosTwo(){
         //pos two
@@ -131,9 +146,12 @@ public class AutoBlueBasket extends LinearOpMode {
         Action moveBasket= drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
-                .strafeTo(new Vector2d(-10,-48))
+                 //.strafeTo(new Vector2d(-10,-48))
+
+                .splineTo(new Vector2d(-9, -49), Math.toRadians(20))
+
                 .build();
-        Actions.runBlocking(new SequentialAction(moveBasket));
+        Actions.runBlocking(new SequentialAction(moveBasket, vip.dumpSampleHighBasket(), bucket.autonDumpSample(), vip.autonLowerBucket()));
 
     }
 
