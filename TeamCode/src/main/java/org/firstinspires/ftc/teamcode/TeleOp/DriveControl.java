@@ -30,8 +30,7 @@ public class DriveControl extends LinearOpMode {
     private ClawAction clawAction;
     private HangAction hangAction;
 
-    private boolean isViperLocked = false;
-    private static final String version = "1.1";
+    private static final String version = "1.2";
     private boolean setReversed = false;
 
 
@@ -61,19 +60,19 @@ public class DriveControl extends LinearOpMode {
 
         double speedMultiplier = 1;
 
-        this.beakAction.DrivePosition();
+        beakAction.DrivePosition();
+        bucketAction.StartPosition();
 
         while (opModeIsActive()) {
             update_telemetry(gpIn1, gpIn2);
 
-
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
                 case DPAD_DOWN:
-                    beakAction.DrivePosition();
+                    beakAction.PrepForPickup();
                     break;
                 case DPAD_LEFT:
-                    beakAction.PrepForPickup();
+                    beakAction.DrivePosition();
                     break;
                 case DPAD_RIGHT:
                     beakAction.PickupReachMiddle();
@@ -92,10 +91,10 @@ public class DriveControl extends LinearOpMode {
                     speedMultiplier = 0.75;
                     break;
                 case BUTTON_B:
-                    speedMultiplier = 0.25;
+                    speedMultiplier = 0.5;
                     break;
                 case BUTTON_A:
-                    speedMultiplier = 0.5;
+                    speedMultiplier = 0.25;
                     break;
                 case BUTTON_Y:
                     speedMultiplier = 1;
@@ -103,11 +102,14 @@ public class DriveControl extends LinearOpMode {
                 case BUTTON_R_BUMPER:
                     beakAction.ToggleBeak();
                     break;
+                case BUTTON_L_BUMPER:
+                    beakAction.changingArmUp();
+                    break;
                 case RIGHT_TRIGGER:
-                    beakAction.changingArmDown();
+                    beakAction.pickUpJoystick(gamepad1.right_trigger);
                     break;
                 case LEFT_TRIGGER:
-                    beakAction.changingArmUp();
+                    beakAction.pickUpJoystick(-gamepad1.left_trigger);
                     break;
                 case JOYSTICK:
                     drvTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
@@ -121,41 +123,32 @@ public class DriveControl extends LinearOpMode {
                 case BUTTON_L_BUMPER:
                     bucketAction.ToggleBucket();
                     break;
-
                 case BUTTON_R_BUMPER:
                     clawAction.ToggleGrip();
                     break;
-
                 case LEFT_TRIGGER:
                     beakAction.PrepForBucketDump();  // Move Beak Clear of Bucket
                     viperAction.moveWithPower(-gamepad2.left_trigger);
                     break;
-
                 case RIGHT_TRIGGER:
                     beakAction.PrepForBucketDump();  // Move Beak Clear of Bucket
                     viperAction.moveWithPower(gamepad2.right_trigger);
                     break;
-
                 case DPAD_UP:
                     viperAction.perfMoveForSub();
                     break;
-
                 case DPAD_DOWN:
                     viperAction.moveForSub();
                     break;
-
-                case BUTTON_X:
+                case BUTTON_Y:
                     viperAction.moveToHighBasket();
                     break;
-
-                case BUTTON_B:
+                case BUTTON_A:
                     viperAction.moveToLowBasket();
                     break;
-
                 case RIGHT_STICK_BUTTON_ON:
                     viperAction.resetEncoders();
                     break;
-
                 case JOYSTICK:
                     hangAction.moveMotors(-gamepad2.left_stick_y);
                     break;
@@ -172,27 +165,17 @@ public class DriveControl extends LinearOpMode {
 
         for(DeferredActionType actionType: action){
             switch(actionType){
-                case UNLOCK_VIPER:
-                    this.isViperLocked = false;
-                    break;
-                case BUCKET_RISE_SMALL:
-                    viperAction.moveToLowBasket();
-                    break;
-                case BUCKET_RISE_TALL:
-                    viperAction.moveToHighBasket();
-                    break;
-                case ROTATE_BUCKET:
-                    break;
-                case RESET_BUCKET:
-                    break;
                 case BEAK_OPEN:
-                    this.beakAction.OpenBeak();
+                    beakAction.OpenBeak();
                     break;
                 case BEAK_CLOSE:
-                    this.beakAction.CloseBeak();
+                    beakAction.CloseBeak();
                     break;
                 case SUPLEX_BEAK:
-                    this.beakAction.SuplexSample();
+                    beakAction.SuplexSample();
+                    break;
+                case BEAK_DRIVE_SAFE:
+                    beakAction.DrivePosition();
                     break;
                 default:
                     telemetry.addLine("ERROR - Unsupported Deferred Action");
@@ -203,13 +186,11 @@ public class DriveControl extends LinearOpMode {
 
     private int initialize() {
         try {
-
             beakAction = new BeakAction(hardwareMap);
             viperAction = new ViperAction(hardwareMap);
             hangAction = new HangAction (hardwareMap);
             bucketAction = new BucketAction(hardwareMap);
             clawAction = new ClawAction(hardwareMap);
-
         }
         catch(Exception e) {
             telemetry.clear();
@@ -221,6 +202,8 @@ public class DriveControl extends LinearOpMode {
     }
 
     private void update_telemetry(GamePad gpi1, GamePad gpi2) {
+        telemetry.addLine().addData("Viper", viperAction.getCurrentPosition());
+
         telemetry.addLine("Gamepad #1");
         String inpTime1 = new java.text.SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS", Locale.US).format(gpi1.getTelemetry_InputLastTimestamp());
         telemetry.addLine().addData("GP1 Time", inpTime1);
@@ -243,7 +226,6 @@ public class DriveControl extends LinearOpMode {
         String actTime = new java.text.SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS", Locale.US).format(DeferredActions.tlmLastActionTimestamp);
         telemetry.addLine().addData("Time", actTime);
         telemetry.addLine().addData("Action", DeferredActions.tlmLastAction.toString());
-        telemetry.addData("Locked: ", this.isViperLocked);
 
         telemetry.update();
     }

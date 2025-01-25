@@ -17,7 +17,7 @@ public class HangAction {
         right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         left.setDirection(DcMotorSimple.Direction.FORWARD);
-        right.setDirection(DcMotorSimple.Direction.FORWARD);
+        right.setDirection(DcMotorSimple.Direction.REVERSE);
 
         left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

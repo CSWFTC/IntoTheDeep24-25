@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Helper.ViperSlide;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -10,6 +11,7 @@ import android.os.SystemClock;
 
 import androidx.annotation.NonNull;
 
+@Config
 public class ViperAction {
     public static class Params {
         public boolean viperMotorReverse = true;
@@ -17,8 +19,8 @@ public class ViperAction {
         public double viperLowBasketPos = 1050;   // Low Basket (Approx 38% of High Basket)
         public double viperCatchPoint = 0;        // Catch Point for Sample
         public double viperMotorSpeed = 0.9;
-        public double viperMaxPos = 3500;
-        public double viperPowerLimitPos = 3200;
+        public double viperMaxPos = 3180;
+        public double viperPowerLimitPos = 2800;
         public double clawLow = 377;
         public double clawLowHang = 77;
         public double clawHigh = 1800;
@@ -52,20 +54,19 @@ public class ViperAction {
         viperMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
-    public void moveWithPower(double power) {
+    public void moveWithPower(double throttle) {
+        double power = throttle;
+        if (power > 0) {
+            if (viperMotor.getCurrentPosition() >= PARAMS.viperMaxPos)
+                power = 0;
+            else if (viperMotor.getCurrentPosition() >= PARAMS.viperPowerLimitPos)
+                power = Math.min(power, 0.25);
+        } else if ((power < 0) && (viperMotor.getCurrentPosition() <= 400))
+            power = Math.max(power, -0.25);
+
         if (viperMotor.getMode() != DcMotor.RunMode.RUN_USING_ENCODER)
             viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        int pos = viperMotor.getCurrentPosition();
-        if (pos > PARAMS.viperMaxPos)
-            viperMotor.setPower(0);   // Stop Motor at Top Limit
-        else if ((pos >= PARAMS.viperPowerLimitPos) ||
-                (pos <= (PARAMS.viperMaxPos - PARAMS.viperPowerLimitPos)))
-            // Reduce Speed Near Physical Limits
-            viperMotor.setPower(Range.clip(power, -0.3, 0.3));
-        else
-            // Full Joystick Power
-            viperMotor.setPower(power);
+        viperMotor.setPower(power);
     }
 
     public void resetEncoders() {

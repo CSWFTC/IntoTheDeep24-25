@@ -11,21 +11,11 @@ public class DeferredActions {
     public enum DeferredActionType {
         NO_ACTION("None"),
         PLAY_SOUND("Plays Quack"),
-        ROTATE_INTAKE("Rotates the intake"),
-        DEROTATE_INTAKE("Derotates the intake"),
-        UNPINCH("Unpinch"),
-        ROTATE_BUCKET("Rotate Bucket"),
-        RESET_SLIDER("Reset"),
-        RESET_BUCKET("reset"),
-        BEAK_OPEN("open beak"),
-        BEAK_CLOSE("Close beak"),
-        SUPLEX_BEAK("Suplex"),
-        BACK_BEAK("move beak back"),
-        BUCKET_RISE_TALL("rise tall"),
-        BUCKET_RISE_SMALL("rise small"),
-        UNLOCK_VIPER("unlock"),
+        BEAK_OPEN("Open Beak"),
+        BEAK_CLOSE("Close Beak"),
+        SUPLEX_BEAK("Suplex Beak"),
+        BEAK_DRIVE_SAFE("Beak Drive Safe"),
         ARM("hi");
-
 
 
         private final String description;

@@ -2,21 +2,22 @@ package org.firstinspires.ftc.teamcode.Helper.ViperSlide;
 
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-
+@Config
 public class BucketAction {
     public static class Params {
-        public double bucketStartPos = 0.28;   // Tucked in For Driving
-        public double bucketCatchPos = 0.32;  // Catch from Beak
+        public double bucketStartPos = 0.32;   // Tucked in For Driving
+        public double bucketCatchPos = 0.31;  // Catch from Beak
         public double bucketDumpPos = 0.22;    // Dump to Basket
     }
 
     public static Params PARAMS = new Params();
 
-    public double targetBucketPosition = -1;
+    public static double targetBucketPosition = -1;
     private final Servo bucketServo;
 
 

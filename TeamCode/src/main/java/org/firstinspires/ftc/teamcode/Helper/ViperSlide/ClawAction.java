@@ -19,7 +19,8 @@ public class ClawAction {
     }
 
     public static Params PARAMS = new Params();
-    public double targetGripPosition = -1;
+
+    public static double targetGripPosition = -1;
     private final Servo clawServo;
 
     public ClawAction(@NonNull HardwareMap hdwMap) {
