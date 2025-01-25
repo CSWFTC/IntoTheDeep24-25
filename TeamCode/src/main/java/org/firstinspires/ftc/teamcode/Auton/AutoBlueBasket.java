@@ -110,7 +110,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-26.6, -24.0), Math.toRadians(-134.2))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveOne, bucket.autonPrepForCatch(), arm.PickUpReachAuton()), new ParallelAction(arm.autonCloseBeak(),arm.SuplexAuton()));
+        Actions.runBlocking(new SequentialAction(moveOne, bucket.autonPrepForCatch(), arm.PickUpReachAuton(),arm.autonCloseBeak(),arm.SuplexAuton()));
 
     }
     private void toPosOne(){

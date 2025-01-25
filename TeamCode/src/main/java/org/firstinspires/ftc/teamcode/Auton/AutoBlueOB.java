@@ -123,7 +123,7 @@ public class AutoBlueOB extends LinearOpMode {
         Action moveBasket= drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
-                .strafeTo(new Vector2d(0,48))
+                .strafeTo(new Vector2d(-1.5,48))
                 .build();
         Actions.runBlocking(new SequentialAction(moveBasket, Roar.grabFromHuman(), Tiger.perfBeforeDropOff()));
 

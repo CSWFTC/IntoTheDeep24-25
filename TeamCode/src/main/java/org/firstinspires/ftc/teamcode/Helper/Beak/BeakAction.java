@@ -52,9 +52,6 @@ public class BeakAction {
         //new values
         public double armPickupMinPos = 0.36;
         public double armPickupMaxPos = 0.505;
-
-        public double armNewMin = 0.27;
-        public double armNewMax = 0.585;
     }
 
     public static Params PARAMS = new Params();
@@ -164,10 +161,10 @@ public class BeakAction {
     }
 
     public void pickUpJoystick(float power){
-        boolean rightPosition = ((targetArmPosition >= PARAMS.armNewMin) && (targetArmPosition <= PARAMS.armNewMax));
+        boolean rightPosition = ((targetArmPosition >= PARAMS.armPickupMinPos) && (targetArmPosition <= PARAMS.armPickupMaxPos));
 
         if (rightPosition) {
-            double armPos = Range.clip((targetArmPosition + (power * 0.004)), PARAMS.armNewMin, PARAMS.armNewMax);
+            double armPos = Range.clip((targetArmPosition + (power * 0.004)), PARAMS.armPickupMinPos, PARAMS.armPickupMaxPos);
             double elbPos = conversion(armPos);
             MoveArm(armPos);
             MoveElbow(elbPos);
@@ -221,7 +218,7 @@ public class BeakAction {
 
     public Action SuplexAuton(){
         return packet ->{
-           // autonClose();
+           //    autonClose();
             SuplexSampleAuton();
             SystemClock.sleep(2000);
             PrepForPickup();
