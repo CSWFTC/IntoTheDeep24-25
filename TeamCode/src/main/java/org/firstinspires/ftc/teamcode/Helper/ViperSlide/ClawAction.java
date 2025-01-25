@@ -4,6 +4,7 @@ import android.os.SystemClock;
 
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -11,11 +12,12 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
 import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
 
+@Config
 public class ClawAction {
     public static class Params {
         public boolean gripServoReverse = false;
         public double gripOpenPos = 0.7;
-        public double gripClosedPos = 0.505;
+        public double gripClosedPos = 0.49;
     }
 
     public static Params PARAMS = new Params();
