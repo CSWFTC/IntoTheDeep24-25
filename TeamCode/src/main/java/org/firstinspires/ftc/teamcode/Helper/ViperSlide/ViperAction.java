@@ -30,6 +30,7 @@ public class ViperAction {
         public double dumpLowBasketDelay = 750 ;    //ms To Wait for Dump
         public double dumpHighBasketDelay = 1250;  //ms To Wait for Dump
         public int lowerBasketPosition = 1000;
+
     }
 
     public static Params PARAMS = new Params();
@@ -89,6 +90,8 @@ public class ViperAction {
     public void moveToLowBasket() {
         moveToPosition((int) PARAMS.viperLowBasketPos);
     }
+
+
 
     /*
      * Autonomous Viper Movements
