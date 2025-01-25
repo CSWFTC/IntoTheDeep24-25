@@ -17,8 +17,8 @@ import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 public class BeakAction {
     public static class Params {
         // Drive Position - Protect Arm
-        public double armDrivePos = 0.2;
-        public double elbowDrivePos = 0.668;
+        public double armDrivePos = 0.21;
+        public double elbowDrivePos = 0.66;
 
         // Sample Pickup Start - Clear Submersible Bar
         public double armPickStartPos = 0.27;
@@ -45,7 +45,7 @@ public class BeakAction {
         public double beakOpenDropPos = 0.5;
         public double beakClosedPos = 0.75;
         public double beakSuplexOpenDelay = 600;
-        public double beakSuplexDriveDelay = 750;
+        public double beakSuplexDriveDelay = 850;
 
         public double beakArmDelay = 1000;
 
@@ -102,7 +102,7 @@ public class BeakAction {
     }
 
     public void PrepForPickup() {
-        OpenBeak();
+        MoveBeak(PARAMS.beakOpenGatherPos);
         MoveElbow(PARAMS.elbowPickStartPos);
         MoveArm(PARAMS.armPickStartPos);
     }
@@ -122,9 +122,9 @@ public class BeakAction {
     }
 
     public void PickupReachMiddle() {
+        MoveBeak(PARAMS.beakOpenGatherPos);
         MoveArm(PARAMS.armPickReachMiddlePos);
         MoveElbow(PARAMS.elbowPickReachMiddlePos);
-
     }
 
     public void CloseBeak() {
@@ -154,7 +154,7 @@ public class BeakAction {
             MoveArm(PARAMS.armBucketDropPos);
             MoveElbow(PARAMS.elbowBucketDropPos);
             DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexOpenDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
-            DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexDriveDelay, DeferredActions.DeferredActionType.BACK_BEAK);
+            DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexDriveDelay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
         }
     }
 
@@ -166,7 +166,7 @@ public class BeakAction {
     public void pickUpJoystick(float power){
         boolean rightPosition = ((targetArmPosition >= PARAMS.armNewMin) && (targetArmPosition <= PARAMS.armNewMax));
 
-        if(rightPosition) {
+        if (rightPosition) {
             double armPos = Range.clip((targetArmPosition + (power * 0.004)), PARAMS.armNewMin, PARAMS.armNewMax);
             double elbPos = conversion(armPos);
             MoveArm(armPos);
