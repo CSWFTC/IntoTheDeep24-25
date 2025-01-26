@@ -35,7 +35,7 @@ public class AutoBlueOB extends LinearOpMode {
 
         waitForStart();
 
-        telemetry.addData("okay", "so code needs to push6");
+        telemetry.addData("okay", "so code needs to push 7");
         telemetry.update();
 
         if(PARAMS.easy){
@@ -52,7 +52,7 @@ public class AutoBlueOB extends LinearOpMode {
             Reverse();
             backToLine();
             forward();
-            toPark();
+            toParkLast();
             updateTelemetry(drive.pose.position);
         }
     }
@@ -123,10 +123,19 @@ public class AutoBlueOB extends LinearOpMode {
         Action moveBasket= drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
-                .strafeTo(new Vector2d(-1.5,48))
+                .strafeTo(new Vector2d(-1,48))
                 .build();
         Actions.runBlocking(new SequentialAction(moveBasket, Roar.grabFromHuman(), Tiger.perfBeforeDropOff()));
 
+    }
+
+    private void toParkLast(){
+        Action moveBasket= drive.actionBuilder(drive.pose)
+                .setReversed(true)
+                // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
+                .strafeTo(new Vector2d(-1.5,48))
+                .build();
+        Actions.runBlocking(new SequentialAction(moveBasket, Tiger.clawHumanGrab()));
     }
 
     private void forward(){

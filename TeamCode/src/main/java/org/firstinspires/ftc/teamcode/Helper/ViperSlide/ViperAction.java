@@ -24,8 +24,8 @@ public class ViperAction {
         public double clawLow = 377;
         public double clawLowHang = 77;
         public double clawHigh = 1800;
-        public double clawHighHang = 1500;
-        public double clawWall = 0;
+        public double clawHighHang = 1450;
+        public double clawWall = 14;
 
         public double dumpLowBasketDelay = 750 ;    //ms To Wait for Dump
         public double dumpHighBasketDelay = 1250;  //ms To Wait for Dump
