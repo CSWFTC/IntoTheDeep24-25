@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 public class AutoBlueBasket extends LinearOpMode {
 
     public static class Params {
-        public double versionNumber = 8.8;
+        public double versionNumber = 9.1;
         public int maxPV = 15900;
         public int minPV= 10;
         public double powerUp = 0.5;
@@ -102,7 +102,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(true)
                 .lineToX(-12)
                 .build();
-        Actions.runBlocking(moveBack);
+        Actions.runBlocking(new SequentialAction(moveBack,vip.autonReset() ));
     }
 
     private void toNewPosOne(){
@@ -110,8 +110,8 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-26.6, -24.0), Math.toRadians(-134.2))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveOne, bucket.autonPrepForCatch(), arm.PickUpReachAuton(),arm.autonCloseBeak(),arm.SuplexAuton()));
-
+     //   Actions.runBlocking(new SequentialAction(moveOne, bucket.autonPrepForCatch(), arm.PickUpReachAuton(),arm.autonCloseBeak(),arm.SuplexAuton()));
+            Actions.runBlocking(new SequentialAction (moveOne, bucket.autonPrepForCatch()));
     }
     private void toPosOne(){
         //pos one
@@ -119,7 +119,8 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-18.0, -39.6), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveOne, bucket.autonPrepForCatch(), arm.PickUpReachAuton()));
+       Actions.runBlocking(new SequentialAction(moveOne, bucket.autonPrepForCatch(), arm.PickUpReachAuton()));
+
     }
     private void toPosTwo(){
         //pos two
@@ -148,7 +149,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
                  //.strafeTo(new Vector2d(-10,-48))
 
-                .splineTo(new Vector2d(-9, -49), Math.toRadians(20))
+                .splineTo(new Vector2d(-9, -49), Math.toRadians(-50))
 
                 .build();
         Actions.runBlocking(new SequentialAction(moveBasket, vip.dumpSampleHighBasket(), bucket.autonDumpSample(), vip.autonLowerBucket()));
