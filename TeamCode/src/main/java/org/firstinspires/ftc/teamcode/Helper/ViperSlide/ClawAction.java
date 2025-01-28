@@ -17,7 +17,7 @@ public class ClawAction {
     public static class Params {
         public boolean gripServoReverse = false;
         public double gripOpenPos = 0.7;
-        public double gripClosedPos = 0.49;
+        public double gripClosedPos = 0.48;
     }
 
     public static Params PARAMS = new Params();
