@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 public class AutoBlueBasket extends LinearOpMode {
 
     public static class Params {
-        public double versionNumber = 9.1;
+        public double versionNumber = 9.4;
         public int maxPV = 15900;
         public int minPV= 10;
         public double powerUp = 0.5;
@@ -152,7 +152,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .splineTo(new Vector2d(-9, -49), Math.toRadians(-50))
 
                 .build();
-        Actions.runBlocking(new SequentialAction(moveBasket, vip.dumpSampleHighBasket(), bucket.autonDumpSample(), vip.autonLowerBucket()));
+        Actions.runBlocking(new SequentialAction(moveBasket, vip.dumpSampleHighBasket()));
 
     }
 
