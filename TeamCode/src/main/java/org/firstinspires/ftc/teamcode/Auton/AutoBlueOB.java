@@ -24,8 +24,11 @@ public class AutoBlueOB extends LinearOpMode {
     private MecanumDrive drive;
     private ClawAction Roar;
     private ViperAction Tiger;
+    private double x = 0;
+    private double y = 1;
 
     public void runOpMode(){
+
         drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
         Roar = new ClawAction(hardwareMap);
@@ -44,13 +47,25 @@ public class AutoBlueOB extends LinearOpMode {
         }
         else{
             toLine();
-            markOne();
-            humanPlayer();
-            GoBack();
-            toPark();
-            GoBack();
-            Reverse();
-            backToLine();
+            while (x < 3) {
+                moveBack();
+                if(y == 1) {
+                    markOne();
+                    y++;
+                } else if (y == 2){
+                    markTwo();
+                    y++;
+                } else {
+                    markThree();
+                }
+                humanPlayer();
+                GoBack();
+                toPark();
+                GoBack();
+                Reverse();
+                backToLine();
+                x++;
+            }
             forward();
             toParkLast();
             updateTelemetry(drive.pose.position);
@@ -71,7 +86,10 @@ public class AutoBlueOB extends LinearOpMode {
                 .build();
         Actions.runBlocking(new SequentialAction(extraMove, Tiger.perfClawDropOnSub(), Roar.placeOnSub()));
 
-        //positioned back
+    }
+
+    public void moveBack () {
+        //move back a little bit
         Action moveBack = drive.actionBuilder(drive.pose)
                 .setReversed(false)
                 .lineToX(-20)
@@ -80,6 +98,7 @@ public class AutoBlueOB extends LinearOpMode {
     }
 
     public void markOne(){
+        //move to mark 1
         Action lineM1 = drive.actionBuilder(drive.pose)
                 .setReversed(false)
                 .splineTo(new Vector2d(-25, 38), Math.toRadians(180))
@@ -87,7 +106,24 @@ public class AutoBlueOB extends LinearOpMode {
         Actions.runBlocking(lineM1);
     }
 
+    public void markTwo(){
+        Action lineM2 = drive.actionBuilder(drive.pose)
+                .setReversed(false)
+                .splineTo(new Vector2d(-25, 40), Math.toRadians(180))
+                .build();
+        Actions.runBlocking(lineM2);
+    }
+
+    public void markThree(){
+        Action lineM3 = drive.actionBuilder(drive.pose)
+                .setReversed(false)
+                .splineTo(new Vector2d(-25, 46), Math.toRadians(180))
+                .build();
+        Actions.runBlocking(lineM3);
+    }
+
     public void humanPlayer(){
+        //drop off in human player zone
         Action Player = drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 .lineToX(-20)
@@ -96,6 +132,8 @@ public class AutoBlueOB extends LinearOpMode {
     }
 
     public void GoBack(){
+        //give time for human player to pick up sample
+        //move out of the zone
         Action back = drive.actionBuilder(drive.pose)
                 .setReversed(false)
                 .lineToX(-20)
@@ -103,6 +141,7 @@ public class AutoBlueOB extends LinearOpMode {
         Actions.runBlocking(back);
     }
     public void Reverse(){
+        //get ready to go to sub
         Action turnAgain = drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 .turnTo(260)
@@ -111,6 +150,7 @@ public class AutoBlueOB extends LinearOpMode {
     }
 
     public void backToLine(){
+        //drop sample on sub
         Action backAgain = drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 .splineTo(new Vector2d(-29, -5), Math.toRadians(180))
@@ -119,7 +159,7 @@ public class AutoBlueOB extends LinearOpMode {
     }
 
     private void toPark(){
-        //basket
+        //to pick sample from human zone
         Action moveBasket= drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
@@ -130,6 +170,7 @@ public class AutoBlueOB extends LinearOpMode {
     }
 
     private void toParkLast(){
+        //final park position
         Action moveBasket= drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
@@ -139,6 +180,7 @@ public class AutoBlueOB extends LinearOpMode {
     }
 
     private void forward(){
+        //move all the way back for final
         Action moveOut = drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 .lineToX(-4)
