@@ -29,6 +29,12 @@ import org.firstinspires.ftc.teamcode.Helper.GamePad;
                     case JOYSTICK:
                         armActions.JoystickMoveSlide(-gamepad1.right_stick_y);
                         break;
+                    case BUTTON_A:
+                        armActions.closedBeak();
+                        break;
+                    case BUTTON_B:
+                        armActions.openBeak();
+                        break;
 
 
                 }
