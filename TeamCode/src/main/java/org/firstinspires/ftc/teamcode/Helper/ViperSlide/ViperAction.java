@@ -28,7 +28,7 @@ public class ViperAction {
         public double clawWall = 14;
 
         public double dumpLowBasketDelay = 750 ;    //ms To Wait for Dump
-        public double dumpHighBasketDelay = 1250;  //ms To Wait for Dump
+        public double dumpHighBasketDelay = 2250;  //ms To Wait for Dump
         public int lowerBasketPosition = 1000;
         public int autonReset = 150;
 
@@ -100,7 +100,7 @@ public class ViperAction {
     public Action dumpSampleLowBasket() {
         return packet -> {
             moveToLowBasket();
-            SystemClock.sleep((long) PARAMS.dumpLowBasketDelay);
+           // SystemClock.sleep((long) PARAMS.dumpLowBasketDelay);
             bucketAction.DumpSample();
             return false;
         };
