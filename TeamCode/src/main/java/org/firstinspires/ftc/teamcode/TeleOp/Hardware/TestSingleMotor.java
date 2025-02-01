@@ -16,7 +16,7 @@ public class TestSingleMotor extends LinearOpMode {
 
     public static final String version = "1.4";
     public static class Params {
-        public String motorName = "viperMotor";
+        public String motorName = "hookSecond";
         public Boolean motorForward = false;
         public double motorTestPosition = 400;
     }
