@@ -18,7 +18,6 @@ public class newBeak {
     private final Servo viper;
 
     public newBeak(@NonNull HardwareMap hardwareMap) {
-        //   super();
        viper = hardwareMap.servo.get("viperServo");
        viper.setDirection(Servo.Direction.FORWARD);
 
@@ -30,9 +29,9 @@ public class newBeak {
         targetSliderPosition = newPos;
     }
 
-    public void JoystickMoveSlide(double position){
-        double viperPos = Range.clip((targetSliderPosition + (position * 0.004)), PARAMS.sliderMinPos, PARAMS.sliderMaxPos);
-        MoveSlider(viperPos);
+    public void JoystickMoveSlide(float position){
+        double sliderPos = Range.clip((targetSliderPosition + (position * 0.004)), PARAMS.sliderMinPos, PARAMS.sliderMaxPos);
+        MoveSlider(sliderPos);
     }
 
     //the servo for first hand
