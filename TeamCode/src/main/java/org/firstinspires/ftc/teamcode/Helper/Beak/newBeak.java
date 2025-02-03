@@ -21,6 +21,7 @@ public class newBeak {
         //beak
         public double beakOpenPos = 0.155;
         public double beakClosePos = 0.475;
+        public int times = 0;
 
 
     }
@@ -59,8 +60,14 @@ public class newBeak {
         beak.setPosition(PARAMS.beakOpenPos);
     }
 
-    public void ToggleBEak(){
-
+    public void ToggleBeak(){
+        PARAMS.times++;
+        if(PARAMS.times %2 == 0){
+            closedBeak();
+        }
+        else{
+           openBeak();
+        }
     }
     //the servo for second hand
 

@@ -35,6 +35,9 @@ import org.firstinspires.ftc.teamcode.Helper.GamePad;
                     case BUTTON_B:
                         armActions.openBeak();
                         break;
+                    case BUTTON_X:
+                        armActions.ToggleBeak();
+                        break;
 
 
                 }
