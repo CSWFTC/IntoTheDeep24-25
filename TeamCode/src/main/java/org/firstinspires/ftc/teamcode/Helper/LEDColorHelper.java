@@ -14,7 +14,7 @@ public class LEDColorHelper {
     }
 
 
-    private void setLEDColor(String color) {
+    public void setLEDColor(String color) {
         switch (color) {
             case "Red":
                 LEDservo.setPosition(0.279); // Set LED to Red
