@@ -42,6 +42,7 @@ public class DriveControl extends LinearOpMode {
 
         if (isStopRequested() || (initRes == 1)) {
             return;
+            
         }
 
         // Load Introduction and Wait for Start
