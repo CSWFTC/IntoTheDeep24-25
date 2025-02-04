@@ -1,26 +1,30 @@
 package org.firstinspires.ftc.teamcode.Helper.Beak;
 import androidx.annotation.NonNull;
+
+import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.SleepAction;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
+
 public class newBeak {
 
     public static class Params {
-
-        /*
-        Open 0.155
-        Closed 0.475
-         */
-        public double versionNumber = 0.1;
-
         //slider
-        public double sliderMaxPos = 0.46;
-        public double sliderMinPos = 0.1;
+        public double sliderMaxPos = 0.405;
+        public double sliderMinPos = 0.01;
 
         //beak
         public double beakOpenPos = 0.155;
         public double beakClosePos = 0.475;
+
+        //elbow
+        public double elbowMaxPos = 0.59;
+        public double elbowMinPos = 0.485;
+        public double elbowSuplexPos = 0.57;
         public int times = 0;
 
 
@@ -29,15 +33,20 @@ public class newBeak {
     public static newBeak.Params PARAMS = new newBeak.Params();
     public static double targetSliderPosition = -1;
     public static double targetBeakPosition = -1;
+    public static double targetElbowPosition = -1;
     private final Servo viper;
     private final Servo beak;
+    private final Servo elbow;
 
     public newBeak(@NonNull HardwareMap hardwareMap) {
        viper = hardwareMap.servo.get("viperServo");
        viper.setDirection(Servo.Direction.FORWARD);
 
-       beak = hardwareMap.servo.get("viperbeakServo");
+       beak = hardwareMap.servo.get("beakServo");
        beak.setDirection(Servo.Direction.FORWARD);
+
+       elbow = hardwareMap.servo.get("elbowServo");
+       elbow.setDirection(Servo.Direction.FORWARD);
 
     }
 
@@ -48,7 +57,7 @@ public class newBeak {
     }
 
     public void JoystickMoveSlide(float position){
-        double sliderPos = Range.clip((targetSliderPosition + (position * 0.004)), PARAMS.sliderMinPos, PARAMS.sliderMaxPos);
+        double sliderPos = Range.clip((targetSliderPosition + (position * 0.005)), PARAMS.sliderMinPos, PARAMS.sliderMaxPos);
         MoveSlider(sliderPos);
     }
 
@@ -69,8 +78,32 @@ public class newBeak {
            openBeak();
         }
     }
-    //the servo for second hand
+    //the servo for elbow
+    public void MinElbow(){
+        elbow.setPosition(PARAMS.elbowMinPos);
+    }
 
+    public void startElbPos(){
+        elbow.setPosition(PARAMS.elbowMaxPos);
 
+    }
 
+    public void suplexElbPos(){
+        elbow.setPosition(PARAMS.elbowSuplexPos);
+    }
+
+    public Action autonReachSamp(){
+        return packet ->{
+            MinElbow();
+            return false;
+        };
+
+        }
+
+    public Action waitLong (){
+        return packet ->{
+
+         return false;
+        };
+    }
 }
