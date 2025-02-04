@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.Helper.GamePad;
 public class TestLEDGoBilda extends LinearOpMode {
     public static class Params {
         public double servoStartPos = 0.532;
-        public String servoName = "posi";
+        public String servoName = "LEDservo";
     }
     public static Params PARAMS = new Params();
 
