@@ -18,6 +18,7 @@ public class AutoBlueOB extends LinearOpMode {
 
     public static class Params {
         public boolean easy = false;
+        public double y = 38;
     }
 
     public static Params PARAMS = new Params();
@@ -25,7 +26,6 @@ public class AutoBlueOB extends LinearOpMode {
     private ClawAction Roar;
     private ViperAction Tiger;
     private double x = 0;
-    private double y = 1;
 
     public void runOpMode(){
 
@@ -49,14 +49,15 @@ public class AutoBlueOB extends LinearOpMode {
             toLine();
             while (x < 3) {
                 moveBack();
-                if(y == 1) {
+                if(x == 0) {
+                    PARAMS.y = 38;
                     markOne();
-                    y++;
-                } else if (y == 2){
-                    markTwo();
-                    y++;
+                } else if (x == 2){
+                    PARAMS.y = 46;
+                    markOne();
                 } else {
-                    markThree();
+                    PARAMS.y = 46;
+                    markOne();
                 }
                 humanPlayer();
                 GoBack();
@@ -98,28 +99,12 @@ public class AutoBlueOB extends LinearOpMode {
     }
 
     public void markOne(){
-        //move to mark 1
+        //move to mark
         Action lineM1 = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-25, 38), Math.toRadians(180))
+                .splineTo(new Vector2d(-25, PARAMS.y), Math.toRadians(180))
                 .build();
         Actions.runBlocking(lineM1);
-    }
-
-    public void markTwo(){
-        Action lineM2 = drive.actionBuilder(drive.pose)
-                .setReversed(false)
-                .splineTo(new Vector2d(-25, 40), Math.toRadians(180))
-                .build();
-        Actions.runBlocking(lineM2);
-    }
-
-    public void markThree(){
-        Action lineM3 = drive.actionBuilder(drive.pose)
-                .setReversed(false)
-                .splineTo(new Vector2d(-25, 46), Math.toRadians(180))
-                .build();
-        Actions.runBlocking(lineM3);
     }
 
     public void humanPlayer(){
