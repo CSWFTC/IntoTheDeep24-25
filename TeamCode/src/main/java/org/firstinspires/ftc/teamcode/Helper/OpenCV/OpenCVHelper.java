@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.Helper.OpenCV;
 
+import androidx.annotation.NonNull;
+
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
@@ -12,21 +16,29 @@ import org.openftc.easyopencv.OpenCvWebcam;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 
+
 public class OpenCVHelper {
     private OpenCvCamera camera;
     private VisionPipeline pipeline;
 
-    public OpenCVHelper(WebcamName webcamName, int cameraMonitorViewId, boolean withLivePreview) {
+    public OpenCVHelper(@NonNull HardwareMap hwdMap, boolean withLivePreview) {
         pipeline = new VisionPipeline();
+        WebcamName webcamName = hwdMap.get(WebcamName.class, "Webcam back");
+
 
         if (withLivePreview) {
+            int cameraMonitorViewId =hwdMap.appContext.getResources().getIdentifier(
+                    "cameraMonitorViewId" ,"id",hwdMap.appContext.getPackageName()
+            );
             camera = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
         } else {
             camera = OpenCvCameraFactory.getInstance().createWebcam(webcamName);
         }
 
         camera.setPipeline(pipeline);
+
     }
+
 
     public void openCameraAndStart() {
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
@@ -39,6 +51,7 @@ public class OpenCVHelper {
             public void onError(int errorCode) {
             }
         });
+
     }
 
     public void stopCamera() {
@@ -47,9 +60,11 @@ public class OpenCVHelper {
     }
 
     // Method to get the values of width, height, distance, and offset
-    public double[] getProcessedData() {
-        return pipeline.getProcessedData();
-    }
+
+    //public boolean targetFound () { return pipeline.targetDetected;}
+    //public double targetDistance(){ return pipeline.targetDistance;}
+    //public double targetOffset() { return pipeline.targetOffset;}
+
 
     private static class VisionPipeline extends OpenCvPipeline {
         private final Mat hsvMat = new Mat();
