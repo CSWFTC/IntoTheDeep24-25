@@ -4,6 +4,8 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
 import org.firstinspires.ftc.teamcode.Helper.Beak.newBeak;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
 
@@ -12,6 +14,12 @@ import org.firstinspires.ftc.teamcode.Helper.GamePad;
     @TeleOp(name = "Better Beak Test", group = "Tests")
     public class newBeakTestS extends LinearOpMode {
 
+
+        public static class Params{
+          public double versionNumber = 0.1;
+
+        }
+        public static BeakAction.Params PARAMS = new BeakAction.Params();
         private newBeak armActions;
         private GamePad gpInput;
 
@@ -21,6 +29,8 @@ import org.firstinspires.ftc.teamcode.Helper.GamePad;
 
             gpInput = new GamePad(gamepad1, false);
             armActions = new newBeak(hardwareMap);
+
+            armActions.startElbPos();
 
             while (opModeIsActive()) {
                 GamePad.GameplayInputType inputType = gpInput.WaitForGamepadInput(100);
@@ -36,13 +46,24 @@ import org.firstinspires.ftc.teamcode.Helper.GamePad;
                         armActions.openBeak();
                         break;
                     case BUTTON_X:
-                        armActions.ToggleBeak();
+                        //armActions.ToggleBeak();
+                        armActions.suplexElbPos();
                         break;
+                    case BUTTON_Y:
+                        armActions.MinElbow();
+                        break;
+
 
 
                 }
             }
 
     }
+
+    public void updateTelemtry(){
+
+
+    }
+
 }
 

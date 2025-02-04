@@ -4,6 +4,7 @@ import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -11,6 +12,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
+import org.firstinspires.ftc.teamcode.Helper.Beak.newBeak;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ViperAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.BucketAction;
@@ -35,7 +37,7 @@ public class AutoBlueBasket extends LinearOpMode {
 
     public static Params PARAMS = new Params();
     private MecanumDrive drive;
-    private BeakAction arm;
+    private newBeak arm;
 
     private ViperAction vip;
     private BucketAction bucket;
@@ -48,7 +50,7 @@ public class AutoBlueBasket extends LinearOpMode {
 
         drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
-        arm = new BeakAction(hardwareMap);
+        arm = new newBeak(hardwareMap);
         vip = new ViperAction(hardwareMap);
         bucket = new BucketAction(hardwareMap);
         claw = new ClawAction(hardwareMap);
@@ -62,7 +64,7 @@ public class AutoBlueBasket extends LinearOpMode {
         telemetry.update();
 
 
-        arm.DrivePosition();
+        arm.startElbPos();
         waitForStart();
         telemetry.clear();
 
@@ -70,7 +72,7 @@ public class AutoBlueBasket extends LinearOpMode {
       //  if(!PARAMS.){
             toSub();
             toNewPosOne();
-            toBasket();
+         //   toBasket();
          //   toPosTwo();
          //   toBasket();
          //   toPosThree();
@@ -111,7 +113,9 @@ public class AutoBlueBasket extends LinearOpMode {
                 .splineTo(new Vector2d(-26.6, -24.0), Math.toRadians(-134.2))
                 .build();
      //   Actions.runBlocking(new SequentialAction(moveOne, bucket.autonPrepForCatch(), arm.PickUpReachAuton(),arm.autonCloseBeak(),arm.SuplexAuton()));
-            Actions.runBlocking(new SequentialAction (moveOne, bucket.autonPrepForCatch()));
+
+        Actions.runBlocking(new SequentialAction(moveOne, arm.autonReachSamp()));
+        sleep(500);
     }
     private void toPosOne(){
         //pos one
@@ -119,7 +123,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-18.0, -39.6), Math.toRadians(180))
                 .build();
-       Actions.runBlocking(new SequentialAction(moveOne, bucket.autonPrepForCatch(), arm.PickUpReachAuton()));
+       Actions.runBlocking(new SequentialAction(moveOne, bucket.autonPrepForCatch()));
 
     }
     private void toPosTwo(){
