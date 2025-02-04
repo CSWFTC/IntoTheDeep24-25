@@ -22,19 +22,7 @@ public class OpenCV extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            telemetry.clear();
-            double[] processedData = openCVHelper.getProcessedData();
-            double width = processedData[0];
-            double height = processedData[1];
-            double distance = processedData[2];
-            double offset = processedData[3];
 
-            telemetry.addData("width", width);
-            telemetry.addData("height", height);
-            telemetry.addData("distance", distance);
-            telemetry.addData("offset", offset);
-
-            telemetry.update();
         }
 
         openCVHelper.stopCamera();
