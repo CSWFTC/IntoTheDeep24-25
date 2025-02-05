@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
+import org.firstinspires.ftc.teamcode.Helper.Beak.newBeak;
 import org.firstinspires.ftc.teamcode.Helper.HangAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.BucketAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
@@ -24,11 +25,15 @@ import java.util.Locale;
 @Config
 @TeleOp(name = "Driver Control", group = "Competition!!")
 public class DriveControl extends LinearOpMode {
-    private BeakAction beakAction;
+   // private BeakAction beakAction;
+
+  //  private BeakAction beak;
     private ViperAction viperAction;
     private BucketAction bucketAction;
     private ClawAction clawAction;
     private HangAction hangAction;
+
+    private newBeak beakAction;
 
     private static final String version = "1.2";
     private boolean setReversed = false;
@@ -60,9 +65,10 @@ public class DriveControl extends LinearOpMode {
         telemetry.clear();
 
         double speedMultiplier = 1;
+        beakAction.startElbPos();
 
-        beakAction.DrivePosition();
-        bucketAction.StartPosition();
+      //  beakAction.DrivePosition();
+      //  bucketAction.StartPosition();
 
         while (opModeIsActive()) {
             update_telemetry(gpIn1, gpIn2);
@@ -70,16 +76,15 @@ public class DriveControl extends LinearOpMode {
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
                 case DPAD_DOWN:
-                    beakAction.PrepForPickup();
+                    beakAction.startElbPos();
                     break;
                 case DPAD_LEFT:
-                    beakAction.DrivePosition();
+                    beakAction.suplexElbPos();
                     break;
                 case DPAD_RIGHT:
-                    beakAction.PickupReachMiddle();
+                    beakAction.MinElbow();
                     break;
                 case DPAD_UP:
-                    beakAction.SuplexSample();
                     break;
                 case LEFT_STICK_BUTTON_ON:
                     if (speedMultiplier < 0.5) {
@@ -104,13 +109,10 @@ public class DriveControl extends LinearOpMode {
                     beakAction.ToggleBeak();
                     break;
                 case BUTTON_L_BUMPER:
-                    beakAction.changingArmUp();
                     break;
                 case RIGHT_TRIGGER:
-                    beakAction.pickUpJoystick(gamepad1.right_trigger);
                     break;
                 case LEFT_TRIGGER:
-                    beakAction.pickUpJoystick(-gamepad1.left_trigger);
                     break;
                 case JOYSTICK:
                     drvTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
@@ -125,15 +127,12 @@ public class DriveControl extends LinearOpMode {
                     bucketAction.ToggleBucket();
                     break;
                 case BUTTON_R_BUMPER:
-                    clawAction.ToggleGrip();
+                   // clawAction.ToggleGrip();
+                    beakAction.ToggleBeak();
                     break;
                 case LEFT_TRIGGER:
-                    beakAction.PrepForBucketDump();  // Move Beak Clear of Bucket
-                    viperAction.moveWithPower(-gamepad2.left_trigger);
                     break;
                 case RIGHT_TRIGGER:
-                    beakAction.PrepForBucketDump();  // Move Beak Clear of Bucket
-                    viperAction.moveWithPower(gamepad2.right_trigger);
                     break;
                 case DPAD_UP:
                     viperAction.perfMoveForSub();
@@ -151,7 +150,8 @@ public class DriveControl extends LinearOpMode {
                     viperAction.resetEncoders();
                     break;
                 case JOYSTICK:
-                    hangAction.moveMotors(-gamepad2.left_stick_y);
+                   // hangAction.moveMotors(-gamepad2.left_stick_y);
+                    beakAction.JoystickMoveSlide(gamepad2.left_stick_y);
                     break;
             }
 
@@ -167,16 +167,16 @@ public class DriveControl extends LinearOpMode {
         for(DeferredActionType actionType: action){
             switch(actionType){
                 case BEAK_OPEN:
-                    beakAction.OpenBeak();
+                    beakAction.openBeak();
                     break;
                 case BEAK_CLOSE:
-                    beakAction.CloseBeak();
+                    beakAction.closedBeak();
                     break;
                 case SUPLEX_BEAK:
                     beakAction.SuplexSample();
                     break;
                 case BEAK_DRIVE_SAFE:
-                    beakAction.DrivePosition();
+                    beakAction.startElbPos();
                     break;
                 default:
                     telemetry.addLine("ERROR - Unsupported Deferred Action");
@@ -187,7 +187,7 @@ public class DriveControl extends LinearOpMode {
 
     private int initialize() {
         try {
-            beakAction = new BeakAction(hardwareMap);
+            beakAction = new newBeak(hardwareMap);
             viperAction = new ViperAction(hardwareMap);
             hangAction = new HangAction (hardwareMap);
             bucketAction = new BucketAction(hardwareMap);

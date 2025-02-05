@@ -39,71 +39,88 @@ public class newBeak {
     private final Servo elbow;
 
     public newBeak(@NonNull HardwareMap hardwareMap) {
-       viper = hardwareMap.servo.get("viperServo");
-       viper.setDirection(Servo.Direction.FORWARD);
+        viper = hardwareMap.servo.get("viperServo");
+        viper.setDirection(Servo.Direction.FORWARD);
 
-       beak = hardwareMap.servo.get("beakServo");
-       beak.setDirection(Servo.Direction.FORWARD);
+        beak = hardwareMap.servo.get("beakServo");
+        beak.setDirection(Servo.Direction.FORWARD);
 
-       elbow = hardwareMap.servo.get("elbowServo");
-       elbow.setDirection(Servo.Direction.FORWARD);
+        elbow = hardwareMap.servo.get("elbowServo");
+        elbow.setDirection(Servo.Direction.FORWARD);
 
     }
 
     //the viper slide
-    public void MoveSlider(double newPos){
+    public void MoveSlider(double newPos) {
         viper.setPosition(newPos);
         targetSliderPosition = newPos;
     }
 
-    public void JoystickMoveSlide(float position){
+    public void JoystickMoveSlide(float position) {
         double sliderPos = Range.clip((targetSliderPosition + (position * 0.005)), PARAMS.sliderMinPos, PARAMS.sliderMaxPos);
         MoveSlider(sliderPos);
     }
 
     //the servo for beak
-    public void closedBeak(){
+    public void closedBeak() {
         beak.setPosition(PARAMS.beakClosePos);
     }
-    public void openBeak(){
+
+    public void openBeak() {
         beak.setPosition(PARAMS.beakOpenPos);
     }
 
-    public void ToggleBeak(){
+    public void ToggleBeak() {
         PARAMS.times++;
-        if(PARAMS.times %2 == 0){
+        if (PARAMS.times % 2 == 0) {
             closedBeak();
-        }
-        else{
-           openBeak();
+        } else {
+            openBeak();
         }
     }
+
     //the servo for elbow
-    public void MinElbow(){
+    public void MinElbow() {
         elbow.setPosition(PARAMS.elbowMinPos);
     }
 
-    public void startElbPos(){
+    public void startElbPos() {
         elbow.setPosition(PARAMS.elbowMaxPos);
 
     }
 
-    public void suplexElbPos(){
+    public void suplexElbPos() {
         elbow.setPosition(PARAMS.elbowSuplexPos);
     }
 
-    public Action autonReachSamp(){
-        return packet ->{
+    public Action autonReachSamp() {
+        return packet -> {
+            openBeak();
             MinElbow();
+
             return false;
         };
-
+    }
+    public void SuplexSample() {
+        if (targetBeakPosition != PARAMS.beakClosePos)  {
+            closedBeak();
+            DeferredActions.CreateDeferredAction(100, DeferredActions.DeferredActionType.SUPLEX_BEAK);
+        } else {
+            /*
+            MoveArm(PARAMS.armBucketDropPos);
+            MoveElbow(PARAMS.elbowBucketDropPos);
+            DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexOpenDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
+            DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexDriveDelay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);*/
         }
-
-    public Action waitLong (){
-        return packet ->{
-
-         return false;
+    }
+    public Action autonSuplexSam() {
+        return packet -> {
+            closedBeak();
+            suplexElbPos();
+            return false;
         };
     }
+
+
+
 }
