@@ -32,7 +32,6 @@ public class DriveControl extends LinearOpMode {
     private BucketAction bucketAction;
     private ClawAction clawAction;
     private HangAction hangAction;
-
     private newBeak beakAction;
 
     private static final String version = "1.2";
@@ -84,8 +83,6 @@ public class DriveControl extends LinearOpMode {
                 case DPAD_RIGHT:
                     beakAction.MinElbow();
                     break;
-                case DPAD_UP:
-                    break;
                 case LEFT_STICK_BUTTON_ON:
                     if (speedMultiplier < 0.5) {
                         speedMultiplier = 1;
@@ -108,11 +105,11 @@ public class DriveControl extends LinearOpMode {
                 case BUTTON_R_BUMPER:
                     beakAction.ToggleBeak();
                     break;
-                case BUTTON_L_BUMPER:
-                    break;
                 case RIGHT_TRIGGER:
+                    beakAction.JoystickMoveSlide(gamepad1.right_trigger);
                     break;
                 case LEFT_TRIGGER:
+                    beakAction.JoystickMoveSlide(-gamepad1.left_trigger);
                     break;
                 case JOYSTICK:
                     drvTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
@@ -150,8 +147,7 @@ public class DriveControl extends LinearOpMode {
                     viperAction.resetEncoders();
                     break;
                 case JOYSTICK:
-                   // hangAction.moveMotors(-gamepad2.left_stick_y);
-                    beakAction.JoystickMoveSlide(gamepad2.left_stick_y);
+                    hangAction.moveMotors(-gamepad2.left_stick_y);
                     break;
             }
 

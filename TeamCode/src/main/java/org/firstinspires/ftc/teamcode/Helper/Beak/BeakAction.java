@@ -70,7 +70,7 @@ public class BeakAction {
         beak = hardwareMap.servo.get("beakServo");
         beak.setDirection(Servo.Direction.FORWARD);
 
-        arm = hardwareMap.servo.get("armServo");
+        arm = hardwareMap.servo.get("viperServo");
         arm.setDirection(Servo.Direction.FORWARD);
 
         elbow = hardwareMap.servo.get("elbowServo");
