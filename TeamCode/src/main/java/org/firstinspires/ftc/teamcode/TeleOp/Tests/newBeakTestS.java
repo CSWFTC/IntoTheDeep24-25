@@ -30,7 +30,7 @@ import org.firstinspires.ftc.teamcode.Helper.GamePad;
             gpInput = new GamePad(gamepad1, false);
             armActions = new newBeak(hardwareMap);
 
-            armActions.startElbPos();
+            armActions.suplexElbPos();
 
             while (opModeIsActive()) {
                 GamePad.GameplayInputType inputType = gpInput.WaitForGamepadInput(100);
@@ -50,7 +50,7 @@ import org.firstinspires.ftc.teamcode.Helper.GamePad;
                         armActions.suplexElbPos();
                         break;
                     case BUTTON_Y:
-                        armActions.MinElbow();
+                        armActions.PickUpElbow();
                         break;
 
 
