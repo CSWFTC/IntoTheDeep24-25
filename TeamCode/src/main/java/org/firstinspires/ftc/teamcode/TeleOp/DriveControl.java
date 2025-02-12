@@ -68,9 +68,7 @@ public class DriveControl extends LinearOpMode {
         double speedMultiplier = 1;
         beakAction.suplexElbPos();
         colorful.setLEDColor("White");
-
-      //  beakAction.DrivePosition();
-      //  bucketAction.StartPosition();
+        bucketAction.StartPosition();
 
         while (opModeIsActive()) {
             colorful.setLEDColor("Green");
