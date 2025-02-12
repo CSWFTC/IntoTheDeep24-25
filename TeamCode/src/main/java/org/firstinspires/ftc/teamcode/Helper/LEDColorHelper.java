@@ -17,18 +17,16 @@ public class LEDColorHelper {
     public void setLEDColor(String color) {
         switch (color) {
             case "Red":
-                LEDservo.setPosition(0.279); // Set LED to Red
+                LEDservo.setPosition(0.279); // Red
                 break;
             case "Blue":
-                LEDservo.setPosition(0.666); // Set LED to Blue
+                LEDservo.setPosition(0.666); //  Blue
                 break;
             case "White":
             default:
-                LEDservo.setPosition(1.0); // Set LED to White
+                LEDservo.setPosition(1.0); // White
                 break;
-            case "Yellow" :
-                 LEDservo.setPosition(0.388);
-                 break;
+
 
         }
     }

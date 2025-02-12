@@ -82,12 +82,6 @@ public class LEDTest extends LinearOpMode {
                     telemetry.update();
                     break;
 
-                case BUTTON_A:
-
-                    ledColorHelper.setLEDColor("Yellow");
-                    telemetry.addData("LED Color", "Yellow");
-                    telemetry.update();
-                    break;
 
                 default:
                     break;
