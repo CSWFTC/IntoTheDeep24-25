@@ -19,9 +19,10 @@ public class newBeak {
        // public double sliderDropPos = 0.2675;
 
         //beak
-        public double beakOpenPos = 0.038;
+        public double beakOpenPos = 0.38;
         public double beakClosePos = 0.65;
-        public double beakSuplexDelay = 50;
+        public double beakSuplexDelay = 600;
+        public double beakClosedDelay = 50;
 
         //elbow
         public double elbowPickPos = 0.43;
