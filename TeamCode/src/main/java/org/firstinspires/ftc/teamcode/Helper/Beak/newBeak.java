@@ -14,18 +14,19 @@ public class newBeak {
 
     public static class Params {
         //slider
-        public double sliderMaxPos = 0.405;
-        public double sliderMinPos = 0.01;
+        public double sliderMaxPos = 0.445;
+        public double sliderMinPos = 0.09;
 
         //beak
-        public double beakOpenPos = 0.155;
-        public double beakClosePos = 0.475;
+        public double beakOpenPos = 0.038;
+        public double beakClosePos = 0.65;
 
         //elbow
-        public double elbowMaxPos = 0.59;
-        public double elbowMinPos = 0.485;
-        public double elbowSuplexPos = 0.57;
+        public double elbowPickPos = 0.43;
+        public double elbowSuplexPos = 0.52;
         public int times = 0;
+
+        public double beakDelay = 500;
 
 
     }
@@ -80,13 +81,8 @@ public class newBeak {
     }
 
     //the servo for elbow
-    public void MinElbow() {
-        elbow.setPosition(PARAMS.elbowMinPos);
-    }
-
-    public void startElbPos() {
-        elbow.setPosition(PARAMS.elbowMaxPos);
-
+    public void PickUpElbow() {
+        elbow.setPosition(PARAMS.elbowPickPos);
     }
 
     public void suplexElbPos() {
@@ -96,7 +92,7 @@ public class newBeak {
     public Action autonReachSamp() {
         return packet -> {
             openBeak();
-            MinElbow();
+            PickUpElbow();
 
             return false;
         };

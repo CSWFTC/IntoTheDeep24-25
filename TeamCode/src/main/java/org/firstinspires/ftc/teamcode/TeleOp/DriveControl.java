@@ -64,7 +64,7 @@ public class DriveControl extends LinearOpMode {
         telemetry.clear();
 
         double speedMultiplier = 1;
-        beakAction.startElbPos();
+        beakAction.suplexElbPos();
 
       //  beakAction.DrivePosition();
       //  bucketAction.StartPosition();
@@ -75,13 +75,13 @@ public class DriveControl extends LinearOpMode {
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
                 case DPAD_DOWN:
-                    beakAction.startElbPos();
+                    beakAction.suplexElbPos();
                     break;
                 case DPAD_LEFT:
                     beakAction.suplexElbPos();
                     break;
                 case DPAD_RIGHT:
-                    beakAction.MinElbow();
+                    beakAction.PickUpElbow();
                     break;
                 case LEFT_STICK_BUTTON_ON:
                     if (speedMultiplier < 0.5) {
@@ -110,7 +110,7 @@ public class DriveControl extends LinearOpMode {
                     break;
                 case LEFT_TRIGGER:
                     beakAction.JoystickMoveSlide(-gamepad1.left_trigger);
-                    break;
+                break;
                 case JOYSTICK:
                     drvTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
                             gamepad1.right_stick_x * (float) speedMultiplier,
@@ -172,7 +172,7 @@ public class DriveControl extends LinearOpMode {
                     beakAction.SuplexSample();
                     break;
                 case BEAK_DRIVE_SAFE:
-                    beakAction.startElbPos();
+                    beakAction.suplexElbPos();
                     break;
                 default:
                     telemetry.addLine("ERROR - Unsupported Deferred Action");
