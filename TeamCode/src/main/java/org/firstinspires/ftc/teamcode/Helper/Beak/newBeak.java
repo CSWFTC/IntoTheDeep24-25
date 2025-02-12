@@ -16,18 +16,16 @@ public class newBeak {
         //slider
         public double sliderMaxPos = 0.445;
         public double sliderMinPos = 0.09;
-        public double sliderDropPos = 0.2675;
+       // public double sliderDropPos = 0.2675;
 
         //beak
         public double beakOpenPos = 0.038;
         public double beakClosePos = 0.65;
+        public double beakSuplexDelay = 50;
 
         //elbow
         public double elbowPickPos = 0.43;
         public double elbowSuplexPos = 0.52;
-        public int times = 0;
-
-        public double beakSuplexDelay = 50;
 
 
     }
@@ -58,6 +56,16 @@ public class newBeak {
         targetSliderPosition = newPos;
     }
 
+    public void MoveElbow(double newPos){
+        elbow.setPosition(newPos);
+        targetElbowPosition = newPos;
+    }
+
+    public void MoveBeak(double newPos){
+        beak.setPosition(newPos);
+        targetBeakPosition = newPos;
+    }
+
     public void JoystickMoveSlide(float position) {
         double sliderPos = Range.clip((targetSliderPosition + (position * 0.005)), PARAMS.sliderMinPos, PARAMS.sliderMaxPos);
         MoveSlider(sliderPos);
@@ -65,29 +73,28 @@ public class newBeak {
 
     //the servo for beak
     public void closedBeak() {
-        beak.setPosition(PARAMS.beakClosePos);
+       MoveBeak(PARAMS.beakClosePos);
     }
 
     public void openBeak() {
-        beak.setPosition(PARAMS.beakOpenPos);
+        MoveBeak(PARAMS.beakOpenPos);
     }
 
     public void ToggleBeak() {
-        PARAMS.times++;
-        if (PARAMS.times % 2 == 0) {
-            closedBeak();
-        } else {
+        if (targetBeakPosition == PARAMS.beakClosePos) {
             openBeak();
+        } else {
+            closedBeak();
         }
     }
 
     //the servo for elbow
     public void PickUpElbow() {
-        elbow.setPosition(PARAMS.elbowPickPos);
+        MoveElbow(PARAMS.elbowPickPos);
     }
 
     public void suplexElbPos() {
-        elbow.setPosition(PARAMS.elbowSuplexPos);
+        MoveElbow(PARAMS.elbowSuplexPos);
     }
 
     public Action autonReachSamp() {
@@ -98,13 +105,15 @@ public class newBeak {
             return false;
         };
     }
+
+
     public void SuplexSample() {
         if (targetBeakPosition != PARAMS.beakClosePos)  {
             closedBeak();
-            DeferredActions.CreateDeferredAction(100, DeferredActions.DeferredActionType.SUPLEX_BEAK); //this is good
+            DeferredActions.CreateDeferredAction(100, DeferredActions.DeferredActionType.SUPLEX_BEAK);
         } else {
             suplexElbPos();
-            MoveSlider(PARAMS.sliderDropPos);
+            MoveSlider(PARAMS.sliderMinPos);
             DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
         }
     }
@@ -116,6 +125,10 @@ public class newBeak {
         };
     }
 
-
+    public void autonStartPos(){
+            suplexElbPos();
+            closedBeak();
+            MoveSlider(PARAMS.sliderMinPos);
+    }
 
 }

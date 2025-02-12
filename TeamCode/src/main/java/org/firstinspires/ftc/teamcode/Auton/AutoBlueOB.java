@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.acmerobotics.roadrunner.ftc.Actions;
 
+import org.firstinspires.ftc.teamcode.Helper.Beak.newBeak;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ViperAction;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
@@ -25,6 +26,7 @@ public class AutoBlueOB extends LinearOpMode {
     private MecanumDrive drive;
     private ClawAction Roar;
     private ViperAction Tiger;
+    private newBeak Paw;
     private double x = 0;
 
     public void runOpMode(){
@@ -33,8 +35,10 @@ public class AutoBlueOB extends LinearOpMode {
 
         Roar = new ClawAction(hardwareMap);
         Tiger = new ViperAction(hardwareMap);
+        Paw = new newBeak(hardwareMap);
 
         Roar.CloseGrip();
+        Paw.autonStartPos();
 
         waitForStart();
 
