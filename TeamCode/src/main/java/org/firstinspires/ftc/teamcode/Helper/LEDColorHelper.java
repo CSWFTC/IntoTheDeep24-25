@@ -28,6 +28,7 @@ public class LEDColorHelper {
                 break;
             case "Yellow" :
                  LEDservo.setPosition(0.388);
+                 break;
 
         }
     }
