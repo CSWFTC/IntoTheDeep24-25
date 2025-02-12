@@ -16,6 +16,7 @@ public class newBeak {
         //slider
         public double sliderMaxPos = 0.445;
         public double sliderMinPos = 0.09;
+        public double sliderDropPos = 0.2675;
 
         //beak
         public double beakOpenPos = 0.038;
@@ -26,7 +27,7 @@ public class newBeak {
         public double elbowSuplexPos = 0.52;
         public int times = 0;
 
-        public double beakDelay = 500;
+        public double beakSuplexDelay = 50;
 
 
     }
@@ -100,13 +101,11 @@ public class newBeak {
     public void SuplexSample() {
         if (targetBeakPosition != PARAMS.beakClosePos)  {
             closedBeak();
-            DeferredActions.CreateDeferredAction(100, DeferredActions.DeferredActionType.SUPLEX_BEAK);
+            DeferredActions.CreateDeferredAction(100, DeferredActions.DeferredActionType.SUPLEX_BEAK); //this is good
         } else {
-            /*
-            MoveArm(PARAMS.armBucketDropPos);
-            MoveElbow(PARAMS.elbowBucketDropPos);
-            DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexOpenDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
-            DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexDriveDelay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);*/
+            suplexElbPos();
+            MoveSlider(PARAMS.sliderDropPos);
+            DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
         }
     }
     public Action autonSuplexSam() {
