@@ -56,6 +56,16 @@ public class newBeak {
         targetSliderPosition = newPos;
     }
 
+    public void MoveElbow(double newPos){
+        elbow.setPosition(newPos);
+        targetElbowPosition = newPos;
+    }
+
+    public void MoveBeak(double newPos){
+        beak.setPosition(newPos);
+        targetBeakPosition = newPos;
+    }
+
     public void JoystickMoveSlide(float position) {
         double sliderPos = Range.clip((targetSliderPosition + (position * 0.005)), PARAMS.sliderMinPos, PARAMS.sliderMaxPos);
         MoveSlider(sliderPos);
@@ -63,11 +73,11 @@ public class newBeak {
 
     //the servo for beak
     public void closedBeak() {
-        beak.setPosition(PARAMS.beakClosePos);
+       MoveBeak(PARAMS.beakClosePos);
     }
 
     public void openBeak() {
-        beak.setPosition(PARAMS.beakOpenPos);
+        MoveBeak(PARAMS.beakOpenPos);
     }
 
     public void ToggleBeak() {
@@ -80,11 +90,11 @@ public class newBeak {
 
     //the servo for elbow
     public void PickUpElbow() {
-        elbow.setPosition(PARAMS.elbowPickPos);
+        MoveElbow(PARAMS.elbowPickPos);
     }
 
     public void suplexElbPos() {
-        elbow.setPosition(PARAMS.elbowSuplexPos);
+        MoveElbow(PARAMS.elbowSuplexPos);
     }
 
     public Action autonReachSamp() {
@@ -100,7 +110,7 @@ public class newBeak {
     public void SuplexSample() {
         if (targetBeakPosition != PARAMS.beakClosePos)  {
             closedBeak();
-            DeferredActions.CreateDeferredAction(100, DeferredActions.DeferredActionType.SUPLEX_BEAK); //this is good
+            DeferredActions.CreateDeferredAction(100, DeferredActions.DeferredActionType.SUPLEX_BEAK);
         } else {
             suplexElbPos();
             MoveSlider(PARAMS.sliderMinPos);
