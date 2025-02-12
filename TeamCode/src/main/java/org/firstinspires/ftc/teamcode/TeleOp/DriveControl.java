@@ -45,6 +45,7 @@ public class DriveControl extends LinearOpMode {
         int initRes = initialize();
 
         beakAction.ElbStart();
+        colorful.setLEDColor("White");
         waitForStart();
 
         if (isStopRequested() || (initRes == 1)) {
@@ -68,11 +69,10 @@ public class DriveControl extends LinearOpMode {
 
         double speedMultiplier = 1;
         beakAction.suplexElbPos();
-        colorful.setLEDColor("White");
+        colorful.setLEDColor("Green");
         bucketAction.StartPosition();
 
         while (opModeIsActive()) {
-            colorful.setLEDColor("Green");
             update_telemetry(gpIn1, gpIn2);
 
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
