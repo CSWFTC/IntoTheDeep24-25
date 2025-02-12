@@ -188,7 +188,6 @@ public class BeakAction {
 
    public void changingArmDown(){
        double currentArm = arm.getPosition();
-
        if(currentArm >= 0.36){
            double setArm = currentArm - 0.005;
            MoveArm(setArm);
