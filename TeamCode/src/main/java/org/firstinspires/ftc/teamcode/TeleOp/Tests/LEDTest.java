@@ -65,7 +65,7 @@ public class LEDTest extends LinearOpMode {
                     break;
 
                 case BUTTON_X:
-                    // Set LED to Red when X button is pressed
+
                     ledColorHelper.setLEDColor("Red");
                     telemetry.addData("LED Color", "Red");
                     telemetry.update();
