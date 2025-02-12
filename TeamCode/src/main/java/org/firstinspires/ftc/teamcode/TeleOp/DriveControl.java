@@ -68,9 +68,7 @@ public class DriveControl extends LinearOpMode {
         double speedMultiplier = 1;
         beakAction.suplexElbPos();
         colorful.setLEDColor("White");
-
-      //  beakAction.DrivePosition();
-      //  bucketAction.StartPosition();
+        bucketAction.StartPosition();
 
         while (opModeIsActive()) {
             colorful.setLEDColor("Green");
@@ -196,6 +194,9 @@ public class DriveControl extends LinearOpMode {
             colorful = new LEDColorHelper(hardwareMap);
         }
         catch(Exception e) {
+            if(colorful != null){
+                colorful.setLEDColor("Red");
+            }
             telemetry.clear();
             telemetry.addLine("AN ERROR OCCURED: "+e.toString());
             telemetry.update();
