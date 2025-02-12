@@ -3,6 +3,7 @@ import android.graphics.DashPathEffect;
 
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.SleepAction;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -12,6 +13,7 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 
+@Config
 public class newBeak {
 
     public static class Params {
@@ -29,8 +31,7 @@ public class newBeak {
         //elbow
         public double elbowPickPos = 0.43;
         public double elbowSuplexPos = 0.52;
-
-        public double elbowStartPos = 0.49;
+        public double elbowStartPos = 0.50;
 
 
     }
