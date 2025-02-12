@@ -196,6 +196,9 @@ public class DriveControl extends LinearOpMode {
             colorful = new LEDColorHelper(hardwareMap);
         }
         catch(Exception e) {
+            if(colorful != null){
+                colorful.setLEDColor("Red");
+            }
             telemetry.clear();
             telemetry.addLine("AN ERROR OCCURED: "+e.toString());
             telemetry.update();
