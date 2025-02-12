@@ -13,16 +13,6 @@ import org.firstinspires.ftc.teamcode.Helper.LEDColorHelper;
 @Config
 @TeleOp(name="LED Test", group="Hardware")
 public class LEDTest extends LinearOpMode {
-    public static class Params {
-        public double servoStartPos = 0.532;
-        public String servoName = "LEDservo";
-    }
-
-    public static Params PARAMS = new Params();
-
-    double newPosition = 0;
-    double tlmServoPosition = 0;
-
     @Override
     public void runOpMode() {
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
@@ -32,17 +22,9 @@ public class LEDTest extends LinearOpMode {
         telemetry.addData(">", "Press Start to Launch");
         telemetry.update();
 
-        GamePad GamePad1 = new GamePad(gamepad1);
-        Servo srv;
+        GamePad gamePad1Helper = new GamePad(gamepad1);
 
-        srv = hardwareMap.servo.get(PARAMS.servoName);
-
-        newPosition = PARAMS.servoStartPos;
-        srv.setPosition(newPosition);
-        tlmServoPosition = newPosition;
-
-
-        LEDColorHelper ledColorHelper = new LEDColorHelper(srv);
+        LEDColorHelper ledColorHelper = new LEDColorHelper();
 
         waitForStart();
         if (isStopRequested()) return;
@@ -50,44 +32,28 @@ public class LEDTest extends LinearOpMode {
         telemetry.clear();
 
         while (opModeIsActive()) {
-            GamePad.GameplayInputType inpType = GamePad1.WaitForGamepadInput(30);
+            GamePad.GameplayInputType inpType = gamePad1Helper.WaitForGamepadInput(30);
 
             switch (inpType) {
-                case JOYSTICK:
-
-                    double pos = (gamepad1.left_stick_x * 0.5) + 0.5;
-                    srv.setPosition(pos);
-                    telemetry.addData("Current Servo Position", pos);
-                    telemetry.addLine();
-                    telemetry.update();
-                    break;
-
                 case BUTTON_X:
-
                     ledColorHelper.setLEDColor("Red");
                     telemetry.addData("LED Color", "Red");
-                    telemetry.update();
                     break;
 
                 case BUTTON_Y:
-
                     ledColorHelper.setLEDColor("Blue");
                     telemetry.addData("LED Color", "Blue");
-                    telemetry.update();
                     break;
 
                 case BUTTON_B:
                     ledColorHelper.setLEDColor("White");
                     telemetry.addData("LED Color", "White");
-                    telemetry.update();
-                    break;
-
-
-                default:
                     break;
             }
+            telemetry.update();
         }
     }
 }
+
 
 
