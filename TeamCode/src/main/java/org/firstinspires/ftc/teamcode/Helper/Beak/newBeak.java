@@ -16,18 +16,16 @@ public class newBeak {
         //slider
         public double sliderMaxPos = 0.445;
         public double sliderMinPos = 0.09;
-        public double sliderDropPos = 0.2675;
+       // public double sliderDropPos = 0.2675;
 
         //beak
         public double beakOpenPos = 0.038;
         public double beakClosePos = 0.65;
+        public double beakSuplexDelay = 50;
 
         //elbow
         public double elbowPickPos = 0.43;
         public double elbowSuplexPos = 0.52;
-        public int times = 0;
-
-        public double beakSuplexDelay = 50;
 
 
     }
@@ -97,13 +95,15 @@ public class newBeak {
             return false;
         };
     }
+
+
     public void SuplexSample() {
         if (targetBeakPosition != PARAMS.beakClosePos)  {
             closedBeak();
             DeferredActions.CreateDeferredAction(100, DeferredActions.DeferredActionType.SUPLEX_BEAK); //this is good
         } else {
             suplexElbPos();
-            MoveSlider(PARAMS.sliderDropPos);
+            MoveSlider(PARAMS.sliderMinPos);
             DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
         }
     }
@@ -115,6 +115,10 @@ public class newBeak {
         };
     }
 
-
+    public void autonStartPos(){
+            suplexElbPos();
+            closedBeak();
+            MoveSlider(PARAMS.sliderMinPos);
+    }
 
 }

@@ -64,7 +64,7 @@ public class AutoBlueBasket extends LinearOpMode {
         telemetry.update();
 
 
-        arm.startElbPos();
+        arm.autonStartPos();
         waitForStart();
         telemetry.clear();
 

@@ -109,7 +109,7 @@ public class DriveControl extends LinearOpMode {
                     break;
                 case LEFT_TRIGGER:
                     beakAction.JoystickMoveSlide(-gamepad1.left_trigger);
-                break;
+                    break;
                 case JOYSTICK:
                     drvTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
                             gamepad1.right_stick_x * (float) speedMultiplier,
