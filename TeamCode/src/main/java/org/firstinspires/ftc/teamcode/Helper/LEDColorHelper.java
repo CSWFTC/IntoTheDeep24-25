@@ -8,7 +8,7 @@ public class LEDColorHelper {
     private Servo LEDservo;
 
     public LEDColorHelper(HardwareMap hardwareMap) {
-        this.LEDservo = hardwareMap.get(Servo.class, "LEDServo");
+        LEDservo = hardwareMap.get(Servo.class, "LEDServo");
     }
 
     public void setLEDColor(String color) {
