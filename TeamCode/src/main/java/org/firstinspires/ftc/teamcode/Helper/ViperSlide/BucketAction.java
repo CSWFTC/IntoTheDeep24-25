@@ -10,9 +10,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 @Config
 public class BucketAction {
     public static class Params {
-        public double bucketStartPos = 0.32;   // Tucked in For Driving
-        public double bucketCatchPos = 0.31;  // Catch from Beak
-        public double bucketDumpPos = 0.22;    // Dump to Basket
+       // public double bucketStartPos = 0.32;   // Tucked in For Driving
+        public double bucketCatchPos = 0.55;  // Catch from Beak
+        public double bucketDumpPos = 0.47;    // Dump to Basket
+        //0.08 --> straight up
     }
 
     public static Params PARAMS = new Params();
@@ -32,7 +33,7 @@ public class BucketAction {
     }
 
     public void StartPosition() {
-        MoveBucket(PARAMS.bucketStartPos);
+        MoveBucket(PARAMS.bucketCatchPos);
     }
 
     public void DumpSample() {

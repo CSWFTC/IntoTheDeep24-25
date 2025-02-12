@@ -73,7 +73,7 @@ public class DriveControl extends LinearOpMode {
       //  bucketAction.StartPosition();
 
         while (opModeIsActive()) {
-            //colorful.setLEDColor("Green");
+            colorful.setLEDColor("Green");
             update_telemetry(gpIn1, gpIn2);
 
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
