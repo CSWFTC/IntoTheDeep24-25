@@ -73,6 +73,7 @@ public class DriveControl extends LinearOpMode {
       //  bucketAction.StartPosition();
 
         while (opModeIsActive()) {
+            //colorful.setLEDColor("Green");
             update_telemetry(gpIn1, gpIn2);
 
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
@@ -192,6 +193,7 @@ public class DriveControl extends LinearOpMode {
             hangAction = new HangAction (hardwareMap);
             bucketAction = new BucketAction(hardwareMap);
             clawAction = new ClawAction(hardwareMap);
+            colorful = new LEDColorHelper();
         }
         catch(Exception e) {
             telemetry.clear();
