@@ -73,11 +73,10 @@ public class newBeak {
     }
 
     public void ToggleBeak() {
-        PARAMS.times++;
-        if (PARAMS.times % 2 == 0) {
-            closedBeak();
-        } else {
+        if (targetBeakPosition == PARAMS.beakClosePos) {
             openBeak();
+        } else {
+            closedBeak();
         }
     }
 
