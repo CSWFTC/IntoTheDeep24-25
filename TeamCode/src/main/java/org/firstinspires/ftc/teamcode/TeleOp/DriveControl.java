@@ -128,12 +128,6 @@ public class DriveControl extends LinearOpMode {
                    // clawAction.ToggleGrip();
                     beakAction.ToggleBeak();
                     break;
-                case LEFT_TRIGGER:
-                    clawAction.OpenGrip();
-                    break;
-                case RIGHT_TRIGGER:
-                    clawAction.CloseGrip();
-                    break;
                 case DPAD_UP:
                     viperAction.perfMoveForSub();
                     break;
@@ -145,6 +139,12 @@ public class DriveControl extends LinearOpMode {
                     break;
                 case BUTTON_A:
                     viperAction.moveToLowBasket();
+                    break;
+                case BUTTON_B:
+                    clawAction.OpenGrip();
+                    break;
+                case BUTTON_X:
+                    clawAction.CloseGrip();
                     break;
                 case RIGHT_STICK_BUTTON_ON:
                     viperAction.resetEncoders();
