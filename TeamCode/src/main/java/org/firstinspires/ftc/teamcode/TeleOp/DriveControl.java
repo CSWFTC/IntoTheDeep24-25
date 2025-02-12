@@ -44,6 +44,7 @@ public class DriveControl extends LinearOpMode {
     public void runOpMode() {
         int initRes = initialize();
 
+        beakAction.ElbStart();
         waitForStart();
 
         if (isStopRequested() || (initRes == 1)) {
@@ -175,7 +176,7 @@ public class DriveControl extends LinearOpMode {
                     beakAction.SuplexSample();
                     break;
                 case BEAK_DRIVE_SAFE:
-                    beakAction.suplexElbPos();
+                    beakAction.ElbStart();
                     break;
                 default:
                     telemetry.addLine("ERROR - Unsupported Deferred Action");

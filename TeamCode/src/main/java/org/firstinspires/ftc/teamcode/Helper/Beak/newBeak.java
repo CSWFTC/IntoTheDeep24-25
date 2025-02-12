@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.teamcode.Helper.Beak;
+import android.graphics.DashPathEffect;
+
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.Action;
@@ -100,6 +102,10 @@ public class newBeak {
         MoveElbow(PARAMS.elbowSuplexPos);
     }
 
+    public void ElbStart(){
+        MoveElbow(PARAMS.elbowStartPos);
+    }
+
     public Action autonReachSamp() {
         return packet -> {
             openBeak();
@@ -113,11 +119,13 @@ public class newBeak {
     public void SuplexSample() {
         if (targetBeakPosition != PARAMS.beakClosePos)  {
             closedBeak();
-            DeferredActions.CreateDeferredAction(100, DeferredActions.DeferredActionType.SUPLEX_BEAK);
+            DeferredActions.CreateDeferredAction((long) PARAMS.beakClosedDelay, DeferredActions.DeferredActionType.SUPLEX_BEAK);
         } else {
             suplexElbPos();
             MoveSlider(PARAMS.sliderMinPos);
             DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
+            DeferredActions.CreateDeferredAction(100, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
+
         }
     }
     public Action autonSuplexSam() {
