@@ -24,7 +24,7 @@ public class LEDTest extends LinearOpMode {
 
         GamePad gamePad1Helper = new GamePad(gamepad1);
 
-        LEDColorHelper ledColorHelper = new LEDColorHelper();
+        LEDColorHelper ledColorHelper = new LEDColorHelper(hardwareMap);
 
         waitForStart();
         if (isStopRequested()) return;
