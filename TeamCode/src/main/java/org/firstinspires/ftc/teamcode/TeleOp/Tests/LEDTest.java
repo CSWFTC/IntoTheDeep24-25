@@ -56,7 +56,7 @@ public class LEDTest extends LinearOpMode {
 
             switch (inpType) {
                 case JOYSTICK:
-                    // Joystick moves LED position in response to input
+
                     double pos = (gamepad1.left_stick_x * 0.5) + 0.5;
                     srv.setPosition(pos);
                     telemetry.addData("Current Servo Position", pos);
@@ -65,14 +65,14 @@ public class LEDTest extends LinearOpMode {
                     break;
 
                 case BUTTON_X:
-                    // Set LED to Red when X button is pressed
+
                     ledColorHelper.setLEDColor("Red");
                     telemetry.addData("LED Color", "Red");
                     telemetry.update();
                     break;
 
                 case BUTTON_Y:
-                    // Set LED to Blue when Y button is pressed
+
                     ledColorHelper.setLEDColor("Blue");
                     telemetry.addData("LED Color", "Blue");
                     telemetry.update();
@@ -85,7 +85,7 @@ public class LEDTest extends LinearOpMode {
                     break;
 
                 case BUTTON_A:
-                    // Set LED to Yellow when A button is pressed
+
                     ledColorHelper.setLEDColor("Yellow");
                     telemetry.addData("LED Color", "Yellow");
                     telemetry.update();
