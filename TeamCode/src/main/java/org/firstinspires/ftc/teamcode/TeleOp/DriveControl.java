@@ -128,6 +128,12 @@ public class DriveControl extends LinearOpMode {
                    // clawAction.ToggleGrip();
                     beakAction.ToggleBeak();
                     break;
+                case LEFT_TRIGGER:
+                    viperAction.moveWithPower(-gamepad2.left_trigger);
+                    break;
+                case RIGHT_TRIGGER:
+                    viperAction.moveWithPower(gamepad2.right_trigger);
+                    break;
                 case DPAD_UP:
                     viperAction.perfMoveForSub();
                     break;
