@@ -16,8 +16,8 @@ import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
 public class ClawAction {
     public static class Params {
         public boolean gripServoReverse = false;
-        public double gripOpenPos = 0.7;
-        public double gripClosedPos = 0.48;
+        public double gripOpenPos = 1.0;
+        public double gripClosedPos = 0.73;
     }
 
     public static Params PARAMS = new Params();
