@@ -8,6 +8,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
 import org.firstinspires.ftc.teamcode.Helper.Beak.newBeak;
 import org.firstinspires.ftc.teamcode.Helper.HangAction;
+import org.firstinspires.ftc.teamcode.Helper.LEDColorHelper;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.BucketAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
@@ -33,6 +34,7 @@ public class DriveControl extends LinearOpMode {
     private ClawAction clawAction;
     private HangAction hangAction;
     private newBeak beakAction;
+    private LEDColorHelper colorful;
 
     private static final String version = "1.2";
     private boolean setReversed = false;
@@ -65,6 +67,7 @@ public class DriveControl extends LinearOpMode {
 
         double speedMultiplier = 1;
         beakAction.suplexElbPos();
+        colorful.setLEDColor("White");
 
       //  beakAction.DrivePosition();
       //  bucketAction.StartPosition();
