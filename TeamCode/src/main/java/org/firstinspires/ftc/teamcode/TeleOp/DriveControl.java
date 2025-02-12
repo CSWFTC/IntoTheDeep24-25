@@ -131,10 +131,10 @@ public class DriveControl extends LinearOpMode {
                     beakAction.ToggleBeak();
                     break;
                 case LEFT_TRIGGER:
-
+                    clawAction.OpenGrip();
                     break;
                 case RIGHT_TRIGGER:
-
+                    clawAction.CloseGrip();
                     break;
                 case DPAD_UP:
                     viperAction.perfMoveForSub();
@@ -193,7 +193,7 @@ public class DriveControl extends LinearOpMode {
             hangAction = new HangAction (hardwareMap);
             bucketAction = new BucketAction(hardwareMap);
             clawAction = new ClawAction(hardwareMap);
-            colorful = new LEDColorHelper();
+            colorful = new LEDColorHelper(hardwareMap);
         }
         catch(Exception e) {
             telemetry.clear();
