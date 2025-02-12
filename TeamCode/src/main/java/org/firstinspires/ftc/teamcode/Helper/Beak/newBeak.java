@@ -21,7 +21,7 @@ public class newBeak {
         //beak
         public double beakOpenPos = 0.038;
         public double beakClosePos = 0.65;
-        public double beakSuplexDelay = 50;
+        public double beakSuplexDelay = 600;
 
         //elbow
         public double elbowPickPos = 0.43;
@@ -110,7 +110,7 @@ public class newBeak {
     public void SuplexSample() {
         if (targetBeakPosition != PARAMS.beakClosePos)  {
             closedBeak();
-            DeferredActions.CreateDeferredAction(100, DeferredActions.DeferredActionType.SUPLEX_BEAK);
+            DeferredActions.CreateDeferredAction(50, DeferredActions.DeferredActionType.SUPLEX_BEAK);
         } else {
             suplexElbPos();
             MoveSlider(PARAMS.sliderMinPos);
