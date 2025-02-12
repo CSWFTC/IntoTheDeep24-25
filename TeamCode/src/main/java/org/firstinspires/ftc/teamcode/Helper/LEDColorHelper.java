@@ -8,7 +8,7 @@ public class LEDColorHelper {
     private Servo LEDservo;
 
 
-    public LEDColorHelper(Servo LEDservo) {
+    public LEDColorHelper() {
         LEDservo = LEDservo;
 
     }
