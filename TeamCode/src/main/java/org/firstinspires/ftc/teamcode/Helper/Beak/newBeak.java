@@ -115,7 +115,6 @@ public class newBeak {
         };
     }
 
-
     public void SuplexSample() {
         if (targetBeakPosition != PARAMS.beakClosePos)  {
             closedBeak();

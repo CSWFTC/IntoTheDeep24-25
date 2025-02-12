@@ -80,7 +80,7 @@ public class DriveControl extends LinearOpMode {
                 case DPAD_DOWN:
                     break;
                 case DPAD_LEFT:
-                    beakAction.suplexElbPos();
+                    beakAction.SuplexSample();
                     break;
                 case DPAD_RIGHT:
                     beakAction.PickUpElbow();
