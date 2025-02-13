@@ -35,6 +35,8 @@ public class LEDColorHelper {
             default:
                 LEDservo.setPosition(1.0);
                 break;
+            case "Azure":
+                LEDservo.setPosition(0.555);
         }
     }
 }
