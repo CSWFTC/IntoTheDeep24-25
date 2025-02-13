@@ -5,40 +5,37 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class LEDColorHelper {
 
+    public enum LEDColor {
+        RED(0.279),
+        BLUE(0.666),
+        YELLOW(0.388),
+        GREEN(0.500),
+        ORANGE(0.333),
+        VIOLET(0.722),
+        AZURE(0.555),
+        WHITE(1.0);
+
+        private final double position;
+
+        LEDColor(double pos) {
+            position = pos;
+        }
+
+        public double getPosition() {
+            return position;
+        }
+    }
+
     private Servo LEDservo;
 
     public LEDColorHelper(HardwareMap hardwareMap) {
         LEDservo = hardwareMap.get(Servo.class, "LEDServo");
     }
 
-    public void setLEDColor(String color) {
-        switch (color) {
-            case "Red":
-                LEDservo.setPosition(0.279);
-                break;
-            case "Blue":
-                LEDservo.setPosition(0.666);
-                break;
-            case "Yellow":
-                LEDservo.setPosition(0.388);
-                break;
-            case "Green":
-                LEDservo.setPosition(0.500);
-                break;
-            case "Orange":
-                LEDservo.setPosition(0.333);
-                break;
-            case "Violet":
-                LEDservo.setPosition(0.722);
-                break;
-            case "White":
-            default:
-                LEDservo.setPosition(1.0);
-                break;
-            case "Azure":
-                LEDservo.setPosition(0.555);
-        }
+    public void setLEDColor(LEDColor color) {
+        LEDservo.setPosition(color.getPosition());
     }
 }
+
 
 
