@@ -49,6 +49,11 @@ public class LEDTest extends LinearOpMode {
                     ledColorHelper.setLEDColor("White");
                     telemetry.addData("LED Color", "White");
                     break;
+
+                case BUTTON_R_BUMPER:
+                    ledColorHelper.setLEDColor("Azure");
+                    telemetry.addData("LED Color", "Azure");
+                    break;
             }
             telemetry.update();
         }
