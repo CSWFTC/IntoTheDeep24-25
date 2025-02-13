@@ -36,7 +36,7 @@ public class DriveControl extends LinearOpMode {
     private newBeak beakAction;
     private LEDColorHelper colorful;
 
-    private static final String version = "1.2";
+    private static final String version = "2.0";
     private boolean setReversed = false;
 
 
@@ -72,6 +72,10 @@ public class DriveControl extends LinearOpMode {
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
                 case DPAD_DOWN:
+                    beakAction.DecreaseElbow();
+                    break;
+                case DPAD_UP:
+                    beakAction.IncreaseElbow();
                     break;
                 case DPAD_LEFT:
                     beakAction.SuplexSample();

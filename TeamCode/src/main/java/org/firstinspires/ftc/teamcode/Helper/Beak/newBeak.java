@@ -65,6 +65,16 @@ public class newBeak {
         targetBeakPosition = newPos;
     }
 
+    public void IncreaseElbow(){
+        targetBeakPosition += 0.01;
+        MoveElbow(targetElbowPosition);
+    }
+
+    public void  DecreaseElbow(){
+        targetElbowPosition -= 0.01;
+        MoveElbow(targetElbowPosition);
+    }
+
     public void JoystickMoveSlide(float position) {
         double sliderPos = Range.clip((targetSliderPosition + (position * 0.008)), PARAMS.sliderMinPos, PARAMS.sliderMaxPos);
         MoveSlider(sliderPos);
@@ -86,6 +96,8 @@ public class newBeak {
             closedBeak();
         }
     }
+
+
 
     //the servo for elbow
     public void PickUpElbow() {
