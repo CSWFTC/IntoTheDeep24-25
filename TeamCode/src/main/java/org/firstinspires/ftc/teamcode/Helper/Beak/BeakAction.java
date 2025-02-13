@@ -4,8 +4,8 @@ import android.os.SystemClock;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 
 
-@Config
+@Disabled
 public class BeakAction {
     public static class Params {
         // Drive Position - Protect Arm
@@ -46,8 +46,6 @@ public class BeakAction {
         public double beakClosedPos = 0.75;
         public double beakSuplexOpenDelay = 600;
         public double beakSuplexDriveDelay = 850;
-
-        public double beakArmDelay = 1000;
 
         //new values
         public double armPickupMinPos = 0.36;

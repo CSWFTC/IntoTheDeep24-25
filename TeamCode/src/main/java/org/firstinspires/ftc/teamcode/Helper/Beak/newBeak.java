@@ -1,16 +1,11 @@
 package org.firstinspires.ftc.teamcode.Helper.Beak;
-import android.graphics.DashPathEffect;
 
 import androidx.annotation.NonNull;
-
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.SleepAction;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
-
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 
 @Config
@@ -20,24 +15,21 @@ public class newBeak {
         //slider
         public double sliderMaxPos = 0.445;
         public double sliderMinPos = 0.09;
-       // public double sliderDropPos = 0.2675;
 
         //beak
-        public double beakOpenPos = 0.40;
-        public double beakClosePos = 0.65;
-        public double beakSuplexDelay = 700;
+        public double beakOpenPos = 0.41;
+        public double beakClosePos = 0.255;
+        public double beakSuplexDelay = 920;
         public double beakClosedDelay = 50;
 
         //elbow
         public double elbowPickPos = 0.43;
         public double elbowSuplexPos = 0.52;
-        public double elbowStartPos = 0.50;
-        public double elbowSafePos = 600;
-
-
+        public double elbowStartPos = 0.504;
     }
 
-    public static newBeak.Params PARAMS = new newBeak.Params();
+    public static Params PARAMS = new Params();
+
     public static double targetSliderPosition = -1;
     public static double targetBeakPosition = -1;
     public static double targetElbowPosition = -1;
@@ -106,6 +98,7 @@ public class newBeak {
 
     public void ElbStart(){
         MoveElbow(PARAMS.elbowStartPos);
+        MoveBeak(PARAMS.beakOpenPos);
     }
 
     public Action autonReachSamp() {
@@ -122,11 +115,10 @@ public class newBeak {
             closedBeak();
             DeferredActions.CreateDeferredAction((long) PARAMS.beakClosedDelay, DeferredActions.DeferredActionType.SUPLEX_BEAK);
         } else {
-            suplexElbPos();
             MoveSlider(PARAMS.sliderMinPos);
+            suplexElbPos();
             DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
             DeferredActions.CreateDeferredAction((long) PARAMS.beakSuplexDelay + (long) PARAMS.beakClosedDelay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
-
         }
     }
     public Action autonSuplexSam() {

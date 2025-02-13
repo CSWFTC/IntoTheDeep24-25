@@ -42,17 +42,6 @@ public class DriveControl extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        int initRes = initialize();
-
-        beakAction.ElbStart();
-        colorful.setLEDColor("White");
-        waitForStart();
-
-        if (isStopRequested() || (initRes == 1)) {
-            return;
-            
-        }
-
         // Load Introduction and Wait for Start
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
         telemetry.addLine("Driver Control");
@@ -61,16 +50,21 @@ public class DriveControl extends LinearOpMode {
         telemetry.addData(">", "Press Start to Launch");
         telemetry.update();
 
+        int initRes = initialize();
+
         GamePad gpIn1 = new GamePad(gamepad1, false);
-        GamePad gpIn2 = new GamePad(gamepad2);
+        GamePad gpIn2 = new GamePad(gamepad2, false);
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
+        colorful.setLEDColor("White");
+
+        waitForStart();
+        if (isStopRequested() || (initRes == 1)) return;
 
         telemetry.clear();
-
-        double speedMultiplier = 1;
-        beakAction.suplexElbPos();
         colorful.setLEDColor("Green");
+        beakAction.ElbStart();
         bucketAction.StartPosition();
+        double speedMultiplier = 1;
 
         while (opModeIsActive()) {
             update_telemetry(gpIn1, gpIn2);
@@ -126,8 +120,7 @@ public class DriveControl extends LinearOpMode {
                     bucketAction.ToggleBucket();
                     break;
                 case BUTTON_R_BUMPER:
-                   // clawAction.ToggleGrip();
-                    beakAction.ToggleBeak();
+                    clawAction.ToggleGrip();
                     break;
                 case LEFT_TRIGGER:
                     viperAction.moveWithPower(-gamepad2.left_trigger);
