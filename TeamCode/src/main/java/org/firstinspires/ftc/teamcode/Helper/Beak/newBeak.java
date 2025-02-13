@@ -66,17 +66,17 @@ public class newBeak {
     }
 
     public void IncreaseElbow(){
-        targetBeakPosition += 0.01;
+        targetElbowPosition += 0.005;
         MoveElbow(targetElbowPosition);
     }
 
     public void  DecreaseElbow(){
-        targetElbowPosition -= 0.01;
+        targetElbowPosition -= 0.005;
         MoveElbow(targetElbowPosition);
     }
 
     public void JoystickMoveSlide(float position) {
-        double sliderPos = Range.clip((targetSliderPosition + (position * 0.008)), PARAMS.sliderMinPos, PARAMS.sliderMaxPos);
+        double sliderPos = Range.clip((targetSliderPosition + (position * 0.009)), PARAMS.sliderMinPos, PARAMS.sliderMaxPos);
         MoveSlider(sliderPos);
     }
 
