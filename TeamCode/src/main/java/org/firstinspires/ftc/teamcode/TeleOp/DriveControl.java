@@ -45,7 +45,7 @@ public class DriveControl extends LinearOpMode {
         int initRes = initialize();
 
         beakAction.ElbStart();
-        colorful.setLEDColor(LEDColorHelper.LEDColor.GREEN);
+        colorful.setLEDColor(LEDColorHelper.LEDColor.WHITE);
         waitForStart();
 
         if (isStopRequested() || (initRes == 1)) {
@@ -69,7 +69,7 @@ public class DriveControl extends LinearOpMode {
 
         double speedMultiplier = 1;
         beakAction.suplexElbPos();
-        colorful.setLEDColor(LEDColorHelper.LEDColor.WHITE);
+        colorful.setLEDColor(LEDColorHelper.LEDColor.VIOLET);
         bucketAction.StartPosition();
 
         while (opModeIsActive()) {
