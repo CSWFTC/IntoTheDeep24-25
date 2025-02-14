@@ -15,7 +15,7 @@ public class HangAction {
         left = hardwareMap.get(DcMotor.class, "hookLeft");
         right = hardwareMap.get(DcMotor.class, "hookRight");
         hang2 = hardwareMap.get(DcMotor.class, "hookSecond");
-        grapple = hardwareMap.get(Servo.class, "hookServo");
+        grapple = hardwareMap.get(Servo.class, "grappleServo");
 
         left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
