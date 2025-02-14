@@ -143,17 +143,16 @@ public class newBeak {
 
     public Action autonReachSamp() {
         return packet -> {
-            openBeak();
             PickUpElbow();
             SystemClock.sleep(100);
+
             closedBeak();
-            SystemClock.sleep((long) PARAMS.beakClosedDelay);
+            SystemClock.sleep(PARAMS.beakClosedDelay);
             suplexElbPos();
-            SystemClock.sleep((long)PARAMS.beakSuplexDelay);
+            SystemClock.sleep(PARAMS.beakSuplexDelay);
             openBeak();
-            SystemClock.sleep((long) PARAMS.beakClosedDelay + (long) PARAMS.beakSuplexDelay);
-
-
+            SystemClock.sleep(PARAMS.beakSuplexDelay + PARAMS.beakClosedDelay);
+            ElbStart();
             return false;
         };
     }
