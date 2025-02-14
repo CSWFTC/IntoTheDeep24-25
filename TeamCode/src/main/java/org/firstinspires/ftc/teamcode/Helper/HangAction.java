@@ -41,6 +41,10 @@ public class HangAction {
         hang2.setPower(power);
     }
 
+    public void moveHangDown(double power){
+        hang2.setPower(-power);
+    }
+
 
 }
 
