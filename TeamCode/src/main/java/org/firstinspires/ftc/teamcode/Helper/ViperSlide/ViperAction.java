@@ -21,9 +21,9 @@ public class ViperAction {
         public double viperMotorSpeed = 0.9;
         public double viperMaxPos = 3180;
         public double viperPowerLimitPos = 2800;
-        public double clawLow = 377;
+        public double clawLow = 387;
         public double clawLowHang = 77;
-        public double clawHigh = 1800;
+        public double clawHigh = 1900;
         public double clawHighHang = 1450;
         public double clawWall = 14;
 

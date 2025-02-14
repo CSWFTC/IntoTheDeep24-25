@@ -63,7 +63,7 @@ public class AutoBlueBasket extends LinearOpMode {
         telemetry.addLine();
         telemetry.update();
 
-
+        claw.CloseGrip();
         arm.autonStartPos();
 
         waitForStart();
@@ -111,7 +111,7 @@ public class AutoBlueBasket extends LinearOpMode {
     private void toNewPosOne(){
         Action moveOne = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-21, -40.2), Math.toRadians(180))
+                .splineTo(new Vector2d(-20.4, -42.5), Math.toRadians(180))
                 .build();
      //   Actions.runBlocking(new SequentialAction(moveOne, bucket.autonPrepForCatch(), arm.PickUpReachAuton(),arm.autonCloseBeak(),arm.SuplexAuton()));
         Actions.runBlocking(new SequentialAction(moveOne, arm.autonReachSamp()));
