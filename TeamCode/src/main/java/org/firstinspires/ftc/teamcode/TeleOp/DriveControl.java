@@ -45,7 +45,7 @@ public class DriveControl extends LinearOpMode {
         int initRes = initialize();
 
         beakAction.autonStartPos();
-        colorful.setLEDColor(LEDColorHelper.LEDColor.WHITE);
+        //colorful.setLEDColor(LEDColorHelper.LEDColor.WHITE);
         waitForStart();
 
         if (isStopRequested() || (initRes == 1)) {
@@ -69,7 +69,7 @@ public class DriveControl extends LinearOpMode {
 
         double speedMultiplier = 1;
         beakAction.autonStartPos();
-        colorful.setLEDColor(LEDColorHelper.LEDColor.VIOLET);
+        //colorful.setLEDColor(LEDColorHelper.LEDColor.VIOLET);
         bucketAction.StartPosition();
 
         while (opModeIsActive()) {
@@ -202,10 +202,10 @@ public class DriveControl extends LinearOpMode {
             colorful = new LEDColorHelper(hardwareMap);
         }
         catch(Exception e) {
-            if(colorful != null){
-                colorful.setLEDColor(LEDColorHelper.LEDColor.RED);
+           // if(colorful != null){
+               // colorful.setLEDColor(LEDColorHelper.LEDColor.RED);
 
-            }
+           // }
             telemetry.clear();
             telemetry.addLine("AN ERROR OCCURED: "+e.toString());
             telemetry.update();

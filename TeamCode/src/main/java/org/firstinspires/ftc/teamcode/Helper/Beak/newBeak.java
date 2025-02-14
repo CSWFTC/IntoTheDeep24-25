@@ -25,7 +25,7 @@ public class newBeak {
         public double beakClosedDelay = 50;
 
         //elbow
-        public double elbowPickPos = 0.43;
+        public double elbowPickPos = 0.37;
         public double elbowSuplexPos = 0.52;
         public double elbowStartPos = 0.45;
     }
@@ -137,8 +137,9 @@ public class newBeak {
             openBeak();
             SystemClock.sleep(250);
             PickUpElbow();
-            SystemClock.sleep(2500);
+            SystemClock.sleep(3000);
             SuplexSample();
+            SystemClock.sleep(2000);
 
             return false;
         };
