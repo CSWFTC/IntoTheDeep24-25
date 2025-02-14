@@ -158,7 +158,8 @@ public class DriveControl extends LinearOpMode {
                     break;
                 case JOYSTICK:
                     hangAction.moveMotors(-gamepad2.left_stick_y);
-                    hangAction.moveHang2(-gamepad2.right_stick_x);
+                    hangAction.moveHang2(-gamepad2.right_stick_y);
+                    hangAction.moveHangDown(gamepad2.right_stick_y);
                     break;
             }
 
