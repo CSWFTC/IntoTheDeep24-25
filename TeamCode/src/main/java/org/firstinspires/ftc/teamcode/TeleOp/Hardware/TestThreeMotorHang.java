@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
@@ -26,6 +27,7 @@ public class TestThreeMotorHang extends LinearOpMode {
     }
 
     public static Params PARAMS = new Params();
+    Servo grappleServo = hardwareMap.get(Servo.class, "grappleServo");
 
 
     @Override
@@ -116,6 +118,13 @@ public class TestThreeMotorHang extends LinearOpMode {
                     break;
 
                 case BUTTON_L_BUMPER:
+                    break;
+
+                case DPAD_UP:
+                    grappleServo.setPosition(1.0); // Flips up
+                    break;
+                case DPAD_DOWN:
+                    grappleServo.setPosition(0.0); //  default position
                     break;
             }
 
