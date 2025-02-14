@@ -27,7 +27,6 @@ public class TestThreeMotorHang extends LinearOpMode {
     }
 
     public static Params PARAMS = new Params();
-    Servo grappleServo = hardwareMap.get(Servo.class, "grappleServo");
 
 
     @Override
@@ -43,6 +42,7 @@ public class TestThreeMotorHang extends LinearOpMode {
         DcMotor motor1 = hardwareMap.dcMotor.get(PARAMS.motor1Name);
         DcMotor motor2 = hardwareMap.dcMotor.get(PARAMS.motor2Name);
         DcMotor motor3 = hardwareMap.dcMotor.get(PARAMS.motor3Name);
+        Servo grappleServo = hardwareMap.servo.get("grappleServo");
 
         motor1.setDirection((PARAMS.motor1Forward) ? DcMotorSimple.Direction.FORWARD : DcMotorSimple.Direction.REVERSE);
         motor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -58,6 +58,8 @@ public class TestThreeMotorHang extends LinearOpMode {
         motor3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motor3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        grappleServo.setDirection(Servo.Direction.FORWARD);
 
         GamePad gpIn1 = new GamePad(gamepad1);
 
@@ -123,6 +125,7 @@ public class TestThreeMotorHang extends LinearOpMode {
                 case DPAD_UP:
                     grappleServo.setPosition(1.0); // Flips up
                     break;
+
                 case DPAD_DOWN:
                     grappleServo.setPosition(0.0); //  default position
                     break;
