@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Helper.Beak;
 
+import android.os.SystemClock;
+
 import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
@@ -25,7 +27,7 @@ public class newBeak {
         //elbow
         public double elbowPickPos = 0.43;
         public double elbowSuplexPos = 0.52;
-        public double elbowStartPos = 0.504;
+        public double elbowStartPos = 0.45;
     }
 
     public static Params PARAMS = new Params();
@@ -66,12 +68,12 @@ public class newBeak {
     }
 
     public void IncreaseElbow(){
-        targetElbowPosition += 0.005;
+        targetElbowPosition += 0.01;
         MoveElbow(targetElbowPosition);
     }
 
     public void  DecreaseElbow(){
-        targetElbowPosition -= 0.005;
+        targetElbowPosition -= 0.01;
         MoveElbow(targetElbowPosition);
     }
 
@@ -113,15 +115,6 @@ public class newBeak {
         MoveBeak(PARAMS.beakOpenPos);
     }
 
-    public Action autonReachSamp() {
-        return packet -> {
-            openBeak();
-            PickUpElbow();
-
-            return false;
-        };
-    }
-
     public void SuplexSample() {
         if (targetBeakPosition != PARAMS.beakClosePos)  {
             closedBeak();
@@ -133,18 +126,24 @@ public class newBeak {
             DeferredActions.CreateDeferredAction((long) PARAMS.beakSuplexDelay + (long) PARAMS.beakClosedDelay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
         }
     }
-    public Action autonSuplexSam() {
+    public void autonStartPos(){
+        MoveElbow(PARAMS.elbowStartPos);
+        closedBeak();
+        MoveSlider(PARAMS.sliderMinPos);
+    }
+
+    public Action autonReachSamp() {
         return packet -> {
-            closedBeak();
-            suplexElbPos();
+            openBeak();
+            SystemClock.sleep(250);
+            PickUpElbow();
+            SystemClock.sleep(1000);
+            SuplexSample();
+            SystemClock.sleep(2000);
             return false;
         };
     }
 
-    public void autonStartPos(){
-            suplexElbPos();
-            closedBeak();
-            MoveSlider(PARAMS.sliderMinPos);
-    }
+
 
 }
