@@ -128,18 +128,26 @@ public class newBeak {
     }
     public void autonStartPos(){
         MoveElbow(PARAMS.elbowStartPos);
-        closedBeak();
+        openBeak();
         MoveSlider(PARAMS.sliderMinPos);
     }
 
-    public Action autonReachSamp() {
+    public Action autonBeak(){
         return packet -> {
             openBeak();
-            SystemClock.sleep(250);
+          return false;
+        };
+
+    }
+
+
+    public Action autonReachSamp() {
+        return packet -> {
             PickUpElbow();
-            SystemClock.sleep(3000);
+            SystemClock.sleep(100);
+
             SuplexSample();
-            SystemClock.sleep(2000);
+            SystemClock.sleep(4000);
 
             return false;
         };
