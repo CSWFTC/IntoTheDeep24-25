@@ -24,6 +24,9 @@ public class TestThreeMotorHang extends LinearOpMode {
         public Boolean motor2Forward = true;
         public String motor3Name = "hookSecond";
         public Boolean motor3Forward = false;
+        public String servoName = "hookServo";
+        public Boolean servoForward = true;
+
     }
 
     public static Params PARAMS = new Params();
