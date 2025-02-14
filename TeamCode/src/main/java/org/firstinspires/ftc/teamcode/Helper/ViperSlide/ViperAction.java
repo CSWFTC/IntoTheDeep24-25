@@ -63,7 +63,7 @@ public class ViperAction {
             if (viperMotor.getCurrentPosition() >= PARAMS.viperMaxPos)
                 power = 0;
             else if ((viperMotor.getCurrentPosition() >= PARAMS.viperPowerLimitPos) && (viperMotor.getCurrentPosition() >= PARAMS.viperLowBasketPos))
-                power = Math.min(power, 0.75);
+                power = 0.5;
             else if (viperMotor.getCurrentPosition() >= PARAMS.viperPowerLimitPos)
                 power = Math.min(power, 0.25);
         } else if ((power < 0) && (viperMotor.getCurrentPosition() <= 400))
