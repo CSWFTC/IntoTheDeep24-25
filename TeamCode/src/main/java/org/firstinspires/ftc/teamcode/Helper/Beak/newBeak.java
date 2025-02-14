@@ -26,8 +26,8 @@ public class newBeak {
 
         //elbow
         public double elbowPickPos = 0.37;
-        public double elbowSuplexPos = 0.45;
-        public double elbowStartPos = 0.40;
+        public double elbowSuplexPos = 0.465;
+        public double elbowStartPos = 0.45;
     }
 
     public static Params PARAMS = new Params();

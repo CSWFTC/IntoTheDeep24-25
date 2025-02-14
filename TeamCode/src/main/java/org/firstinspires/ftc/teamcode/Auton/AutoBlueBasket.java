@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 public class AutoBlueBasket extends LinearOpMode {
 
     public static class Params {
-        public double versionNumber = 11.7;
+        public double versionNumber = 12.3;
         public int maxPV = 15900;
         public int minPV= 10;
         public double powerUp = 0.5;
@@ -111,10 +111,10 @@ public class AutoBlueBasket extends LinearOpMode {
     private void toNewPosOne(){
         Action moveOne = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-20.4, -42.5), Math.toRadians(180))
+                .splineTo(new Vector2d(-19.2, -42.5), Math.toRadians(180))
                 .build();
      //   Actions.runBlocking(new SequentialAction(moveOne, bucket.autonPrepForCatch(), arm.PickUpReachAuton(),arm.autonCloseBeak(),arm.SuplexAuton()));
-        Actions.runBlocking(new SequentialAction(moveOne, arm.autonReachSamp()));
+        Actions.runBlocking(new SequentialAction(bucket.autonPrepForCatch(), moveOne, arm.autonReachSamp()));
 
         /*
         Action moveTwo = drive.actionBuilder(drive.pose)
