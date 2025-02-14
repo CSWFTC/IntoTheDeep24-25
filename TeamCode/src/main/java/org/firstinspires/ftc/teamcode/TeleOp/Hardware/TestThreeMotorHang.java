@@ -126,7 +126,7 @@ public class TestThreeMotorHang extends LinearOpMode {
                     break;
 
                 case DPAD_UP:
-                    grappleServo.setPosition(1.0); // Flips up
+                    grappleServo.setPosition(0.5); // Flips up
                     break;
 
                 case DPAD_DOWN:
