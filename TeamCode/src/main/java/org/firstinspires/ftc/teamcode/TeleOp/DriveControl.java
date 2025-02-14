@@ -68,7 +68,7 @@ public class DriveControl extends LinearOpMode {
         telemetry.clear();
 
         double speedMultiplier = 1;
-        beakAction.suplexElbPos();
+        beakAction.autonStartPos();
         colorful.setLEDColor(LEDColorHelper.LEDColor.VIOLET);
         bucketAction.StartPosition();
 

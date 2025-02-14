@@ -137,9 +137,9 @@ public class newBeak {
             openBeak();
             SystemClock.sleep(250);
             PickUpElbow();
-            SystemClock.sleep(1000);
+            SystemClock.sleep(2500);
             SuplexSample();
-            SystemClock.sleep(2000);
+
             return false;
         };
     }
