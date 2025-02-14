@@ -44,7 +44,7 @@ public class DriveControl extends LinearOpMode {
     public void runOpMode() {
         int initRes = initialize();
 
-        beakAction.ElbStart();
+        beakAction.autonStartPos();
         colorful.setLEDColor(LEDColorHelper.LEDColor.WHITE);
         waitForStart();
 
@@ -126,7 +126,6 @@ public class DriveControl extends LinearOpMode {
                     bucketAction.ToggleBucket();
                     break;
                 case BUTTON_R_BUMPER:
-                   // clawAction.ToggleGrip();
                     beakAction.ToggleBeak();
                     break;
                 case LEFT_TRIGGER:
