@@ -146,13 +146,14 @@ public class newBeak {
 
             openBeak();
             PickUpElbow();
-            SystemClock.sleep(2000);
+            SystemClock.sleep(100);
+
             closedBeak();
-            SystemClock.sleep(2000);
+            SystemClock.sleep((long) PARAMS.beakClosedDelay);
             suplexElbPos();
-            SystemClock.sleep(2000);
+            SystemClock.sleep((long)PARAMS.beakSuplexDelay);
             openBeak();
-            SystemClock.sleep(2000);
+            SystemClock.sleep((long) PARAMS.beakSuplexDelay + (long) PARAMS.beakClosedDelay);
             ElbStart();
             return false;
         };
