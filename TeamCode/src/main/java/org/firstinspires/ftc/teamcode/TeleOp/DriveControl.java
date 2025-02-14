@@ -89,6 +89,12 @@ public class DriveControl extends LinearOpMode {
                 case DPAD_RIGHT:
                     beakAction.PickUpElbow();
                     break;
+                case BUTTON_R_BUMPER:
+                    beakAction.ToggleBeak();
+                    break;
+                case BUTTON_L_BUMPER:
+                    beakAction.toggleElbowSuplex();
+                    break;
                 case LEFT_STICK_BUTTON_ON:
                     if (speedMultiplier < 0.5) {
                         speedMultiplier = 1;
@@ -108,9 +114,7 @@ public class DriveControl extends LinearOpMode {
                 case BUTTON_Y:
                     speedMultiplier = 1;
                     break;
-                case BUTTON_R_BUMPER:
-                    beakAction.ToggleBeak();
-                    break;
+
                 case RIGHT_TRIGGER:
                     beakAction.JoystickMoveSlide(gamepad1.right_trigger);
                     break;

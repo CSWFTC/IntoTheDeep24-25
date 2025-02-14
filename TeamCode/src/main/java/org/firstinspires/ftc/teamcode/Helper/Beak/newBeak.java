@@ -25,9 +25,10 @@ public class newBeak {
         public double beakClosedDelay = 50;
 
         //elbow
-        public double elbowPickPos = 0.37;
-        public double elbowSuplexPos = 0.465;
-        public double elbowStartPos = 0.45;
+        public double elbowPickPos = 0.37;     // Pickup Off Mat
+        public double elbowSuplexPos = 0.465;  // Suplex in Bucket
+        public double elbowStartPos = 0.45;    // Drive Position
+        public double elbowReachPos = 0.4;     // Grabber Extended Drive
     }
 
     public static Params PARAMS = new Params();
@@ -78,7 +79,7 @@ public class newBeak {
     }
 
     public void JoystickMoveSlide(float position) {
-        double sliderPos = Range.clip((targetSliderPosition + (position * 0.009)), PARAMS.sliderMinPos, PARAMS.sliderMaxPos);
+        double sliderPos = Range.clip((targetSliderPosition + (position * 0.015)), PARAMS.sliderMinPos, PARAMS.sliderMaxPos);
         MoveSlider(sliderPos);
     }
 
@@ -126,6 +127,20 @@ public class newBeak {
             DeferredActions.CreateDeferredAction((long) PARAMS.beakSuplexDelay + (long) PARAMS.beakClosedDelay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
         }
     }
+
+    public void sampleReachElbowPos() {
+        if (targetBeakPosition != PARAMS.beakOpenPos)
+            MoveBeak(PARAMS.beakClosePos);
+        MoveElbow(PARAMS.elbowReachPos);
+    }
+
+    public void toggleElbowSuplex() {
+        if (targetElbowPosition <= PARAMS.elbowStartPos)
+            sampleReachElbowPos();
+        else
+            SuplexSample();
+    }
+
     public void autonStartPos(){
         MoveElbow(PARAMS.elbowStartPos);
         openBeak();
