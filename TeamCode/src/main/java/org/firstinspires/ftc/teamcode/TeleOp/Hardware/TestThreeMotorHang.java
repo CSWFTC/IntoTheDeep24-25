@@ -24,8 +24,8 @@ public class TestThreeMotorHang extends LinearOpMode {
         public Boolean motor2Forward = true;
         public String motor3Name = "hookSecond";
         public Boolean motor3Forward = false;
-        public String servoName = "hookServo";
-        public Boolean servoForward = true;
+        public String grappleServo = "grappleServo";
+
 
     }
 
@@ -45,7 +45,7 @@ public class TestThreeMotorHang extends LinearOpMode {
         DcMotor motor1 = hardwareMap.dcMotor.get(PARAMS.motor1Name);
         DcMotor motor2 = hardwareMap.dcMotor.get(PARAMS.motor2Name);
         DcMotor motor3 = hardwareMap.dcMotor.get(PARAMS.motor3Name);
-        Servo grappleServo = hardwareMap.servo.get("grappleServo");
+        Servo grappleServo = hardwareMap.servo.get(PARAMS.grappleServo);
 
         motor1.setDirection((PARAMS.motor1Forward) ? DcMotorSimple.Direction.FORWARD : DcMotorSimple.Direction.REVERSE);
         motor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
