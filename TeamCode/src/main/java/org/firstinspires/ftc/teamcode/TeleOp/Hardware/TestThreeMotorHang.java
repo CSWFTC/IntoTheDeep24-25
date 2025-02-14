@@ -61,6 +61,7 @@ public class TestThreeMotorHang extends LinearOpMode {
 
         waitForStart();
 
+
         telemetry.clear();
 
         while (opModeIsActive()) {
