@@ -78,6 +78,10 @@ public class DriveControl extends LinearOpMode {
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
                 case DPAD_DOWN:
+                    beakAction.DecreaseElbow();
+                    break;
+                case DPAD_UP:
+                    beakAction.IncreaseElbow();
                     break;
                 case DPAD_LEFT:
                     beakAction.SuplexSample();
