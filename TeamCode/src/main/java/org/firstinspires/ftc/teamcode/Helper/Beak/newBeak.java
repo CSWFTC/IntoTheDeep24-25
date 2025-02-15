@@ -150,9 +150,9 @@ public class newBeak {
     }
 
     public void autonStartPos(){
+        MoveSlider(PARAMS.sliderMinPos);
         MoveElbow(PARAMS.elbowStartPos);
         openBeak();
-        MoveSlider(PARAMS.sliderMinPos);
     }
 
     public Action autonBeak(){

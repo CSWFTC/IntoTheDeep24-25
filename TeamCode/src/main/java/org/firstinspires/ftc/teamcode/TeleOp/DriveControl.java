@@ -42,33 +42,30 @@ public class DriveControl extends LinearOpMode {
     public void runOpMode() {
         int initRes = initialize();
 
-        beakAction.autonStartPos();
-        //colorful.setLEDColor(LEDColorHelper.LEDColor.WHITE);
-        waitForStart();
-
-        if (isStopRequested() || (initRes == 1)) {
-            return;
-            
-        }
-
         // Load Introduction and Wait for Start
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
         telemetry.addLine("Driver Control");
         telemetry.addData("Version Number", version);
         telemetry.addLine();
-        telemetry.addData(">", "Press Start to Launch");
+        if (initRes != 1)
+            telemetry.addData(">", "Press Start to Launch");
         telemetry.update();
+
+        waitForStart();
+        if (isStopRequested() || (initRes == 1)) {
+            return;
+        }
+
+        telemetry.clear();
+        //colorful.setLEDColor(LEDColorHelper.LEDColor.VIOLET);
+        beakAction.autonStartPos();
+        bucketAction.StartPosition();
 
         GamePad gpIn1 = new GamePad(gamepad1, false);
         GamePad gpIn2 = new GamePad(gamepad2);
         DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
 
-        telemetry.clear();
-
         double speedMultiplier = 1;
-        beakAction.autonStartPos();
-        //colorful.setLEDColor(LEDColorHelper.LEDColor.VIOLET);
-        bucketAction.StartPosition();
 
         while (opModeIsActive()) {
             update_telemetry(gpIn1, gpIn2);

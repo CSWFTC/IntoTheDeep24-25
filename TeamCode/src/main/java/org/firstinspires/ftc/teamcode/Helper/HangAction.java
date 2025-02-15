@@ -26,8 +26,6 @@ public class HangAction {
         left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         hang2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        grapple.setPosition(0.0);
     }
 
     public void moveMotors(double power) {
