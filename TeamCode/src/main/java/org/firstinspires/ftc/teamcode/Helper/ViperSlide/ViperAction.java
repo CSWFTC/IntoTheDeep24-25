@@ -32,6 +32,7 @@ public class ViperAction {
         public int lowerBasketPosition = 1000;
         public int autonReset = 150;
         public double power = 0;
+        public double Threshold = 1500;
 
     }
 
@@ -70,8 +71,8 @@ public class ViperAction {
         } else if ((PARAMS.power < 0) && (viperMotor.getCurrentPosition() <= 400)) {
             PARAMS.power = Math.max(PARAMS.power, -0.25);
         } else {
-            if(viperMotor.getCurrentPosition() >= PARAMS.viperLowBasketPos){
-                PARAMS.power = 0;
+            if(viperMotor.getCurrentPosition() >= PARAMS.Threshold){
+                PARAMS.power = 0.33;
             }
 
         }
