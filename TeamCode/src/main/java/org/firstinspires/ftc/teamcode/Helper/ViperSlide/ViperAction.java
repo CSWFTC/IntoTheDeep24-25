@@ -31,6 +31,7 @@ public class ViperAction {
         public double dumpHighBasketDelay = 2250;  //ms To Wait for Dump
         public int lowerBasketPosition = 1000;
         public int autonReset = 150;
+        public double power = 0;
 
     }
 
@@ -58,20 +59,27 @@ public class ViperAction {
     }
 
     public void moveWithPower(double throttle) {
-        double power = throttle;
-        if (power > 0) {
+        PARAMS.power = throttle;
+        if (PARAMS.power > 0) {
             if (viperMotor.getCurrentPosition() >= PARAMS.viperMaxPos)
-                power = 0;
+                PARAMS.power = 0;
             else if ((viperMotor.getCurrentPosition() >= PARAMS.viperPowerLimitPos) && (viperMotor.getCurrentPosition() >= PARAMS.viperLowBasketPos))
-                power = 0.5;
+                PARAMS.power = 0.5;
             else if (viperMotor.getCurrentPosition() >= PARAMS.viperPowerLimitPos)
-                power = Math.min(power, 0.25);
-        } else if ((power < 0) && (viperMotor.getCurrentPosition() <= 400))
-            power = Math.max(power, -0.25);
+                PARAMS.power = Math.min(PARAMS.power, 0.25);
+        } else if ((PARAMS.power < 0) && (viperMotor.getCurrentPosition() <= 400)) {
+            PARAMS.power = Math.max(PARAMS.power, -0.25);
+        } else {
+            if(viperMotor.getCurrentPosition() >= PARAMS.viperLowBasketPos){
+                PARAMS.power = 0;
+            }
+
+        }
+
 
         if (viperMotor.getMode() != DcMotor.RunMode.RUN_USING_ENCODER)
             viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        viperMotor.setPower(power);
+        viperMotor.setPower(PARAMS.power);
     }
 
     public void resetEncoders() {
