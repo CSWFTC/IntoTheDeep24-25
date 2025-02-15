@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlide.BucketAction;
+
 
 @Config
 public class newBeak {
@@ -29,15 +31,16 @@ public class newBeak {
         public double beakPickUpDelay = 200;
 
         //elbow
-        public double elbowPickPos = 0.37;     // Pickup Off Mat
-        public double elbowReachPos = 0.39;     // Grabber Extended Drive
-        public double elbowSuplexPos = 0.465;  // Suplex in Bucket
-        public double elbowStartPos = 0.443;    // Drive Position
+        public double elbowPickPos = 0.480;     // Pickup Off Mat
+        public double elbowReachPos = 0.470;     // Grabber Extended Drive
+        public double elbowSuplexPos = 0.65;  // Suplex in Bucket
+        public double elbowStartPos = 0.55;    // Drive Position
+        public double elbowClimbPos = 0.5;
         public double elbowSuplexSafeDelay = 1200;
         public double elbowPickupOpenDelay = 200;   //ms Until Open Beak Fully When At Top
 
         //delays
-      //  public
+
     }
 
     public static Params PARAMS = new Params();
@@ -48,7 +51,6 @@ public class newBeak {
     private final Servo viper;
     private final Servo beak;
     private final Servo elbow;
-
     public newBeak(@NonNull HardwareMap hardwareMap) {
         viper = hardwareMap.servo.get("viperServo");
         viper.setDirection(Servo.Direction.FORWARD);
@@ -58,6 +60,7 @@ public class newBeak {
 
         elbow = hardwareMap.servo.get("elbowServo");
         elbow.setDirection(Servo.Direction.FORWARD);
+
 
     }
 
@@ -160,6 +163,10 @@ public class newBeak {
             SuplexSample();
     }
 
+    public void climbPostitions(){
+        MoveSlider(PARAMS.sliderMinPos);
+        MoveElbow(PARAMS.elbowClimbPos);
+    }
     public void autonStartPos(){
         MoveSlider(PARAMS.sliderMinPos);
         MoveElbow(PARAMS.elbowStartPos);
