@@ -30,7 +30,7 @@ public class ViperAction {
         public double dumpLowBasketDelay = 750 ;    //ms To Wait for Dump
         public double dumpHighBasketDelay = 2250;  //ms To Wait for Dump
         public int lowerBasketPosition = 1000;
-        public int autonReset = 150;
+        public int autonReset = 100;
         public double power = 0;
 
     }
@@ -187,7 +187,6 @@ public class ViperAction {
     public Action autonReset(){
         return pakcet -> {
             moveToPosition(PARAMS.autonReset);
-
             return false;
         };
     }
