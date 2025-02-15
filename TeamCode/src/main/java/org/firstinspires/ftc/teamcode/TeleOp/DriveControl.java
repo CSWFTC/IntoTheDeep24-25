@@ -179,15 +179,23 @@ public class DriveControl extends LinearOpMode {
                 case BEAK_OPEN:
                     beakAction.openBeak();
                     break;
+
                 case BEAK_CLOSE:
                     beakAction.closedBeak();
                     break;
+
                 case SUPLEX_BEAK:
                     beakAction.SuplexSample();
                     break;
+
                 case BEAK_DRIVE_SAFE:
                     beakAction.ElbStart();
                     break;
+
+                case BEAK_OPEN_WIDER:
+                    beakAction.openWideBeak();
+                    break;
+
                 default:
                     telemetry.addLine("ERROR - Unsupported Deferred Action");
                     break;

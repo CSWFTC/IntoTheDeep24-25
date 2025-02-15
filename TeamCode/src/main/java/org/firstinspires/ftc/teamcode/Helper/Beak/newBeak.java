@@ -20,11 +20,13 @@ public class newBeak {
         public double sliderPosChange = 0.03;
 
         //beak
-        public double beakOpenDropPos = 0.39;
-        public double beakOpenPickupPos = 0.42;
-        public double beakClosePos = 0.255;
+        public double beakOpenDropPos = 0.39; //for suplex
+        public double beakOpenPickupPos = 0.42; //for pick up
+        public double beakWideOpen = 0.45; // for wider opening
+        public double beakClosePos = 0.255; // closed
         public double beakSuplexDelay = 1000;
         public double beakClosedDelay = 50;
+        public double beakPickUpDelay = 200;
 
         //elbow
         public double elbowPickPos = 0.37;     // Pickup Off Mat
@@ -99,6 +101,9 @@ public class newBeak {
             MoveBeak(PARAMS.beakOpenDropPos);
     }
 
+    public void openWideBeak(){
+        MoveBeak(PARAMS.beakWideOpen);
+    }
     public void ToggleBeak() {
         if (targetBeakPosition == PARAMS.beakClosePos) {
             openBeak();
@@ -111,7 +116,8 @@ public class newBeak {
     //the servo for elbow
     public void PickUpElbow() {
         MoveElbow(PARAMS.elbowPickPos);
-     //   DeferredActions
+        MoveBeak(PARAMS.beakWideOpen);
+        DeferredActions.CreateDeferredAction((long)PARAMS.beakPickUpDelay, DeferredActions.DeferredActionType.BEAK_OPEN_WIDER);
     }
 
     public void suplexElbPos() {

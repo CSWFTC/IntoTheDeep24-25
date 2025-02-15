@@ -15,7 +15,8 @@ public class DeferredActions {
         BEAK_CLOSE("Close Beak"),
         SUPLEX_BEAK("Suplex Beak"),
         BEAK_DRIVE_SAFE("Beak Drive Safe"),
-        ARM("hi");
+        ARM("hi"),
+        BEAK_OPEN_WIDER("Beak Open Wider");
 
 
         private final String description;
