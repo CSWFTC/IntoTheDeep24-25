@@ -226,6 +226,8 @@ public class DriveControl extends LinearOpMode {
             return 1;
         }
         return 0;
+
+
     }
 
     private void update_telemetry(GamePad gpi1, GamePad gpi2) {
