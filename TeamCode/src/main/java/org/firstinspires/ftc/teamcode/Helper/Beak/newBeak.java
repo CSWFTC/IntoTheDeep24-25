@@ -23,7 +23,7 @@ public class newBeak {
         public double beakOpenDropPos = 0.39;
         public double beakOpenPickupPos = 0.42;
         public double beakClosePos = 0.255;
-        public double beakSuplexDelay = 920;
+        public double beakSuplexDelay = 1000;
         public double beakClosedDelay = 50;
 
         //elbow
@@ -110,6 +110,7 @@ public class newBeak {
     //the servo for elbow
     public void PickUpElbow() {
         MoveElbow(PARAMS.elbowPickPos);
+     //   DeferredActions
     }
 
     public void suplexElbPos() {
