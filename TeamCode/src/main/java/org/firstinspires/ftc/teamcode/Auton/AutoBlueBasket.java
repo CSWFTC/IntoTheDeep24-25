@@ -67,20 +67,13 @@ public class AutoBlueBasket extends LinearOpMode {
         waitForStart();
         telemetry.clear();
 
-
-      //  if(!PARAMS.){
             toSub();
             toNewPosOne();
-                toBasket();
-         //   toPosTwo();
-         //   toBasket();
-         //   toPosThree();
-         //   toBasket();
-        /*else if(PARAMS.easy) {
-            dumbBasket();
             toBasket();
-        }*/
-
+            toPosTwo();
+            toBasket();
+            toPosThree();
+            toBasket();
 
     }
 
