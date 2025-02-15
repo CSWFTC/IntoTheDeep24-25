@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
-import org.firstinspires.ftc.teamcode.Helper.ViperSlide.BucketAction;
 
 
 @Config
@@ -34,7 +33,7 @@ public class newBeak {
         public double elbowPickPos = 0.480;     // Pickup Off Mat
         public double elbowReachPos = 0.470;     // Grabber Extended Drive
         public double elbowSuplexPos = 0.65;  // Suplex in Bucket
-        public double elbowStartPos = 0.55;    // Drive Position
+        public double elbowStartPos = 0.547;    // Drive Position
         public double elbowClimbPos = 0.5;
         public double elbowSuplexSafeDelay = 1200;
         public double elbowPickupOpenDelay = 200;   //ms Until Open Beak Fully When At Top
