@@ -31,6 +31,7 @@ public class newBeak {
         public double elbowReachPos = 0.39;     // Grabber Extended Drive
         public double elbowSuplexPos = 0.465;  // Suplex in Bucket
         public double elbowStartPos = 0.443;    // Drive Position
+        public double elbowSuplexSafeDelay = 1200;
         public double elbowPickupOpenDelay = 200;   //ms Until Open Beak Fully When At Top
     }
 
@@ -130,7 +131,7 @@ public class newBeak {
             MoveSlider(PARAMS.sliderMinPos);
             suplexElbPos();
             DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
-            DeferredActions.CreateDeferredAction((long) PARAMS.beakSuplexDelay + (long) PARAMS.beakClosedDelay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
+            DeferredActions.CreateDeferredAction((long) PARAMS.elbowSuplexSafeDelay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
         }
     }
 
