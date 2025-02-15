@@ -35,6 +35,9 @@ public class newBeak {
         public double elbowStartPos = 0.443;    // Drive Position
         public double elbowSuplexSafeDelay = 1200;
         public double elbowPickupOpenDelay = 200;   //ms Until Open Beak Fully When At Top
+
+        //delays
+      //  public
     }
 
     public static Params PARAMS = new Params();
