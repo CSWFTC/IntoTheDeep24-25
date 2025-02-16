@@ -270,6 +270,8 @@ public class DriveControl extends LinearOpMode {
                     beakAction.openWideBeak();
                     break;
 
+                case SLIDER_DELAY:
+                    beakAction.suplexElbPos();
                 default:
                     telemetry.addLine("ERROR - Unsupported Deferred Action");
                     break;
