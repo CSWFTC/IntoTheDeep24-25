@@ -38,10 +38,8 @@ public class newBeak {
         public double elbowClimbInit = 0.51;
 
         //delays
-
-        public double suplexSliderDelay = 1500;
-        public double suplexOpenBeakDelay = 2500;
-        public double suplexMoveToDrivePositionDelay = 3100;
+        public double suplexOpenBeakDelay = 1500;
+        public double suplexMoveToDrivePositionDelay = 1700;
         public double pickupBeakOpenDelay = 100;   //ms Until Open Beak Fully When At Top
     }
 
@@ -144,7 +142,7 @@ public class newBeak {
             DeferredActions.CreateDeferredAction((long) PARAMS.beakClosedDelay, DeferredActions.DeferredActionType.SUPLEX_BEAK);
         } else {
             MoveSlider(PARAMS.sliderMinPos);
-            DeferredActions.CreateDeferredAction((long)PARAMS.suplexSliderDelay, DeferredActions.DeferredActionType.SLIDER_DELAY);
+            suplexElbPos();
             DeferredActions.CreateDeferredAction( (long) PARAMS.suplexOpenBeakDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
             DeferredActions.CreateDeferredAction((long) PARAMS.suplexMoveToDrivePositionDelay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
         }
