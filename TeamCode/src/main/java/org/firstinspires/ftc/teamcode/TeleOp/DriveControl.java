@@ -186,6 +186,7 @@ public class DriveControl extends LinearOpMode {
                 break;
             case BUTTON_A:
                 viperAction.HoldPosition();
+                break;
             case RIGHT_STICK_BUTTON_ON:
                 viperAction.resetEncoders();
                 break;
