@@ -21,15 +21,7 @@ import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 public class AutoBlueBasket extends LinearOpMode {
 
     public static class Params {
-        public double versionNumber = 12.3;
-        public int maxPV = 15900;
-        public int minPV= 10;
-        public double powerUp = 0.5;
-        public double powerDown = -0.5;
-        public boolean easy = false;
-        public int maxVipPos = 3100;
-        public double vipPower = 0.8;
-
+        public double versionNumber = 12.4;
 
     }
 
