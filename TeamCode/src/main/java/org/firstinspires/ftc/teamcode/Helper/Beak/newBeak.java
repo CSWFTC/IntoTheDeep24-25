@@ -35,10 +35,11 @@ public class newBeak {
         public double elbowSuplexPos = 0.565;    // Suplex in Bucket
         public double elbowStartPos = 0.541;    // Drive Position
         public double elbowSlideDumpPos = 0.575;
+        public double elbowClimbInit = 0.51;
 
         //delays
-        public double suplexOpenBeakDelay = 1000;
-        public double suplexMoveToDrivePositionDelay = 1200;
+        public double suplexOpenBeakDelay = 1500;
+        public double suplexMoveToDrivePositionDelay = 1700;
         public double pickupBeakOpenDelay = 100;   //ms Until Open Beak Fully When At Top
     }
 
@@ -148,7 +149,7 @@ public class newBeak {
     }
 
     public void sampleReachElbowPos() {
-        if (targetElbowPosition < PARAMS.elbowStartPos)
+        if (targetElbowPosition > PARAMS.elbowStartPos)
             openBeak();
         else
             DeferredActions.CreateDeferredAction( (long) PARAMS.pickupBeakOpenDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
@@ -163,6 +164,9 @@ public class newBeak {
             SuplexSample();
     }
 
+    public void initElbClimb(){
+        MoveElbow(PARAMS.elbowClimbInit);
+    }
     public void climbPostitions(){
         closedBeak();
         MoveSlider(PARAMS.sliderMinPos);

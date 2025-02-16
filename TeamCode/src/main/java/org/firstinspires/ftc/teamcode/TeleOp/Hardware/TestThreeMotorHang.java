@@ -12,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.BucketAction;
 import org.firstinspires.ftc.teamcode.Helper.Beak.newBeak;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 
 
 @Config
@@ -69,10 +70,12 @@ public class TestThreeMotorHang extends LinearOpMode {
         newBeak beak = new newBeak(hardwareMap);
 
         GamePad gpIn1 = new GamePad(gamepad1);
+        ClawAction claw = new ClawAction(hardwareMap);
 
         waitForStart();
         telemetry.clear();
-        beak.PickUpElbow();
+        beak.initElbClimb();
+        claw.CloseGrip();
         sleep(1000);
         bucket.climbPostitions();
         sleep(500);
