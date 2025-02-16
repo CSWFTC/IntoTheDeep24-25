@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Helper.ViperSlide;
 
+import android.os.SystemClock;
+
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
@@ -65,6 +67,14 @@ public class BucketAction {
         return packet ->{
           PrepForCatch();
           return false;
+        };
+    }
+
+    public Action autonHuman(){
+        return packet -> {
+            MoveBucket(PARAMS.bucketDumpPos);
+            SystemClock.sleep(1000);
+            return false;
         };
     }
 }

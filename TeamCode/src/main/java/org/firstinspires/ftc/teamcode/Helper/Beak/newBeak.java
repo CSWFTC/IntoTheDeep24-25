@@ -186,6 +186,7 @@ public class newBeak {
         };
     }
 
+
     public Action autonReachSamp() {
         return packet -> {
             openBeak();
@@ -199,6 +200,15 @@ public class newBeak {
             openBeak();
             SystemClock.sleep((long) PARAMS.suplexOpenBeakDelay + (long) PARAMS.beakClosedDelay);
             ElbStart();
+            return false;
+        };
+
+    }
+
+    public Action dropToHuman (){
+        return packet -> {
+            MoveElbow(PARAMS.elbowSlideDumpPos);
+            MoveBeak(PARAMS.beakOpenDropPos);
             return false;
         };
     }
