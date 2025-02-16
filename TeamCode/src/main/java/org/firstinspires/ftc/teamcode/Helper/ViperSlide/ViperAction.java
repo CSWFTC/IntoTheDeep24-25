@@ -19,11 +19,11 @@ public class ViperAction {
         public double viperLowBasketPos = 1050;   // Low Basket (Approx 38% of High Basket)
         public double viperCatchPoint = 0;        // Catch Point for Sample
         public double viperMotorSpeed = 0.9;
-        public double viperMaxPos = 3180;
+        public double viperMaxPos = 3000;
         public double viperPowerLimitPos = 2800;
 
         public double clawLow = 387;
-        public double clawLowHang = 77;
+        public double clawLowHang = 0;
         public double clawHigh = 1900;
         public double clawHighHang = 1450;
         public double clawWall = 14;
@@ -72,8 +72,8 @@ public class ViperAction {
         } else if ((PARAMS.power < 0) && (viperMotor.getCurrentPosition() <= 400)) {
             PARAMS.power = Math.max(PARAMS.power, -0.25);
         } else {
-            if(viperMotor.getCurrentPosition() >= PARAMS.Threshold){
-                PARAMS.power = 0.10;
+            if(viperMotor.getCurrentPosition() >= PARAMS.Threshold && viperMotor.getCurrentPosition() <= PARAMS.viperMaxPos){
+                PARAMS.power = 0.15;
             }
 
         }
