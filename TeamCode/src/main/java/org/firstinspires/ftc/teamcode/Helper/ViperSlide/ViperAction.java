@@ -28,9 +28,10 @@ public class ViperAction {
         public double clawHighHang = 1450;
         public double clawWall = 14;
 
-        public double dumpLowBasketDelay = 750 ;    //ms To Wait for Dump
+        public double dumpLowBasketDelay = 1000 ;    //ms To Wait for Dump
         public double dumpHighBasketDelay = 2250;  //ms To Wait for Dump
         public int lowerBasketPosition = 1000;
+        public double dumpDelay = 1000;
         public int autonReset = 100;
         public double power = 0;
         public double Threshold = 1500;
@@ -101,6 +102,7 @@ public class ViperAction {
 
 
     public void moveToLowBasket() {
+
         moveToPosition((int) PARAMS.viperLowBasketPos);
     }
 
@@ -112,8 +114,10 @@ public class ViperAction {
     public Action dumpSampleLowBasket() {
         return packet -> {
             moveToLowBasket();
-           //   SystemClock.sleep((long) PARAMS.dumpLowBasketDelay);
+            SystemClock.sleep((long) PARAMS.dumpLowBasketDelay);
             bucketAction.DumpSample();
+            SystemClock.sleep((long)PARAMS.dumpDelay);
+
             return false;
         };
     }
@@ -123,6 +127,7 @@ public class ViperAction {
             moveToHighBasket();
             SystemClock.sleep((long) PARAMS.dumpHighBasketDelay);
             bucketAction.DumpSample();
+            SystemClock.sleep((long)PARAMS.dumpDelay);
             return false;
         };
     }
@@ -187,8 +192,9 @@ public class ViperAction {
     }
 
     public Action autonReset(){
-        return pakcet -> {
+        return packet -> {
             moveToPosition(PARAMS.autonReset);
+            SystemClock.sleep(1000);
             return false;
         };
     }
