@@ -158,7 +158,7 @@ public class newBeak {
     }
 
     public void toggleElbowSuplex() {
-        if (targetElbowPosition <= PARAMS.elbowStartPos)
+        if (targetElbowPosition >= PARAMS.elbowStartPos)
             sampleReachElbowPos();
         else
             SuplexSample();
