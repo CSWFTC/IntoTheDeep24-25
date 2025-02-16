@@ -73,58 +73,6 @@ public class DriveControl extends LinearOpMode {
         while (opModeIsActive()) {
             update_telemetry(gpIn1, gpIn2);
 
-            GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
-            switch (inpType1) {
-                case DPAD_DOWN:
-                    beakAction.DecreaseElbow();
-                    break;
-                case DPAD_UP:
-                    beakAction.IncreaseElbow();
-                    break;
-                case DPAD_LEFT:
-                    beakAction.SuplexSample();
-                    break;
-                case DPAD_RIGHT:
-                    beakAction.PickUpElbow();
-                    break;
-                case BUTTON_R_BUMPER:
-                    beakAction.ToggleBeak();
-                    break;
-                case BUTTON_L_BUMPER:
-                    beakAction.toggleElbowSuplex();
-                    break;
-                case LEFT_STICK_BUTTON_ON:
-                    if (speedMultiplier < 0.5) {
-                        speedMultiplier = 1;
-                    } else {
-                        speedMultiplier = 0.25;
-                    }
-                    break;
-                case BUTTON_X:
-                    speedMultiplier = 0.75;
-                    break;
-                case BUTTON_B:
-                    speedMultiplier = 0.5;
-                    break;
-                case BUTTON_A:
-                    speedMultiplier = 0.25;
-                    break;
-                case BUTTON_Y:
-                    speedMultiplier = 1;
-                    break;
-
-                case RIGHT_TRIGGER:
-                    beakAction.JoystickMoveSlide(gamepad1.right_trigger);
-                    break;
-                case LEFT_TRIGGER:
-                    beakAction.JoystickMoveSlide(-gamepad1.left_trigger);
-                    break;
-                case JOYSTICK:
-                    drvTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
-                            gamepad1.right_stick_x * (float) speedMultiplier,
-                            gamepad1.left_stick_y * (float) speedMultiplier, setReversed);
-                    break;
-            }
 
             GamePad.GameplayInputType inpType2 = gpIn2.WaitForGamepadInput(30);
             switch (inpType2) {
@@ -184,10 +132,9 @@ public class DriveControl extends LinearOpMode {
                     }
                     break;
                 case JOYSTICK:
-                        hangAction.moveMotors(-gamepad2.left_stick_y);
-                        hangAction.moveHang2(-gamepad2.right_stick_y);
-                        hangAction.moveHangDown(gamepad2.right_stick_y);
-
+                    hangAction.moveMotors(-gamepad2.left_stick_y);
+                    hangAction.moveHang2(-gamepad2.right_stick_y);
+                    hangAction.moveHangDown(gamepad2.right_stick_y);
                     break;
                 case BUTTON_BACK:
                     beakAction.initElbClimb();
@@ -216,7 +163,14 @@ public class DriveControl extends LinearOpMode {
     }
 
 
+    public void padOne(){
 
+
+    }
+
+    public void padTwo(){
+
+    }
 
     // Deferred Actions
     public void ProcessDeferredActions(){

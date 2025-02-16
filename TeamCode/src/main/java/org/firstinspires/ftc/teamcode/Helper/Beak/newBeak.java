@@ -149,7 +149,7 @@ public class newBeak {
     }
 
     public void sampleReachElbowPos() {
-        if (targetElbowPosition < PARAMS.elbowStartPos)
+        if (targetElbowPosition > PARAMS.elbowStartPos)
             openBeak();
         else
             DeferredActions.CreateDeferredAction( (long) PARAMS.pickupBeakOpenDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
