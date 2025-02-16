@@ -72,9 +72,12 @@ public class TestThreeMotorHang extends LinearOpMode {
 
         waitForStart();
         telemetry.clear();
-        beak.climbPostitions();
-        sleep(200);
-        bucket.climbPostitions();
+        beak.PickUpElbow();
+        sleep(1000);
+        //bucket.climbPostitions();
+        //sleep(300);
+        //beak.climbPostitions();
+
 
         while (opModeIsActive()) {
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);

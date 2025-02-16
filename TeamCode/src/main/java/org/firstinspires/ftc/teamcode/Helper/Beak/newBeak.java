@@ -30,11 +30,11 @@ public class newBeak {
         public double beakPickUpDelay = 200;
 
         //elbow
-        public double elbowPickPos = 0.480;     // Pickup Off Mat
-        public double elbowReachPos = 0.470;     // Grabber Extended Drive
-        public double elbowSuplexPos = 0.65;  // Suplex in Bucket
-        public double elbowStartPos = 0.547;    // Drive Position
-        public double elbowClimbPos = 0.68;
+        public double elbowPickPos = 0.475;     // Pickup Off Mat
+        public double elbowReachPos = 0.49;    // Grabber Extended Drive
+        public double elbowSuplexPos = 0.565;    // Suplex in Bucket
+        public double elbowStartPos = 0.541;    // Drive Position
+        public double elbowSlideDumpPos = 0.575;
 
         //delays
         public double suplexOpenBeakDelay = 1000;
@@ -109,6 +109,7 @@ public class newBeak {
     public void openWideBeak(){
         MoveBeak(PARAMS.beakWideOpen);
     }
+
     public void ToggleBeak() {
         if (targetBeakPosition == PARAMS.beakClosePos) {
             openBeak();
@@ -163,9 +164,11 @@ public class newBeak {
     }
 
     public void climbPostitions(){
+        closedBeak();
         MoveSlider(PARAMS.sliderMinPos);
-        MoveElbow(PARAMS.elbowClimbPos);
+        MoveElbow(PARAMS.elbowSlideDumpPos);
     }
+
     public void autonStartPos(){
         MoveSlider(PARAMS.sliderMinPos);
         MoveElbow(PARAMS.elbowStartPos);
