@@ -21,6 +21,7 @@ public class ViperAction {
         public double viperMotorSpeed = 0.9;
         public double viperMaxPos = 3180;
         public double viperPowerLimitPos = 2800;
+
         public double clawLow = 387;
         public double clawLowHang = 77;
         public double clawHigh = 1900;
@@ -72,7 +73,7 @@ public class ViperAction {
             PARAMS.power = Math.max(PARAMS.power, -0.25);
         } else {
             if(viperMotor.getCurrentPosition() >= PARAMS.Threshold){
-                PARAMS.power = 0.33;
+                PARAMS.power = 0.10;
             }
 
         }
