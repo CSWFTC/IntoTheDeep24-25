@@ -90,7 +90,7 @@ public class AutoBlueOB extends LinearOpMode {
 
         Action extraMove = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-28.5)
+                .lineToX(-29)
                 .build();
         Actions.runBlocking(new SequentialAction(extraMove, Tiger.perfClawDropOnSub(), Roar.placeOnSub()));
 
