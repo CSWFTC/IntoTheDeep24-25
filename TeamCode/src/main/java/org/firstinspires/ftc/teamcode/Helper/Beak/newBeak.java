@@ -17,7 +17,7 @@ public class newBeak {
     public static class Params {
         //slider
         public double sliderMaxPos = 0.445;
-        public double sliderMinPos = 0.09;
+        public double sliderMinPos = 0.07;
         public double sliderPosChange = 0.03;
 
         //beak
