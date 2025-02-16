@@ -146,6 +146,8 @@ public class DriveControl extends LinearOpMode {
                         gamepad1.right_stick_x * (float) speedMultiplier,
                         gamepad1.left_stick_y * (float) speedMultiplier, setReversed);
                 break;
+            case NONE:
+                viperAction.HoldPosition();
         }
 
     }

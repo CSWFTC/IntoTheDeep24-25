@@ -19,7 +19,7 @@ public class ViperAction {
         public double viperLowBasketPos = 1050;   // Low Basket (Approx 38% of High Basket)
         public double viperCatchPoint = 0;        // Catch Point for Sample
         public double viperMotorSpeed = 0.9;
-        public double viperMaxPos = 3000;
+        public double viperMaxPos = 2900;
         public double viperPowerLimitPos = 2800;
 
         public double clawLow = 387;
@@ -73,16 +73,22 @@ public class ViperAction {
         } else if ((PARAMS.power < 0) && (viperMotor.getCurrentPosition() <= 400)) {
             PARAMS.power = Math.max(PARAMS.power, -0.25);
         } else {
-            if(viperMotor.getCurrentPosition() >= PARAMS.Threshold && viperMotor.getCurrentPosition() <= PARAMS.viperMaxPos){
-                PARAMS.power = 0.15;
-            }
-
+            if(viperMotor.getCurrentPosition() >= PARAMS.Threshold && viperMotor.getCurrentPosition() < (PARAMS.viperMaxPos-500))
+                PARAMS.power = 0.106;
+            else
+                PARAMS.power = 0;
         }
-
 
         if (viperMotor.getMode() != DcMotor.RunMode.RUN_USING_ENCODER)
             viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         viperMotor.setPower(PARAMS.power);
+    }
+
+    public void HoldPosition() {
+        if(viperMotor.getCurrentPosition() >= PARAMS.Threshold && viperMotor.getCurrentPosition() < (PARAMS.viperMaxPos-500))
+            PARAMS.power = 0.106;
+        else
+            PARAMS.power = 0;
     }
 
     public void resetEncoders() {
