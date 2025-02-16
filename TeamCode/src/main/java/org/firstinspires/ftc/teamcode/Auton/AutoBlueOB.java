@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.acmerobotics.roadrunner.ftc.Actions;
 
 import org.firstinspires.ftc.teamcode.Helper.Beak.newBeak;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlide.BucketAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ViperAction;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
@@ -27,6 +28,7 @@ public class AutoBlueOB extends LinearOpMode {
     private ClawAction Roar;
     private ViperAction Tiger;
     private newBeak Paw;
+    private BucketAction Fur;
     private double x = 0;
 
     public void runOpMode(){
@@ -36,6 +38,7 @@ public class AutoBlueOB extends LinearOpMode {
         Roar = new ClawAction(hardwareMap);
         Tiger = new ViperAction(hardwareMap);
         Paw = new newBeak(hardwareMap);
+        Fur = new BucketAction(hardwareMap);
 
         Roar.CloseGrip();
         Paw.autonStartPos();
@@ -56,10 +59,10 @@ public class AutoBlueOB extends LinearOpMode {
                 if(x == 0) {
                     PARAMS.y = 38;
                     markOne();
-                } else if (x == 2){
-                    PARAMS.y = 46;
+                } else if (x == 1){
+                    PARAMS.y = 44;
                     markOne();
-                } else {
+                } else if (x == 2){
                     PARAMS.y = 46;
                     markOne();
                 }
@@ -117,7 +120,7 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(true)
                 .lineToX(-20)
                 .build();
-        Actions.runBlocking(Player);
+        Actions.runBlocking(new SequentialAction(Player, Fur.autonHuman(), Paw.dropToHuman()));
     }
 
     public void GoBack(){
@@ -145,6 +148,12 @@ public class AutoBlueOB extends LinearOpMode {
                 .splineTo(new Vector2d(-29, -5), Math.toRadians(180))
                 .build();
         Actions.runBlocking(new SequentialAction(backAgain, Tiger.perfClawDropOnSub(), Roar.placeOnSub()));
+
+        Action wait = drive.actionBuilder(drive.pose)
+                .setReversed(true)
+                .waitSeconds(100)
+                .build();
+        Actions.runBlocking((wait));
     }
 
     private void toPark(){
