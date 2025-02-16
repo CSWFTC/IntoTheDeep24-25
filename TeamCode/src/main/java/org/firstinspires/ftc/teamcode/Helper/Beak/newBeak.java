@@ -30,7 +30,7 @@ public class newBeak {
         public double beakPickUpDelay = 200;
 
         //elbow
-        public double elbowPickPos = 0.475;     // Pickup Off Mat
+        public double elbowPickPos = 0.48;     // Pickup Off Mat
         public double elbowReachPos = 0.49;    // Grabber Extended Drive
         public double elbowSuplexPos = 0.565;    // Suplex in Bucket
         public double elbowStartPos = 0.541;    // Drive Position
@@ -123,11 +123,11 @@ public class newBeak {
     //the servo for elbow
     public void PickUpElbow() {
         MoveElbow(PARAMS.elbowPickPos);
-        MoveBeak(PARAMS.beakWideOpen);
         DeferredActions.CreateDeferredAction((long)PARAMS.beakPickUpDelay, DeferredActions.DeferredActionType.BEAK_OPEN_WIDER);
     }
 
     public void suplexElbPos() {
+
         MoveElbow(PARAMS.elbowSuplexPos);
     }
 
@@ -191,7 +191,7 @@ public class newBeak {
         return packet -> {
             openBeak();
             PickUpElbow();
-            SystemClock.sleep(100);
+            SystemClock.sleep(1000);
 
             closedBeak();
             SystemClock.sleep((long) PARAMS.beakClosedDelay);
