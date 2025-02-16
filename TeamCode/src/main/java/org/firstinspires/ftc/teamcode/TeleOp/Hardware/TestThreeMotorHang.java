@@ -10,12 +10,15 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
+import org.firstinspires.ftc.teamcode.Helper.ViperSlide.BucketAction;
+import org.firstinspires.ftc.teamcode.Helper.Beak.newBeak;
+
 
 @Config
 @TeleOp(name="Test 3 Motor Hang", group="Hardware")
 public class TestThreeMotorHang extends LinearOpMode {
 
-    public static final String version = "1.0 ";
+    public static final String version = "2.0 ";
 
     public static class Params {
         public String motor1Name = "hookLeft";
@@ -25,8 +28,6 @@ public class TestThreeMotorHang extends LinearOpMode {
         public String motor3Name = "hookSecond";
         public Boolean motor3Forward = false;
         public String grappleServo = "grappleServo";
-
-
     }
 
     public static Params PARAMS = new Params();
@@ -64,12 +65,16 @@ public class TestThreeMotorHang extends LinearOpMode {
 
         grappleServo.setDirection(Servo.Direction.FORWARD);
 
+        BucketAction bucket = new BucketAction(hardwareMap);
+        newBeak beak = new newBeak(hardwareMap);
+
         GamePad gpIn1 = new GamePad(gamepad1);
 
         waitForStart();
-
-
         telemetry.clear();
+        beak.climbPostitions();
+        sleep(200);
+        bucket.climbPostitions();
 
         while (opModeIsActive()) {
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
@@ -133,7 +138,6 @@ public class TestThreeMotorHang extends LinearOpMode {
                     grappleServo.setPosition(0.0); //  default position
                     break;
             }
-
 
             telemetry.addData("M1 Pos", motor1.getCurrentPosition());
             telemetry.addData("M1 Power", motor1.getPower());

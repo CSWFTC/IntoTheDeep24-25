@@ -25,7 +25,7 @@ public class newBeak {
         public double beakOpenPickupPos = 0.42; //for pick up
         public double beakWideOpen = 0.45; // for wider opening
         public double beakClosePos = 0.255; // closed
-        public double beakSuplexDelay = 1000;
+
         public double beakClosedDelay = 50;
         public double beakPickUpDelay = 200;
 
@@ -34,12 +34,12 @@ public class newBeak {
         public double elbowReachPos = 0.470;     // Grabber Extended Drive
         public double elbowSuplexPos = 0.65;  // Suplex in Bucket
         public double elbowStartPos = 0.547;    // Drive Position
-        public double elbowClimbPos = 0.5;
-        public double elbowSuplexSafeDelay = 1200;
-        public double elbowPickupOpenDelay = 200;   //ms Until Open Beak Fully When At Top
+        public double elbowClimbPos = 0.68;
 
         //delays
-
+        public double suplexOpenBeakDelay = 1000;
+        public double suplexMoveToDrivePositionDelay = 1200;
+        public double pickupBeakOpenDelay = 100;   //ms Until Open Beak Fully When At Top
     }
 
     public static Params PARAMS = new Params();
@@ -141,8 +141,8 @@ public class newBeak {
         } else {
             MoveSlider(PARAMS.sliderMinPos);
             suplexElbPos();
-            DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
-            DeferredActions.CreateDeferredAction((long) PARAMS.elbowSuplexSafeDelay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
+            DeferredActions.CreateDeferredAction( (long) PARAMS.suplexOpenBeakDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
+            DeferredActions.CreateDeferredAction((long) PARAMS.suplexMoveToDrivePositionDelay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
         }
     }
 
@@ -150,7 +150,7 @@ public class newBeak {
         if (targetElbowPosition < PARAMS.elbowStartPos)
             openBeak();
         else
-            DeferredActions.CreateDeferredAction( (long) PARAMS.beakSuplexDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
+            DeferredActions.CreateDeferredAction( (long) PARAMS.pickupBeakOpenDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
         MoveElbow(PARAMS.elbowReachPos);
         openBeak();
     }
@@ -188,9 +188,9 @@ public class newBeak {
             closedBeak();
             SystemClock.sleep((long) PARAMS.beakClosedDelay);
             suplexElbPos();
-            SystemClock.sleep((long)PARAMS.beakSuplexDelay);
+            SystemClock.sleep((long)PARAMS.suplexOpenBeakDelay);
             openBeak();
-            SystemClock.sleep((long) PARAMS.beakSuplexDelay + (long) PARAMS.beakClosedDelay);
+            SystemClock.sleep((long) PARAMS.suplexOpenBeakDelay + (long) PARAMS.beakClosedDelay);
             ElbStart();
             return false;
         };
