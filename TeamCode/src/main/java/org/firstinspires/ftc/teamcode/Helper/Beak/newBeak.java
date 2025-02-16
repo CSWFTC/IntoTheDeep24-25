@@ -190,7 +190,7 @@ public class newBeak {
         return packet -> {
             openBeak();
             PickUpElbow();
-            SystemClock.sleep(100);
+            SystemClock.sleep(1000);
 
             closedBeak();
             SystemClock.sleep((long) PARAMS.beakClosedDelay);
