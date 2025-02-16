@@ -74,9 +74,10 @@ public class TestThreeMotorHang extends LinearOpMode {
         telemetry.clear();
         beak.PickUpElbow();
         sleep(1000);
-        //bucket.climbPostitions();
-        //sleep(300);
-        //beak.climbPostitions();
+        bucket.climbPostitions();
+        sleep(500);
+        beak.climbPostitions();
+        sleep(500);
 
 
         while (opModeIsActive()) {
