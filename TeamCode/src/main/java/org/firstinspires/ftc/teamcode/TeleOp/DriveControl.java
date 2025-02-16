@@ -158,7 +158,6 @@ public class DriveControl extends LinearOpMode {
                 bucketAction.ToggleBucket();
                 break;
             case BUTTON_R_BUMPER:
-                beakAction.ToggleBeak();
                 break;
             case LEFT_TRIGGER:
                 viperAction.moveWithPower(-gamepad2.left_trigger);
