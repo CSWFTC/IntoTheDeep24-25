@@ -146,8 +146,6 @@ public class DriveControl extends LinearOpMode {
                         gamepad1.right_stick_x * (float) speedMultiplier,
                         gamepad1.left_stick_y * (float) speedMultiplier, setReversed);
                 break;
-            case NONE:
-                viperAction.HoldPosition();
         }
 
     }
@@ -168,16 +166,16 @@ public class DriveControl extends LinearOpMode {
             case RIGHT_TRIGGER:
                 viperAction.moveWithPower(gamepad2.right_trigger);
                 break;
-            case DPAD_UP:
+            case DPAD_LEFT:
                 viperAction.perfMoveForSub();
                 break;
-            case DPAD_DOWN:
+            case DPAD_RIGHT:
                 viperAction.moveForSub();
                 break;
-            case BUTTON_Y:
+            case DPAD_UP:
                 viperAction.moveToHighBasket();
                 break;
-            case BUTTON_A:
+            case DPAD_DOWN:
                 viperAction.moveToLowBasket();
                 break;
             case BUTTON_B:
@@ -186,6 +184,8 @@ public class DriveControl extends LinearOpMode {
             case BUTTON_X:
                 clawAction.CloseGrip();
                 break;
+            case BUTTON_A:
+                viperAction.HoldPosition();
             case RIGHT_STICK_BUTTON_ON:
                 viperAction.resetEncoders();
                 break;
@@ -203,7 +203,6 @@ public class DriveControl extends LinearOpMode {
                 beakAction.climbPostitions();
                 sleep(500);
                 thirdScheme = true;
-
                 break;
             }
         }

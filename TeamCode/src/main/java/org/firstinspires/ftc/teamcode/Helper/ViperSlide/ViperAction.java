@@ -34,7 +34,7 @@ public class ViperAction {
         public double dumpDelay = 1000;
         public int autonReset = 100;
         public double power = 0;
-        public double Threshold = 1500;
+
 
     }
 
@@ -66,18 +66,12 @@ public class ViperAction {
         if (PARAMS.power > 0) {
             if (viperMotor.getCurrentPosition() >= PARAMS.viperMaxPos)
                 PARAMS.power = 0;
-            else if ((viperMotor.getCurrentPosition() >= PARAMS.viperPowerLimitPos) && (viperMotor.getCurrentPosition() >= PARAMS.viperLowBasketPos))
-                PARAMS.power = 0.5;
             else if (viperMotor.getCurrentPosition() >= PARAMS.viperPowerLimitPos)
                 PARAMS.power = Math.min(PARAMS.power, 0.25);
         } else if ((PARAMS.power < 0) && (viperMotor.getCurrentPosition() <= 400)) {
             PARAMS.power = Math.max(PARAMS.power, -0.25);
-        } else {
-            if(viperMotor.getCurrentPosition() >= PARAMS.Threshold && viperMotor.getCurrentPosition() < (PARAMS.viperMaxPos-500))
-                PARAMS.power = 0.106;
-            else
-                PARAMS.power = 0;
         }
+
 
         if (viperMotor.getMode() != DcMotor.RunMode.RUN_USING_ENCODER)
             viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -85,10 +79,7 @@ public class ViperAction {
     }
 
     public void HoldPosition() {
-        if(viperMotor.getCurrentPosition() >= PARAMS.Threshold && viperMotor.getCurrentPosition() < (PARAMS.viperMaxPos-500))
-            PARAMS.power = 0.106;
-        else
-            PARAMS.power = 0;
+        moveToPosition(viperMotor.getCurrentPosition());
     }
 
     public void resetEncoders() {
