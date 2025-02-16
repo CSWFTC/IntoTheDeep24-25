@@ -23,7 +23,7 @@ public class newBeak {
         //beak
         public double beakOpenDropPos = 0.39; //for suplex
         public double beakOpenPickupPos = 0.42; //for pick up
-        public double beakWideOpen = 0.45; // for wider opening
+        public double beakWideOpen = 0.55; // for wider opening
         public double beakClosePos = 0.255; // closed
 
         public double beakClosedDelay = 50;
