@@ -111,27 +111,19 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-22, PARAMS.y), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(new SequentialAction(lineM1, Paw.autonReachOB()));
+        Actions.runBlocking(new SequentialAction(lineM1, Paw.autonReachSamp()));
     }
 
     public void humanPlayer(){
         //drop off in human player zone
         Action Player = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-6)
+                .lineToX(-14)
+                .turnTo(90)
                 .build();
-        Actions.runBlocking(new SequentialAction(Player, Fur.autonHuman(), Paw.dropToHuman()));
+        Actions.runBlocking(new SequentialAction(Player, Fur.autonDumpSample()));
     }
 
-    public void GoBack(){
-        //give time for human player to pick up sample
-        //move out of the zone
-        Action back = drive.actionBuilder(drive.pose)
-                .setReversed(false)
-                .lineToX(-14)
-                .build();
-        Actions.runBlocking(back);
-    }
     public void Reverse(){
         //get ready to go to sub
         Action turnAgain = drive.actionBuilder(drive.pose)
@@ -151,7 +143,7 @@ public class AutoBlueOB extends LinearOpMode {
 
         Action wait = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .waitSeconds(100)
+                .waitSeconds(5)
                 .build();
         Actions.runBlocking((wait));
     }
@@ -160,8 +152,8 @@ public class AutoBlueOB extends LinearOpMode {
         //to pick sample from human zone
         Action moveBasket= drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
-                .strafeTo(new Vector2d(-1,48))
+                .turnTo(180)
+                .lineToX(-4)
                 .build();
         Actions.runBlocking(new SequentialAction(moveBasket, Roar.grabFromHuman(), Tiger.perfBeforeDropOff(), Fur.autonBucketDown()));
 
