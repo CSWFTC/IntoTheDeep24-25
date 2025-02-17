@@ -58,11 +58,12 @@ public class ViperAction {
 
     private void moveToPosition(int targetPosition) {
         viperMotor.setTargetPosition(targetPosition);
-        viperMotor.setPower(PARAMS.viperMotorSpeed);
-        if(PARAMS.hang) {
-            viperMotor.setPower(0.6);
+
+        if(PARAMS.hang == false)
+            viperMotor.setPower(PARAMS.viperMotorSpeed);
+        else
+            viperMotor.setPower(0.5);
             PARAMS.hang = false;
-        }
         viperMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
