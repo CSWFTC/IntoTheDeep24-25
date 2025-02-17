@@ -219,10 +219,25 @@ public class newBeak {
 
     }
 
+    public Action autonReachOB(){
+        return packet -> {
+            openBeak();
+            PickUpElbow();
+            SystemClock.sleep(1000);
+
+            closedBeak();
+            SystemClock.sleep((long) PARAMS.beakClosedDelay);
+            suplexElbPos();
+            return false;
+        };
+    }
+
     public Action dropToHuman (){
         return packet -> {
-            MoveElbow(PARAMS.elbowSlideDumpPos);
-            MoveBeak(PARAMS.beakOpenDropPos);
+            SystemClock.sleep((long)PARAMS.suplexOpenBeakDelay);
+            openBeak();
+            SystemClock.sleep((long) PARAMS.suplexOpenBeakDelay + (long) PARAMS.beakClosedDelay);
+            ElbStart();
             return false;
         };
     }
