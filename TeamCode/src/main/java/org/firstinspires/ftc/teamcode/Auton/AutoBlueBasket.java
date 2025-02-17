@@ -24,16 +24,12 @@ public class AutoBlueBasket extends LinearOpMode {
         public double versionNumber = 12.9;
 
     }
-
     public static Params PARAMS = new Params();
     private MecanumDrive drive;
     private newBeak arm;
     private ViperAction vip;
     private BucketAction bucket;
     private ClawAction claw;
-
-
-
     @Override
     public void runOpMode(){
 
@@ -63,8 +59,8 @@ public class AutoBlueBasket extends LinearOpMode {
             toBasket();
             toPosTwo();
             toBasket();
-            //toPosThree();
-           // toBasket();
+            toPosThree();
+            toBasket();
 
     }
 
@@ -87,7 +83,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(true)
                 .lineToX(-20)
                 .build();
-        Actions.runBlocking(new ParallelAction(moveBack,vip.autonReset() ));
+        Actions.runBlocking(new ParallelAction(moveBack,vip.autonReset()));
     }
 
     private void toNewPosOne(){
@@ -104,17 +100,15 @@ public class AutoBlueBasket extends LinearOpMode {
                 .splineTo(new Vector2d(-21.2, -52.6), Math.toRadians(180))
                 .build();
         Actions.runBlocking(new SequentialAction((new ParallelAction (vip.autonReset(), moveTwo)), arm.autonReachSamp()));
-        //basket
     }
 
     private void toPosThree(){
         //pos three
         Action moveThree = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-21.2, -47), Math.toRadians(320))
+                .splineTo(new Vector2d(-19.2, -47), Math.toRadians(320))
                 .build();
         Actions.runBlocking(new SequentialAction((new ParallelAction (vip.autonReset(), moveThree)), arm.autonReachSamp()));
-        //basket
     }
     private void toBasket(){
         //basket
@@ -123,7 +117,6 @@ public class AutoBlueBasket extends LinearOpMode {
                 .splineTo(new Vector2d(-5.1, -54.2), Math.toRadians(-55))
                 .build();
         Actions.runBlocking(new SequentialAction(moveBasket, vip.dumpSampleLowBasket(), bucket.autonPrepForCatch(), vip.autonReset()) );
-
     }
 
     private void dumbBasket(){
