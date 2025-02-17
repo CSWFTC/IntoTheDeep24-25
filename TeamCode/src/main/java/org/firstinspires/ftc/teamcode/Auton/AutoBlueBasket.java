@@ -95,7 +95,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-21.2, -42.9), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(new SequentialAction(bucket.autonPrepForCatch(), moveOne, arm.autonReachSamp()));
+        Actions.runBlocking(new SequentialAction(moveOne, arm.autonReachSamp()));
     }
     private void toPosTwo(){
         //pos two
@@ -103,7 +103,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-21.2, -52.6), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(new SequentialAction(bucket.autonPrepForCatch(),moveTwo, arm.autonReachSamp()));
+        Actions.runBlocking(new SequentialAction(moveTwo, arm.autonReachSamp()));
         //basket
     }
 
@@ -123,7 +123,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(true)
                 .splineTo(new Vector2d(-5.1, -54.2), Math.toRadians(-55))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveBasket,vip.dumpSampleLowBasket(), vip.autonReset()) );
+        Actions.runBlocking(new SequentialAction(moveBasket,vip.dumpSampleLowBasket(), bucket.autonDumpSample(), vip.autonReset()) );
 
     }
 
