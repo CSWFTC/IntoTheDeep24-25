@@ -62,7 +62,7 @@ public class AutoBlueBasket extends LinearOpMode {
             toNewPosOne();
             toBasket();
             toPosTwo();
-          //  toBasket();
+            toBasket();
             //toPosThree();
            // toBasket();
 
