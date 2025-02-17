@@ -126,7 +126,6 @@ public class newBeak {
         }
     }
 
-
     //the servo for elbow
     public void PickUpElbow() {
         MoveElbow(PARAMS.elbowPickPos);
