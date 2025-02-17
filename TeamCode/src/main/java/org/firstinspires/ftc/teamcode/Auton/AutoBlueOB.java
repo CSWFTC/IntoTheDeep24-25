@@ -68,6 +68,7 @@ public class AutoBlueOB extends LinearOpMode {
                 }
                 humanPlayer();
                 toPark();
+                GoBack();
                 Reverse();
                 backToLine();
                 x++;
@@ -107,21 +108,29 @@ public class AutoBlueOB extends LinearOpMode {
         //move to mark
         Action lineM1 = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-20.5, PARAMS.y), Math.toRadians(180))
+                .splineTo(new Vector2d(-20, PARAMS.y), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(new SequentialAction(lineM1, Paw.autonReachSamp()));
+        Actions.runBlocking(new SequentialAction(lineM1, Paw.autonReachOB()));
     }
 
     public void humanPlayer(){
         //drop off in human player zone
         Action Player = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-14)
-                .turnTo(-20)
+                .lineToX(-6)
                 .build();
-        Actions.runBlocking(new SequentialAction(Player, Fur.autonDumpSample()));
+        Actions.runBlocking(new SequentialAction(Player, Fur.autonHuman(), Paw.dropToHuman()));
     }
 
+    public void GoBack(){
+        //give time for human player to pick up sample
+        //move out of the zone
+        Action back = drive.actionBuilder(drive.pose)
+                .setReversed(false)
+                .lineToX(-14)
+                .build();
+        Actions.runBlocking(back);
+    }
     public void Reverse(){
         //get ready to go to sub
         Action turnAgain = drive.actionBuilder(drive.pose)
@@ -135,13 +144,13 @@ public class AutoBlueOB extends LinearOpMode {
         //drop sample on sub
         Action backAgain = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .splineTo(new Vector2d(-29, -5), Math.toRadians(180))
+                .lineToX(-1)
                 .build();
         Actions.runBlocking(new SequentialAction(backAgain, Tiger.perfClawDropOnSub(), Roar.placeOnSub()));
 
         Action wait = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .waitSeconds(5)
+                .waitSeconds(100)
                 .build();
         Actions.runBlocking((wait));
     }
@@ -150,8 +159,8 @@ public class AutoBlueOB extends LinearOpMode {
         //to pick sample from human zone
         Action moveBasket= drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .turnTo(180)
-                .lineToX(-4)
+                // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
+                .strafeTo(new Vector2d(-1,48))
                 .build();
         Actions.runBlocking(new SequentialAction(moveBasket, Roar.grabFromHuman(), Tiger.perfBeforeDropOff(), Fur.autonBucketDown()));
 
