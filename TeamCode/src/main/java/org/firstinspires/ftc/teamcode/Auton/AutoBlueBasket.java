@@ -28,7 +28,6 @@ public class AutoBlueBasket extends LinearOpMode {
     public static Params PARAMS = new Params();
     private MecanumDrive drive;
     private newBeak arm;
-
     private ViperAction vip;
     private BucketAction bucket;
     private ClawAction claw;
@@ -94,7 +93,7 @@ public class AutoBlueBasket extends LinearOpMode {
     private void toNewPosOne(){
         Action moveOne = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-21.2, -43.4), Math.toRadians(180))
+                .splineTo(new Vector2d(-21.2, -42.9), Math.toRadians(180))
                 .build();
         Actions.runBlocking(new SequentialAction(bucket.autonPrepForCatch(), moveOne, arm.autonReachSamp()));
     }
@@ -102,7 +101,7 @@ public class AutoBlueBasket extends LinearOpMode {
         //pos two
         Action moveTwo = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-19, -43), Math.toRadians(180))
+                .splineTo(new Vector2d(-21.2, -52.9), Math.toRadians(180))
                 .build();
         Actions.runBlocking(new SequentialAction(bucket.autonPrepForCatch(),moveTwo, arm.autonReachSamp()));
         //basket
@@ -112,7 +111,7 @@ public class AutoBlueBasket extends LinearOpMode {
         //pos three
         Action moveThree = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-19, -47), Math.toRadians(320))
+                .splineTo(new Vector2d(-21.2, -47), Math.toRadians(320))
                 .build();
         Actions.runBlocking(new SequentialAction(bucket.autonPrepForCatch(), moveThree, arm.autonReachSamp()));
         //basket
@@ -122,8 +121,7 @@ public class AutoBlueBasket extends LinearOpMode {
         //basket
         Action moveBasket= drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .splineTo(new Vector2d(-5.6, -51.6), Math.toRadians(-50))
-
+                .splineTo(new Vector2d(-6.6, -50.8), Math.toRadians(-50))
                 .build();
         Actions.runBlocking(new SequentialAction(moveBasket,vip.dumpSampleLowBasket(), vip.autonReset()) );
 
