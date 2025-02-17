@@ -66,6 +66,7 @@ public class BucketAction {
     public Action autonPrepForCatch(){
         return packet ->{
           PrepForCatch();
+          SystemClock.sleep(100);
           return false;
         };
     }
