@@ -170,7 +170,7 @@ public class DriveControl extends LinearOpMode {
                 viperAction.perfMoveForSub();
                 break;
             case DPAD_RIGHT:
-                viperAction.moveForSub();
+                viperAction.perfPlaceOnSub();
                 break;
             case DPAD_UP:
                 viperAction.moveToHighBasket();
