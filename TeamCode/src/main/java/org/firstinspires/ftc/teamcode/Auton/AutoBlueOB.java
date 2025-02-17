@@ -144,7 +144,7 @@ public class AutoBlueOB extends LinearOpMode {
         //drop sample on sub
         Action backAgain = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-1)
+                .splineTo(new Vector2d(-29, -5), Math.toRadians(180))
                 .build();
         Actions.runBlocking(new SequentialAction(backAgain, Tiger.perfClawDropOnSub(), Roar.placeOnSub()));
 
