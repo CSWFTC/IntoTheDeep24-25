@@ -111,7 +111,7 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-22, PARAMS.y), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(new SequentialAction(lineM1, Paw.autonReachSamp()));
+        Actions.runBlocking(new SequentialAction(lineM1, Paw.autonReachOB()));
     }
 
     public void humanPlayer(){
@@ -128,7 +128,7 @@ public class AutoBlueOB extends LinearOpMode {
         //move out of the zone
         Action back = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .lineToX(-20)
+                .lineToX(-10)
                 .build();
         Actions.runBlocking(back);
     }
