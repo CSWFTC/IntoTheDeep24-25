@@ -110,7 +110,7 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-20, PARAMS.y), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(new SequentialAction(lineM1, Paw.autonReachOB()));
+        Actions.runBlocking(new SequentialAction(lineM1, new ParallelAction(Fur.autonHuman(),Paw.autonReachOB())));
     }
 
     public void humanPlayer(){
@@ -119,7 +119,7 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(true)
                 .lineToX(-6)
                 .build();
-        Actions.runBlocking(new SequentialAction(Player, Fur.autonHuman(), Paw.dropToHuman()));
+        Actions.runBlocking(new SequentialAction(Player, Paw.dropToHuman()));
     }
 
     public void GoBack(){
