@@ -59,11 +59,12 @@ public class ViperAction {
     private void moveToPosition(int targetPosition) {
         viperMotor.setTargetPosition(targetPosition);
 
-        if(PARAMS.hang == false)
-            viperMotor.setPower(PARAMS.viperMotorSpeed);
-        else
+        if(PARAMS.hang == false){
+            viperMotor.setPower(PARAMS.viperMotorSpeed);}
+        else {
             viperMotor.setPower(0.5);
             PARAMS.hang = false;
+        }
         viperMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
@@ -174,7 +175,7 @@ public class ViperAction {
     public Action perfClawDropOnSub () {
         return packet -> {
             perfPlaceOnSub();
-            SystemClock.sleep(1000);
+            SystemClock.sleep(500);
             return false;
         };
     }
@@ -182,7 +183,7 @@ public class ViperAction {
     public Action perfBeforeDropOff() {
         return packet -> {
             perfMoveForSub();
-            SystemClock.sleep(1000);
+            SystemClock.sleep(500);
             return false;
         };
     }
