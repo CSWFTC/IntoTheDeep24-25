@@ -53,7 +53,6 @@ public class AutoBlueBasket extends LinearOpMode {
 
         waitForStart();
         telemetry.clear();
-
             toSub();
             toNewPosOne();
             toBasket();

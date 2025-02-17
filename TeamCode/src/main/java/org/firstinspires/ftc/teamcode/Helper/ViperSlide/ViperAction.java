@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 public class ViperAction {
     public static class Params {
         public boolean viperMotorReverse = true;
-        public int  viperHighBasketPos = 2000;  // High Basket
+        public int  viperHighBasketPos = 2880;  // High Basket
         public double viperLowBasketPos = 1050;   // Low Basket (Approx 38% of High Basket)
         public double viperCatchPoint = 0;        // Catch Point for Sample
         public double viperMotorSpeed = 0.9;
@@ -35,12 +35,9 @@ public class ViperAction {
         public int autonReset = 100;
         public double power = 0;
         public boolean hang = false;
-
-
     }
 
     public static Params PARAMS = new Params();
-
     private final DcMotor viperMotor;
     private BucketAction bucketAction;
     private ClawAction clawAction;
