@@ -104,7 +104,7 @@ public class AutoBlueBasket extends LinearOpMode {
         //pos three
         Action moveThree = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-21.2, -53.0), Math.toRadians(-15))
+                .splineTo(new Vector2d(-21.2, -53.0), Math.toRadians(-2))
                 .build();
         Actions.runBlocking(new SequentialAction((new ParallelAction (vip.autonReset(), moveThree)), arm.autonReachSamp()));
     }
