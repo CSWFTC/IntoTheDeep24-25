@@ -61,7 +61,7 @@ public class AutoBlueBasket extends LinearOpMode {
             toSub();
             toNewPosOne();
             toBasket();
-          //  toPosTwo();
+            toPosTwo();
           //  toBasket();
             //toPosThree();
            // toBasket();
@@ -121,9 +121,9 @@ public class AutoBlueBasket extends LinearOpMode {
         //basket
         Action moveBasket= drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .splineTo(new Vector2d(-7.1, -52.9), Math.toRadians(-55))
+                .splineTo(new Vector2d(-6.1, -52.9), Math.toRadians(-60))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveBasket,vip.dumpSampleHighBasket(), vip.autonReset()) );
+        Actions.runBlocking(new SequentialAction(moveBasket,vip.dumpSampleLowBasket(), vip.autonReset()) );
 
     }
 
