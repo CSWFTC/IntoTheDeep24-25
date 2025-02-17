@@ -74,7 +74,7 @@ public class BucketAction {
     public Action autonHuman(){
         return packet -> {
             MoveBucket(PARAMS.bucketDumpPos);
-            SystemClock.sleep(500);
+            SystemClock.sleep(1000);
             return false;
         };
     }
