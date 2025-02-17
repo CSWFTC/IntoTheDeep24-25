@@ -220,13 +220,13 @@ public class newBeak {
 
             closedBeak();
             SystemClock.sleep((long) PARAMS.beakClosedDelay);
-            MoveElbow(PARAMS.elbowSlideDumpPos);
             return false;
         };
     }
 
     public Action dropToHuman (){
         return packet -> {
+            MoveElbow(PARAMS.elbowSlideDumpPos);
             SystemClock.sleep((long)PARAMS.suplexOpenBeakDelay);
             openBeak();
             SystemClock.sleep((long) PARAMS.suplexOpenBeakDelay + (long) PARAMS.beakClosedDelay);
