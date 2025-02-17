@@ -175,7 +175,7 @@ public class ViperAction {
     public Action perfClawDropOnSub () {
         return packet -> {
             perfPlaceOnSub();
-            SystemClock.sleep(900);
+            SystemClock.sleep(1000);
             return false;
         };
     }
@@ -183,7 +183,7 @@ public class ViperAction {
     public Action perfBeforeDropOff() {
         return packet -> {
             perfMoveForSub();
-            SystemClock.sleep(900);
+            SystemClock.sleep(1000);
             return false;
         };
     }
