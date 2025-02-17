@@ -77,4 +77,11 @@ public class BucketAction {
             return false;
         };
     }
+
+    public Action autonBucketDown(){
+        return packet -> {
+            MoveBucket(PARAMS.bucketCatchPos);
+          return false;
+        };
+    }
 }
