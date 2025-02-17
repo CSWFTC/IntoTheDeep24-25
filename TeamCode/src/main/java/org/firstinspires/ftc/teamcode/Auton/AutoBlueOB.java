@@ -50,7 +50,6 @@ public class AutoBlueOB extends LinearOpMode {
 
         if(PARAMS.easy){
             forward();
-            toPark();
         }
         else{
             toLine();
@@ -67,7 +66,6 @@ public class AutoBlueOB extends LinearOpMode {
                     markOne();
                 }
                 humanPlayer();
-                toPark();
                 GoBack();
                 Reverse();
                 backToLine();
