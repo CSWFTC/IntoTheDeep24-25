@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 public class AutoBlueBasket extends LinearOpMode {
 
     public static class Params {
-        public double versionNumber = 12.5;
+        public double versionNumber = 12.9;
 
     }
 
@@ -87,7 +87,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(true)
                 .lineToX(-20)
                 .build();
-        Actions.runBlocking(new SequentialAction(moveBack,vip.autonReset() ));
+        Actions.runBlocking(new ParallelAction(moveBack,vip.autonReset() ));
     }
 
     private void toNewPosOne(){
@@ -103,7 +103,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-21.2, -52.6), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveTwo, arm.autonReachSamp()));
+        Actions.runBlocking(new SequentialAction((new ParallelAction (vip.autonReset(), moveTwo)), arm.autonReachSamp()));
         //basket
     }
 
@@ -113,10 +113,9 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-21.2, -47), Math.toRadians(320))
                 .build();
-        Actions.runBlocking(new SequentialAction(bucket.autonPrepForCatch(), moveThree, arm.autonReachSamp()));
+        Actions.runBlocking(new SequentialAction((new ParallelAction (vip.autonReset(), moveThree)), arm.autonReachSamp()));
         //basket
     }
-
     private void toBasket(){
         //basket
         Action moveBasket= drive.actionBuilder(drive.pose)
