@@ -110,7 +110,7 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-20, PARAMS.y), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(new SequentialAction(lineM1, Paw.autonReachOB()));
+        Actions.runBlocking(new SequentialAction(lineM1, new ParallelAction(Fur.autonHuman(),Paw.autonReachOB())));
     }
 
     public void humanPlayer(){
@@ -119,7 +119,7 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(true)
                 .lineToX(-6)
                 .build();
-        Actions.runBlocking(new SequentialAction(Player, Fur.autonHuman(), Paw.dropToHuman()));
+        Actions.runBlocking(new SequentialAction(Player, Paw.dropToHuman()));
     }
 
     public void GoBack(){
@@ -160,7 +160,7 @@ public class AutoBlueOB extends LinearOpMode {
         Action moveBasket= drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
-                .strafeTo(new Vector2d(-1,48))
+                .lineToX(-1)
                 .build();
         Actions.runBlocking(new SequentialAction(moveBasket, Roar.grabFromHuman(), Tiger.perfBeforeDropOff(), Fur.autonBucketDown()));
 
