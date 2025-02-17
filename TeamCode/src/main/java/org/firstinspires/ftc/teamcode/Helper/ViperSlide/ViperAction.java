@@ -34,6 +34,7 @@ public class ViperAction {
         public double dumpDelay = 1000;
         public int autonReset = 100;
         public double power = 0;
+        public boolean hang = false;
 
 
     }
@@ -58,6 +59,10 @@ public class ViperAction {
     private void moveToPosition(int targetPosition) {
         viperMotor.setTargetPosition(targetPosition);
         viperMotor.setPower(PARAMS.viperMotorSpeed);
+        if(PARAMS.hang) {
+            viperMotor.setPower(0.6);
+            PARAMS.hang = false;
+        }
         viperMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
@@ -132,11 +137,11 @@ public class ViperAction {
     /*
     Claw + Viper
      */
-    public void moveForSub () { moveToPosition((int) PARAMS.clawLow);}
-    public void placeOnSub () {moveToPosition((int) PARAMS.clawLowHang);}
-    public void clawHuman () {moveToPosition((int) PARAMS.clawWall);}
-    public void perfMoveForSub () {moveToPosition((int) PARAMS.clawHigh);}
-    public void perfPlaceOnSub () {moveToPosition((int) PARAMS.clawHighHang);}
+    public void moveForSub () {PARAMS.hang = true; moveToPosition((int) PARAMS.clawLow);}
+    public void placeOnSub () {PARAMS.hang = true; moveToPosition((int) PARAMS.clawLowHang);}
+    public void clawHuman () {PARAMS.hang = true; moveToPosition((int) PARAMS.clawWall);}
+    public void perfMoveForSub () {PARAMS.hang = true; moveToPosition((int) PARAMS.clawHigh);}
+    public void perfPlaceOnSub () {PARAMS.hang = true; moveToPosition((int) PARAMS.clawHighHang);}
 
     /*
     Claw + Viper Auto
