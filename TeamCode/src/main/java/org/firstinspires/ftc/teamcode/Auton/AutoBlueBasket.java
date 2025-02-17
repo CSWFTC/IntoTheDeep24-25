@@ -116,7 +116,6 @@ public class AutoBlueBasket extends LinearOpMode {
         Actions.runBlocking(new SequentialAction(new ParallelAction(vip.autonReset(), moveThree)), arm.autonReachSamp());
         //basket
     }
-
     private void toBasket(){
         //basket
         Action moveBasket= drive.actionBuilder(drive.pose)
