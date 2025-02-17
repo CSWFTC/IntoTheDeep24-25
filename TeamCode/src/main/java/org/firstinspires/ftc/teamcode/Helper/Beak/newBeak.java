@@ -46,7 +46,7 @@ public class newBeak {
         public double suplexOpenBeakDelay = 1000;
         public double suplexOpenSecondBeakDelay = 550;
 
-        public double suplexMoveToDrivePositionDelay = 1700;
+        public double suplexMoveToDrivePositionDelay = 1580;
         public double pickupBeakOpenDelay = 100;   //ms Until Open Beak Fully When At Top
     }
 
