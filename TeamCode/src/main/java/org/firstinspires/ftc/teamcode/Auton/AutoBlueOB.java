@@ -90,7 +90,7 @@ public class AutoBlueOB extends LinearOpMode {
 
         Action extraMove = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-29)
+                .lineToX(-29.5)
                 .build();
         Actions.runBlocking(new SequentialAction(extraMove, Tiger.perfClawDropOnSub(), Roar.placeOnSub()));
 
@@ -111,7 +111,7 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-25, PARAMS.y), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(lineM1);
+        Actions.runBlocking(new SequentialAction(lineM1, Paw.autonReachSamp()));
     }
 
     public void humanPlayer(){
