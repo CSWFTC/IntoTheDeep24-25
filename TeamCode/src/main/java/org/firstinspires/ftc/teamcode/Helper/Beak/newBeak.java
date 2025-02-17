@@ -16,10 +16,14 @@ public class newBeak {
 
     public static class Params {
         //slider
-        public double sliderMaxPos = 0.445;
-        public double sliderMinPos = 0.07;
+        public double sliderMaxPos = 0.440;
+        public double sliderMinPos = 0.045;
         public double sliderPosChange = 0.03;
 
+
+        //hover height is wrong
+        //slider needs to be faster
+        //fix suplex sequence
         //beak
         public double beakOpenDropPos = 0.39; //for suplex
         public double beakOpenPickupPos = 0.42; //for pick up
@@ -32,13 +36,16 @@ public class newBeak {
         //elbow
         public double elbowPickPos = 0.48;     // Pickup Off Mat
         public double elbowReachPos = 0.49;    // Grabber Extended Drive
-        public double elbowSuplexPos = 0.565;    // Suplex in Bucket
+        public double elbowSuplexEndingPos = 0.565;    // Suplex in Bucket
         public double elbowStartPos = 0.541;    // Drive Position
         public double elbowSlideDumpPos = 0.575;
-        public double elbowClimbInit = 0.51;
+        public double elbowClimbInit = 0.555;
+        public double elbowSuplexStartPos = 0.55;
 
         //delays
-        public double suplexOpenBeakDelay = 1500;
+        public double suplexOpenBeakDelay = 1000;
+        public double suplexOpenSecondBeakDelay = 600;
+
         public double suplexMoveToDrivePositionDelay = 1700;
         public double pickupBeakOpenDelay = 100;   //ms Until Open Beak Fully When At Top
     }
@@ -127,8 +134,7 @@ public class newBeak {
     }
 
     public void suplexElbPos() {
-
-        MoveElbow(PARAMS.elbowSuplexPos);
+        MoveElbow(PARAMS.elbowSuplexEndingPos);
     }
 
     public void ElbStart(){
@@ -141,10 +147,18 @@ public class newBeak {
             closedBeak();
             DeferredActions.CreateDeferredAction((long) PARAMS.beakClosedDelay, DeferredActions.DeferredActionType.SUPLEX_BEAK);
         } else {
+            double curpos = viper.getPosition();
             MoveSlider(PARAMS.sliderMinPos);
             suplexElbPos();
-            DeferredActions.CreateDeferredAction( (long) PARAMS.suplexOpenBeakDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
+                if(curpos >= 0.2425){
+                    DeferredActions.CreateDeferredAction( (long) PARAMS.suplexOpenBeakDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
+                }
+                else {
+                    DeferredActions.CreateDeferredAction( (long) PARAMS.suplexOpenSecondBeakDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
+                }
             DeferredActions.CreateDeferredAction((long) PARAMS.suplexMoveToDrivePositionDelay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
+
+
         }
     }
 
@@ -170,7 +184,7 @@ public class newBeak {
     public void climbPostitions(){
         closedBeak();
         MoveSlider(PARAMS.sliderMinPos);
-        MoveElbow(PARAMS.elbowSlideDumpPos);
+        MoveElbow(PARAMS.elbowClimbInit);
     }
 
     public void autonStartPos(){
