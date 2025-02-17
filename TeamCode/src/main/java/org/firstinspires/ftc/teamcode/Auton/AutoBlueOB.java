@@ -50,7 +50,6 @@ public class AutoBlueOB extends LinearOpMode {
 
         if(PARAMS.easy){
             forward();
-            toPark();
         }
         else{
             toLine();
@@ -67,7 +66,6 @@ public class AutoBlueOB extends LinearOpMode {
                     markOne();
                 }
                 humanPlayer();
-                toPark();
                 GoBack();
                 Reverse();
                 backToLine();
@@ -117,9 +115,9 @@ public class AutoBlueOB extends LinearOpMode {
         //drop off in human player zone
         Action Player = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-6)
+                .lineToX(0)
                 .build();
-        Actions.runBlocking(new SequentialAction(Player, Paw.dropToHuman()));
+        Actions.runBlocking(new SequentialAction(Player, new ParallelAction(Paw.dropToHuman(), Roar.grabFromHuman()), new ParallelAction(Tiger.perfBeforeDropOff(), Fur.autonBucketDown())));
     }
 
     public void GoBack(){
@@ -153,17 +151,6 @@ public class AutoBlueOB extends LinearOpMode {
                 .waitSeconds(100)
                 .build();
         Actions.runBlocking((wait));
-    }
-
-    private void toPark(){
-        //to pick sample from human zone
-        Action moveBasket= drive.actionBuilder(drive.pose)
-                .setReversed(true)
-                // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
-                .lineToX(-1)
-                .build();
-        Actions.runBlocking(new SequentialAction(moveBasket, Roar.grabFromHuman(), Tiger.perfBeforeDropOff(), Fur.autonBucketDown()));
-
     }
 
     private void toParkLast(){
