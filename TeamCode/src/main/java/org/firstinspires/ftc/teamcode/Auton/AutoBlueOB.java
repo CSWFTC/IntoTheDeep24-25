@@ -102,14 +102,14 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(false)
                 .lineToX(-20)
                 .build();
-        Actions.runBlocking(new SequentialAction(moveBack, Tiger.clawHumanGrab()));
+        Actions.runBlocking(new ParallelAction(moveBack, Tiger.clawHumanGrab()));
     }
 
     public void markOne(){
         //move to mark
         Action lineM1 = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-21.5, PARAMS.y), Math.toRadians(180))
+                .splineTo(new Vector2d(-22, PARAMS.y), Math.toRadians(180))
                 .build();
         Actions.runBlocking(new SequentialAction(lineM1, Paw.autonReachOB()));
     }
