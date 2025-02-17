@@ -109,7 +109,7 @@ public class AutoBlueOB extends LinearOpMode {
         //move to mark
         Action lineM1 = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-25, PARAMS.y), Math.toRadians(180))
+                .splineTo(new Vector2d(-23, PARAMS.y), Math.toRadians(180))
                 .build();
         Actions.runBlocking(new SequentialAction(lineM1, Paw.autonReachSamp()));
     }
@@ -118,7 +118,7 @@ public class AutoBlueOB extends LinearOpMode {
         //drop off in human player zone
         Action Player = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-20)
+                .lineToX(-4)
                 .build();
         Actions.runBlocking(new SequentialAction(Player, Fur.autonHuman(), Paw.dropToHuman()));
     }
@@ -163,7 +163,7 @@ public class AutoBlueOB extends LinearOpMode {
                 // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
                 .strafeTo(new Vector2d(-1,48))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveBasket, Roar.grabFromHuman(), Tiger.perfBeforeDropOff()));
+        Actions.runBlocking(new SequentialAction(moveBasket, Roar.grabFromHuman(), Tiger.perfBeforeDropOff(), Fur.autonBucketDown()));
 
     }
 
