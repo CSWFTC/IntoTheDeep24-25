@@ -231,7 +231,7 @@ public class newBeak {
         return packet -> {
             SystemClock.sleep((long)PARAMS.suplexOpenBeakDelay);
             openBeak();
-            SystemClock.sleep((long) PARAMS.suplexOpenBeakDelay + (long) PARAMS.beakClosedDelay);
+            SystemClock.sleep(900);
             ElbStart();
             return false;
         };
