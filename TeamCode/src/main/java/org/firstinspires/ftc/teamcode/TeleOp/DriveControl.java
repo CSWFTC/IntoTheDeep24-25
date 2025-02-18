@@ -33,8 +33,7 @@ public class DriveControl extends LinearOpMode {
     private HangAction hangAction;
     private newBeak beakAction;
     private LEDColorHelper colorful;
-    private static final String version = "2.0" +
-            "";
+    private static final String version = "2.0";
     private boolean setReversed = false;
     private double speedMultiplier = 1;
     private GamePad gpIn1;
@@ -94,6 +93,7 @@ public class DriveControl extends LinearOpMode {
 
     public void padOne(){
         GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
+        if(!thirdScheme){
         switch (inpType1) {
             case DPAD_DOWN:
                 beakAction.DecreaseElbow();
@@ -144,8 +144,19 @@ public class DriveControl extends LinearOpMode {
                         gamepad1.right_stick_x * (float) speedMultiplier,
                         gamepad1.left_stick_y * (float) speedMultiplier, setReversed);
                 break;
-        }
+        } }
+        else {
+            switch (inpType1) {
+                case LEFT_TRIGGER:
+                    hangAction.moveStage1Motors(-gamepad1.left_trigger);
+                    break;
+                case RIGHT_TRIGGER:
+                    hangAction.moveStage1Motors(gamepad1.right_trigger);
+                    break;
+            }
 
+
+        }
     }
 
     public void padTwo(){
@@ -215,6 +226,18 @@ public class DriveControl extends LinearOpMode {
                     bucketAction.StartPosition();
                     sleep(1000);
                     beakAction.autonStartPos();
+                    break;
+                case LEFT_TRIGGER:
+                    hangAction.flipBackward();
+                    break;
+                case RIGHT_TRIGGER:
+                    hangAction.flipForward();
+                    break;
+                case BUTTON_L_BUMPER:
+                    hangAction.grappleFlipDown();
+                    break;
+                case BUTTON_R_BUMPER:
+                    hangAction.grappleFlipUp();
                     break;
             }
 
