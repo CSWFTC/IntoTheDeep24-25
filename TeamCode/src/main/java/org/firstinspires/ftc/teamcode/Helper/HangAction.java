@@ -56,7 +56,7 @@ public class HangAction {
         grapple.setPosition(PARAMS.grappleClimbPos);
     }
 
-    public void grappleFlipDown() {
+    public void grappleStartPosition() {
         grapple.setPosition(PARAMS.grappleStartPos);
     }
 
@@ -69,17 +69,7 @@ public class HangAction {
         double posUp = Math.min((grapple.getPosition() + 0.05), 0.90);
         grapple.setPosition(posUp);
     }
-
-    public void flipForward(){
-        double posUp = Math.min((grapple.getPosition() + 0.05), 0.90);
-        grapple.setPosition(posUp);
-    }
-
-    public void flipBackward(){
-        double posDown = Math.max((grapple.getPosition() - 0.05), 0.09);
-        grapple.setPosition(posDown);
-    }
-
+    
 
 }
 
