@@ -218,7 +218,7 @@ public class newBeak {
         return packet -> {
             openBeak();
             PickUpElbow();
-            SystemClock.sleep(1000);
+            SystemClock.sleep(600);
 
             closedBeak();
             SystemClock.sleep((long) PARAMS.beakClosedDelay);
@@ -229,7 +229,6 @@ public class newBeak {
 
     public Action dropToHuman (){
         return packet -> {
-            SystemClock.sleep((long)PARAMS.suplexOpenBeakDelay);
             openBeak();
             SystemClock.sleep(900);
             ElbStart();

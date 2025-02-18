@@ -56,7 +56,7 @@ public class AutoBlueOB extends LinearOpMode {
             while (x < 3) {
                 moveBack();
                 if(x == 0) {
-                    PARAMS.y = 38;
+                    PARAMS.y = 37.5;
                     markOne();
                 } else if (x == 1){
                     PARAMS.y = 44;
@@ -106,7 +106,7 @@ public class AutoBlueOB extends LinearOpMode {
         //move to mark
         Action lineM1 = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-20, PARAMS.y), Math.toRadians(180))
+                .splineTo(new Vector2d(-21, PARAMS.y), Math.toRadians(180))
                 .build();
         Actions.runBlocking(new SequentialAction(lineM1, new ParallelAction(Fur.autonHuman(),Paw.autonReachOB())));
     }
