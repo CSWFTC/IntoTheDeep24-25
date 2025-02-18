@@ -12,11 +12,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 @Config
 public class BucketAction {
     public static class Params {
-       // public double bucketStartPos = 0.32;   // Tucked in For Driving
-        public double bucketCatchPos = 0.975;  // Catch from Beak
+        public double bucketCatchPos = 0.99;  // Catch from Beak
         public double bucketDumpPos = 0.475;    // Dump to Basket
         public double bucketClimbSafePos = 0.0; // Wrap to outside of Viper Slide
-        //0.08 --> straight up
     }
 
     public static Params PARAMS = new Params();
