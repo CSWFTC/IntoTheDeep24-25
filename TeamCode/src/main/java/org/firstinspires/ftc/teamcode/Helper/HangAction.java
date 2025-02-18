@@ -54,6 +54,16 @@ public class HangAction {
     public void flipDown() {
         grapple.setPosition(0.0);
     }
+
+    public void flipForward(){
+        double posUp = Math.min((grapple.getPosition() + 0.05), 0.90);
+        grapple.setPosition(posUp);
+    }
+
+    public void flipBackward(){
+        double posDown = Math.max((grapple.getPosition() - 0.05), 0.09);
+        grapple.setPosition(posDown);
+    }
 }
 
 
