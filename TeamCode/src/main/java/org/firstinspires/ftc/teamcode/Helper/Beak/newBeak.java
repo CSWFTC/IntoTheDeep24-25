@@ -25,10 +25,10 @@ public class newBeak {
         //slider needs to be faster
         //fix suplex sequence
         //beak
-        public double beakOpenDropPos = 0.39; //for suplex
-        public double beakOpenPickupPos = 0.42; //for pick up
-        public double beakWideOpen = 0.65; // for wider opening
-        public double beakClosePos = 0.255; // closed
+        public double beakOpenDropPos = 0.61; //for suplex
+        public double beakOpenPickupPos = 0.63; //for pick up
+        public double beakWideOpen = 0.66; // for wider opening
+        public double beakClosePos = 0.47; // closed
 
         public double beakClosedDelay = 50;
         public double beakPickUpDelay = 200;
@@ -36,10 +36,11 @@ public class newBeak {
         //elbow
         public double elbowPickPos = 0.48;     // Pickup Off Mat
         public double elbowReachPos = 0.49;    // Grabber Extended Drive
-        public double elbowSuplexEndingPos = 0.565;    // Suplex in Bucket
+        public double elbowSuplexEndingPos = 0.56;    // Suplex in Bucket
         public double elbowStartPos = 0.541;    // Drive Position
         public double elbowSlideDumpPos = 0.575;
         public double elbowClimbInit = 0.555;
+        public double elbowClimbSafePos = 0.575;
         public double elbowSuplexStartPos = 0.55;
 
         //delays
@@ -177,10 +178,12 @@ public class newBeak {
             SuplexSample();
     }
 
-    public void initElbClimb(){
-        MoveElbow(PARAMS.elbowClimbInit);
+    public void ClimbInitialize() {
+        closedBeak();
+        MoveElbow(PARAMS.elbowStartPos);
     }
-    public void climbPostitions(){
+
+    public void ClimbPostitions(){
         closedBeak();
         MoveSlider(PARAMS.sliderMinPos);
         MoveElbow(PARAMS.elbowClimbInit);
