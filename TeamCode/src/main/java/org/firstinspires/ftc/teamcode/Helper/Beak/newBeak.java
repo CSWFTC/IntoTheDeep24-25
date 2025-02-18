@@ -34,7 +34,7 @@ public class newBeak {
         public double beakPickUpDelay = 200;
 
         //elbow
-        public double elbowPickPos = 0.48;     // Pickup Off Mat
+        public double elbowPickPos = 0.475;     // Pickup Off Mat
         public double elbowReachPos = 0.49;    // Grabber Extended Drive
         public double elbowSuplexEndingPos = 0.56;    // Suplex in Bucket
         public double elbowStartPos = 0.541;    // Drive Position
