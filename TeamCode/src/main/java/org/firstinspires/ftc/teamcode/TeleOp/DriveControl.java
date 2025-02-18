@@ -1,12 +1,8 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
-import androidx.annotation.NonNull;
-
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.LED;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Helper.Beak.newBeak;
@@ -52,6 +48,7 @@ public class DriveControl extends LinearOpMode {
 
         // Load Introduction and Wait for Start
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
+        colorful.setLEDColor(LEDColorHelper.LEDColor.VIOLET);
         telemetry.addLine("Driver Control");
         telemetry.addData("Version Number", version);
         telemetry.addLine();
@@ -65,7 +62,7 @@ public class DriveControl extends LinearOpMode {
         }
 
         telemetry.clear();
-        colorful.setLEDColor(LEDColorHelper.LEDColor.VIOLET);
+        colorful.setLEDColor(LEDColorHelper.LEDColor.AZURE);
         beakAction.autonStartPos();
         bucketAction.StartPosition();
 
@@ -82,8 +79,8 @@ public class DriveControl extends LinearOpMode {
            //gamepad two
             padTwo();
 
-            if(!thirdScheme){
-                colorful.setLEDColor(LEDColorHelper.LEDColor.VIOLET);
+            if (!thirdScheme) {
+                colorful.setLEDColor(LEDColorHelper.LEDColor.AZURE);
             }
             else{
                 colorful.setLEDColor(LEDColorHelper.LEDColor.ORANGE);
@@ -151,94 +148,72 @@ public class DriveControl extends LinearOpMode {
     }
 
     public void padTwo(){
-        if(!thirdScheme){
         GamePad.GameplayInputType inpType2 = gpIn2.WaitForGamepadInput(30);
-        switch (inpType2) {
-            case BUTTON_L_BUMPER:
-                bucketAction.ToggleBucket();
-                break;
-            case BUTTON_R_BUMPER:
-                break;
-            case LEFT_TRIGGER:
-                viperAction.moveWithPower(-gamepad2.left_trigger);
-                break;
-            case RIGHT_TRIGGER:
-                viperAction.moveWithPower(gamepad2.right_trigger);
-                break;
-            case DPAD_LEFT:
-                viperAction.perfMoveForSub();
-                break;
-            case DPAD_RIGHT:
-                viperAction.perfPlaceOnSub();
-                break;
-            case DPAD_UP:
-                viperAction.moveToHighBasket();
-                break;
-            case DPAD_DOWN:
-                viperAction.moveToLowBasket();
-                break;
-            case BUTTON_B:
-                clawAction.OpenGrip();
-                break;
-            case BUTTON_X:
-                clawAction.CloseGrip();
-                break;
-            case BUTTON_A:
-                viperAction.HoldPosition();
-                break;
-            case RIGHT_STICK_BUTTON_ON:
-                viperAction.resetEncoders();
-                break;
-            case JOYSTICK:
-                hangAction.moveMotors(-gamepad2.left_stick_y);
-                hangAction.moveHang2(-gamepad2.right_stick_y);
-                hangAction.moveHangDown(gamepad2.right_stick_y);
-                break;
-            case BUTTON_BACK:
-                beakAction.initElbClimb();
-                clawAction.CloseGrip();
-                sleep(1000);
-                bucketAction.climbPostitions();
-                sleep(500);
-                beakAction.climbPostitions();
-                sleep(500);
-                thirdScheme = true;
-                break;
-            }
-        }
-
-        else{
-            GamePad.GameplayInputType inpType2 = gpIn2.WaitForGamepadInput(30);
+        if (!thirdScheme) {
             switch (inpType2) {
                 case BUTTON_L_BUMPER:
+                    bucketAction.ToggleBucket();
                     break;
                 case BUTTON_R_BUMPER:
                     break;
                 case LEFT_TRIGGER:
+                    viperAction.moveWithPower(-gamepad2.left_trigger);
                     break;
                 case RIGHT_TRIGGER:
+                    viperAction.moveWithPower(gamepad2.right_trigger);
+                    break;
+                case DPAD_LEFT:
+                    viperAction.perfMoveForSub();
+                    break;
+                case DPAD_RIGHT:
+                    viperAction.perfPlaceOnSub();
                     break;
                 case DPAD_UP:
+                    viperAction.moveToHighBasket();
                     break;
                 case DPAD_DOWN:
-                    break;
-                case BUTTON_Y:
-                    break;
-                case BUTTON_A:
+                    viperAction.moveToLowBasket();
                     break;
                 case BUTTON_B:
+                    clawAction.OpenGrip();
                     break;
                 case BUTTON_X:
+                    clawAction.CloseGrip();
                     break;
+                case BUTTON_A:
+                    viperAction.HoldPosition();
+                    break;
+                case RIGHT_STICK_BUTTON_ON:
+                    viperAction.resetEncoders();
+                    break;
+                case JOYSTICK:
+                    hangAction.moveStage1Motors(-gamepad2.left_stick_y);
+                    hangAction.moveStage2Motor(-gamepad2.right_stick_y);
+                    hangAction.moveHangDown(gamepad2.right_stick_y);
+                    break;
+                case BUTTON_BACK:
+                    clawAction.CloseGrip();
+                    beakAction.ClimbPostitions();
+                    sleep(1000);
+                    bucketAction.climbPostitions();
+                    sleep(800);
+                    thirdScheme = true;
+                    break;
+            }
+        } else {
+            switch (inpType2) {
                 case RIGHT_STICK_BUTTON_ON:
                     break;
                 case JOYSTICK:
-                    hangAction.moveMotors(-gamepad2.left_stick_y);
-                    hangAction.moveHang2(-gamepad2.right_stick_y);
+                    hangAction.moveStage1Motors(-gamepad2.left_stick_y);
+                    hangAction.moveStage2Motor(-gamepad2.right_stick_y);
                     hangAction.moveHangDown(gamepad2.right_stick_y);
                     break;
                 case BUTTON_BACK:
                     thirdScheme = false;
+                    bucketAction.StartPosition();
+                    sleep(1000);
+                    beakAction.autonStartPos();
                     break;
             }
 
