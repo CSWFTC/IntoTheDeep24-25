@@ -19,15 +19,15 @@ import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 @TeleOp(name="Test 3 Motor Hang", group="Hardware")
 public class TestThreeMotorHang extends LinearOpMode {
 
-    public static final String version = "2.0 ";
+    public static final String version = "2.1 ";
 
     public static class Params {
         public String motor1Name = "hookLeft";
-        public Boolean motor1Forward = true;
+        public Boolean motor1Forward = false;
         public String motor2Name = "hookRight";
-        public Boolean motor2Forward = true;
+        public Boolean motor2Forward = false;
         public String motor3Name = "hookSecond";
-        public Boolean motor3Forward = false;
+        public Boolean motor3Forward = true;
         public String grappleServo = "grappleServo";
     }
 
@@ -74,75 +74,58 @@ public class TestThreeMotorHang extends LinearOpMode {
 
         waitForStart();
         telemetry.clear();
-        beak.initElbClimb();
-        claw.CloseGrip();
-        sleep(1000);
-        bucket.climbPostitions();
-        sleep(500);
-        beak.climbPostitions();
-        sleep(500);
 
+        // Move to Climb Configuration
+        claw.CloseGrip();
+        beak.ClimbInitialize();
+        sleep(800);
+        bucket.climbPostitions();
+        sleep(1000);
+        beak.ClimbPostitions();
 
         while (opModeIsActive()) {
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
             switch (inpType1) {
 
                 case JOYSTICK:
-                    if (motor1.getMode() != DcMotor.RunMode.RUN_USING_ENCODER) {
-                        motor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                        motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                    }
-                    motor1.setPower(gamepad1.left_stick_y);
-                    motor2.setPower(gamepad1.left_stick_y);
+                    motor1.setPower(-gamepad1.left_stick_y);
+                    motor2.setPower(-gamepad1.left_stick_y);
+                    motor3.setPower(-gamepad1.right_stick_y);
                     break;
 
-                case LEFT_TRIGGER:
-                    motor3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                    motor3.setPower(-gamepad1.left_trigger);
-                    break;
-
-                case RIGHT_TRIGGER:
-                    motor3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                    motor3.setPower(gamepad1.right_trigger);
-                    break;
-
-                case BUTTON_A:
-                    //backward
-                    motor1.setDirection(DcMotorSimple.Direction.REVERSE);
-                    motor2.setDirection(DcMotorSimple.Direction.REVERSE);
-                    break;
-
-                case BUTTON_Y:
-                    //forward
-                    motor1.setDirection(DcMotorSimple.Direction.FORWARD);
-                    motor2.setDirection(DcMotorSimple.Direction.FORWARD);
+                case BUTTON_X:
+                    motor3.setPower(0.03);
+                    sleep(3000);
+                    motor3.setPower(0.0);
                     break;
 
                 case BUTTON_B:
-                    motor1.setTargetPosition(0);
-                    motor2.setTargetPosition(0);
-                    motor2.setPower(0.5);
-                    motor1.setPower(0.5);
-                    motor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    motor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    break;
-
-
-                case BUTTON_R_BUMPER:
-                    motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    motor3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    motor1.setPower(0.02);
+                    motor2.setPower(0.02);
+                    sleep(3000);
+                    motor1.setPower(0.00);
+                    motor2.setPower(0.00);
                     break;
 
                 case BUTTON_L_BUMPER:
                     break;
 
                 case DPAD_UP:
-                    grappleServo.setPosition(0.5); // Flips up
+                    grappleServo.setPosition(0.75); // Flips up
+                    break;
+
+                case DPAD_LEFT:
+                    double posUp = Math.min((grappleServo.getPosition() + 0.05), 0.90);
+                    grappleServo.setPosition(posUp);
+                    break;
+
+                case DPAD_RIGHT:
+                    double posDown = Math.max((grappleServo.getPosition() - 0.05), 0.09);
+                    grappleServo.setPosition(posDown);
                     break;
 
                 case DPAD_DOWN:
-                    grappleServo.setPosition(0.0); //  default position
+                    grappleServo.setPosition(0.09); //  default position
                     break;
             }
 
