@@ -56,7 +56,7 @@ public class AutoBlueOB extends LinearOpMode {
             while (x < 3) {
                 moveBack();
                 if(x == 0) {
-                    PARAMS.y = 37.5;
+                    PARAMS.y = 37;
                     markOne();
                 } else if (x == 1){
                     PARAMS.y = 44;
@@ -99,7 +99,7 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(false)
                 .lineToX(-20)
                 .build();
-        Actions.runBlocking(new ParallelAction(moveBack, Tiger.clawHumanGrab()));
+        Actions.runBlocking(new ParallelAction(moveBack, Tiger.clawHumanGrab(), Fur.autonHuman()));
     }
 
     public void markOne(){
@@ -108,7 +108,7 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-21, PARAMS.y), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(new SequentialAction(lineM1, new ParallelAction(Fur.autonHuman(),Paw.autonReachOB())));
+        Actions.runBlocking(new SequentialAction(lineM1, Paw.autonReachOB()));
     }
 
     public void humanPlayer(){
