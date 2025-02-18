@@ -48,12 +48,13 @@ public class DriveControl extends LinearOpMode {
 
         // Load Introduction and Wait for Start
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
-        colorful.setLEDColor(LEDColorHelper.LEDColor.VIOLET);
         telemetry.addLine("Driver Control");
         telemetry.addData("Version Number", version);
         telemetry.addLine();
-        if (initRes != 1)
+        if (initRes == 0)
             telemetry.addData(">", "Press Start to Launch");
+        else
+            telemetry.addData("***","Initialization Error");
         telemetry.update();
 
         waitForStart();
@@ -66,9 +67,9 @@ public class DriveControl extends LinearOpMode {
         beakAction.autonStartPos();
         bucketAction.StartPosition();
 
-            gpIn1 = new GamePad(gamepad1, false);
-            gpIn2 = new GamePad(gamepad2);
-            drvTrain = new DrivetrainV2(hardwareMap);
+        gpIn1 = new GamePad(gamepad1, false);
+        gpIn2 = new GamePad(gamepad2);
+        drvTrain = new DrivetrainV2(hardwareMap);
 
         while (opModeIsActive()) {
             update_telemetry(gpIn1, gpIn2);
@@ -263,20 +264,13 @@ public class DriveControl extends LinearOpMode {
             bucketAction = new BucketAction(hardwareMap);
             clawAction = new ClawAction(hardwareMap);
             colorful = new LEDColorHelper(hardwareMap);
-        }
-        catch(Exception e) {
-            if(colorful != null){
-               colorful.setLEDColor(LEDColorHelper.LEDColor.RED);
-
-            }
+            return 0;
+        } catch(Exception e) {
             telemetry.clear();
             telemetry.addLine("AN ERROR OCCURED: "+e.toString());
             telemetry.update();
             return 1;
         }
-        return 0;
-
-
     }
 
     private void update_telemetry(GamePad gpi1, GamePad gpi2) {
