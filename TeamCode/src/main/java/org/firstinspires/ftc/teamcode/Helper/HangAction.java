@@ -6,6 +6,11 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class HangAction {
+    public static class Params {
+        public double grappleStartPos = 0.11;
+        public double grappleClimbPos = 0.75;
+    }
+
     private final DcMotor left;
     private final DcMotor right;
     private final DcMotor hang2;
@@ -28,12 +33,13 @@ public class HangAction {
         hang2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    public void moveMotors(double power) {
+
+    public void moveStage1Motors(double power) {
         left.setPower(power);
         right.setPower(power);
     }
 
-    public void moveHang2(double power) {
+    public void moveStage2Motor(double power) {
         hang2.setPower(power);
     }
 
