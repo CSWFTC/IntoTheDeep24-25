@@ -229,8 +229,8 @@ public class newBeak {
 
     public Action dropToHuman (){
         return packet -> {
+            SystemClock.sleep(700);
             openBeak();
-            SystemClock.sleep(900);
             ElbStart();
             return false;
         };

@@ -5,11 +5,14 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
+
 public class HangAction {
     public static class Params {
         public double grappleStartPos = 0.11;
         public double grappleClimbPos = 0.75;
     }
+
+    public static Params PARAMS = new Params();
 
     private final DcMotor left;
     private final DcMotor right;
@@ -26,11 +29,13 @@ public class HangAction {
 
         left.setDirection(DcMotorSimple.Direction.REVERSE);
         right.setDirection(DcMotorSimple.Direction.REVERSE);
-        hang2.setDirection(DcMotorSimple.Direction.REVERSE);
+        hang2.setDirection(DcMotorSimple.Direction.FORWARD);
 
         left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        hang2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        hang2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        hang2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
 
@@ -47,12 +52,22 @@ public class HangAction {
         hang2.setPower(-power);
     }
 
-    public void flipUp() {
-        grapple.setPosition(1.0);
+    public void grappleFlipUp() {
+        grapple.setPosition(PARAMS.grappleClimbPos);
     }
 
-    public void flipDown() {
-        grapple.setPosition(0.0);
+    public void grappleFlipDown() {
+        grapple.setPosition(PARAMS.grappleStartPos);
+    }
+
+    public void grappleForward() {
+        double posUp = Math.min((grapple.getPosition() + 0.05), 0.90);
+        grapple.setPosition(posUp);
+    }
+
+    public void grappleBackward() {
+        double posUp = Math.min((grapple.getPosition() + 0.05), 0.90);
+        grapple.setPosition(posUp);
     }
 
     public void flipForward(){
@@ -64,6 +79,8 @@ public class HangAction {
         double posDown = Math.max((grapple.getPosition() - 0.05), 0.09);
         grapple.setPosition(posDown);
     }
+
+
 }
 
 
