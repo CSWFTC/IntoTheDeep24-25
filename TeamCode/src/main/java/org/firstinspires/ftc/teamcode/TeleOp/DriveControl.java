@@ -234,10 +234,10 @@ public class DriveControl extends LinearOpMode {
                     hangAction.flipForward();
                     break;
                 case BUTTON_L_BUMPER:
-                    hangAction.flipDown();
+                    hangAction.grappleFlipDown();
                     break;
                 case BUTTON_R_BUMPER:
-                    hangAction.flipUp();
+                    hangAction.grappleFlipUp();
                     break;
             }
 
