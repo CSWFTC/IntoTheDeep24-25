@@ -55,7 +55,6 @@ public class ClawAction {
     public Action placeOnSub () {
         return packet -> {
             MoveGrip(PARAMS.gripOpenPos);
-            SystemClock.sleep(250);
             return false;
         };
     }

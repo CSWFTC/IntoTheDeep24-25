@@ -25,7 +25,7 @@ public class newBeak {
         //slider needs to be faster
         //fix suplex sequence
         //beak
-        public double beakOpenDropPos = 0.61; //for suplex
+        public double beakOpenDropPos = 0.62; //for suplex
         public double beakOpenPickupPos = 0.63; //for pick up
         public double beakWideOpen = 0.66; // for wider opening
         public double beakClosePos = 0.47; // closed
@@ -36,12 +36,12 @@ public class newBeak {
         //elbow
         public double elbowPickPos = 0.475;     // Pickup Off Mat
         public double elbowReachPos = 0.49;    // Grabber Extended Drive
-        public double elbowSuplexEndingPos = 0.56;    // Suplex in Bucket
+        public double elbowSuplexBucketPos = 0.56;    // Suplex in Bucket
         public double elbowStartPos = 0.541;    // Drive Position
         public double elbowSlideDumpPos = 0.575;
-        public double elbowClimbInit = 0.555;
+        public double elbowClimbInit = 0.540;
         public double elbowClimbSafePos = 0.575;
-        public double elbowSuplexStartPos = 0.55;
+        public double elbowSuplexSlidePos = 0.55;
 
         //delays
         public double suplexOpenBeakDelay = 1000;
@@ -134,7 +134,7 @@ public class newBeak {
     }
 
     public void suplexElbPos() {
-        MoveElbow(PARAMS.elbowSuplexEndingPos);
+        MoveElbow(PARAMS.elbowSuplexBucketPos);
     }
 
     public void ElbStart(){
@@ -157,10 +157,19 @@ public class newBeak {
                     DeferredActions.CreateDeferredAction( (long) PARAMS.suplexOpenSecondBeakDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
                 }
             DeferredActions.CreateDeferredAction((long) PARAMS.suplexMoveToDrivePositionDelay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
+        }
+    }
 
+
+    public void SuplexSlideDumpSample() {
+        if (targetBeakPosition != PARAMS.beakClosePos) {
+            closedBeak();
+            DeferredActions.CreateDeferredAction((long) PARAMS.beakClosedDelay, DeferredActions.DeferredActionType.SUPLEX_BEAK);
+        } else {
 
         }
     }
+
 
     public void sampleReachElbowPos() {
         if (targetElbowPosition > PARAMS.elbowStartPos)
@@ -180,13 +189,13 @@ public class newBeak {
 
     public void ClimbInitialize() {
         closedBeak();
-        MoveElbow(PARAMS.elbowStartPos);
+        MoveElbow(PARAMS.elbowClimbInit);
     }
 
     public void ClimbPostitions(){
         closedBeak();
         MoveSlider(PARAMS.sliderMinPos);
-        MoveElbow(PARAMS.elbowClimbInit);
+        MoveElbow(PARAMS.elbowClimbSafePos);
     }
 
     public void autonStartPos(){
@@ -240,9 +249,9 @@ public class newBeak {
     public Action grabAndDrop(){
         return packet -> {
             MoveSlider(PARAMS.sliderMaxPos);
-            SystemClock.sleep(1050);
+            SystemClock.sleep(1000);
             PickUpElbow();
-            SystemClock.sleep(500);
+            SystemClock.sleep(600);
             closedBeak();
             SystemClock.sleep(500);
             SuplexSample();

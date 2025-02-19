@@ -24,22 +24,21 @@ import java.util.Locale;
 @Config
 @TeleOp(name = "Driver Control", group = "Competition!!")
 public class DriveControl extends LinearOpMode {
-   // private BeakAction beakAction;
+    private static final String version = "2.1";
 
-  //  private BeakAction beak;
     private ViperAction viperAction;
     private BucketAction bucketAction;
     private ClawAction clawAction;
     private HangAction hangAction;
     private newBeak beakAction;
     private LEDColorHelper colorful;
-    private static final String version = "2.0";
-    private boolean setReversed = false;
-    private double speedMultiplier = 1;
     private GamePad gpIn1;
     private GamePad gpIn2;
     private DrivetrainV2 drvTrain;
+
     public boolean thirdScheme = false;
+    private boolean setReversed = false;
+    private double speedMultiplier = 1;
 
     @Override
     public void runOpMode() {
@@ -93,59 +92,58 @@ public class DriveControl extends LinearOpMode {
 
     public void padOne(){
         GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
-        if(!thirdScheme){
-        switch (inpType1) {
-            case DPAD_DOWN:
-                beakAction.DecreaseElbow();
-                break;
-            case DPAD_UP:
-                beakAction.IncreaseElbow();
-                break;
-            case DPAD_LEFT:
-                beakAction.SuplexSample();
-                break;
-            case DPAD_RIGHT:
-                beakAction.PickUpElbow();
-                break;
-            case BUTTON_R_BUMPER:
-                beakAction.ToggleBeak();
-                break;
-            case BUTTON_L_BUMPER:
-                beakAction.toggleElbowSuplex();
-                break;
-            case LEFT_STICK_BUTTON_ON:
-                if (speedMultiplier < 0.5) {
-                    speedMultiplier = 1;
-                } else {
+        if (!thirdScheme) {
+            switch (inpType1) {
+                case DPAD_DOWN:
+                    beakAction.DecreaseElbow();
+                    break;
+                case DPAD_UP:
+                    beakAction.IncreaseElbow();
+                    break;
+                case DPAD_LEFT:
+                    beakAction.SuplexSample();
+                    break;
+                case DPAD_RIGHT:
+                    beakAction.PickUpElbow();
+                    break;
+                case BUTTON_R_BUMPER:
+                    beakAction.ToggleBeak();
+                    break;
+                case BUTTON_L_BUMPER:
+                    beakAction.toggleElbowSuplex();
+                    break;
+                case LEFT_STICK_BUTTON_ON:
+                    if (speedMultiplier < 0.5) {
+                        speedMultiplier = 1;
+                    } else {
+                        speedMultiplier = 0.25;
+                    }
+                    break;
+                case BUTTON_X:
+                    speedMultiplier = 0.75;
+                    break;
+                case BUTTON_B:
+                    speedMultiplier = 0.5;
+                    break;
+                case BUTTON_A:
                     speedMultiplier = 0.25;
-                }
-                break;
-            case BUTTON_X:
-                speedMultiplier = 0.75;
-                break;
-            case BUTTON_B:
-                speedMultiplier = 0.5;
-                break;
-            case BUTTON_A:
-                speedMultiplier = 0.25;
-                break;
-            case BUTTON_Y:
-                speedMultiplier = 1;
-                break;
-
-            case RIGHT_TRIGGER:
-                beakAction.JoystickMoveSlide(gamepad1.right_trigger);
-                break;
-            case LEFT_TRIGGER:
-                beakAction.JoystickMoveSlide(-gamepad1.left_trigger);
-                break;
-            case JOYSTICK:
-                drvTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
-                        gamepad1.right_stick_x * (float) speedMultiplier,
-                        gamepad1.left_stick_y * (float) speedMultiplier, setReversed);
-                break;
-        } }
-        else {
+                    break;
+                case BUTTON_Y:
+                    speedMultiplier = 1;
+                    break;
+                case RIGHT_TRIGGER:
+                    beakAction.JoystickMoveSlide(gamepad1.right_trigger);
+                    break;
+                case LEFT_TRIGGER:
+                    beakAction.JoystickMoveSlide(-gamepad1.left_trigger);
+                    break;
+                case JOYSTICK:
+                    drvTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
+                            gamepad1.right_stick_x * (float) speedMultiplier,
+                            gamepad1.left_stick_y * (float) speedMultiplier, setReversed);
+                    break;
+            }
+        } else {
             switch (inpType1) {
                 case LEFT_TRIGGER:
                     hangAction.moveStage1Motors(-gamepad1.left_trigger);
@@ -159,8 +157,6 @@ public class DriveControl extends LinearOpMode {
                             gamepad1.left_stick_y * (float) speedMultiplier, setReversed);
                     break;
             }
-
-
         }
     }
 
@@ -210,10 +206,11 @@ public class DriveControl extends LinearOpMode {
                     break;
                 case BUTTON_BACK:
                     clawAction.CloseGrip();
-                    beakAction.ClimbPostitions();
-                    sleep(1000);
-                    bucketAction.climbPostitions();
+                    beakAction.ClimbInitialize();
                     sleep(800);
+                    bucketAction.climbPostitions();
+                    sleep(1000);
+                    beakAction.ClimbPostitions();
                     thirdScheme = true;
                     break;
             }
@@ -232,20 +229,22 @@ public class DriveControl extends LinearOpMode {
                     sleep(1000);
                     beakAction.autonStartPos();
                     break;
-                case LEFT_TRIGGER:
-                    hangAction.grappleBackward();
-                    break;
-                case RIGHT_TRIGGER:
-                    hangAction.grappleForward();
-                    break;
-                case BUTTON_L_BUMPER:
-                    hangAction.grappleStartPosition();
-                    break;
-                case BUTTON_R_BUMPER:
+                case BUTTON_X:
+                    //hangAction.Stage2HoldPosition();
+
+                case DPAD_UP:
                     hangAction.grappleFlipUp();
                     break;
+                case DPAD_RIGHT:
+                    hangAction.grappleForward();
+                    break;
+                case DPAD_LEFT:
+                    hangAction.grappleBackward();
+                    break;
+                case DPAD_DOWN:
+                    hangAction.grappleStartPosition();
+                    break;
             }
-
         }
     }
 
@@ -277,6 +276,8 @@ public class DriveControl extends LinearOpMode {
 
                 case SLIDER_DELAY:
                     beakAction.suplexElbPos();
+                    break;
+
                 default:
                     telemetry.addLine("ERROR - Unsupported Deferred Action");
                     break;
