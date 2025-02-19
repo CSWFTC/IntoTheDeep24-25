@@ -131,6 +131,9 @@ public class DriveControl extends LinearOpMode {
                 case BUTTON_Y:
                     speedMultiplier = 1;
                     break;
+                case BUTTON_BACK:
+                    beakAction.SuplexSlideDumpSample();
+                    break;
                 case RIGHT_TRIGGER:
                     beakAction.JoystickMoveSlide(gamepad1.right_trigger);
                     break;
@@ -231,6 +234,7 @@ public class DriveControl extends LinearOpMode {
                     break;
                 case BUTTON_X:
                     hangAction.holdStage2Position();
+                    break;
 
                 case DPAD_UP:
                     hangAction.grappleFlipUp();
