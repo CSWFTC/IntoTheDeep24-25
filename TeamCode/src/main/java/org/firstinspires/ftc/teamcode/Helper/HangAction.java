@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-
 public class HangAction {
     public static class Params {
         public double grappleStartPos = 0.11;
@@ -26,6 +25,8 @@ public class HangAction {
         grapple = hardwareMap.get(Servo.class, "grappleServo");
 
         left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        hang2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         left.setDirection(DcMotorSimple.Direction.REVERSE);
         right.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -37,7 +38,6 @@ public class HangAction {
         hang2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         hang2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
-
 
     public void moveStage1Motors(double power) {
         left.setPower(power);
@@ -60,18 +60,29 @@ public class HangAction {
         grapple.setPosition(PARAMS.grappleStartPos);
     }
 
+    public void holdPosition() {
+        left.setTargetPosition(left.getCurrentPosition());
+        right.setTargetPosition(right.getCurrentPosition());
+        hang2.setTargetPosition(hang2.getCurrentPosition());
+        left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hang2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        left.setPower(0.5);
+        right.setPower(0.5);
+        hang2.setPower(0.5);
+    }
+
     public void grappleForward() {
         double posUp = Math.min((grapple.getPosition() + 0.05), 0.90);
         grapple.setPosition(posUp);
     }
 
     public void grappleBackward() {
-        double posUp = Math.min((grapple.getPosition() + 0.05), 0.90);
-        grapple.setPosition(posUp);
+        double posDown = Math.max((grapple.getPosition() - 0.05), 0.11);
+        grapple.setPosition(posDown);
     }
-    
-
 }
+
 
 
 
