@@ -240,9 +240,9 @@ public class newBeak {
     public Action grabAndDrop(){
         return packet -> {
             MoveSlider(PARAMS.sliderMaxPos);
-            SystemClock.sleep(1050);
+            SystemClock.sleep(1000);
             PickUpElbow();
-            SystemClock.sleep(500);
+            SystemClock.sleep(600);
             closedBeak();
             SystemClock.sleep(500);
             SuplexSample();
