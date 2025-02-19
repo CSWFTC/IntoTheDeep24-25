@@ -232,7 +232,6 @@ public class newBeak {
             closedBeak();
             SystemClock.sleep((long) PARAMS.beakClosedDelay);
             MoveElbow(PARAMS.elbowSlideDumpPos);
-            SystemClock.sleep(1000);
             return false;
         };
     }
