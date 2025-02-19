@@ -229,12 +229,24 @@ public class newBeak {
 
     public Action dropToHuman (){
         return packet -> {
-            SystemClock.sleep(700);
+            SystemClock.sleep(800);
             openBeak();
             ElbStart();
             return false;
         };
     }
+
+    public Action grabAndDrop(){
+        return packet -> {
+            PickUpElbow();
+            MoveSlider(PARAMS.sliderMaxPos);
+            SystemClock.sleep(800);
+            closedBeak();
+            SuplexSample();
+            return false;
+        };
+    }
+
 
 
 

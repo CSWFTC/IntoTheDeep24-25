@@ -53,26 +53,16 @@ public class AutoBlueOB extends LinearOpMode {
         }
         else{
             toLine();
-            while (x < 3) {
                 moveBack();
-                if(x == 0) {
-                    PARAMS.y = 37;
-                    markOne();
-                } else if (x == 1){
-                    PARAMS.y = 44;
-                    markOne();
-                } else if (x == 2){
-                    PARAMS.y = 46;
-                    markOne();
-                }
+                markOne();
                 humanPlayer();
+                Grabbing();
+                HumanToOB();
                 GoBack();
                 Reverse();
                 backToLine();
-                x++;
-            }
-            forward();
-            toParkLast();
+            //forward();
+            //toParkLast();
             updateTelemetry(drive.pose.position);
         }
     }
@@ -106,7 +96,7 @@ public class AutoBlueOB extends LinearOpMode {
         //move to mark
         Action lineM1 = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-21, PARAMS.y), Math.toRadians(180))
+                .splineTo(new Vector2d(-21, 37), Math.toRadians(180))
                 .build();
         Actions.runBlocking(new SequentialAction(lineM1, Paw.autonReachOB()));
     }
@@ -115,9 +105,20 @@ public class AutoBlueOB extends LinearOpMode {
         //drop off in human player zone
         Action Player = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-0.5)
+                .lineToX(-1)
                 .build();
-        Actions.runBlocking(new SequentialAction(new ParallelAction(Player,Paw.dropToHuman()), Roar.grabFromHuman(), new ParallelAction(Tiger.perfBeforeDropOff(), Fur.autonBucketDown())));
+        Actions.runBlocking(new SequentialAction(new ParallelAction(Player,Paw.dropToHuman())));
+    }
+
+    public void Grabbing(){
+        //Grab from 2
+        Action Grab = drive.actionBuilder(drive.pose)
+                .setReversed(false)
+                .lineToX(-14)
+                .lineToY(45)
+                .build();
+        Actions.runBlocking(new SequentialAction(new ParallelAction(Grab,Paw.grabAndDrop())));
+
     }
 
     public void GoBack(){
@@ -129,6 +130,15 @@ public class AutoBlueOB extends LinearOpMode {
                 .build();
         Actions.runBlocking(back);
     }
+
+    public void HumanToOB(){
+        Action Player = drive.actionBuilder(drive.pose)
+                .setReversed(true)
+                .lineToX(-1)
+                .build();
+        Actions.runBlocking(new SequentialAction(Roar.grabFromHuman(), new ParallelAction(Tiger.perfBeforeDropOff(), Fur.autonBucketDown())));
+    }
+
     public void Reverse(){
         //get ready to go to sub
         Action turnAgain = drive.actionBuilder(drive.pose)
