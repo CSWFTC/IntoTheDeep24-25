@@ -117,7 +117,7 @@ public class AutoBlueOB extends LinearOpMode {
         Action Grab = drive.actionBuilder(drive.pose)
                 .setReversed(false)
                 //.lineToX(-12)
-                .strafeTo(new Vector2d(-12,45))
+                .strafeTo(new Vector2d(-12,47))
                 .build();
         Actions.runBlocking(new SequentialAction(Grab,Paw.grabAndDrop()));
 
