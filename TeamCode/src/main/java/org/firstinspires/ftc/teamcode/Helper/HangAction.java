@@ -21,21 +21,22 @@ public class HangAction {
 
     public HangAction(HardwareMap hardwareMap) {
         left = hardwareMap.get(DcMotor.class, "hookLeft");
-        right = hardwareMap.get(DcMotor.class, "hookRight");
-        hang2 = hardwareMap.get(DcMotor.class, "hookSecond");
-        grapple = hardwareMap.get(Servo.class, "grappleServo");
-
         left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
         left.setDirection(DcMotorSimple.Direction.REVERSE);
-        right.setDirection(DcMotorSimple.Direction.REVERSE);
-        hang2.setDirection(DcMotorSimple.Direction.FORWARD);
-
         left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        right = hardwareMap.get(DcMotor.class, "hookRight");
+        right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        right.setDirection(DcMotorSimple.Direction.REVERSE);
         right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        hang2 = hardwareMap.get(DcMotor.class, "hookSecond");
+        hang2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        hang2.setDirection(DcMotorSimple.Direction.FORWARD);
         hang2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         hang2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        grapple = hardwareMap.get(Servo.class, "grappleServo");
     }
 
 
@@ -66,8 +67,8 @@ public class HangAction {
     }
 
     public void grappleBackward() {
-        double posUp = Math.min((grapple.getPosition() + 0.05), 0.90);
-        grapple.setPosition(posUp);
+        double posDown = Math.max((grapple.getPosition() - 0.05), 0.09);
+        grapple.setPosition(posDown);
     }
     
 
