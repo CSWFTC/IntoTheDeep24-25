@@ -223,13 +223,14 @@ public class newBeak {
             closedBeak();
             SystemClock.sleep((long) PARAMS.beakClosedDelay);
             MoveElbow(PARAMS.elbowSlideDumpPos);
+            SystemClock.sleep(1000);
             return false;
         };
     }
 
     public Action dropToHuman (){
         return packet -> {
-            SystemClock.sleep(800);
+            SystemClock.sleep(900);
             openBeak();
             ElbStart();
             return false;
@@ -238,11 +239,14 @@ public class newBeak {
 
     public Action grabAndDrop(){
         return packet -> {
-            PickUpElbow();
             MoveSlider(PARAMS.sliderMaxPos);
-            SystemClock.sleep(800);
+            SystemClock.sleep(1050);
+            PickUpElbow();
+            SystemClock.sleep(500);
             closedBeak();
+            SystemClock.sleep(500);
             SuplexSample();
+            SystemClock.sleep(1000);
             return false;
         };
     }
