@@ -153,6 +153,11 @@ public class DriveControl extends LinearOpMode {
                 case RIGHT_TRIGGER:
                     hangAction.moveStage1Motors(gamepad1.right_trigger);
                     break;
+                case JOYSTICK:
+                    drvTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
+                            gamepad1.right_stick_x * (float) speedMultiplier,
+                            gamepad1.left_stick_y * (float) speedMultiplier, setReversed);
+                    break;
             }
 
 
@@ -228,13 +233,13 @@ public class DriveControl extends LinearOpMode {
                     beakAction.autonStartPos();
                     break;
                 case LEFT_TRIGGER:
-                    hangAction.flipBackward();
+                    hangAction.grappleBackward();
                     break;
                 case RIGHT_TRIGGER:
-                    hangAction.flipForward();
+                    hangAction.grappleForward();
                     break;
                 case BUTTON_L_BUMPER:
-                    hangAction.grappleFlipDown();
+                    hangAction.grappleStartPosition();
                     break;
                 case BUTTON_R_BUMPER:
                     hangAction.grappleFlipUp();
