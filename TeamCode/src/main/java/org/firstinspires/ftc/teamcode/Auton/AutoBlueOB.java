@@ -138,7 +138,7 @@ public class AutoBlueOB extends LinearOpMode {
         Action PlayerGrab = drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 //.turnTo(0)
-                .lineToX(-1)
+                .lineToX(0)
                 .build();
         Actions.runBlocking(new SequentialAction(new ParallelAction(PlayerGrab, Paw.dropToHuman()), Roar.grabFromHuman(), new ParallelAction(Tiger.perfBeforeDropOff(), Fur.autonBucketDown())));
     }
