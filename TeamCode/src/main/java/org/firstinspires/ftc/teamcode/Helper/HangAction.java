@@ -45,6 +45,13 @@ public class HangAction {
         right.setPower(power);
     }
 
+    public void holdStage2Position() {
+        hang2.setTargetPosition(hang2.getCurrentPosition());
+        hang2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hang2.setPower(0.5);
+    }
+
+
     public void moveStage2Motor(double power) {
         hang2.setPower(power);
     }
