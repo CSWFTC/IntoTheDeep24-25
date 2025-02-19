@@ -161,7 +161,7 @@ public class newBeak {
     }
 
 
-    public void SuplexSlideDumpSample() {
+    public void elbowSuplexSlidePos() {
         if (targetBeakPosition != PARAMS.beakClosePos) {
             closedBeak();
             DeferredActions.CreateDeferredAction((long) PARAMS.beakClosedDelay, DeferredActions.DeferredActionType.SUPLEX_BEAK);

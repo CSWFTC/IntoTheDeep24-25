@@ -230,7 +230,7 @@ public class DriveControl extends LinearOpMode {
                     beakAction.autonStartPos();
                     break;
                 case BUTTON_X:
-                    //hangAction.Stage2HoldPosition();
+                    hangAction.holdStage2Position();
 
                 case DPAD_UP:
                     hangAction.grappleFlipUp();
@@ -244,6 +244,8 @@ public class DriveControl extends LinearOpMode {
                 case DPAD_DOWN:
                     hangAction.grappleStartPosition();
                     break;
+
+
             }
         }
     }
