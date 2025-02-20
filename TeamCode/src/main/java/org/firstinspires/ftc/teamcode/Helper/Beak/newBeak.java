@@ -131,6 +131,7 @@ public class newBeak {
 
     //the servo for elbow
     public void PickUpElbow() {
+        // Kill any Suplex DA
         MoveElbow(PARAMS.elbowPickPos);
         DeferredActions.CreateDeferredAction(PARAMS.beakPickUpDelay, DeferredActions.DeferredActionType.BEAK_OPEN_WIDER);
     }
@@ -177,6 +178,7 @@ public class newBeak {
 
 
     public void sampleReachElbowPos() {
+        // Kill any Suplex DA
         if (targetElbowPosition > PARAMS.elbowStartPos)
             openBeak();
         else

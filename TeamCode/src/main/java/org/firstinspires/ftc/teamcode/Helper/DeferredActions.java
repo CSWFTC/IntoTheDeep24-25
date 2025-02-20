@@ -52,6 +52,20 @@ public class DeferredActions {
         deferredActions.add(new DeferredActionEvent(triggerTime, event));
     }
 
+    // Delete Deferred Action
+    public static void DeleteDeferredAction(DeferredActionType event) {
+        // Remove all actions of a specified type
+        List<DeferredActionEvent> removals = new ArrayList<>();
+
+        for (DeferredActionEvent act : deferredActions) {
+            if (event == act.action) {
+                removals.add(act);
+            }
+        }
+        // Remove Ready Actions from Deferred list
+        for (DeferredActionEvent act : removals) { deferredActions.remove(act); }
+    }
+
     // Check for Deferred Actions that are Ready to be Processed;
     public static List<DeferredActionType> GetReadyActions() {
         List<DeferredActionType> readyActions = new ArrayList<>();
