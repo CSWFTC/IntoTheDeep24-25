@@ -195,6 +195,7 @@ public class DriveControl extends LinearOpMode {
                     break;
                 case BUTTON_BACK:
                     // Reconfigure for Climb
+                    colorful.setLEDColor(LEDColorHelper.LEDColor.VIOLET);
                     clawAction.CloseGrip();
                     beakAction.ClimbInitialize();
                     sleep(800);
@@ -212,6 +213,7 @@ public class DriveControl extends LinearOpMode {
                     break;
                 case BUTTON_BACK:
                     // Reconfigure Back to Drive Mode
+                    colorful.setLEDColor(LEDColorHelper.LEDColor.VIOLET);
                     thirdScheme = false;
                     beakAction.autonStartPos();
                     sleep(1000);
@@ -292,11 +294,17 @@ public class DriveControl extends LinearOpMode {
     }
 
     private void update_telemetry(GamePad gpi1, GamePad gpi2) {
+
         // Update Status LED
-        if (!thirdScheme)
+        if (!thirdScheme) {
+            telemetry.addLine("     D R I V E  Mode");
             colorful.setLEDColor(LEDColorHelper.LEDColor.AZURE);
-        else
+
+        } else {
+            telemetry.addLine("     C L I M B  Mode");
             colorful.setLEDColor(LEDColorHelper.LEDColor.ORANGE);
+        }
+        telemetry.addLine();
 
         // Update Driver Station
         telemetry.addLine("Gamepad #1");

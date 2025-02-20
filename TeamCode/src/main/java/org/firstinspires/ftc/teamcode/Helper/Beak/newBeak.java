@@ -20,8 +20,6 @@ public class newBeak {
         public double sliderPosChange = 0.03;
         public double sliderRetractDelayPosition = 0.2425;
 
-
-
         //hover height is wrong
         //slider needs to be faster
         //fix suplex sequence
@@ -35,7 +33,7 @@ public class newBeak {
         public double elbowPickPos = 0.475;     // Pickup Off Mat
         public double elbowReachPos = 0.49;    // Grabber Extended Drive
         public double elbowSuplexBucketPos = 0.56;    // Suplex in Bucket
-        public double elbowSuplexSlideDumpPos = 0.55; // Suplex to Slide
+        public double elbowSuplexSlideDumpPos = 0.57; // Suplex to Slide
         public double elbowStartPos = 0.541;    // Drive Position
         public double elbowClimbInit = 0.540;    // Climb Start - Beak Forward
         public double elbowClimbSafePos = 0.575; // Climb - Beak Tucked Down
@@ -44,13 +42,13 @@ public class newBeak {
         public long beakClosedDelay = 50;
         public long beakPickUpDelay = 200;
         // ms Wait for Slider to Retract ot Min Pos before Suplex
-        public long suplexSliderRetractDelay = 100;
+        public long suplexSliderRetractDelay = 160;
         // ms Wait for Elbow Suplex to Bucket Before Opening Beak
         public long suplexBucketOpenBeakDelay = 825;
         // ms Wait for Elbow Suplex to Slide Dump Before Opening Beak
-        public long suplexSlideDumpOpenBeakDelay = 925;
+        public long suplexSlideDumpOpenBeakDelay = 1050;
         // ms Wait for Sample to Fall in Bucket or Slide
-        public long suplexMoveToDrivePositionDelay = 1050;
+        public long suplexMoveToDrivePositionDelay = 225;
         //ms Until Open Beak Wide When Reaching for Sample
         public long pickupBeakOpenDelay = 100;
     }
@@ -156,7 +154,8 @@ public class newBeak {
             MoveSlider(PARAMS.sliderMinPos);
             MoveElbow(PARAMS.elbowSuplexBucketPos);
             DeferredActions.CreateDeferredAction(PARAMS.suplexBucketOpenBeakDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
-            DeferredActions.CreateDeferredAction(PARAMS.suplexMoveToDrivePositionDelay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
+            long delay = PARAMS.suplexBucketOpenBeakDelay + PARAMS.suplexMoveToDrivePositionDelay;
+            DeferredActions.CreateDeferredAction(delay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
         }
     }
 
@@ -171,7 +170,8 @@ public class newBeak {
             MoveSlider(PARAMS.sliderMinPos);
             MoveElbow(PARAMS.elbowSuplexSlideDumpPos);
             DeferredActions.CreateDeferredAction(PARAMS.suplexSlideDumpOpenBeakDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
-            DeferredActions.CreateDeferredAction(PARAMS.suplexMoveToDrivePositionDelay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
+            long delay = PARAMS.suplexSlideDumpOpenBeakDelay + PARAMS.suplexMoveToDrivePositionDelay;
+            DeferredActions.CreateDeferredAction(delay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
         }
     }
 
@@ -265,8 +265,7 @@ public class newBeak {
             openBeak();
 
             // Drive Safe
-            long delay = PARAMS.suplexMoveToDrivePositionDelay - PARAMS.suplexBucketOpenBeakDelay;
-            SystemClock.sleep(delay);
+            SystemClock.sleep(PARAMS.suplexMoveToDrivePositionDelay);
             autonStartPos();
             return false;
         };
@@ -294,8 +293,7 @@ public class newBeak {
             openBeak();
 
             // Drive Safe
-            long delay = PARAMS.suplexMoveToDrivePositionDelay - PARAMS.suplexSlideDumpOpenBeakDelay;
-            SystemClock.sleep(delay);
+            SystemClock.sleep(PARAMS.suplexMoveToDrivePositionDelay);
             autonStartPos();
             return false;
         };
