@@ -229,7 +229,6 @@ public class newBeak {
 
     public Action autonSuplex(){
         return packet -> {
-            closedBeak();
             suplexElbPos();
             SystemClock.sleep((long)PARAMS.suplexOpenBeakDelay);
             openBeak();
@@ -257,7 +256,6 @@ public class newBeak {
         return packet -> {
             SystemClock.sleep(1000);
             openBeak();
-            SystemClock.sleep(500);
             ElbStart();
             return false;
         };
