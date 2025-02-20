@@ -248,8 +248,9 @@ public class newBeak {
     public Action dropToHuman (){
         return packet -> {
             MoveElbow(PARAMS.elbowSlideDumpPos);
-            SystemClock.sleep(800);
+            SystemClock.sleep(1000);
             openBeak();
+            SystemClock.sleep(500);
             ElbStart();
             return false;
         };
