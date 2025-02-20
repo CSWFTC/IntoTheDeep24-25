@@ -132,6 +132,7 @@ public class DriveControl extends LinearOpMode {
                     speedMultiplier = 1;
                     break;
                 case BUTTON_BACK:
+                    bucketAction.DumpSample();
                     beakAction.SuplexSlideDumpSample();
                     break;
                 case RIGHT_TRIGGER:
