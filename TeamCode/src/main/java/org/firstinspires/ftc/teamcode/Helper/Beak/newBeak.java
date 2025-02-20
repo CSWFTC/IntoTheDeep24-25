@@ -219,25 +219,19 @@ public class newBeak {
             openBeak();
             PickUpElbow();
             SystemClock.sleep(1000);
-
             closedBeak();
             SystemClock.sleep((long) PARAMS.beakClosedDelay);
-            return false;
-        };
-
-    }
-
-    public Action autonSuplex(){
-        return packet -> {
             suplexElbPos();
             SystemClock.sleep((long)PARAMS.suplexOpenBeakDelay);
             openBeak();
             SystemClock.sleep((long) PARAMS.suplexOpenBeakDelay + (long) PARAMS.beakClosedDelay);
             ElbStart();
-          return false;
+            return false;
         };
 
     }
+
+
 
     public Action autonReachOB(){
         return packet -> {

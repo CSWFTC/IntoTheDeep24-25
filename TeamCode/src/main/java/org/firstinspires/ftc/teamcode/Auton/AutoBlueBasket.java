@@ -114,7 +114,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(true)
                 .splineTo(new Vector2d(-8.0, -53.5), Math.toRadians(-53))
                 .build();
-        Actions.runBlocking(new SequentialAction((new ParallelAction(arm.autonSuplex(), moveBasket)), vip.dumpSampleHighBasket(), bucket.autonPrepForCatch()) );
+        Actions.runBlocking(new SequentialAction(moveBasket, vip.dumpSampleHighBasket(), bucket.autonPrepForCatch()) );
     }
 
     private void dumbBasket(){
