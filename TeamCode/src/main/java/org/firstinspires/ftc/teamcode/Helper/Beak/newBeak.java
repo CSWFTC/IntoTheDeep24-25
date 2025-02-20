@@ -257,6 +257,7 @@ public class newBeak {
         return packet -> {
             SystemClock.sleep(1000);
             openBeak();
+            SystemClock.sleep(500);
             ElbStart();
             return false;
         };

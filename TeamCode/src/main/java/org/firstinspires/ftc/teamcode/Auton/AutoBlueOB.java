@@ -71,17 +71,11 @@ public class AutoBlueOB extends LinearOpMode {
 
     public void toLine(){
         //beginning position: ends at the sub
-        Action movePos = drive.actionBuilder(drive.pose)
-                .setReversed(true)
-                .lineToX(-27)
-                .build();
-        Actions.runBlocking(new ParallelAction(movePos,Tiger.perfBeforeDropOff()));
-
         Action extraMove = drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 .lineToX(-29.5)
                 .build();
-        Actions.runBlocking(new SequentialAction(extraMove, Tiger.perfClawDropOnSub(), Roar.placeOnSub()));
+        Actions.runBlocking(new SequentialAction( (new ParallelAction(Tiger.perfBeforeDropOff(), extraMove)), Tiger.perfClawDropOnSub(), Roar.placeOnSub()));
 
     }
 
@@ -117,7 +111,7 @@ public class AutoBlueOB extends LinearOpMode {
         Action Grab = drive.actionBuilder(drive.pose)
                 .setReversed(false)
                 //.lineToX(-12)
-                .strafeTo(new Vector2d(-12,47))
+                .strafeTo(new Vector2d(-12,48))
                 .build();
         Actions.runBlocking(new SequentialAction(Grab,Paw.grabAndDrop()));
 
@@ -138,9 +132,9 @@ public class AutoBlueOB extends LinearOpMode {
         Action PlayerGrab = drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 //.turnTo(0)
-                .lineToX(0)
+                .lineToX(-1)
                 .build();
-        Actions.runBlocking(new SequentialAction(new ParallelAction(PlayerGrab, Paw.dropToHuman()), Roar.grabFromHuman(), new ParallelAction(Tiger.perfBeforeDropOff(), Fur.autonBucketDown())));
+        Actions.runBlocking(new SequentialAction(PlayerGrab, Paw.dropToHuman(), Roar.grabFromHuman(), new ParallelAction(Tiger.perfBeforeDropOff(), Fur.autonBucketDown())));
     }
 
     public void GoBack(){
