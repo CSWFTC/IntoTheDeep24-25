@@ -10,6 +10,7 @@ public class HangAction {
     public static class Params {
         public double grappleStartPos = 0.11;
         public double grappleClimbPos = 0.75;
+        public double Hang2MotorRetractGrappleLimit = 1500;
     }
 
     public static Params PARAMS = new Params();
@@ -18,6 +19,7 @@ public class HangAction {
     private final DcMotor right;
     private final DcMotor hang2;
     private final Servo grapple;
+    private static double targetGrapplePos = 0;
 
     public HangAction(HardwareMap hardwareMap) {
         left = hardwareMap.get(DcMotor.class, "hookLeft");
@@ -37,12 +39,26 @@ public class HangAction {
         hang2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         grapple = hardwareMap.get(Servo.class, "grappleServo");
+        grapple.setDirection(Servo.Direction.FORWARD);
     }
 
 
     public void moveStage1Motors(double power) {
         left.setPower(power);
         right.setPower(power);
+    }
+
+    public void moveStage2Motor(double power) {
+        if (hang2.getMode() != DcMotor.RunMode.RUN_USING_ENCODER)
+            hang2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        hang2.setPower(power);
+
+        // Check for Auto Retract Grapple Arm After Tightening Rope
+        if (power > 0) {
+            if ((hang2.getCurrentPosition() > PARAMS.Hang2MotorRetractGrappleLimit) &&
+                    (targetGrapplePos != PARAMS.grappleStartPos))
+                moveGrapple(PARAMS.grappleStartPos);
+        }
     }
 
     public void holdStage2Position() {
@@ -52,30 +68,27 @@ public class HangAction {
     }
 
 
-    public void moveStage2Motor(double power) {
-        hang2.setPower(power);
-    }
-
-    public void moveHangDown(double power) {
-        hang2.setPower(-power);
+    private void moveGrapple( double pos ) {
+        targetGrapplePos = pos;
+        grapple.setPosition(pos);
     }
 
     public void grappleFlipUp() {
-        grapple.setPosition(PARAMS.grappleClimbPos);
+        moveGrapple(PARAMS.grappleClimbPos);
     }
 
     public void grappleStartPosition() {
-        grapple.setPosition(PARAMS.grappleStartPos);
+        moveGrapple(PARAMS.grappleStartPos);
     }
 
     public void grappleForward() {
-        double posUp = Math.min((grapple.getPosition() + 0.05), 0.90);
-        grapple.setPosition(posUp);
+        double posUp = Math.min((grapple.getPosition() + 0.05), (PARAMS.grappleClimbPos * 1.25));  //25% Past Expected Position
+        moveGrapple(posUp);
     }
 
     public void grappleBackward() {
-        double posDown = Math.max((grapple.getPosition() - 0.05), 0.09);
-        grapple.setPosition(posDown);
+        double posDown = Math.max((grapple.getPosition() - 0.05), PARAMS.grappleStartPos);
+        moveGrapple(posDown);
     }
     
 

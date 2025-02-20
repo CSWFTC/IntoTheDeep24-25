@@ -37,22 +37,19 @@ public class DriveControl extends LinearOpMode {
     private DrivetrainV2 drvTrain;
 
     public boolean thirdScheme = false;
-    private boolean setReversed = false;
     private double speedMultiplier = 1;
 
     @Override
     public void runOpMode() {
-        int initRes = initialize();
-
-        // Load Introduction and Wait for Start
+        telemetry.clear();
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
         telemetry.addLine("Driver Control");
         telemetry.addData("Version Number", version);
         telemetry.addLine();
+
+        int initRes = initialize();
         if (initRes == 0)
             telemetry.addData(">", "Press Start to Launch");
-        else
-            telemetry.addData("***","Initialization Error");
         telemetry.update();
 
         waitForStart();
@@ -66,26 +63,14 @@ public class DriveControl extends LinearOpMode {
         bucketAction.StartPosition();
 
         gpIn1 = new GamePad(gamepad1, false);
-        gpIn2 = new GamePad(gamepad2);
+        gpIn2 = new GamePad(gamepad2, false);
         drvTrain = new DrivetrainV2(hardwareMap);
 
         while (opModeIsActive()) {
-            update_telemetry(gpIn1, gpIn2);
-
-            //gamepad one
-            padOne();
-
-           //gamepad two
-            padTwo();
-
-            if (!thirdScheme) {
-                colorful.setLEDColor(LEDColorHelper.LEDColor.AZURE);
-            }
-            else{
-                colorful.setLEDColor(LEDColorHelper.LEDColor.ORANGE);
-            }
-            // Deferred Actions
-           ProcessDeferredActions();
+            update_telemetry(gpIn1, gpIn2); // Update LED and DriverStation
+            padOne();   // Process Gamepad 1
+            padTwo();   // Process Gamepad 2
+           ProcessDeferredActions(); // Deferred Actions
         }
     }
 
@@ -101,7 +86,7 @@ public class DriveControl extends LinearOpMode {
                     beakAction.IncreaseElbow();
                     break;
                 case DPAD_LEFT:
-                    beakAction.SuplexSample();
+                    beakAction.SuplexSampleBucket();
                     break;
                 case DPAD_RIGHT:
                     beakAction.PickUpElbow();
@@ -133,7 +118,7 @@ public class DriveControl extends LinearOpMode {
                     break;
                 case BUTTON_BACK:
                     bucketAction.DumpSample();
-                    beakAction.SuplexSlideDumpSample();
+                    beakAction.SuplexSampleSlideDump();
                     break;
                 case RIGHT_TRIGGER:
                     beakAction.JoystickMoveSlide(gamepad1.right_trigger);
@@ -144,7 +129,7 @@ public class DriveControl extends LinearOpMode {
                 case JOYSTICK:
                     drvTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
                             gamepad1.right_stick_x * (float) speedMultiplier,
-                            gamepad1.left_stick_y * (float) speedMultiplier, setReversed);
+                            gamepad1.left_stick_y * (float) speedMultiplier, false);
                     break;
             }
         } else {
@@ -158,7 +143,7 @@ public class DriveControl extends LinearOpMode {
                 case JOYSTICK:
                     drvTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
                             gamepad1.right_stick_x * (float) speedMultiplier,
-                            gamepad1.left_stick_y * (float) speedMultiplier, setReversed);
+                            gamepad1.left_stick_y * (float) speedMultiplier, false);
                     break;
             }
         }
@@ -207,9 +192,9 @@ public class DriveControl extends LinearOpMode {
                 case JOYSTICK:
                     hangAction.moveStage1Motors(-gamepad2.left_stick_y);
                     hangAction.moveStage2Motor(-gamepad2.right_stick_y);
-                    hangAction.moveHangDown(gamepad2.right_stick_y);
                     break;
                 case BUTTON_BACK:
+                    // Reconfigure for Climb
                     clawAction.CloseGrip();
                     beakAction.ClimbInitialize();
                     sleep(800);
@@ -221,23 +206,20 @@ public class DriveControl extends LinearOpMode {
             }
         } else {
             switch (inpType2) {
-                case RIGHT_STICK_BUTTON_ON:
-                    break;
                 case JOYSTICK:
                     hangAction.moveStage1Motors(-gamepad2.left_stick_y);
                     hangAction.moveStage2Motor(-gamepad2.right_stick_y);
-                    hangAction.moveHangDown(gamepad2.right_stick_y);
                     break;
                 case BUTTON_BACK:
+                    // Reconfigure Back to Drive Mode
                     thirdScheme = false;
-                    bucketAction.StartPosition();
-                    sleep(1000);
                     beakAction.autonStartPos();
+                    sleep(1000);
+                    bucketAction.StartPosition();
                     break;
                 case BUTTON_X:
                     hangAction.holdStage2Position();
                     break;
-
                 case DPAD_UP:
                     hangAction.grappleFlipUp();
                     break;
@@ -250,8 +232,6 @@ public class DriveControl extends LinearOpMode {
                 case DPAD_DOWN:
                     hangAction.grappleStartPosition();
                     break;
-
-
             }
         }
     }
@@ -270,8 +250,12 @@ public class DriveControl extends LinearOpMode {
                     beakAction.closedBeak();
                     break;
 
-                case SUPLEX_BEAK:
-                    beakAction.SuplexSample();
+                case SUPLEX_BUCKET:
+                    beakAction.SuplexSampleBucket();
+                    break;
+
+                case SUPLEX_SLIDE:
+                    beakAction.SuplexSampleSlideDump();
                     break;
 
                 case BEAK_DRIVE_SAFE:
@@ -280,10 +264,6 @@ public class DriveControl extends LinearOpMode {
 
                 case BEAK_OPEN_WIDER:
                     beakAction.openWideBeak();
-                    break;
-
-                case SLIDER_DELAY:
-                    beakAction.SuplexSlideDumpSample();
                     break;
 
                 default:
@@ -303,14 +283,22 @@ public class DriveControl extends LinearOpMode {
             colorful = new LEDColorHelper(hardwareMap);
             return 0;
         } catch(Exception e) {
-            telemetry.clear();
-            telemetry.addLine("AN ERROR OCCURED: "+e.toString());
+            telemetry.addLine("*** INITIALIZATION ERROR ***");
+            telemetry.addLine();
+            telemetry.addLine().addData("Error", e.toString());
             telemetry.update();
             return 1;
         }
     }
 
     private void update_telemetry(GamePad gpi1, GamePad gpi2) {
+        // Update Status LED
+        if (!thirdScheme)
+            colorful.setLEDColor(LEDColorHelper.LEDColor.AZURE);
+        else
+            colorful.setLEDColor(LEDColorHelper.LEDColor.ORANGE);
+
+        // Update Driver Station
         telemetry.addLine("Gamepad #1");
         String inpTime1 = new java.text.SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS", Locale.US).format(gpi1.getTelemetry_InputLastTimestamp());
         telemetry.addLine().addData("GP1 Time", inpTime1);
