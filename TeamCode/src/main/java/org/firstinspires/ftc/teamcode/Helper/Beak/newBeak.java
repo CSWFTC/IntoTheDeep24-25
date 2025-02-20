@@ -44,11 +44,12 @@ public class newBeak {
         public double elbowSuplexSlidePos = 0.55;
 
         //delays
-        public double suplexOpenBeakDelay = 1000;
+        public double suplexOpenBeakDelay = 500;
         public double suplexOpenSecondBeakDelay = 550;
 
-        public double suplexMoveToDrivePositionDelay = 1580;
+        public double suplexMoveToDrivePositionDelay = 1000;
         public double pickupBeakOpenDelay = 100;   //ms Until Open Beak Fully When At Top
+
     }
 
     public static Params PARAMS = new Params();
@@ -179,9 +180,6 @@ public class newBeak {
     }
 
 
-
-
-
     public void sampleReachElbowPos() {
         if (targetElbowPosition > PARAMS.elbowStartPos)
             openBeak();
@@ -224,12 +222,20 @@ public class newBeak {
 
             closedBeak();
             SystemClock.sleep((long) PARAMS.beakClosedDelay);
+            return false;
+        };
+
+    }
+
+    public Action autonSuplex(){
+        return packet -> {
+            closedBeak();
             suplexElbPos();
             SystemClock.sleep((long)PARAMS.suplexOpenBeakDelay);
             openBeak();
             SystemClock.sleep((long) PARAMS.suplexOpenBeakDelay + (long) PARAMS.beakClosedDelay);
             ElbStart();
-            return false;
+          return false;
         };
 
     }
@@ -251,6 +257,7 @@ public class newBeak {
         return packet -> {
             SystemClock.sleep(1000);
             openBeak();
+            SystemClock.sleep(500);
             ElbStart();
             return false;
         };
