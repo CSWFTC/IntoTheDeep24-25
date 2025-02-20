@@ -22,6 +22,7 @@ import org.firstinspires.ftc.teamcode.Helper.DrivetrainV2;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+@Disabled
 @TeleOp(name="Omni Drive To AprilTag", group="Test") //this is the file name in hub
 public class DriveAprilTag extends LinearOpMode
 {

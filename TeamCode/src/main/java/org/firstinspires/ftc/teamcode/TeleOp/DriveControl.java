@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
 import org.firstinspires.ftc.teamcode.Helper.Beak.newBeak;
 import org.firstinspires.ftc.teamcode.Helper.HangAction;
 import org.firstinspires.ftc.teamcode.Helper.LEDColorHelper;
@@ -13,7 +12,6 @@ import org.firstinspires.ftc.teamcode.Helper.ViperSlide.BucketAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions.DeferredActionType;
-import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.DependencyInjector;
 import org.firstinspires.ftc.teamcode.Helper.DrivetrainV2;
 import org.firstinspires.ftc.teamcode.Helper.GamePad;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ViperAction;
@@ -26,64 +24,93 @@ import java.util.Locale;
 @Config
 @TeleOp(name = "Driver Control", group = "Competition!!")
 public class DriveControl extends LinearOpMode {
-   // private BeakAction beakAction;
+    private static final String version = "2.2";
 
-  //  private BeakAction beak;
     private ViperAction viperAction;
     private BucketAction bucketAction;
     private ClawAction clawAction;
     private HangAction hangAction;
     private newBeak beakAction;
     private LEDColorHelper colorful;
+    private GamePad gpIn1;
+    private GamePad gpIn2;
+    private DrivetrainV2 drvTrain;
 
-    private static final String version = "1.2";
+    public boolean thirdScheme = false;
     private boolean setReversed = false;
-
+    private double speedMultiplier = 1;
 
     @Override
     public void runOpMode() {
         int initRes = initialize();
-
-        beakAction.ElbStart();
-        colorful.setLEDColor("White");
-        waitForStart();
-
-        if (isStopRequested() || (initRes == 1)) {
-            return;
-            
-        }
 
         // Load Introduction and Wait for Start
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
         telemetry.addLine("Driver Control");
         telemetry.addData("Version Number", version);
         telemetry.addLine();
-        telemetry.addData(">", "Press Start to Launch");
+        if (initRes == 0)
+            telemetry.addData(">", "Press Start to Launch");
+        else
+            telemetry.addData("***","Initialization Error");
         telemetry.update();
 
-        GamePad gpIn1 = new GamePad(gamepad1, false);
-        GamePad gpIn2 = new GamePad(gamepad2);
-        DrivetrainV2 drvTrain = new DrivetrainV2(hardwareMap);
+        waitForStart();
+        if (isStopRequested() || (initRes == 1)) {
+            return;
+        }
 
         telemetry.clear();
-
-        double speedMultiplier = 1;
-        beakAction.suplexElbPos();
-        colorful.setLEDColor("Green");
+        colorful.setLEDColor(LEDColorHelper.LEDColor.AZURE);
+        beakAction.autonStartPos();
         bucketAction.StartPosition();
+
+        gpIn1 = new GamePad(gamepad1, false);
+        gpIn2 = new GamePad(gamepad2);
+        drvTrain = new DrivetrainV2(hardwareMap);
 
         while (opModeIsActive()) {
             update_telemetry(gpIn1, gpIn2);
 
-            GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
+            //gamepad one
+            padOne();
+
+           //gamepad two
+            padTwo();
+
+            if (!thirdScheme) {
+                colorful.setLEDColor(LEDColorHelper.LEDColor.AZURE);
+            }
+            else{
+                colorful.setLEDColor(LEDColorHelper.LEDColor.ORANGE);
+            }
+            // Deferred Actions
+           ProcessDeferredActions();
+        }
+    }
+
+
+    public void padOne(){
+        GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);
+        if (!thirdScheme) {
             switch (inpType1) {
                 case DPAD_DOWN:
+                    beakAction.DecreaseElbow();
+                    break;
+                case DPAD_UP:
+                    beakAction.IncreaseElbow();
                     break;
                 case DPAD_LEFT:
                     beakAction.SuplexSample();
                     break;
                 case DPAD_RIGHT:
                     beakAction.PickUpElbow();
+                    break;
+                case BUTTON_R_BUMPER:
+                    beakAction.ToggleBeak();
+                    break;
+                case BUTTON_L_BUMPER:
+                    beakAction.toggleElbowSuplex();
                     break;
                 case LEFT_STICK_BUTTON_ON:
                     if (speedMultiplier < 0.5) {
@@ -104,8 +131,9 @@ public class DriveControl extends LinearOpMode {
                 case BUTTON_Y:
                     speedMultiplier = 1;
                     break;
-                case BUTTON_R_BUMPER:
-                    beakAction.ToggleBeak();
+                case BUTTON_BACK:
+                    bucketAction.DumpSample();
+                    beakAction.SuplexSlideDumpSample();
                     break;
                 case RIGHT_TRIGGER:
                     beakAction.JoystickMoveSlide(gamepad1.right_trigger);
@@ -119,15 +147,32 @@ public class DriveControl extends LinearOpMode {
                             gamepad1.left_stick_y * (float) speedMultiplier, setReversed);
                     break;
             }
+        } else {
+            switch (inpType1) {
+                case LEFT_TRIGGER:
+                    hangAction.moveStage1Motors(-gamepad1.left_trigger);
+                    break;
+                case RIGHT_TRIGGER:
+                    hangAction.moveStage1Motors(gamepad1.right_trigger);
+                    break;
+                case JOYSTICK:
+                    drvTrain.setDriveVectorFromJoystick(gamepad1.left_stick_x * (float) speedMultiplier,
+                            gamepad1.right_stick_x * (float) speedMultiplier,
+                            gamepad1.left_stick_y * (float) speedMultiplier, setReversed);
+                    break;
+            }
+        }
+    }
 
-            GamePad.GameplayInputType inpType2 = gpIn2.WaitForGamepadInput(30);
+    public void padTwo(){
+        GamePad.GameplayInputType inpType2 = gpIn2.WaitForGamepadInput(30);
+        if (!thirdScheme) {
             switch (inpType2) {
                 case BUTTON_L_BUMPER:
                     bucketAction.ToggleBucket();
                     break;
                 case BUTTON_R_BUMPER:
-                   // clawAction.ToggleGrip();
-                    beakAction.ToggleBeak();
+                    bucketAction.SampleHoldPosition();
                     break;
                 case LEFT_TRIGGER:
                     viperAction.moveWithPower(-gamepad2.left_trigger);
@@ -135,16 +180,16 @@ public class DriveControl extends LinearOpMode {
                 case RIGHT_TRIGGER:
                     viperAction.moveWithPower(gamepad2.right_trigger);
                     break;
-                case DPAD_UP:
+                case DPAD_LEFT:
                     viperAction.perfMoveForSub();
                     break;
-                case DPAD_DOWN:
-                    viperAction.moveForSub();
+                case DPAD_RIGHT:
+                    viperAction.perfPlaceOnSub();
                     break;
-                case BUTTON_Y:
+                case DPAD_UP:
                     viperAction.moveToHighBasket();
                     break;
-                case BUTTON_A:
+                case DPAD_DOWN:
                     viperAction.moveToLowBasket();
                     break;
                 case BUTTON_B:
@@ -153,16 +198,61 @@ public class DriveControl extends LinearOpMode {
                 case BUTTON_X:
                     clawAction.CloseGrip();
                     break;
+                case BUTTON_A:
+                    viperAction.HoldPosition();
+                    break;
                 case RIGHT_STICK_BUTTON_ON:
                     viperAction.resetEncoders();
                     break;
                 case JOYSTICK:
-                    hangAction.moveMotors(-gamepad2.left_stick_y);
+                    hangAction.moveStage1Motors(-gamepad2.left_stick_y);
+                    hangAction.moveStage2Motor(-gamepad2.right_stick_y);
+                    hangAction.moveHangDown(gamepad2.right_stick_y);
+                    break;
+                case BUTTON_BACK:
+                    clawAction.CloseGrip();
+                    beakAction.ClimbInitialize();
+                    sleep(800);
+                    bucketAction.climbPostitions();
+                    sleep(1000);
+                    beakAction.ClimbPostitions();
+                    thirdScheme = true;
                     break;
             }
+        } else {
+            switch (inpType2) {
+                case RIGHT_STICK_BUTTON_ON:
+                    break;
+                case JOYSTICK:
+                    hangAction.moveStage1Motors(-gamepad2.left_stick_y);
+                    hangAction.moveStage2Motor(-gamepad2.right_stick_y);
+                    hangAction.moveHangDown(gamepad2.right_stick_y);
+                    break;
+                case BUTTON_BACK:
+                    thirdScheme = false;
+                    bucketAction.StartPosition();
+                    sleep(1000);
+                    beakAction.autonStartPos();
+                    break;
+                case BUTTON_X:
+                    hangAction.holdStage2Position();
+                    break;
 
-            // Deferred Actions
-           ProcessDeferredActions();
+                case DPAD_UP:
+                    hangAction.grappleFlipUp();
+                    break;
+                case DPAD_RIGHT:
+                    hangAction.grappleForward();
+                    break;
+                case DPAD_LEFT:
+                    hangAction.grappleBackward();
+                    break;
+                case DPAD_DOWN:
+                    hangAction.grappleStartPosition();
+                    break;
+
+
+            }
         }
     }
 
@@ -175,15 +265,27 @@ public class DriveControl extends LinearOpMode {
                 case BEAK_OPEN:
                     beakAction.openBeak();
                     break;
+
                 case BEAK_CLOSE:
                     beakAction.closedBeak();
                     break;
+
                 case SUPLEX_BEAK:
                     beakAction.SuplexSample();
                     break;
+
                 case BEAK_DRIVE_SAFE:
                     beakAction.ElbStart();
                     break;
+
+                case BEAK_OPEN_WIDER:
+                    beakAction.openWideBeak();
+                    break;
+
+                case SLIDER_DELAY:
+                    beakAction.SuplexSlideDumpSample();
+                    break;
+
                 default:
                     telemetry.addLine("ERROR - Unsupported Deferred Action");
                     break;
@@ -199,29 +301,21 @@ public class DriveControl extends LinearOpMode {
             bucketAction = new BucketAction(hardwareMap);
             clawAction = new ClawAction(hardwareMap);
             colorful = new LEDColorHelper(hardwareMap);
-        }
-        catch(Exception e) {
-            if(colorful != null){
-                colorful.setLEDColor("Red");
-            }
+            return 0;
+        } catch(Exception e) {
             telemetry.clear();
             telemetry.addLine("AN ERROR OCCURED: "+e.toString());
             telemetry.update();
             return 1;
         }
-        return 0;
     }
 
     private void update_telemetry(GamePad gpi1, GamePad gpi2) {
-        telemetry.addLine().addData("Viper", viperAction.getCurrentPosition());
-
         telemetry.addLine("Gamepad #1");
         String inpTime1 = new java.text.SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS", Locale.US).format(gpi1.getTelemetry_InputLastTimestamp());
         telemetry.addLine().addData("GP1 Time", inpTime1);
         telemetry.addLine().addData("GP1 Cnt", gpi1.getTelemetry_InputCount());
         telemetry.addLine().addData("GP1 Input", gpi1.getTelemetry_InputLastType().toString());
-        telemetry.addLine().addData("L Joy  X", "%6.3f", gamepad1.left_stick_x).addData("Y", "%6.3f", gamepad1.left_stick_y);
-        telemetry.addLine().addData("R Joy  X", "%6.3f", gamepad1.right_stick_x).addData("Y", "%6.3f", gamepad1.right_stick_y);
 
         telemetry.addLine();
         telemetry.addLine("Gamepad #2");
@@ -229,8 +323,6 @@ public class DriveControl extends LinearOpMode {
         telemetry.addLine().addData("GP 2 Time", inpTime2);
         telemetry.addLine().addData("GP2 Cnt", gpi2.getTelemetry_InputCount());
         telemetry.addLine().addData("GP2 Input", gpi2.getTelemetry_InputLastType().toString());
-        telemetry.addLine().addData("L Joy  X", "%6.3f", gamepad2.left_stick_x).addData("Y", "%6.3f", gamepad2.left_stick_y);
-        telemetry.addLine().addData("R Joy  X", "%6.3f", gamepad2.right_stick_x).addData("Y", "%6.3f", gamepad2.right_stick_y);
 
         telemetry.addLine();
         telemetry.addLine("Deferred Actions");

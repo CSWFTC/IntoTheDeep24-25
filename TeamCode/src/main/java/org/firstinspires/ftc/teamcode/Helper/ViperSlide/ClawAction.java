@@ -9,9 +9,6 @@ import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Inject;
-import org.firstinspires.ftc.teamcode.Helper.DependencyInjection.Injectable;
-
 @Config
 public class ClawAction {
     public static class Params {
@@ -58,7 +55,6 @@ public class ClawAction {
     public Action placeOnSub () {
         return packet -> {
             MoveGrip(PARAMS.gripOpenPos);
-            SystemClock.sleep(250);
             return false;
         };
     }

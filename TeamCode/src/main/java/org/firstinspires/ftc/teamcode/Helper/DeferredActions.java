@@ -14,8 +14,11 @@ public class DeferredActions {
         BEAK_OPEN("Open Beak"),
         BEAK_CLOSE("Close Beak"),
         SUPLEX_BEAK("Suplex Beak"),
+        SUPLEX_SLIDE("Suplex sample"),
         BEAK_DRIVE_SAFE("Beak Drive Safe"),
-        ARM("hi");
+        ARM("hi"),
+        BEAK_OPEN_WIDER("Beak Open Wider"),
+        SLIDER_DELAY("open");
 
 
         private final String description;

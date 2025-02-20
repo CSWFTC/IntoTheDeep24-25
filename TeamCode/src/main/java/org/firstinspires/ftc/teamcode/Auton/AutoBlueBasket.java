@@ -4,14 +4,12 @@ import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Helper.Beak.BeakAction;
 import org.firstinspires.ftc.teamcode.Helper.Beak.newBeak;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ViperAction;
@@ -23,28 +21,15 @@ import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 public class AutoBlueBasket extends LinearOpMode {
 
     public static class Params {
-        public double versionNumber = 10.1;
-        public int maxPV = 15900;
-        public int minPV= 10;
-        public double powerUp = 0.5;
-        public double powerDown = -0.5;
-        public boolean easy = false;
-        public int maxVipPos = 3100;
-        public double vipPower = 0.8;
-
+        public double versionNumber = 15.2;
 
     }
-
     public static Params PARAMS = new Params();
     private MecanumDrive drive;
     private newBeak arm;
-
     private ViperAction vip;
     private BucketAction bucket;
     private ClawAction claw;
-
-
-
     @Override
     public void runOpMode(){
 
@@ -63,105 +48,73 @@ public class AutoBlueBasket extends LinearOpMode {
         telemetry.addLine();
         telemetry.update();
 
-
+        claw.CloseGrip();
         arm.autonStartPos();
+
         waitForStart();
         telemetry.clear();
-
-
-      //  if(!PARAMS.){
             toSub();
             toNewPosOne();
-         //   toBasket();
-         //   toPosTwo();
-         //   toBasket();
-         //   toPosThree();
-         //   toBasket();
-        /*else if(PARAMS.easy) {
-            dumbBasket();
             toBasket();
-        }*/
-
-
+            toPosTwo();
+            toBasket();
+            toPosThree();
+           // toBasket();
     }
 
     private void toSub(){
         //beginning position: ends at the sub
-        Action movePos = drive.actionBuilder(drive.pose)
+      /*  Action movePos = drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 .lineToX(-27)
                 .build();
-        Actions.runBlocking(new ParallelAction(movePos,vip.perfBeforeDropOff()));
+        Actions.runBlocking(new ParallelAction(vip.perfBeforeDropOff(), movePos));*/
 
         Action extraMove = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-28.5)
+                .lineToX(-29.5)
                 .build();
-        Actions.runBlocking(new SequentialAction(extraMove, vip.perfClawDropOnSub(), claw.placeOnSub()));
+        Actions.runBlocking(new SequentialAction( (new ParallelAction(vip.perfBeforeDropOff(), extraMove)), vip.perfClawDropOnSub(), claw.placeOnSub()));
 
         //positioned back
         Action moveBack = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-12)
+                .lineToX(-26.9)
                 .build();
-        Actions.runBlocking(new SequentialAction(moveBack,vip.autonReset() ));
+        Actions.runBlocking(new ParallelAction(moveBack,vip.autonReset()));
     }
 
     private void toNewPosOne(){
         Action moveOne = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-26.6, -30.5), Math.toRadians(-134.5))
+                .splineTo(new Vector2d(-21, -42.6), Math.toRadians(180))
                 .build();
-     //   Actions.runBlocking(new SequentialAction(moveOne, bucket.autonPrepForCatch(), arm.PickUpReachAuton(),arm.autonCloseBeak(),arm.SuplexAuton()));
         Actions.runBlocking(new SequentialAction(moveOne, arm.autonReachSamp()));
-
-        Action moveTwo = drive.actionBuilder(drive.pose)
-                .setReversed(false)
-.waitSeconds(100)
-                .build();
-        Actions.runBlocking((moveTwo));
-    }
-    private void toPosOne(){
-        //pos one
-        Action moveOne = drive.actionBuilder(drive.pose)
-                .setReversed(false)
-                .splineTo(new Vector2d(-18.0, -39.6), Math.toRadians(180))
-                .build();
-       Actions.runBlocking(new SequentialAction(moveOne, bucket.autonPrepForCatch()));
-
     }
     private void toPosTwo(){
         //pos two
         Action moveTwo = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-19, -43), Math.toRadians(180))
+                .splineTo(new Vector2d(-21, -52.6), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveTwo));
-        //basket
+        Actions.runBlocking(new SequentialAction((new ParallelAction (vip.autonReset(), moveTwo)), arm.autonReachSamp()));
     }
 
     private void toPosThree(){
         //pos three
         Action moveThree = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-19, -47), Math.toRadians(320))
+                .splineTo(new Vector2d(-18.2, -53.0), Math.toRadians(-2))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveThree));
-        //basket
+        Actions.runBlocking(new SequentialAction((new ParallelAction (vip.autonReset(), moveThree)), arm.autonReachSamp()));
     }
-
     private void toBasket(){
         //basket
         Action moveBasket= drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                // .splineTo(new Vector2d(-12, -48), Math.toRadians(-20))
-                 //.strafeTo(new Vector2d(-10,-48))
-
-                .splineTo(new Vector2d(-9, -49), Math.toRadians(-50))
-
+                .splineTo(new Vector2d(-8.0, -53.5), Math.toRadians(-53))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveBasket, vip.dumpSampleHighBasket(), bucket.autonDumpSample(), vip.autonLowerBucket()));
-
+        Actions.runBlocking(new SequentialAction(moveBasket, vip.dumpSampleHighBasket(), bucket.autonPrepForCatch()) );
     }
 
     private void dumbBasket(){
@@ -171,8 +124,6 @@ public class AutoBlueBasket extends LinearOpMode {
                 .build();
         Actions.runBlocking(moveOut);
     }
-
-
 
     private void updateTelemetry(Vector2d pos) {
         telemetry.addLine("RoadRunner Auto Drive BLUE");
