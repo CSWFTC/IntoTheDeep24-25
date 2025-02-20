@@ -175,6 +175,7 @@ public class newBeak {
         }
     }
 
+
     public void sampleReachElbowPos() {
         if (targetElbowPosition > PARAMS.elbowStartPos)
             openBeak();
