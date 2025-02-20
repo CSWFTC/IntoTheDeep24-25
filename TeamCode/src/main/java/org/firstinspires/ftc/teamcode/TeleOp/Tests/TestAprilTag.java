@@ -62,7 +62,7 @@ public class TestAprilTag extends LinearOpMode {
                 if (rrPose == null) {
                     rrPose = new Pose2d(foundTag.ftcPose.x, foundTag.ftcPose.y, foundTag.ftcPose.bearing);
                 } else {
-                    // TODO: Roadrunner-reported translations are the opposite of that reported by AprilTag, probably because the camera is mounted on the back
+                    // Roadrunner-reported translations are the opposite of that reported by AprilTag, probably because the camera is mounted on the back
                     rrPose = rrPose.plus(localizer.update().value());
                 }
             } else {
