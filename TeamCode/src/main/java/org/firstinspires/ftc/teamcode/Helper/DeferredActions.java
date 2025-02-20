@@ -13,13 +13,10 @@ public class DeferredActions {
         PLAY_SOUND("Plays Quack"),
         BEAK_OPEN("Open Beak"),
         BEAK_CLOSE("Close Beak"),
-        SUPLEX_BEAK("Suplex Beak"),
-        SUPLEX_SLIDE("Suplex sample"),
+        SUPLEX_BUCKET("Suplex to Bucket"),
+        SUPLEX_SLIDE("Suplex to Slide"),
         BEAK_DRIVE_SAFE("Beak Drive Safe"),
-        ARM("hi"),
-        BEAK_OPEN_WIDER("Beak Open Wider"),
-        SLIDER_DELAY("open");
-
+        BEAK_OPEN_WIDER("Beak Open Wider");
 
         private final String description;
 
