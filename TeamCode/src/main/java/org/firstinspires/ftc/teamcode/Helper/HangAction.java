@@ -10,7 +10,7 @@ public class HangAction {
     public static class Params {
         public double grappleStartPos = 0.11;
         public double grappleClimbPos = 0.75;
-        public double Hang2MotorRetractGrappleLimit = 1500;
+        public double Hang2MotorRetractGrappleLimit = 1900;
     }
 
     public static Params PARAMS = new Params();
