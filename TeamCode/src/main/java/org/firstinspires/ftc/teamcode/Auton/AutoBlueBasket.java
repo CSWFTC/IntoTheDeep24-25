@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 public class AutoBlueBasket extends LinearOpMode {
 
     public static class Params {
-        public double versionNumber = 15.1;
+        public double versionNumber = 15.2;
 
     }
     public static Params PARAMS = new Params();
@@ -58,7 +58,7 @@ public class AutoBlueBasket extends LinearOpMode {
             toBasket();
             toPosTwo();
             toBasket();
-           // toPosThree();
+            toPosThree();
            // toBasket();
     }
 
