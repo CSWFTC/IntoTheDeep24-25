@@ -72,10 +72,12 @@ public class OpenCVHelper {
         private final Scalar lowerThreshold = new Scalar(0, 0, 100);
         private final Scalar upperThreshold = new Scalar(100, 100, 255);
 
+        private boolean targetDetected = false;
         private double width = 0;
         private double height = 0;
         private double distance = 0;
         private double offset = 0;
+
 
         @Override
         public Mat processFrame(Mat input) {
@@ -116,7 +118,8 @@ public class OpenCVHelper {
                 }
             }
 
-            if (largestRect != null) {
+            targetDetected = (largestRect != null);
+            if (targetDetected)  {
                 Imgproc.rectangle(input, largestRect.tl(), largestRect.br(), new Scalar(0, 255, 0), 2);
 
                 double knownWidthPx = 112.0;
@@ -150,7 +153,6 @@ public class OpenCVHelper {
             brightenedInput.release();
             tempMat.release();
             hierarchy.release();
-
 
             return input;
         }
