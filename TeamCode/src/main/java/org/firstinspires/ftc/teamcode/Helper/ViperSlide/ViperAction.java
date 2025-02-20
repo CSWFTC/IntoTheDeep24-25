@@ -5,7 +5,6 @@ import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.Range;
 
 import android.os.SystemClock;
 
@@ -28,16 +27,16 @@ public class ViperAction {
         public double clawHighHang = 1400;
         public double clawWall = 14;
 
-        public double dumpLowBasketDelay = 1000 ;    //ms To Wait for Dump
-        public double dumpHighBasketDelay = 2700;  //ms To Wait for Dump
-        public int lowerBasketPosition = 1000;
-        public double dumpDelay = 1000;
+        public double delayMoveLowBasket = 1000 ;    //ms To Wait for Dump
+        public double delayMoveHighBasket = 2700;  //ms To Wait for Dump
+        public double delayBucketDump = 1000;
+
         public int autonReset = 100;
-        public double power = 0;
         public boolean hang = false;
     }
 
     public static Params PARAMS = new Params();
+
     private final DcMotor viperMotor;
     private BucketAction bucketAction;
     private ClawAction clawAction;
@@ -56,8 +55,8 @@ public class ViperAction {
     private void moveToPosition(int targetPosition) {
         viperMotor.setTargetPosition(targetPosition);
 
-        if(PARAMS.hang == false){
-            viperMotor.setPower(PARAMS.viperMotorSpeed);}
+        if(PARAMS.hang == false)
+            viperMotor.setPower(PARAMS.viperMotorSpeed);
         else {
             viperMotor.setPower(0.5);
             PARAMS.hang = false;
@@ -66,20 +65,20 @@ public class ViperAction {
     }
 
     public void moveWithPower(double throttle) {
-        PARAMS.power = throttle;
-        if (PARAMS.power > 0) {
-            if (viperMotor.getCurrentPosition() >= PARAMS.viperMaxPos)
-                PARAMS.power = 0;
-            else if (viperMotor.getCurrentPosition() >= PARAMS.viperPowerLimitPos)
-                PARAMS.power = Math.min(PARAMS.power, 0.25);
-        } else if ((PARAMS.power < 0) && (viperMotor.getCurrentPosition() <= 400)) {
-            PARAMS.power = Math.max(PARAMS.power, -0.25);
-        }
-
-
         if (viperMotor.getMode() != DcMotor.RunMode.RUN_USING_ENCODER)
             viperMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        viperMotor.setPower(PARAMS.power);
+
+        double power = throttle;
+        if (power > 0) {
+            if (viperMotor.getCurrentPosition() >= PARAMS.viperMaxPos)
+                power = 0;
+            else if (viperMotor.getCurrentPosition() >= PARAMS.viperPowerLimitPos)
+                power = Math.min(power, 0.25);
+        } else if ((power < 0) && (viperMotor.getCurrentPosition() <= 400)) {
+            power = Math.max(power, -0.25);
+        }
+
+        viperMotor.setPower(power);
     }
 
     public void HoldPosition() {
@@ -115,9 +114,9 @@ public class ViperAction {
     public Action dumpSampleLowBasket() {
         return packet -> {
             moveToLowBasket();
-            SystemClock.sleep((long) PARAMS.dumpLowBasketDelay);
+            SystemClock.sleep((long) PARAMS.delayMoveLowBasket);
             bucketAction.DumpSample();
-            SystemClock.sleep((long)PARAMS.dumpDelay);
+            SystemClock.sleep((long)PARAMS.delayBucketDump);
 
             return false;
         };
@@ -126,9 +125,9 @@ public class ViperAction {
     public Action dumpSampleHighBasket() {
         return packet -> {
             moveToHighBasket();
-            SystemClock.sleep((long) PARAMS.dumpHighBasketDelay);
+            SystemClock.sleep((long) PARAMS.delayMoveHighBasket);
             bucketAction.DumpSample();
-            SystemClock.sleep((long)PARAMS.dumpDelay);
+            SystemClock.sleep((long)PARAMS.delayBucketDump);
             return false;
         };
     }

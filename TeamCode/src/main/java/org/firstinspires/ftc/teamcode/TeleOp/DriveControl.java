@@ -24,7 +24,7 @@ import java.util.Locale;
 @Config
 @TeleOp(name = "Driver Control", group = "Competition!!")
 public class DriveControl extends LinearOpMode {
-    private static final String version = "2.1";
+    private static final String version = "2.2";
 
     private ViperAction viperAction;
     private BucketAction bucketAction;
@@ -172,6 +172,7 @@ public class DriveControl extends LinearOpMode {
                     bucketAction.ToggleBucket();
                     break;
                 case BUTTON_R_BUMPER:
+                    bucketAction.SampleHoldPosition();
                     break;
                 case LEFT_TRIGGER:
                     viperAction.moveWithPower(-gamepad2.left_trigger);
@@ -282,7 +283,7 @@ public class DriveControl extends LinearOpMode {
                     break;
 
                 case SLIDER_DELAY:
-                    beakAction.suplexElbPos();
+                    beakAction.SuplexSlideDumpSample();
                     break;
 
                 default:
@@ -315,8 +316,6 @@ public class DriveControl extends LinearOpMode {
         telemetry.addLine().addData("GP1 Time", inpTime1);
         telemetry.addLine().addData("GP1 Cnt", gpi1.getTelemetry_InputCount());
         telemetry.addLine().addData("GP1 Input", gpi1.getTelemetry_InputLastType().toString());
-        telemetry.addLine().addData("L Joy  X", "%6.3f", gamepad1.left_stick_x).addData("Y", "%6.3f", gamepad1.left_stick_y);
-        telemetry.addLine().addData("R Joy  X", "%6.3f", gamepad1.right_stick_x).addData("Y", "%6.3f", gamepad1.right_stick_y);
 
         telemetry.addLine();
         telemetry.addLine("Gamepad #2");
@@ -324,8 +323,6 @@ public class DriveControl extends LinearOpMode {
         telemetry.addLine().addData("GP 2 Time", inpTime2);
         telemetry.addLine().addData("GP2 Cnt", gpi2.getTelemetry_InputCount());
         telemetry.addLine().addData("GP2 Input", gpi2.getTelemetry_InputLastType().toString());
-        telemetry.addLine().addData("L Joy  X", "%6.3f", gamepad2.left_stick_x).addData("Y", "%6.3f", gamepad2.left_stick_y);
-        telemetry.addLine().addData("R Joy  X", "%6.3f", gamepad2.right_stick_x).addData("Y", "%6.3f", gamepad2.right_stick_y);
 
         telemetry.addLine();
         telemetry.addLine("Deferred Actions");

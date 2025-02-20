@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.Helper.DeferredActions;
+import org.opencv.core.Mat;
 
 
 @Config
@@ -19,6 +20,8 @@ public class newBeak {
         public double sliderMaxPos = 0.440;
         public double sliderMinPos = 0.045;
         public double sliderPosChange = 0.03;
+        public double sliderRetractDelayPosition = 0.2425;
+
 
 
         //hover height is wrong
@@ -44,10 +47,9 @@ public class newBeak {
         public double elbowSuplexSlidePos = 0.55;
 
         //delays
-        public double suplexOpenBeakDelay = 500;
-        public double suplexOpenSecondBeakDelay = 550;
-
-        public double suplexMoveToDrivePositionDelay = 1000;
+        public double suplexSliderRetractDelay = 100;  // ms Wait for Slider to Retract
+        public double suplexOpenBeakDelay = 825;       // ms Wait for Suplex Before Opening Beak
+        public double suplexMoveToDrivePositionDelay = 1050;  // ms Wait for Sample to Fall in Bucket
         public double pickupBeakOpenDelay = 100;   //ms Until Open Beak Fully When At Top
 
     }
@@ -134,38 +136,33 @@ public class newBeak {
         DeferredActions.CreateDeferredAction((long)PARAMS.beakPickUpDelay, DeferredActions.DeferredActionType.BEAK_OPEN_WIDER);
     }
 
-    public void suplexElbPos() {
+    private void suplexBucketElbPos() {
         MoveElbow(PARAMS.elbowSuplexBucketPos);
     }
-    public void elbowSuplexSlidePos () {MoveElbow(PARAMS.elbowSuplexBucketPos);}
+
+    private void SuplexSlideElbPos() {
+        MoveElbow(PARAMS.elbowSuplexBucketPos);
+    }
+
 //button back
     public void ElbStart(){
         MoveElbow(PARAMS.elbowStartPos);
         openBeak();
     }
 
-    private void handleSuplexBeakOpen(double curpos) {
-        if (curpos >= 0.2425) {
-            DeferredActions.CreateDeferredAction((long) PARAMS.suplexOpenBeakDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
-        } else {
-            DeferredActions.CreateDeferredAction((long) PARAMS.suplexOpenSecondBeakDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
-        }
-    }
-
-    private void handleSuplexActions(double curpos) {
-        MoveSlider(PARAMS.sliderMinPos);
-        elbowSuplexSlidePos();
-        handleSuplexBeakOpen(curpos);
-        DeferredActions.CreateDeferredAction((long) PARAMS.suplexMoveToDrivePositionDelay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
-    }
 
     public void SuplexSample() {
         if (targetBeakPosition != PARAMS.beakClosePos) {
             closedBeak();
             DeferredActions.CreateDeferredAction((long) PARAMS.beakClosedDelay, DeferredActions.DeferredActionType.SUPLEX_BEAK);
+        } else if (targetSliderPosition >= PARAMS.sliderRetractDelayPosition) {
+            MoveSlider(PARAMS.sliderMinPos);
+            DeferredActions.CreateDeferredAction((long) PARAMS.suplexSliderRetractDelay, DeferredActions.DeferredActionType.SUPLEX_BEAK);
         } else {
-            double curpos = viper.getPosition();
-            handleSuplexActions(curpos);
+            MoveSlider(PARAMS.sliderMinPos);
+            MoveElbow(PARAMS.elbowSuplexBucketPos);
+            DeferredActions.CreateDeferredAction((long) PARAMS.suplexOpenBeakDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
+            DeferredActions.CreateDeferredAction((long) PARAMS.suplexMoveToDrivePositionDelay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
         }
     }
 
@@ -173,9 +170,14 @@ public class newBeak {
         if (targetBeakPosition != PARAMS.beakClosePos) {
             closedBeak();
             DeferredActions.CreateDeferredAction((long) PARAMS.beakClosedDelay, DeferredActions.DeferredActionType.SUPLEX_SLIDE);
+        } else if (targetSliderPosition >= PARAMS.sliderRetractDelayPosition) {
+            MoveSlider(PARAMS.sliderMinPos);
+            DeferredActions.CreateDeferredAction((long) PARAMS.suplexSliderRetractDelay, DeferredActions.DeferredActionType.SUPLEX_SLIDE);
         } else {
-            double curpos = viper.getPosition();
-            handleSuplexActions(curpos);
+            MoveSlider(PARAMS.sliderMinPos);
+            MoveElbow(PARAMS.elbowSuplexSlidePos);
+            DeferredActions.CreateDeferredAction((long) PARAMS.suplexOpenBeakDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
+            DeferredActions.CreateDeferredAction((long) PARAMS.suplexMoveToDrivePositionDelay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
         }
     }
 
@@ -221,7 +223,7 @@ public class newBeak {
             SystemClock.sleep(1000);
             closedBeak();
             SystemClock.sleep((long) PARAMS.beakClosedDelay);
-            suplexElbPos();
+            suplexBucketElbPos();
             SystemClock.sleep((long)PARAMS.suplexOpenBeakDelay);
             openBeak();
             SystemClock.sleep((long) PARAMS.suplexOpenBeakDelay + (long) PARAMS.beakClosedDelay);

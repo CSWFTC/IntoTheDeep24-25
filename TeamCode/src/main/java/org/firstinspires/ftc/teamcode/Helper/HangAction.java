@@ -47,8 +47,8 @@ public class HangAction {
 
     public void holdStage2Position() {
         hang2.setTargetPosition(hang2.getCurrentPosition());
-        hang2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         hang2.setPower(0.5);
+        hang2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
 
