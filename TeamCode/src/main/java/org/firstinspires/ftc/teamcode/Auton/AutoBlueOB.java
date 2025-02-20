@@ -103,7 +103,7 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(true)
                 .lineToX(-1)
                 .build();
-        Actions.runBlocking(new ParallelAction(Player,Paw.dropToHuman()));
+        Actions.runBlocking(new ParallelAction(Player,Paw.autonDropToHuman()));
     }
 
     public void Grabbing2(){
@@ -134,7 +134,7 @@ public class AutoBlueOB extends LinearOpMode {
                 //.turnTo(0)
                 .lineToX(-3)
                 .build();
-        Actions.runBlocking(new SequentialAction(PlayerGrab, Paw.dropToHuman(), Roar.grabFromHuman(), new ParallelAction(Tiger.perfBeforeDropOff(), Fur.autonBucketDown())));
+        Actions.runBlocking(new SequentialAction(PlayerGrab, Paw.autonDropToHuman(), Roar.grabFromHuman(), new ParallelAction(Tiger.perfBeforeDropOff(), Fur.autonBucketDown())));
     }
 
     public void GoBack(){
