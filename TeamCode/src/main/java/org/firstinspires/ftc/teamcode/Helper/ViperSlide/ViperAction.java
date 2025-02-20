@@ -55,7 +55,7 @@ public class ViperAction {
     private void moveToPosition(int targetPosition) {
         viperMotor.setTargetPosition(targetPosition);
 
-        if(PARAMS.hang == false)
+        if(!PARAMS.hang)
             viperMotor.setPower(PARAMS.viperMotorSpeed);
         else {
             viperMotor.setPower(0.5);
