@@ -86,7 +86,7 @@ public class DriveControl extends LinearOpMode {
                     beakAction.IncreaseElbow();
                     break;
                 case DPAD_LEFT:
-                    beakAction.SuplexSampleBucket();
+                    beakAction.SuplexSampleBucket(false);
                     break;
                 case DPAD_RIGHT:
                     beakAction.PickUpElbow();
@@ -253,7 +253,7 @@ public class DriveControl extends LinearOpMode {
                     break;
 
                 case SUPLEX_BUCKET:
-                    beakAction.SuplexSampleBucket();
+                    beakAction.SuplexSampleBucket(true);
                     break;
 
                 case SUPLEX_SLIDE:

@@ -52,12 +52,13 @@ public class DeferredActions {
     }
 
     public static void ClearDeferredActions() {
-        deferredActions.clear(); // --> kills everything
+        // --> Clears All deferredActions
+        deferredActions.clear();
     }
 
     public static void CancelDeferredAction(DeferredActionType action) {
         // Remove the specific actions from deferredActions
-        deferredActions.removeIf(act -> act.action == action); // --> clears specific actions
+        deferredActions.removeIf(act -> act.action == action);
     }
 
     public static boolean HasDeferredActions() {
