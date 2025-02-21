@@ -62,6 +62,7 @@ public class AutoBlueOB extends LinearOpMode {
             GoBack();
             Reverse();
             backToLine();
+            moveBack();
             backAndForth();
             //forward();
             //toParkLast();
