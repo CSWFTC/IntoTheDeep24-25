@@ -131,7 +131,7 @@ public class newBeak {
 
     //the servo for elbow
     public void PickUpElbow() {
-        // Kill any Suplex DA
+        // kill any suplex deferred actions
         MoveElbow(PARAMS.elbowPickPos);
         DeferredActions.CreateDeferredAction(PARAMS.beakPickUpDelay, DeferredActions.DeferredActionType.BEAK_OPEN_WIDER);
     }
@@ -178,7 +178,7 @@ public class newBeak {
 
 
     public void sampleReachElbowPos() {
-        // Kill any Suplex DA
+        // star
         if (targetElbowPosition > PARAMS.elbowStartPos)
             openBeak();
         else
@@ -188,6 +188,7 @@ public class newBeak {
     }
 
     public void toggleElbowSuplex() {
+        // star
         if (targetElbowPosition >= PARAMS.elbowStartPos)
             sampleReachElbowPos();
         else
@@ -236,16 +237,12 @@ public class newBeak {
 
     public Action autonReachOB() {
         return packet -> {
-            // Open and Pickup
             openBeak();
-            MoveElbow(PARAMS.elbowPickPos);
-            SystemClock.sleep(PARAMS.beakPickUpDelay);
-            openWideBeak();
-            SystemClock.sleep(500);
+            PickUpElbow();
+            SystemClock.sleep(600);
 
             closedBeak();
             SystemClock.sleep(PARAMS.beakClosedDelay);
-            MoveElbow(PARAMS.elbowReachPos);
             return false;
         };
     }
@@ -310,7 +307,7 @@ public class newBeak {
             MoveSlider(PARAMS.sliderMaxPos);
             SystemClock.sleep(1000);
             PickUpElbow();
-            autonDropToHuman();
+            autonSuplexToBucket();
             return false;
         };
     }

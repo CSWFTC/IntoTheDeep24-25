@@ -42,7 +42,6 @@ public class DeferredActions {
 
     private static volatile List<DeferredActionEvent> deferredActions = new ArrayList<>();
     // Telemetry
-
     public static DeferredActionType tlmLastAction = DeferredActionType.NO_ACTION;
     public static Date tlmLastActionTimestamp = new Date();
 
@@ -52,18 +51,17 @@ public class DeferredActions {
         deferredActions.add(new DeferredActionEvent(triggerTime, event));
     }
 
-    // Delete Deferred Action
-    public static void DeleteDeferredAction(DeferredActionType event) {
-        // Remove all actions of a specified type
-        List<DeferredActionEvent> removals = new ArrayList<>();
+    public static void ClearDeferredActions() {
+        deferredActions.clear(); // --> kills everything
+    }
 
-        for (DeferredActionEvent act : deferredActions) {
-            if (event == act.action) {
-                removals.add(act);
-            }
-        }
-        // Remove Ready Actions from Deferred list
-        for (DeferredActionEvent act : removals) { deferredActions.remove(act); }
+    public static void CancelDeferredAction(DeferredActionType action) {
+        // Remove the specific actions from deferredActions
+        deferredActions.removeIf(act -> act.action == action); // --> clears specific actions
+    }
+
+    public static boolean HasDeferredActions() {
+        return !deferredActions.isEmpty(); // --> checks if deleted
     }
 
     // Check for Deferred Actions that are Ready to be Processed;
@@ -82,8 +80,8 @@ public class DeferredActions {
         }
 
         // Remove Ready Actions from Deferred list
-        for (DeferredActionEvent act : removals) { deferredActions.remove(act); }
+        deferredActions.removeAll(removals);
 
-        return (readyActions);
+        return readyActions;
     }
 }
