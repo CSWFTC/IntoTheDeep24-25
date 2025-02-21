@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 public class AutoBlueBasket extends LinearOpMode {
 
     public static class Params {
-        public double versionNumber = 15.2;
+        public double versionNumber = 15.4;
 
     }
     public static Params PARAMS = new Params();
@@ -89,7 +89,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-21, -42.6), Math.toRadians(180))
                 .build();
-        Actions.runBlocking(new SequentialAction(moveOne, arm.autonReachSamp()));
+        Actions.runBlocking(new SequentialAction(new SequentialAction(moveOne,  bucket.autonPrepForCatch()), arm.autonReachSamp()));
     }
     private void toPosTwo(){
         //pos two
@@ -104,7 +104,7 @@ public class AutoBlueBasket extends LinearOpMode {
         //pos three
         Action moveThree = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-18.9, -53.0), Math.toRadians(170))
+                .splineTo(new Vector2d(-20, -50.1), Math.toRadians(214))
                 .build();
         Actions.runBlocking(new SequentialAction((new ParallelAction (vip.autonReset(), moveThree)), arm.autonReachSamp()));
     }
@@ -112,7 +112,7 @@ public class AutoBlueBasket extends LinearOpMode {
         //basket
         Action moveBasket= drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .splineTo(new Vector2d(-6.7, -53.5), Math.toRadians(-51.5))
+                .splineTo(new Vector2d(-7.0, -51.8), Math.toRadians(-50.0))
                 .build();
         Actions.runBlocking(new SequentialAction(moveBasket, vip.dumpSampleHighBasket(), bucket.autonPrepForCatch()) );
     }
