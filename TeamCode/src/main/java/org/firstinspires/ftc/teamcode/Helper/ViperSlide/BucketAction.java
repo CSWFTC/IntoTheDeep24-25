@@ -16,6 +16,8 @@ public class BucketAction {
         public double bucketSampleHoldPos = 0.8; // Hold Sample While Driving
         public double bucketDumpPos = 0.475;    // Dump to Basket
         public double bucketClimbSafePos = 0.0; // Wrap to outside of Viper Slide
+        private double bucketClimbSafeDelayLimitPos = 0.75;  // Threshold for Climb Safe Delay
+        public long bucketClimbSafeDelay = 800;   // ms Wait for Bucket Move to Climb Safe Position
     }
 
     public static Params PARAMS = new Params();
@@ -55,7 +57,13 @@ public class BucketAction {
             PrepForCatch();
     }
 
-    public void climbPostitions(){ MoveBucket(PARAMS.bucketClimbSafePos); }
+    public long ClimbDelayNeeded() {
+        boolean delayNeeded = (targetBucketPosition < PARAMS.bucketClimbSafeDelayLimitPos);
+        return((delayNeeded ? PARAMS.bucketClimbSafeDelay : 0));
+    }
+
+    public void ClimbPositions(){ MoveBucket(PARAMS.bucketClimbSafePos); }
+
 
     public Action autonDumpSample(){
         return packet ->{

@@ -36,7 +36,8 @@ public class DriveControl extends LinearOpMode {
     private GamePad gpIn2;
     private DrivetrainV2 drvTrain;
 
-    public boolean thirdScheme = false;
+    private boolean thirdScheme = false;
+    private boolean schemeTransition = false;
     private double speedMultiplier = 1;
     private double lastSpeed = 1;
 
@@ -203,14 +204,17 @@ public class DriveControl extends LinearOpMode {
                     break;
                 case BUTTON_BACK:
                     // Reconfigure for Climb
-                    colorful.setLEDColor(LEDColorHelper.LEDColor.VIOLET);
+                    schemeTransition = true;
+                    DeferredActions.ClearDeferredActions();
                     clawAction.CloseGrip();
-                    beakAction.ClimbInitialize();
-                    sleep(800);
-                    bucketAction.climbPostitions();
-                    sleep(1000);
-                    beakAction.ClimbPostitions();
-                    thirdScheme = true;
+                    // Compute Deferred Action Delays Based on Current Positions
+                    long beakClimbInitCompletionDelay = beakAction.ClimbInitialize();
+                    long bucketClimbCompletionDelay = bucketAction.ClimbDelayNeeded() + beakClimbInitCompletionDelay;
+                    long climbTransitionCompletionDelay = beakAction.ClimbPositionDelayNeeded() + bucketClimbCompletionDelay;
+                    // Queue Deferred Action for Mode Switch
+                    DeferredActions.CreateDeferredAction(beakClimbInitCompletionDelay, DeferredActionType.BUCKET_ClIMB);
+                    DeferredActions.CreateDeferredAction(bucketClimbCompletionDelay, DeferredActionType.BEAK_CLIMB);
+                    DeferredActions.CreateDeferredAction(climbTransitionCompletionDelay, DeferredActionType.CLIMB_MODE_SWITCH);
                     break;
             }
         } else {
@@ -218,14 +222,6 @@ public class DriveControl extends LinearOpMode {
                 case JOYSTICK:
                     hangAction.moveStage1Motors(-gamepad2.left_stick_y);
                     hangAction.moveStage2Motor(-gamepad2.right_stick_y);
-                    break;
-                case BUTTON_BACK:
-                    // Reconfigure Back to Drive Mode
-                    colorful.setLEDColor(LEDColorHelper.LEDColor.VIOLET);
-                    thirdScheme = false;
-                    beakAction.autonStartPos();
-                    sleep(1000);
-                    bucketAction.StartPosition();
                     break;
                 case BUTTON_X:
                     hangAction.holdStage2Position();
@@ -241,6 +237,14 @@ public class DriveControl extends LinearOpMode {
                     break;
                 case DPAD_DOWN:
                     hangAction.grappleStartPosition();
+                    break;
+                case BUTTON_BACK:
+                    // Reconfigure Back to Drive Mode
+                    schemeTransition = true;
+                    beakAction.autonStartPos();
+                    // Allow Time for Beak Transition to Start Position
+                    DeferredActions.CreateDeferredAction(750, DeferredActionType.BUCKET_CATCH);
+                    DeferredActions.CreateDeferredAction(1000, DeferredActionType.DRIVE_MODE_SWITCH);
                     break;
             }
         }
@@ -276,6 +280,29 @@ public class DriveControl extends LinearOpMode {
                     beakAction.openWideBeak();
                     break;
 
+                case BEAK_CLIMB:
+                    beakAction.ClimbPositions();
+                    break;
+
+                case BUCKET_ClIMB:
+                    bucketAction.ClimbPositions();
+                    break;
+
+                case BUCKET_CATCH:
+                    bucketAction.PrepForCatch();
+                    break;
+
+                case CLIMB_MODE_SWITCH:
+                    thirdScheme = true;
+                    schemeTransition = false;
+                    break;
+
+                case DRIVE_MODE_SWITCH:
+                    thirdScheme = false;
+                    schemeTransition = false;
+                    break;
+
+
                 default:
                     telemetry.addLine("ERROR - Unsupported Deferred Action");
                     break;
@@ -304,13 +331,15 @@ public class DriveControl extends LinearOpMode {
     private void update_telemetry(GamePad gpi1, GamePad gpi2) {
 
         // Update Status LED
-        if (!thirdScheme) {
-            telemetry.addLine("     D R I V E  Mode");
-            colorful.setLEDColor(LEDColorHelper.LEDColor.AZURE);
-
-        } else {
+        if (thirdScheme) {
             telemetry.addLine("     C L I M B  Mode");
             colorful.setLEDColor(LEDColorHelper.LEDColor.ORANGE);
+        } else if (schemeTransition) {
+            colorful.setLEDColor(LEDColorHelper.LEDColor.VIOLET);
+            telemetry.addLine("    *** CHANGING MODE ***");
+        } else {
+            telemetry.addLine("     D R I V E  Mode");
+            colorful.setLEDColor(LEDColorHelper.LEDColor.AZURE);
         }
         telemetry.addLine();
 
