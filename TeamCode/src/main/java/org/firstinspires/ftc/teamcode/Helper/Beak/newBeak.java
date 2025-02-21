@@ -293,9 +293,9 @@ public class newBeak {
             SystemClock.sleep(600);
             closedBeak();
             SystemClock.sleep(500);
-            MoveSlider(PARAMS.sliderMinPos);
-            SystemClock.sleep(1000);
             MoveElbow(PARAMS.elbowSuplexSlideDumpPos);
+            SystemClock.sleep(1000);
+            MoveSlider(PARAMS.sliderMinPos);
             SystemClock.sleep(1000);
             return false;
         };
