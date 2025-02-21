@@ -77,9 +77,9 @@ public class TestThreeMotorHang extends LinearOpMode {
 
         // Move to Climb Configuration
         claw.CloseGrip();
-        beak.ClimbInitialize();
-        sleep(800);
-        bucket.climbPostitions();
+        long delayNeeded = beak.ClimbInitialize();
+        sleep(delayNeeded);
+        bucket.ClimbPositions();
         sleep(1000);
         beak.ClimbPostitions();
 

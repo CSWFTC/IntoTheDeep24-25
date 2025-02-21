@@ -16,7 +16,12 @@ public class DeferredActions {
         SUPLEX_BUCKET("Suplex to Bucket"),
         SUPLEX_SLIDE("Suplex to Slide"),
         BEAK_DRIVE_SAFE("Beak Drive Safe"),
-        BEAK_OPEN_WIDER("Beak Open Wider");
+        BEAK_OPEN_WIDER("Beak Open Wider"),
+        BEAK_CLIMB("Beak to Climb Pos"),
+        BUCKET_ClIMB("Bucket to Climb Pos"),
+        BUCKET_CATCH( "Bucket to Catch Position"),
+        CLIMB_MODE_SWITCH("Switch to Climb Mode"),
+        DRIVE_MODE_SWITCH("Switch to Drive Mode");
 
         private final String description;
 
