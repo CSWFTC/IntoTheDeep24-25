@@ -112,7 +112,7 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(false)
                 .strafeTo(new Vector2d(-13,49))
                 .build();
-        Actions.runBlocking(new SequentialAction(Grab, Beak.grabAndDrop()));
+        Actions.runBlocking(new ParallelAction(Grab, Beak.grabAndDrop()));
 
     }
 
