@@ -264,6 +264,7 @@ public class newBeak {
             PickUpElbow();
             SystemClock.sleep(600);
             closedBeak();
+            
             SystemClock.sleep(PARAMS.beakClosedDelay);
             MoveElbow(PARAMS.elbowSuplexSlideDumpPos);
 
