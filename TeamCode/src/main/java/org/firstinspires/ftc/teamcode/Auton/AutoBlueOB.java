@@ -167,7 +167,7 @@ public class AutoBlueOB extends LinearOpMode {
     public void backAndForth(){
         Action clawToOB = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-1, 37), Math.toRadians(0))
+                .splineTo(new Vector2d(-1, 37), Math.toRadians(180))
                 .build();
         Actions.runBlocking(new SequentialAction(clawToOB, Claw.grabFromHuman(), Viper.perfBeforeDropOff()));
     }
