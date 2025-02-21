@@ -131,6 +131,7 @@ public class newBeak {
 
     //the servo for elbow
     public void PickUpElbow() {
+        DeferredActions.ClearDeferredActions();   // Kill Any Suplex Deferred Actions
         MoveElbow(PARAMS.elbowPickPos);
         DeferredActions.CreateDeferredAction(PARAMS.beakPickUpDelay, DeferredActions.DeferredActionType.BEAK_OPEN_WIDER);
     }
@@ -143,7 +144,7 @@ public class newBeak {
     }
 
 
-    public void SuplexSampleBucket() {
+    public void SuplexSampleBucket( boolean openBeak ) {
         if (targetBeakPosition != PARAMS.beakClosePos) {
             closedBeak();
             DeferredActions.CreateDeferredAction(PARAMS.beakClosedDelay, DeferredActions.DeferredActionType.SUPLEX_BUCKET);
@@ -153,9 +154,11 @@ public class newBeak {
         } else {
             MoveSlider(PARAMS.sliderMinPos);
             MoveElbow(PARAMS.elbowSuplexBucketPos);
-            DeferredActions.CreateDeferredAction(PARAMS.suplexBucketOpenBeakDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
-            long delay = PARAMS.suplexBucketOpenBeakDelay + PARAMS.suplexMoveToDrivePositionDelay;
-            DeferredActions.CreateDeferredAction(delay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
+            if (openBeak)  {
+                DeferredActions.CreateDeferredAction(PARAMS.suplexBucketOpenBeakDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
+                long delay = PARAMS.suplexBucketOpenBeakDelay + PARAMS.suplexMoveToDrivePositionDelay;
+                DeferredActions.CreateDeferredAction(delay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
+            }
         }
     }
 
@@ -177,6 +180,7 @@ public class newBeak {
 
 
     public void sampleReachElbowPos() {
+        DeferredActions.ClearDeferredActions();   // Kill Any Suplex Deferred Actions
         if (targetElbowPosition > PARAMS.elbowStartPos)
             openBeak();
         else
@@ -186,10 +190,11 @@ public class newBeak {
     }
 
     public void toggleElbowSuplex() {
+        // star
         if (targetElbowPosition >= PARAMS.elbowStartPos)
             sampleReachElbowPos();
         else
-            SuplexSampleBucket();
+            SuplexSampleBucket(true);
     }
 
     public void ClimbInitialize() {

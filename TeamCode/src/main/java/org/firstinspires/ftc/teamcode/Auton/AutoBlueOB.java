@@ -53,16 +53,17 @@ public class AutoBlueOB extends LinearOpMode {
         }
         else{
             toLine();
-                moveBack();
-                markOne();
-                humanPlayer();
-                Grabbing2();
-                //Grabbing3();
-                HumanToOB();
-                GoBack();
-                Reverse();
-                backToLine();
-                //ToHuman();
+            moveBack();
+            markOne();
+            humanPlayer();
+            Grabbing2();
+
+            //Grabbing3();
+            HumanToOB();
+            GoBack();
+            Reverse();
+            backToLine();
+            //ToHuman();
             //forward();
             //toParkLast();
             updateTelemetry(drive.pose.position);
@@ -101,19 +102,18 @@ public class AutoBlueOB extends LinearOpMode {
         //drop off in human player zone
         Action Player = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-1)
+                .lineToX(-11)
                 .build();
-        Actions.runBlocking(new ParallelAction(Player,Paw.autonDropToHuman()));
+        Actions.runBlocking(new SequentialAction(Player, Paw.autonDropToHuman()));
     }
 
     public void Grabbing2(){
         //Grab from 2 mark
         Action Grab = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                //.lineToX(-12)
                 .strafeTo(new Vector2d(-13,48))
                 .build();
-        Actions.runBlocking(new SequentialAction(Grab,Paw.grabAndDrop()));
+        Actions.runBlocking(new SequentialAction(Grab, Paw.grabAndDrop()));
 
     }
 
