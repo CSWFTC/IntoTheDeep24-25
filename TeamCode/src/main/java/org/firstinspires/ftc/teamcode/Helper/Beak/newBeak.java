@@ -144,7 +144,7 @@ public class newBeak {
     }
 
 
-    public void SuplexSampleBucket( boolean openBeak ) {
+    public void SuplexSampleBucket() {
         if (targetBeakPosition != PARAMS.beakClosePos) {
             closedBeak();
             DeferredActions.CreateDeferredAction(PARAMS.beakClosedDelay, DeferredActions.DeferredActionType.SUPLEX_BUCKET);
@@ -154,11 +154,11 @@ public class newBeak {
         } else {
             MoveSlider(PARAMS.sliderMinPos);
             MoveElbow(PARAMS.elbowSuplexBucketPos);
-            if (openBeak)  {
-                DeferredActions.CreateDeferredAction(PARAMS.suplexBucketOpenBeakDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
-                long delay = PARAMS.suplexBucketOpenBeakDelay + PARAMS.suplexMoveToDrivePositionDelay;
-                DeferredActions.CreateDeferredAction(delay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
-            }
+            DeferredActions.CreateDeferredAction(PARAMS.suplexBucketOpenBeakDelay, DeferredActions.DeferredActionType.BEAK_OPEN);
+            long delay = PARAMS.suplexBucketOpenBeakDelay + PARAMS.suplexMoveToDrivePositionDelay;
+            DeferredActions.CreateDeferredAction(delay, DeferredActions.DeferredActionType.BEAK_DRIVE_SAFE);
+
+
         }
     }
 
@@ -179,6 +179,12 @@ public class newBeak {
     }
 
 
+    public void SuplexHold() {
+        MoveSlider(PARAMS.sliderMinPos);
+        MoveElbow(PARAMS.elbowSuplexSlideDumpPos);
+    }
+
+
     public void sampleReachElbowPos() {
         DeferredActions.ClearDeferredActions();   // Kill Any Suplex Deferred Actions
         if (targetElbowPosition > PARAMS.elbowStartPos)
@@ -194,7 +200,7 @@ public class newBeak {
         if (targetElbowPosition >= PARAMS.elbowStartPos)
             sampleReachElbowPos();
         else
-            SuplexSampleBucket(true);
+            SuplexSampleBucket();
     }
 
     public void ClimbInitialize() {
