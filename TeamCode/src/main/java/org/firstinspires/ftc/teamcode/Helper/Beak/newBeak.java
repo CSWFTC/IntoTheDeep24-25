@@ -262,14 +262,22 @@ public class newBeak {
 
     public Action autonReachOB() {
         return packet -> {
-            openBeak();
             PickUpElbow();
-            SystemClock.sleep(600);
+            SystemClock.sleep(500);
             closedBeak();
             
             SystemClock.sleep(PARAMS.beakClosedDelay);
-            MoveElbow(PARAMS.elbowSuplexSlideDumpPos);
+            //MoveElbow(PARAMS.elbowReachPos);
 
+            MoveElbow(PARAMS.elbowSuplexSlideDumpPos);
+            SystemClock.sleep(500);
+            return false;
+        };
+    }
+
+    public Action forParallel(){
+        return packet -> {
+            MoveElbow(PARAMS.elbowSuplexSlideDumpPos);
             return false;
         };
     }
@@ -278,6 +286,7 @@ public class newBeak {
 
     public Action autonDropToHuman() {
         return packet -> {
+            SystemClock.sleep(300);
             openBeak();
             SystemClock.sleep(200);
             ElbStart();
@@ -293,9 +302,9 @@ public class newBeak {
             SystemClock.sleep(600);
             closedBeak();
             SystemClock.sleep(500);
-            MoveSlider(PARAMS.sliderMinPos);
-            SystemClock.sleep(1000);
             MoveElbow(PARAMS.elbowSuplexSlideDumpPos);
+            SystemClock.sleep(500);
+            MoveSlider(PARAMS.sliderMinPos);
             SystemClock.sleep(1000);
             return false;
         };

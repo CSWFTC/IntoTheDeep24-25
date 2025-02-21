@@ -57,13 +57,12 @@ public class AutoBlueOB extends LinearOpMode {
             markOne();
             humanPlayer();
             Grabbing2();
-
             //Grabbing3();
             HumanToOB();
             GoBack();
             Reverse();
             backToLine();
-            //ToHuman();
+            backAndForth();
             //forward();
             //toParkLast();
             updateTelemetry(drive.pose.position);
@@ -104,7 +103,7 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(true)
                 .lineToX(-5)
                 .build();
-        Actions.runBlocking(new SequentialAction(Player, Beak.autonDropToHuman()));
+        Actions.runBlocking(new ParallelAction(Player, Beak.autonDropToHuman()));
     }
 
     public void Grabbing2(){
@@ -113,7 +112,7 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(false)
                 .strafeTo(new Vector2d(-13,49))
                 .build();
-        Actions.runBlocking(new SequentialAction(Grab, Beak.grabAndDrop()));
+        Actions.runBlocking(new ParallelAction(Grab, Beak.grabAndDrop()));
 
     }
 
@@ -121,7 +120,7 @@ public class AutoBlueOB extends LinearOpMode {
         //Grab from 3 mark
         Action Grab = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .turnTo(-2)
+                .turnTo(140)
                 .build();
         Actions.runBlocking(new SequentialAction(Grab, Beak.grabAndDrop()));
 
@@ -165,12 +164,12 @@ public class AutoBlueOB extends LinearOpMode {
         Actions.runBlocking(new SequentialAction(backAgain, Viper.perfClawDropOnSub(), Claw.placeOnSub()));
     }
 
-    public void ToHuman(){
-        Action humans = drive.actionBuilder(drive.pose)
+    public void backAndForth(){
+        Action clawToOB = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-1, 37), Math.toRadians(-180))
+                .splineTo(new Vector2d(-1, 37), Math.toRadians(0))
                 .build();
-        Actions.runBlocking(new SequentialAction(humans, Claw.grabFromHuman(), Viper.perfBeforeDropOff()));
+        Actions.runBlocking(new SequentialAction(clawToOB, Claw.grabFromHuman(), Viper.perfBeforeDropOff()));
     }
 
     private void toParkLast(){
