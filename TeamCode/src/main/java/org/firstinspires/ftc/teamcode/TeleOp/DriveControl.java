@@ -38,6 +38,8 @@ public class DriveControl extends LinearOpMode {
 
     public boolean thirdScheme = false;
     private double speedMultiplier = 1;
+    private double lastSpeed = 1;
+
 
     @Override
     public void runOpMode() {
@@ -98,10 +100,15 @@ public class DriveControl extends LinearOpMode {
                     beakAction.toggleElbowSuplex();
                     break;
                 case LEFT_STICK_BUTTON_ON:
-                    if (speedMultiplier < 0.5) {
+                    if (speedMultiplier != 1) {
+                        lastSpeed = speedMultiplier;
                         speedMultiplier = 1;
-                    } else {
-                        speedMultiplier = 0.25;
+                    }
+                    break;
+                case LEFT_STICK_BUTTON_OFF:
+                    if (lastSpeed != 1) {
+                        speedMultiplier = lastSpeed;
+                        lastSpeed = 1;
                     }
                     break;
                 case BUTTON_X:

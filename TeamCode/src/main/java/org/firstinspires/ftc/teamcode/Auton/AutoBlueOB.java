@@ -45,7 +45,7 @@ public class AutoBlueOB extends LinearOpMode {
 
         waitForStart();
 
-        telemetry.addData("okay", "so code needs to push 7");
+        telemetry.addData("okay", "so code needs to push 8");
         telemetry.update();
 
         if(PARAMS.easy){
@@ -102,7 +102,7 @@ public class AutoBlueOB extends LinearOpMode {
         //drop off in human player zone
         Action Player = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-11)
+                .lineToX(-9)
                 .build();
         Actions.runBlocking(new SequentialAction(Player, Paw.autonDropToHuman()));
     }
