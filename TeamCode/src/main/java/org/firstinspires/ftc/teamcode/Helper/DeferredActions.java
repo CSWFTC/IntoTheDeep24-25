@@ -45,7 +45,6 @@ public class DeferredActions {
     public static DeferredActionType tlmLastAction = DeferredActionType.NO_ACTION;
     public static Date tlmLastActionTimestamp = new Date();
 
-    // Add Deferred Action
     public static void CreateDeferredAction(long deltaMS, DeferredActionType event) {
         long triggerTime = currentTimeMillis() + deltaMS;
         deferredActions.add(new DeferredActionEvent(triggerTime, event));
