@@ -36,7 +36,7 @@ public class newBeak {
         public double elbowSuplexBucketPos = 0.56;    // Suplex in Bucket
         public double elbowSuplexSlideDumpPos = 0.57; // Suplex to Slide
         public double elbowStartPos = 0.541;    // Drive Position
-        public double elbowClimbInit = 0.541;    // Climb Start - Beak Forward
+        public double elbowClimbInit = 0.539;    // Climb Start - Beak Forward
         public double elbowClimbSafePos = 0.575; // Climb - Beak Tucked Down
 
         //delays
@@ -137,6 +137,7 @@ public class newBeak {
     public void PickUpElbow() {
         // Kill Any Suplex Related Deferred Actions
         DeferredActions.CancelDeferredAction(DeferredActionType.SUPLEX_BUCKET);
+        DeferredActions.CancelDeferredAction(DeferredActionType.SUPLEX_SLIDE);
         DeferredActions.CancelDeferredAction(DeferredActionType.BEAK_OPEN);
         DeferredActions.CancelDeferredAction(DeferredActionType.BEAK_DRIVE_SAFE);
         MoveElbow(PARAMS.elbowPickPos);
@@ -195,6 +196,7 @@ public class newBeak {
     public void sampleReachElbowPos() {
         // Kill Any Suplex Related Deferred Actions
         DeferredActions.CancelDeferredAction(DeferredActionType.SUPLEX_BUCKET);
+        DeferredActions.CancelDeferredAction(DeferredActionType.SUPLEX_SLIDE);
         DeferredActions.CancelDeferredAction(DeferredActionType.BEAK_OPEN);
         DeferredActions.CancelDeferredAction(DeferredActionType.BEAK_DRIVE_SAFE);
         if (targetElbowPosition > PARAMS.elbowStartPos)
@@ -215,7 +217,7 @@ public class newBeak {
 
     public long ClimbInitialize() {
         // Returns Delay Needed for Climb Initialization to Complete
-        long delay = ((targetElbowPosition > PARAMS.elbowClimbInit) ? PARAMS.climbBeakInitializeDelay : 0);
+        long delay = ((targetElbowPosition >= PARAMS.elbowClimbInit) ? PARAMS.climbBeakInitializeDelay : 0);
         closedBeak();
         MoveElbow(PARAMS.elbowClimbInit);
         return (delay);

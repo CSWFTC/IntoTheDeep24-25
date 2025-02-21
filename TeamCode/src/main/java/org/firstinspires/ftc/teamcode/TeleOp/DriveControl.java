@@ -24,7 +24,7 @@ import java.util.Locale;
 @Config
 @TeleOp(name = "Driver Control", group = "Competition!!")
 public class DriveControl extends LinearOpMode {
-    private static final String version = "2.2";
+    private static final String version = "2.3";
 
     private ViperAction viperAction;
     private BucketAction bucketAction;
@@ -196,7 +196,6 @@ public class DriveControl extends LinearOpMode {
                     break;
                 case RIGHT_STICK_BUTTON_ON:
                     viperAction.resetEncoders();
-
                     break;
                 case JOYSTICK:
                     hangAction.moveStage1Motors(-gamepad2.left_stick_y);
@@ -301,7 +300,6 @@ public class DriveControl extends LinearOpMode {
                     thirdScheme = false;
                     schemeTransition = false;
                     break;
-
 
                 default:
                     telemetry.addLine("ERROR - Unsupported Deferred Action");

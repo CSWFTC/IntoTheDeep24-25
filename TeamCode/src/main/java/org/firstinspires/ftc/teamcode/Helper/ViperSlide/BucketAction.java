@@ -58,7 +58,7 @@ public class BucketAction {
     }
 
     public long ClimbDelayNeeded() {
-        boolean delayNeeded = (targetBucketPosition < PARAMS.bucketClimbSafeDelayLimitPos);
+        boolean delayNeeded = (targetBucketPosition > PARAMS.bucketClimbSafeDelayLimitPos);
         return((delayNeeded ? PARAMS.bucketClimbSafeDelay : 0));
     }
 
