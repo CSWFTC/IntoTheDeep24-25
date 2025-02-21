@@ -81,7 +81,7 @@ public class TestThreeMotorHang extends LinearOpMode {
         sleep(delayNeeded);
         bucket.ClimbPositions();
         sleep(1000);
-        beak.ClimbPostitions();
+        beak.ClimbPositions();
 
         while (opModeIsActive()) {
             GamePad.GameplayInputType inpType1 = gpIn1.WaitForGamepadInput(30);

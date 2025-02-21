@@ -281,7 +281,7 @@ public class DriveControl extends LinearOpMode {
                     break;
 
                 case BEAK_CLIMB:
-                    beakAction.ClimbPostitions();
+                    beakAction.ClimbPositions();
                     break;
 
                 case BUCKET_ClIMB:
