@@ -102,7 +102,7 @@ public class AutoBlueOB extends LinearOpMode {
         //drop off in human player zone
         Action Player = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .lineToX(-11)
+                .lineToX(-10)
                 .build();
         Actions.runBlocking(new SequentialAction(Player, Paw.autonDropToHuman()));
     }

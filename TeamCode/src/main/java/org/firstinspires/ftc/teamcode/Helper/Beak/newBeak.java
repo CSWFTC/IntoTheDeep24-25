@@ -245,6 +245,7 @@ public class newBeak {
 
             closedBeak();
             SystemClock.sleep(PARAMS.beakClosedDelay);
+
             return false;
         };
     }
@@ -296,6 +297,7 @@ public class newBeak {
             MoveElbow(PARAMS.elbowSuplexSlideDumpPos);
             SystemClock.sleep(PARAMS.suplexSlideDumpOpenBeakDelay);
             openBeak();
+            SystemClock.sleep(200);
 
             // Drive Safe
             SystemClock.sleep(PARAMS.suplexMoveToDrivePositionDelay);
@@ -309,7 +311,7 @@ public class newBeak {
             MoveSlider(PARAMS.sliderMaxPos);
             SystemClock.sleep(1000);
             PickUpElbow();
-            autonSuplexToBucket();
+            autonDropToHuman();
             return false;
         };
     }
