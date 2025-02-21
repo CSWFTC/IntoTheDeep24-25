@@ -242,10 +242,41 @@ public class newBeak {
             openBeak();
             PickUpElbow();
             SystemClock.sleep(600);
-
             closedBeak();
             SystemClock.sleep(PARAMS.beakClosedDelay);
+            MoveElbow(PARAMS.elbowSuplexSlideDumpPos);
 
+            return false;
+        };
+    }
+
+
+
+    public Action autonDropToHuman() {
+        return packet -> {
+            openBeak();
+            SystemClock.sleep(200);
+            ElbStart();
+            return false;
+        };
+    }
+
+    public Action grabAndDrop(){
+        return packet -> {
+            MoveSlider(PARAMS.sliderMaxPos);
+            SystemClock.sleep(1000);
+            PickUpElbow();
+            SystemClock.sleep(600);
+            closedBeak();
+            SystemClock.sleep(500);
+            ElbStart();
+            SystemClock.sleep(500);
+            MoveSlider(PARAMS.sliderMinPos);
+            SystemClock.sleep(1000);
+            MoveElbow(PARAMS.elbowSuplexSlideDumpPos);
+            SystemClock.sleep(1000);
+            openBeak();
+            SystemClock.sleep(500);
             return false;
         };
     }
@@ -273,45 +304,6 @@ public class newBeak {
             // Drive Safe
             SystemClock.sleep(PARAMS.suplexMoveToDrivePositionDelay);
             autonStartPos();
-            return false;
-        };
-    }
-
-
-    public Action autonDropToHuman() {
-        return packet -> {
-            // Close Beak
-            if (targetBeakPosition != PARAMS.beakClosePos) {
-                closedBeak();
-                SystemClock.sleep(PARAMS.beakClosedDelay);
-            }
-
-            // Retract Slider
-            if (targetSliderPosition >= PARAMS.sliderRetractDelayPosition) {
-                MoveSlider(PARAMS.sliderMinPos);
-                SystemClock.sleep(PARAMS.suplexSliderRetractDelay);
-            } else
-                MoveSlider(PARAMS.sliderMinPos);
-
-            // Suplex to Slide
-            MoveElbow(PARAMS.elbowSuplexSlideDumpPos);
-            SystemClock.sleep(PARAMS.suplexSlideDumpOpenBeakDelay);
-            openBeak();
-            SystemClock.sleep(200);
-
-            // Drive Safe
-            SystemClock.sleep(PARAMS.suplexMoveToDrivePositionDelay);
-            autonStartPos();
-            return false;
-        };
-    }
-
-    public Action grabAndDrop() {
-        return packet -> {
-            MoveSlider(PARAMS.sliderMaxPos);
-            SystemClock.sleep(1000);
-            PickUpElbow();
-            autonDropToHuman();
             return false;
         };
     }

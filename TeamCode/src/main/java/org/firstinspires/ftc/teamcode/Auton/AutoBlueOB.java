@@ -45,7 +45,7 @@ public class AutoBlueOB extends LinearOpMode {
 
         waitForStart();
 
-        telemetry.addData("okay", "so code needs to push 8");
+        telemetry.addData("okay", "so code needs to push 9");
         telemetry.update();
 
         if(PARAMS.easy){
