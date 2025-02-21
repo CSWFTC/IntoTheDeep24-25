@@ -93,7 +93,7 @@ public class AutoBlueOB extends LinearOpMode {
         //move to mark
         Action lineM1 = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-21, 37), Math.toRadians(180))
+                .splineTo(new Vector2d(-21, 36.7), Math.toRadians(180))
                 .build();
         Actions.runBlocking(new SequentialAction(lineM1, Beak.autonReachOB()));
     }
@@ -132,7 +132,7 @@ public class AutoBlueOB extends LinearOpMode {
         Action PlayerGrab = drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 //.turnTo(0)
-                .lineToX(-1)
+                .lineToX(-1.5)
                 .build();
         Actions.runBlocking(new SequentialAction(PlayerGrab, Beak.autonDropToHuman(), Claw.grabFromHuman(), new ParallelAction(Viper.perfBeforeDropOff(), Bucket.autonBucketDown())));
     }
@@ -168,7 +168,7 @@ public class AutoBlueOB extends LinearOpMode {
     public void backAndForth(){
         Action clawToOB = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-1, 37), Math.toRadians(120))
+                .splineTo(new Vector2d(-1, 37), Math.toRadians(100))
                 .build();
         Actions.runBlocking(new SequentialAction(clawToOB, Claw.grabFromHuman(), Viper.perfBeforeDropOff()));
     }
