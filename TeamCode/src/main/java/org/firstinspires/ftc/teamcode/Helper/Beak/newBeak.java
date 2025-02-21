@@ -45,7 +45,7 @@ public class newBeak {
         // ms Wait for Slider to Retract ot Min Pos before Suplex
         public long suplexSliderRetractDelay = 160;
         // ms Wait for Elbow Suplex to Bucket Before Opening Beak
-        public long suplexBucketOpenBeakDelay = 825;
+        public long suplexBucketOpenBeakDelay = 740;
         // ms Wait for Elbow Suplex to Slide Dump Before Opening Beak
         public long suplexSlideDumpOpenBeakDelay = 1050;
         // ms Wait for Sample to Fall in Bucket or Slide
