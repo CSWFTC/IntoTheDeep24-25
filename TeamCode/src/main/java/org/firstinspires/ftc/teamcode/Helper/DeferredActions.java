@@ -56,7 +56,7 @@ public class DeferredActions {
     }
 
     public static void CancelDeferredAction(DeferredActionType action) {
-        // Remove the specific actions from deferredActions
+
         deferredActions.removeIf(act -> act.action == action); // --> clears specific actions
     }
 
