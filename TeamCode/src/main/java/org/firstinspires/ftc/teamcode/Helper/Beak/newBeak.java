@@ -263,7 +263,7 @@ public class newBeak {
     public Action autonReachOB() {
         return packet -> {
             PickUpElbow();
-            SystemClock.sleep(500);
+            SystemClock.sleep(PARAMS.beakPickUpDelay);
             closedBeak();
             
             SystemClock.sleep(PARAMS.beakClosedDelay);
@@ -301,7 +301,7 @@ public class newBeak {
             PickUpElbow();
             SystemClock.sleep(600);
             closedBeak();
-            SystemClock.sleep(500);
+            SystemClock.sleep(PARAMS.beakClosedDelay);
             MoveElbow(PARAMS.elbowSuplexSlideDumpPos);
             SystemClock.sleep(500);
             MoveSlider(PARAMS.sliderMinPos);
