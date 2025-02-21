@@ -236,12 +236,16 @@ public class newBeak {
 
     public Action autonReachOB() {
         return packet -> {
+            // Open and Pickup
             openBeak();
-            PickUpElbow();
-            SystemClock.sleep(600);
+            MoveElbow(PARAMS.elbowPickPos);
+            SystemClock.sleep(PARAMS.beakPickUpDelay);
+            openWideBeak();
+            SystemClock.sleep(500);
 
             closedBeak();
             SystemClock.sleep(PARAMS.beakClosedDelay);
+            MoveElbow(PARAMS.elbowReachPos);
             return false;
         };
     }
@@ -306,7 +310,7 @@ public class newBeak {
             MoveSlider(PARAMS.sliderMaxPos);
             SystemClock.sleep(1000);
             PickUpElbow();
-            autonSuplexToBucket();
+            autonDropToHuman();
             return false;
         };
     }
