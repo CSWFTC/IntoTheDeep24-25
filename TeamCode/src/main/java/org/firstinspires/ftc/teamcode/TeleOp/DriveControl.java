@@ -242,8 +242,8 @@ public class DriveControl extends LinearOpMode {
                     schemeTransition = true;
                     beakAction.autonStartPos();
                     // Allow Time for Beak Transition to Start Position
-                    DeferredActions.CreateDeferredAction(750, DeferredActionType.BUCKET_CATCH);
-                    DeferredActions.CreateDeferredAction(1000, DeferredActionType.DRIVE_MODE_SWITCH);
+                    DeferredActions.CreateDeferredAction(500, DeferredActionType.BUCKET_CATCH);
+                    DeferredActions.CreateDeferredAction(750, DeferredActionType.DRIVE_MODE_SWITCH);
                     break;
             }
         }
