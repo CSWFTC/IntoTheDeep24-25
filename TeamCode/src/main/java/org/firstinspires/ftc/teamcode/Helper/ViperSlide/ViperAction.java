@@ -199,7 +199,7 @@ public class ViperAction {
     public Action TEST_perfBeforeDropOff() {
         return packet -> {
             perfMoveForSub();
-            SystemClock.sleep(200);
+            SystemClock.sleep(600);
             return false;
         };
     }
