@@ -51,33 +51,33 @@ public class AutoBlueInit extends LinearOpMode {
         Claw.CloseGrip();
         Beak.autonStartPos();
 
-        if(PARAMS.easy){
-            forward();
-        }
-        else{
-            toLine();
-            moveBack();
-            goMarkOne();
-            forwardOnOne();
-            turningOnOne();
-            BobColor.setLEDColor(LEDColorHelper.LEDColor.ORANGE);
-            turningToTwo();
-            /*markOne();
-            humanPlayer();
-            Grabbing2();
-            //Grabbing3();
-            HumanToOB();
-            GoBack();
-            Reverse();
-            backToLine();
-            moveBack();
-            backAndForth();
-
-             */
-            //forward();
-            //toParkLast();
-            updateTelemetry(drive.pose.position);
-        }
+//        if(PARAMS.easy){
+//            forward();
+//        }
+//        else{
+//            toLine();
+//            moveBack();
+//            goMarkOne();
+//            forwardOnOne();
+//            turningOnOne();
+//            BobColor.setLEDColor(LEDColorHelper.LEDColor.ORANGE);
+//            turningToTwo();
+//            /*markOne();
+//            humanPlayer();
+//            Grabbing2();
+//            //Grabbing3();
+//            HumanToOB();
+//            GoBack();
+//            Reverse();
+//            backToLine();
+//            moveBack();
+//            backAndForth();
+//
+//             */
+//            //forward();
+//            //toParkLast();
+//            updateTelemetry(drive.pose.position);
+//        }
     }
 
     public void toLine(){
