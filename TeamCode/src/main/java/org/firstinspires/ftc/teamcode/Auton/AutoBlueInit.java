@@ -92,7 +92,9 @@ public class AutoBlueInit extends LinearOpMode {
                 .setReversed(true)
                 .lineToX(-29.5)
                 .build();
-        Actions.runBlocking(new SequentialAction( (new ParallelAction(Viper.perfBeforeDropOff(), extraMove)), Viper.perfClawDropOnSub(), Claw.placeOnSub()));
+//        Actions.runBlocking(new SequentialAction( (new ParallelAction(Viper.perfBeforeDropOff(), extraMove)), Viper.perfClawDropOnSub(), Claw.placeOnSub()));
+
+        Actions.runBlocking(new SequentialAction( (Viper.perfClawDropOnSub()), Claw.placeOnSub()));
 
     }
 
