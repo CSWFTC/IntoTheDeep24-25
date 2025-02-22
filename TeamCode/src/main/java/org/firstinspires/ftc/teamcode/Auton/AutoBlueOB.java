@@ -107,7 +107,7 @@ public class AutoBlueOB extends LinearOpMode {
     public void forwardOnOne(){
         Action MoreOne = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineToConstantHeading(new Vector2d(-29, 23.5), Math.toRadians(130))
+                .splineToConstantHeading(new Vector2d(-28.5, 24), Math.toRadians(130))
                 .build();
         Actions.runBlocking(new SequentialAction(MoreOne, Beak.autonPickupOB()));
     }
