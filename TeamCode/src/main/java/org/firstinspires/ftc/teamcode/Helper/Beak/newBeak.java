@@ -285,6 +285,18 @@ public class newBeak {
         };
     }
 
+    public Action autonDropSlide() {
+        return packet -> {
+            SystemClock.sleep(50); // Delay for Ozer - Let Robot Turn Before Beak Close
+            closedBeak();
+            SystemClock.sleep(PARAMS.beakClosedDelay);
+
+            MoveElbow(PARAMS.elbowSuplexSlideDumpPos);
+            SystemClock.sleep(PARAMS.suplexSlideDumpOpenBeakDelay);
+            return false;
+        };
+    }
+
     public Action autonSliderExtend(){
         return packet -> {
             MoveSlider(PARAMS.sliderMaxPos);
@@ -318,7 +330,6 @@ public class newBeak {
 
     public Action autonDropToHuman() {
         return packet -> {
-            SystemClock.sleep(500);
             openBeak();
             SystemClock.sleep(200);
             ElbStart();
