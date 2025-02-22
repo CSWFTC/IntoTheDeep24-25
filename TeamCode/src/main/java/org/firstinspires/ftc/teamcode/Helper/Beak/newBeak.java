@@ -256,26 +256,7 @@ public class newBeak {
             MoveElbow(PARAMS.elbowSuplexBucketPos);
             SystemClock.sleep( PARAMS.suplexBucketOpenBeakDelay);
             openBeak();
-            SystemClock.sleep( PARAMS.suplexBucketOpenBeakDelay + PARAMS.beakClosedDelay);
-            ElbStart();
-            return false;
-        };
-    }
-
-    public Action autonReachSampThird() {
-        return packet -> {
-            openBeak();
-            MoveElbow(PARAMS.elbowPickPos);
-            SystemClock.sleep(850);
-            MoveSlider(0.0495);
-            SystemClock.sleep(900);
-            closedBeak();
-            SystemClock.sleep(PARAMS.beakClosedDelay);
-            MoveSlider(PARAMS.sliderMinPos);
-            MoveElbow(PARAMS.elbowSuplexBucketPos);
-            SystemClock.sleep( PARAMS.suplexBucketOpenBeakDelay);
-            openBeak();
-            SystemClock.sleep( PARAMS.suplexBucketOpenBeakDelay + PARAMS.beakClosedDelay);
+            SystemClock.sleep( 775);
             ElbStart();
             return false;
         };
