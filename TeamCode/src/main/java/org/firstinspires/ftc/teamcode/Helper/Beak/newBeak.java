@@ -19,6 +19,7 @@ public class newBeak {
         public double sliderMaxPos = 0.440;
         public double sliderMinPos = 0.045;
         public double sliderPosChange = 0.03;
+        public double sliderPosAuton = 0.09;
         public double sliderRetractDelayPosition = 0.2425;
 
         //hover height is wrong
@@ -264,12 +265,13 @@ public class newBeak {
         return packet -> {
             PickUpElbow();
             SystemClock.sleep(600);
-            MoveSlider(PARAMS.sliderPosChange);
+            MoveSlider(PARAMS.sliderPosAuton);
+            SystemClock.sleep(500);
             closedBeak();
             
             SystemClock.sleep(PARAMS.beakClosedDelay);
             //MoveElbow(PARAMS.elbowReachPos);
-            SystemClock.sleep(500);
+           // SystemClock.sleep(500);
             return false;
         };
     }
