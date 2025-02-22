@@ -31,7 +31,7 @@ public class newBeak {
         public double beakClosePos = 0.47; // closed
 
         //elbow
-        public double elbowPickPos = 0.475;     // Pickup Off Mat
+        public double elbowPickPos = 0.475;// Pickup Off Mat
         public double elbowReachPos = 0.49;    // Grabber Extended Drive
         public double elbowSuplexBucketPos = 0.56;    // Suplex in Bucket
         public double elbowSuplexSlideDumpPos = 0.57; // Suplex to Slide
@@ -264,6 +264,7 @@ public class newBeak {
         return packet -> {
             PickUpElbow();
             SystemClock.sleep(600);
+            MoveSlider(PARAMS.sliderPosChange);
             closedBeak();
             
             SystemClock.sleep(PARAMS.beakClosedDelay);
