@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ViperAction;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 
-@Autonomous(name = "AutoBlueOB", group = "RoadRunner")
+@Autonomous(name = "AutoBlueInit", group = "RoadRunner")
 public class AutoBlueInit extends LinearOpMode {
 
     public static class Params {
