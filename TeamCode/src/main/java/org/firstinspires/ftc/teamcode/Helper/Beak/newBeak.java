@@ -280,9 +280,9 @@ public class newBeak {
         };
     }
 
-    public Action forParallel(){
+    public Action autonSliderExtend(){
         return packet -> {
-            MoveSlider(PARAMS.sliderMinPos);
+            MoveSlider(PARAMS.sliderMaxPos);
             SystemClock.sleep(1000);
             return false;
         };
