@@ -54,7 +54,8 @@ public class AutoBlueOB extends LinearOpMode {
         else{
             toLine();
             moveBack();
-            markOne();
+            goMarkOne();
+            /*markOne();
             humanPlayer();
             Grabbing2();
             //Grabbing3();
@@ -64,6 +65,8 @@ public class AutoBlueOB extends LinearOpMode {
             backToLine();
             moveBack();
             backAndForth();
+
+             */
             //forward();
             //toParkLast();
             updateTelemetry(drive.pose.position);
@@ -84,9 +87,17 @@ public class AutoBlueOB extends LinearOpMode {
         //move back a little bit
         Action moveBack = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .lineToX(-20)
+                .lineToX(-27)
                 .build();
         Actions.runBlocking(new ParallelAction(moveBack, Viper.clawHumanGrab(), Bucket.autonHuman()));
+    }
+
+    public void goMarkOne(){
+        Action lineM1 = drive.actionBuilder(drive.pose)
+                .setReversed(false)
+                .splineTo(new Vector2d(-27, 28), Math.toRadians(130))
+                .build();
+        Actions.runBlocking(new SequentialAction(lineM1, Beak.grabAndDrop()));
     }
 
     public void markOne(){
