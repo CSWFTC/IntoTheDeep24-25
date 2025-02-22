@@ -24,7 +24,7 @@ public class AutoBlueOB extends LinearOpMode {
 
     public static class Params {
         public boolean easy = false;
-        public string version = "10.1";
+        public String version = "10.1";
         public double y = 38.4;
         public double lastMoveX = -11;
         public double lastMoveY = 30;
@@ -75,13 +75,14 @@ public class AutoBlueOB extends LinearOpMode {
             Grabbing2();
             //Grabbing3();
             HumanToOB();
+             */
             GoBack();
             Reverse();
             backToLine();
             moveBack();
             backAndForth();
 
-             */
+
             //forward();
             //toParkLast();
             updateTelemetry(drive.pose.position);
@@ -110,9 +111,9 @@ public class AutoBlueOB extends LinearOpMode {
     public void goMarkOne(){
         Action lineM1 = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-27, 22), Math.toRadians(130))
+                .splineTo(new Vector2d(-24, 20), Math.toRadians(130))
                 .build();
-        Actions.runBlocking(new ParallelAction(lineM1, Beak.autonReachOB()));
+        Actions.runBlocking(new ParallelAction(lineM1));
     }
 
     public void forwardOnOne(){
@@ -120,7 +121,7 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(false)
                 .splineToConstantHeading(new Vector2d(-28.5, 24), Math.toRadians(130))
                 .build();
-        Actions.runBlocking(new SequentialAction(MoreOne, Beak.autonPickupOB()));
+        Actions.runBlocking(new SequentialAction(new ParallelAction(MoreOne,Beak.autonReachOB()), Beak.autonPickupOB()));
     }
 
     public void turningOnOne(){
@@ -135,7 +136,7 @@ public class AutoBlueOB extends LinearOpMode {
         // Last Bit and Sample Drop
         Action Drop = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .splineToConstantHeading(new Vector2d(-17.5, 33), Math.toRadians(35))
+                .splineToConstantHeading(new Vector2d(-17, 33), Math.toRadians(35))
                 .build();
         Actions.runBlocking(new ParallelAction(Drop, Beak.autonDropSampleToHuman()));
     }
@@ -153,7 +154,7 @@ public class AutoBlueOB extends LinearOpMode {
 
         Action PickupTurn = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .splineTo(new Vector2d(-0.5, 28), 0)
+                .splineTo(new Vector2d(0, 28), 0)
                 .build();
         Actions.runBlocking(new ParallelAction(PickupTurn, Beak.autonPickupToSlide()));
         Actions.runBlocking(new SequentialAction(Beak.autonDropToHuman(), Claw.grabFromHuman(), new ParallelAction(Viper.perfBeforeDropOff(), Bucket.autonBucketDown())));
