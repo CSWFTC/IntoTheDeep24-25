@@ -312,12 +312,11 @@ public class newBeak {
 
     public Action autonSliderRetract() {
         return packet -> {
-            MoveSlider(PARAMS.sliderMaxPos);
+            MoveSlider(PARAMS.sliderMinPos);
             SystemClock.sleep(1000);
             return false;
         };
     }
-
 
 
     public Action autonDropToHuman() {
