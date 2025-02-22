@@ -278,7 +278,6 @@ public class newBeak {
             closedBeak();
             SystemClock.sleep(PARAMS.beakClosedDelay);
 
-            //MoveElbow(PARAMS.elbowPickPos);
             MoveElbow(PARAMS.elbowStartPos);
             return false;
         };
@@ -296,6 +295,18 @@ public class newBeak {
         return packet -> {
             MoveSlider(PARAMS.sliderMinPos);
             SystemClock.sleep(1000);
+            return false;
+        };
+    }
+
+    public Action autonDropSampleToHuman() {
+        return packet -> {
+            // Drop and Retract to Safe Position
+            MoveElbow(PARAMS.elbowPickPos);
+            SystemClock.sleep(500);
+            MoveBeak(PARAMS.beakOpenPickupPos);
+            SystemClock.sleep(PARAMS.beakClosedDelay);
+
             return false;
         };
     }
