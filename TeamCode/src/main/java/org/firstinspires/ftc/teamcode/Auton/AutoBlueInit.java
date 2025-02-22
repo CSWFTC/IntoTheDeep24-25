@@ -51,6 +51,12 @@ public class AutoBlueInit extends LinearOpMode {
         Claw.CloseGrip();
         Beak.autonStartPos();
 
+        if (PARAMS.easy) {
+            forward();
+        } else {
+            toLine();
+        }
+
 //        if(PARAMS.easy){
 //            forward();
 //        }
