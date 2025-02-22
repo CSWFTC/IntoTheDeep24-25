@@ -24,7 +24,7 @@ public class AutoBlueOB extends LinearOpMode {
 
     public static class Params {
         public boolean easy = false;
-        public String version = "10.1";
+        public String version = "15.1";
         public double y = 38.4;
         public double lastMoveX = -11;
         public double lastMoveY = 30;
@@ -154,7 +154,7 @@ public class AutoBlueOB extends LinearOpMode {
 
         Action PickupTurn = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .splineTo(new Vector2d(0, 28), 0)
+                .splineTo(new Vector2d(3, 28), 0)
                 .build();
         Actions.runBlocking(new ParallelAction(PickupTurn, Beak.autonPickupToSlide()));
         Actions.runBlocking(new SequentialAction(Beak.autonDropToHuman(), Claw.grabFromHuman(), new ParallelAction(Viper.perfBeforeDropOff(), Bucket.autonBucketDown())));
