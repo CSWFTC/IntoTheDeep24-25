@@ -60,6 +60,8 @@ public class AutoBlueOB extends LinearOpMode {
             goMarkOne();
             forwardOnOne();
             turningOnOne();
+            BobColor.setLEDColor(LEDColorHelper.LEDColor.ORANGE);
+            turningToTwo();
             /*markOne();
             humanPlayer();
             Grabbing2();
@@ -92,7 +94,7 @@ public class AutoBlueOB extends LinearOpMode {
         //move back a little bit
         Action moveBack = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .lineToX(-27)
+                .lineToX(-26)
                 .build();
         Actions.runBlocking(new ParallelAction(moveBack, Viper.clawHumanGrab(), Bucket.autonHuman()));
     }
@@ -117,10 +119,26 @@ public class AutoBlueOB extends LinearOpMode {
         Action Turning = drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 .turnTo(Math.toRadians(35))
-                .splineToConstantHeading(new Vector2d(-18, 32), Math.toRadians(35))
+                .splineToConstantHeading(new Vector2d(-17, 33), Math.toRadians(35))
                 .build();
         Actions.runBlocking(new SequentialAction(Turning, Beak.autonDropSampleToHuman()));
     }
+
+    public void turningToTwo() {
+        Action Turning = drive.actionBuilder(drive.pose)
+                .setReversed(false)
+                .turnTo(Math.toRadians(136))
+                .splineToConstantHeading(new Vector2d(-27, 33), Math.toRadians(136))
+                .build();
+        Actions.runBlocking(new SequentialAction(Turning, Beak.autonReachOB()));
+
+        Action PickupTurn = drive.actionBuilder(drive.pose)
+                .setReversed(true)
+                .turnTo(-75)
+                .build();
+        Actions.runBlocking(new ParallelAction(PickupTurn, Beak.autonPickupOB()));
+    }
+
 
     public void markOne(){
         //move to mark

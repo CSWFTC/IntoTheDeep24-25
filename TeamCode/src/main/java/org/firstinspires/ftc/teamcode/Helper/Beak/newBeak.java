@@ -265,15 +265,18 @@ public class newBeak {
     public Action autonReachOB() {
         return packet -> {
             MoveElbow(PARAMS.elbowPickPos);
+            MoveBeak(PARAMS.beakOpenDropPos);
             SystemClock.sleep(PARAMS.beakPickUpDelay);
+
             MoveBeak(PARAMS.beakWideOpen);
-            SystemClock.sleep(600);
+            SystemClock.sleep(500);
             return false;
         };
     }
 
     public Action autonPickupOB() {
         return packet -> {
+            SystemClock.sleep(50); // Delay for Ozer - Let Robot Turn Before Beak Close
             closedBeak();
             SystemClock.sleep(PARAMS.beakClosedDelay);
 
@@ -300,12 +303,14 @@ public class newBeak {
 
     public Action autonDropSampleToHuman() {
         return packet -> {
-            // Drop and Retract to Safe Position
+            // Drop Sample to Human Player
             MoveElbow(PARAMS.elbowPickPos);
             SystemClock.sleep(500);
-            MoveBeak(PARAMS.beakOpenPickupPos);
+            MoveBeak(PARAMS.beakOpenDropPos);
             SystemClock.sleep(PARAMS.beakClosedDelay);
 
+            MoveElbow(PARAMS.elbowStartPos);
+            SystemClock.sleep(500);
             return false;
         };
     }

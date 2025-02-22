@@ -168,7 +168,7 @@ public class ViperAction {
     public Action clawHumanGrab () {
         return packet -> {
             clawHuman();
-            SystemClock.sleep(250);
+            //SystemClock.sleep(250);
             return false;
         };
     }
