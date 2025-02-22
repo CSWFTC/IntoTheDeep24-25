@@ -71,7 +71,7 @@ public class ViperAction {
         if(!PARAMS.hang)
             viperMotor.setPower(PARAMS.viperMotorSpeedAuton);
         else {
-            viperMotor.setPower(0.8);
+            viperMotor.setPower(1);
             PARAMS.hang = false;
         }
         viperMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
