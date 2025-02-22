@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Auton;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
@@ -17,12 +18,16 @@ import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ViperAction;
 import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 
+@Config
 @Autonomous(name = "AutoBlueOB", group = "RoadRunner")
 public class AutoBlueOB extends LinearOpMode {
 
     public static class Params {
         public boolean easy = false;
-        public double y = 38;
+        public double y = 38.4;
+        public double lastMoveX = -11;
+        public double lastMoveY = 30;
+        public double LastHeading = 0;
     }
 
     public static Params PARAMS = new Params();
@@ -59,8 +64,9 @@ public class AutoBlueOB extends LinearOpMode {
             moveBack();
             goMarkOne();
             forwardOnOne();
-            turningOnOne();
             BobColor.setLEDColor(LEDColorHelper.LEDColor.ORANGE);
+            turningOnOne();
+
             turningToTwo();
             /*markOne();
             humanPlayer();
@@ -116,29 +122,40 @@ public class AutoBlueOB extends LinearOpMode {
     }
 
     public void turningOnOne(){
+        // Large Part of Move
         Action Turning = drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 .turnTo(Math.toRadians(35))
+                .splineToConstantHeading(new Vector2d(-14, 30), Math.toRadians(35))
+                .build();
+        Actions.runBlocking(Turning);
+
+        // Last Bit and Sample Drop
+        Action Drop = drive.actionBuilder(drive.pose)
+                .setReversed(true)
                 .splineToConstantHeading(new Vector2d(-17, 33), Math.toRadians(35))
                 .build();
-        Actions.runBlocking(new SequentialAction(Turning, Beak.autonDropSampleToHuman()));
+        Actions.runBlocking(new ParallelAction(Drop, Beak.autonDropSampleToHuman()));
     }
 
     public void turningToTwo() {
-        Action Turning = drive.actionBuilder(drive.pose)
+        // Drive Sample Two and Pickup
+        Action Pickup = drive.actionBuilder(drive.pose)
                 .setReversed(false)
                 .turnTo(Math.toRadians(136))
                 .splineToConstantHeading(new Vector2d(-27, 33), Math.toRadians(136))
                 .build();
-        Actions.runBlocking(new SequentialAction(Turning, Beak.autonReachOB()));
+        Actions.runBlocking(new SequentialAction(Pickup, Beak.autonReachOB()));
 
         Action PickupTurn = drive.actionBuilder(drive.pose)
                 .setReversed(true)
-                .turnTo(-75)
+                .splineTo(new Vector2d(0.5, 28), 0)
+
                 .build();
         Actions.runBlocking(new ParallelAction(PickupTurn, Beak.autonPickupOB()));
     }
 
+//                 .splineTo(new Vector2d(PARAMS.lastMoveX, PARAMS.lastMoveY), Math.toRadians(PARAMS.LastHeading))
 
     public void markOne(){
         //move to mark
