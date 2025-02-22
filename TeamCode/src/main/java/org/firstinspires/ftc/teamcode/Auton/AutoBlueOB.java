@@ -34,23 +34,21 @@ public class AutoBlueOB extends LinearOpMode {
     private double x = 0;
 
     public void runOpMode(){
-
         drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
-
         Claw = new ClawAction(hardwareMap);
         Viper = new ViperAction(hardwareMap);
         Beak = new newBeak(hardwareMap);
         Bucket = new BucketAction(hardwareMap);
         BobColor = new LEDColorHelper(hardwareMap);
 
-        Claw.CloseGrip();
-        Beak.autonStartPos();
-
         waitForStart();
 
-        BobColor.setLEDColor(LEDColorHelper.LEDColor.GREEN);
         telemetry.addData("okay", "so code needs to push 9");
         telemetry.update();
+
+        BobColor.setLEDColor(LEDColorHelper.LEDColor.GREEN);
+        Claw.CloseGrip();
+        Beak.autonStartPos();
 
         if(PARAMS.easy){
             forward();
