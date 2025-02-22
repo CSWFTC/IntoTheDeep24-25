@@ -119,7 +119,7 @@ public class AutoBlueOB extends LinearOpMode {
                 .turnTo(Math.toRadians(35))
                 .splineToConstantHeading(new Vector2d(-19, 31), Math.toRadians(35))
                 .build();
-        Actions.runBlocking(new SequentialAction(Turning, Beak.autonSliderExtend()));
+        Actions.runBlocking(new SequentialAction(Turning, Beak.autonDropSampleToHuman()));
     }
 
     public void markOne(){
