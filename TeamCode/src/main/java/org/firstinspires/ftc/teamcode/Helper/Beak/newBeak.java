@@ -297,7 +297,8 @@ public class newBeak {
             closedBeak();
             SystemClock.sleep(PARAMS.beakClosedDelay);
 
-            MoveElbow(PARAMS.elbowPickPos);
+            //MoveElbow(PARAMS.elbowPickPos);
+            MoveElbow(PARAMS.elbowStartPos);
             return false;
         };
     }
