@@ -117,7 +117,7 @@ public class AutoBlueOB extends LinearOpMode {
         Action Turning = drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 .turnTo(Math.toRadians(35))
-                .splineToConstantHeading(new Vector2d(-19, 31), Math.toRadians(35))
+                .splineToConstantHeading(new Vector2d(-18, 32), Math.toRadians(35))
                 .build();
         Actions.runBlocking(new SequentialAction(Turning, Beak.autonDropSampleToHuman()));
     }
