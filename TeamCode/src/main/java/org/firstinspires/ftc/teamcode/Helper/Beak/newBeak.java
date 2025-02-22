@@ -267,16 +267,15 @@ public class newBeak {
             SystemClock.sleep(PARAMS.beakPickUpDelay);
             MoveBeak(PARAMS.beakWideOpen);
             SystemClock.sleep(600);
+            return false;
+        };
+    }
 
-            MoveSlider(PARAMS.sliderPosAuton);
-            SystemClock.sleep(500);
-
+    public Action autonPickupOB() {
+        return packet -> {
             closedBeak();
             SystemClock.sleep(PARAMS.beakClosedDelay);
-
-            MoveSlider(PARAMS.sliderMinPos);
-            SystemClock.sleep(1000);
-
+            MoveElbow(PARAMS.elbowPickPos);
             return false;
         };
     }
