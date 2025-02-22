@@ -287,7 +287,7 @@ public class newBeak {
 
     public Action autonDropToHuman() {
         return packet -> {
-            SystemClock.sleep(400);
+            SystemClock.sleep(500);
             openBeak();
             SystemClock.sleep(200);
             ElbStart();
