@@ -57,6 +57,8 @@ public class AutoBlueOB extends LinearOpMode {
             toLine();
             moveBack();
             goMarkOne();
+            forwardOnOne();
+            turningOnOne();
             /*markOne();
             humanPlayer();
             Grabbing2();
@@ -99,7 +101,23 @@ public class AutoBlueOB extends LinearOpMode {
                 .setReversed(false)
                 .splineTo(new Vector2d(-27, 22), Math.toRadians(130))
                 .build();
-        Actions.runBlocking(new SequentialAction(lineM1, Beak.autonReachOB()));
+        Actions.runBlocking(new ParallelAction(lineM1, Beak.autonReachOB()));
+    }
+
+    public void forwardOnOne(){
+        Action MoreOne = drive.actionBuilder(drive.pose)
+                .setReversed(false)
+                .splineTo(new Vector2d(-28, 23), Math.toRadians(130))
+                .build();
+        Actions.runBlocking(new SequentialAction(MoreOne, Beak.autonPickupOB()));
+    }
+
+    public void turningOnOne(){
+        Action Turning = drive.actionBuilder(drive.pose)
+                .setReversed(false)
+                .turnTo(75)
+                .build();
+        Actions.runBlocking(new ParallelAction(Turning, Beak.autonSliderExtend()));
     }
 
     public void markOne(){

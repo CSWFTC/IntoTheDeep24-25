@@ -304,7 +304,6 @@ public class newBeak {
         return packet -> {
             MoveSlider(PARAMS.sliderMaxPos);
             SystemClock.sleep(1000);
-            PickUpElbow();
             SystemClock.sleep(600);
             closedBeak();
             SystemClock.sleep(PARAMS.beakClosedDelay);
