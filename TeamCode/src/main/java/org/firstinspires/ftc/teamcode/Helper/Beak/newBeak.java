@@ -262,7 +262,6 @@ public class newBeak {
         };
     }
 
-
     public Action autonReachOB() {
         return packet -> {
             MoveElbow(PARAMS.elbowPickPos);

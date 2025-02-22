@@ -106,7 +106,7 @@ public class AutoBlueBasket extends LinearOpMode {
                 .build();
         Actions.runBlocking(new SequentialAction((new ParallelAction (vip.autonReset(), moveThree)), arm.autonReachSamp()));
     }
-
+//
     private void toPosThreeTest2(){
         //pos three
         Action moveThree = drive.actionBuilder(drive.pose)
@@ -114,9 +114,6 @@ public class AutoBlueBasket extends LinearOpMode {
                 .splineTo(new Vector2d(-36, -40.1), Math.toRadians(235))
                 .build();
         Actions.runBlocking(new SequentialAction((new ParallelAction (vip.autonReset(), moveThree)), arm.autonReachSamp()));
-
-        //real y position --> -62.6
-        //length of entire robot --> 22.5
     }
     private void toPosThreeTesting(){
         //pos three
