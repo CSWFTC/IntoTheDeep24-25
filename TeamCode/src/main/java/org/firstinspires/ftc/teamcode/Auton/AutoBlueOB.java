@@ -4,6 +4,7 @@ import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.TurnConstraints;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -114,7 +115,7 @@ public class AutoBlueOB extends LinearOpMode {
     public void turningOnOne(){
         Action Turning = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .turnTo(100)
+                .splineTo(new Vector2d(-25, 26Math.toRadians(111))
                 .build();
         Actions.runBlocking(new ParallelAction(Turning, Beak.autonSliderExtend()));
     }
