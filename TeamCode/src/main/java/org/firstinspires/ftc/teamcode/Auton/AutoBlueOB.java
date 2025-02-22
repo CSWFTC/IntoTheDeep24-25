@@ -143,22 +143,18 @@ public class AutoBlueOB extends LinearOpMode {
         Action Pickup = drive.actionBuilder(drive.pose)
                 .setReversed(false)
                 .turnTo(Math.toRadians(136))
-                .splineToConstantHeading(new Vector2d(-27.5, 33.5), Math.toRadians(136))
+                .splineToConstantHeading(new Vector2d(-27.5, 33), Math.toRadians(136))
                 .build();
         Actions.runBlocking(new SequentialAction(Pickup, Beak.autonReachOB()));
 
         // Drive to Wall and Dump
-        Action MoveToDump = drive.actionBuilder(drive.pose)
-                .setReversed(true)
-                .splineTo(new Vector2d(-6, 28), 0)
-                .build();
-        Actions.runBlocking(new ParallelAction(MoveToDump, Beak.autonDropSlide()));
 
         Action PickupTurn = drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 .splineTo(new Vector2d(-0.5, 28), 0)
                 .build();
-        Actions.runBlocking(new SequentialAction(new ParallelAction(PickupTurn, Beak.autonDropToHuman()), Claw.grabFromHuman(), new ParallelAction(Viper.perfBeforeDropOff(), Bucket.autonBucketDown())));
+        Actions.runBlocking(new ParallelAction(PickupTurn, Beak.autonPickupToSlide()));
+        Actions.runBlocking(new SequentialAction(Beak.autonDropToHuman(), Claw.grabFromHuman(), new ParallelAction(Viper.perfBeforeDropOff(), Bucket.autonBucketDown())));
     }
 
 //                 .splineTo(new Vector2d(PARAMS.lastMoveX, PARAMS.lastMoveY), Math.toRadians(PARAMS.LastHeading))

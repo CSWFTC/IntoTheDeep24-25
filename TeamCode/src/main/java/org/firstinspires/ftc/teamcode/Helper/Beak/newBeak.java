@@ -285,7 +285,7 @@ public class newBeak {
         };
     }
 
-    public Action autonDropSlide() {
+    public Action autonPickupToSlide() {
         return packet -> {
             SystemClock.sleep(50); // Delay for Ozer - Let Robot Turn Before Beak Close
             closedBeak();
