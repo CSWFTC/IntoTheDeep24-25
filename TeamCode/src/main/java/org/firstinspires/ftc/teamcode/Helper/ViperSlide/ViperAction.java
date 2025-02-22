@@ -109,7 +109,7 @@ public class ViperAction {
     }
 
     public void moveToHighBasket() {
-        moveToPositionAuton((int) PARAMS.viperHighBasketPos);
+        moveToPosition((int) PARAMS.viperHighBasketPos);
     }
 
 
