@@ -59,7 +59,7 @@ public class ViperAction {
         if(!PARAMS.hang)
             viperMotor.setPower(PARAMS.viperMotorSpeed);
         else {
-            viperMotor.setPower(0.5);
+            viperMotor.setPower(0.8);
             PARAMS.hang = false;
         }
         viperMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -199,7 +199,7 @@ public class ViperAction {
     public Action TEST_perfBeforeDropOff() {
         return packet -> {
             perfMoveForSub();
-            SystemClock.sleep(600);
+            SystemClock.sleep(300);
             return false;
         };
     }

@@ -24,10 +24,12 @@ public class AutoBlueOB extends LinearOpMode {
 
     public static class Params {
         public boolean easy = false;
+        public string version = "10.1";
         public double y = 38.4;
         public double lastMoveX = -11;
         public double lastMoveY = 30;
         public double LastHeading = 0;
+
     }
 
     public static Params PARAMS = new Params();
@@ -49,7 +51,7 @@ public class AutoBlueOB extends LinearOpMode {
 
         waitForStart();
 
-        telemetry.addData("okay", "so code needs to push 9");
+        telemetry.addData(PARAMS.version, "Drive OB Version" );
         telemetry.update();
 
         BobColor.setLEDColor(LEDColorHelper.LEDColor.GREEN);
