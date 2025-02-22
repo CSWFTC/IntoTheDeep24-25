@@ -108,7 +108,6 @@ public class ViperAction {
         return viperMotor.getCurrentPosition();
     }
 
-
     public void moveToHighBasket() {
         moveToPositionAuton((int) PARAMS.viperHighBasketPos);
     }
