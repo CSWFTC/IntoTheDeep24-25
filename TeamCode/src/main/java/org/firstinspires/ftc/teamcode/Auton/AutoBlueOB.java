@@ -58,7 +58,6 @@ public class AutoBlueOB extends LinearOpMode {
             moveBack();
             goMarkOne();
             forwardOnOne();
-            turningOnOne();
             /*markOne();
             humanPlayer();
             Grabbing2();
