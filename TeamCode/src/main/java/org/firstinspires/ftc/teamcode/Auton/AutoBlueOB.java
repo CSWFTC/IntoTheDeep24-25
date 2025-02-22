@@ -134,7 +134,7 @@ public class AutoBlueOB extends LinearOpMode {
                 //.turnTo(0)
                 .lineToX(-1.5)
                 .build();
-        Actions.runBlocking(new SequentialAction(new ParallelAction(PlayerGrab, Beak.forParallel()), Beak.autonDropToHuman(), Claw.grabFromHuman(), new ParallelAction(Viper.perfBeforeDropOff(), Bucket.autonBucketDown())));
+        Actions.runBlocking(new SequentialAction(new ParallelAction(PlayerGrab, Beak.forParallel()), new ParallelAction(Beak.autonDropToHuman(), Claw.grabFromHuman()), new ParallelAction(Viper.perfBeforeDropOff(), Bucket.autonBucketDown())));
     }
 
     public void GoBack(){
