@@ -18,7 +18,7 @@ public class newBeak {
         //slider
         public double sliderMaxPos = 0.440;
         public double sliderMinPos = 0.045;
-        public double sliderPosChange = 0.03;
+        public double sliderPosChange = 0.049;
         public double sliderPosAuton = 0.09;
         public double sliderRetractDelayPosition = 0.2425;
 
