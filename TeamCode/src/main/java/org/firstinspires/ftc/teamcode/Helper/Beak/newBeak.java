@@ -268,8 +268,6 @@ public class newBeak {
             
             SystemClock.sleep(PARAMS.beakClosedDelay);
             //MoveElbow(PARAMS.elbowReachPos);
-
-            MoveElbow(PARAMS.elbowSuplexSlideDumpPos);
             SystemClock.sleep(500);
             return false;
         };
