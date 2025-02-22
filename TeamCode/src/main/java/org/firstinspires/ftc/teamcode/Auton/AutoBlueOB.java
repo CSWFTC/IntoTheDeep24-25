@@ -147,10 +147,16 @@ public class AutoBlueOB extends LinearOpMode {
                 .build();
         Actions.runBlocking(new SequentialAction(Pickup, Beak.autonReachOB()));
 
+        // Drive to Wall and Dump
+        Action MoveToDump = drive.actionBuilder(drive.pose)
+                .setReversed(true)
+                .splineTo(new Vector2d(6, 28), 0)
+                .build();
+        Actions.runBlocking(new ParallelAction(MoveToDump, Beak.autonDropToHuman()));
+
         Action PickupTurn = drive.actionBuilder(drive.pose)
                 .setReversed(true)
                 .splineTo(new Vector2d(0.5, 28), 0)
-
                 .build();
         Actions.runBlocking(new ParallelAction(PickupTurn, Beak.autonPickupOB()));
     }
