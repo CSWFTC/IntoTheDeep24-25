@@ -275,12 +275,21 @@ public class newBeak {
         return packet -> {
             closedBeak();
             SystemClock.sleep(PARAMS.beakClosedDelay);
+
             MoveElbow(PARAMS.elbowPickPos);
             return false;
         };
     }
 
     public Action autonSliderExtend(){
+        return packet -> {
+            MoveSlider(PARAMS.sliderMaxPos);
+            SystemClock.sleep(1000);
+            return false;
+        };
+    }
+
+    public Action autonSliderRetract() {
         return packet -> {
             MoveSlider(PARAMS.sliderMaxPos);
             SystemClock.sleep(1000);
