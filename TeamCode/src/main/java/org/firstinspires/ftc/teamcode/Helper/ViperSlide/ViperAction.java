@@ -18,6 +18,7 @@ public class ViperAction {
         public double viperLowBasketPos = 1050;   // Low Basket (Approx 38% of High Basket)
         public double viperCatchPoint = 0;        // Catch Point for Sample
         public double viperMotorSpeed = 0.9;
+        public double viperMotorSpeedAuton = 1.1;
         public double viperMaxPos = 3000;
         public double viperPowerLimitPos = 2800;
 
@@ -28,7 +29,7 @@ public class ViperAction {
         public double clawWall = 14;
 
         public double delayMoveLowBasket = 1000 ;    //ms To Wait for Dump
-        public double delayMoveHighBasket = 1950;  //ms To Wait for Dump
+        public double delayMoveHighBasket = 1750;  //ms To Wait for Dump
         public double delayBucketDump = 1000;
 
         public int autonReset = 100;
@@ -57,6 +58,18 @@ public class ViperAction {
 
         if(!PARAMS.hang)
             viperMotor.setPower(PARAMS.viperMotorSpeed);
+        else {
+            viperMotor.setPower(0.5);
+            PARAMS.hang = false;
+        }
+        viperMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
+    private void moveToPositionAuton(int targetPosition) {
+        viperMotor.setTargetPosition(targetPosition);
+
+        if(!PARAMS.hang)
+            viperMotor.setPower(PARAMS.viperMotorSpeedAuton);
         else {
             viperMotor.setPower(0.5);
             PARAMS.hang = false;
@@ -97,7 +110,7 @@ public class ViperAction {
 
 
     public void moveToHighBasket() {
-        moveToPosition((int) PARAMS.viperHighBasketPos);
+        moveToPositionAuton((int) PARAMS.viperHighBasketPos);
     }
 
 

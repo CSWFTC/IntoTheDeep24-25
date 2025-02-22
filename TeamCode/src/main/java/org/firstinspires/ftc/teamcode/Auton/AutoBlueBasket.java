@@ -27,6 +27,7 @@ public class AutoBlueBasket extends LinearOpMode {
 
     //PICK UP FROM RANDOM SPOTS
     //ENDING POSITION
+    //shorter starting point --> 3.5 inches
     public static Params PARAMS = new Params();
     private MecanumDrive drive;
     private newBeak arm;
@@ -58,11 +59,11 @@ public class AutoBlueBasket extends LinearOpMode {
         telemetry.clear();
             toSub();
             toNewPosOne();
-            toBasket();
-            toPosTwo();
-            toBasket();
-            toPosThree();
-           // toBasket();
+          //  toBasket();
+         //   toPosTwo();
+         //   toBasket();
+         //   toPosThree();
+         //   toBasket();
     }
 
     private void toSub(){
@@ -84,7 +85,7 @@ public class AutoBlueBasket extends LinearOpMode {
     private void toNewPosOne(){
         Action moveOne = drive.actionBuilder(drive.pose)
                 .setReversed(false)
-                .splineTo(new Vector2d(-21, -42.6), Math.toRadians(180))
+                .splineTo(new Vector2d(-21, -39.1), Math.toRadians(180))
                 .build();
         Actions.runBlocking(new SequentialAction(new SequentialAction(moveOne,  bucket.autonPrepForCatch()), arm.autonReachSamp()));
     }
