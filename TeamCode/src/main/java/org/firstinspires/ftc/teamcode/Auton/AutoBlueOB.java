@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.acmerobotics.roadrunner.ftc.Actions;
 
 import org.firstinspires.ftc.teamcode.Helper.Beak.newBeak;
+import org.firstinspires.ftc.teamcode.Helper.LEDColorHelper;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.BucketAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ClawAction;
 import org.firstinspires.ftc.teamcode.Helper.ViperSlide.ViperAction;
@@ -29,6 +30,7 @@ public class AutoBlueOB extends LinearOpMode {
     private ViperAction Viper;
     private newBeak Beak;
     private BucketAction Bucket;
+    private LEDColorHelper BobColor;
     private double x = 0;
 
     public void runOpMode(){
@@ -39,12 +41,14 @@ public class AutoBlueOB extends LinearOpMode {
         Viper = new ViperAction(hardwareMap);
         Beak = new newBeak(hardwareMap);
         Bucket = new BucketAction(hardwareMap);
+        BobColor = new LEDColorHelper(hardwareMap);
 
         Claw.CloseGrip();
         Beak.autonStartPos();
 
         waitForStart();
 
+        BobColor.setLEDColor(LEDColorHelper.LEDColor.GREEN);
         telemetry.addData("okay", "so code needs to push 9");
         telemetry.update();
 
